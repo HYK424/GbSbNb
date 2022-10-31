@@ -1,6 +1,32 @@
 import { userService } from '../services';
 import is from '@sindresorhus/is';
 export const userController = {
+  logIn: async (req, res, next) => {
+    try {
+      // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
+      if (is.emptyObject(req.body)) {
+        throw new Error(
+          'headers의 Content-Type을 application/json으로 설정해주세요',
+        );
+      }
+      console.log(req.body);
+
+      // req (request) 에서 데이터 가져오기
+      const { email, password } = req.body;
+
+      // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
+      const result = await userService.getUserToken({ email, password });
+
+      const { status, message, token } = result;
+
+      // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
+
+      res.status(status).json({ message: message, token: token });
+    } catch (error) {
+      next(error);
+    }
+  },
+
   createUser: async (req, res) => {
     try {
       // Content-Type: application/json 설정을 안 한 경우, 에러를 만들도록 함.
@@ -29,7 +55,15 @@ export const userController = {
     }
   },
 
-  readUser: async (req, res) => {},
+  readUser: async (req, res) => {
+    const userId = req.currentUserId;
+    console.log(`userId = ${userId}`);
+    const result = await userService.getUser(userId);
+
+    const { status, message, userInfo } = result;
+
+    res.status(status).json({ message: message, userInfo: userInfo });
+  },
 
   updateUser: async (req, res) => {
     try {
@@ -87,43 +121,11 @@ export const userController = {
 
   deleteUser: async (req, res) => {},
 
-  logIn: async (req, res, next) => {
-    try {
-      // application/json 설정을 프론트에서 안 하면, body가 비어 있게 됨.
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요',
-        );
-      }
-      console.log(req.body);
-
-      // req (request) 에서 데이터 가져오기
-      const { email, password } = req.body;
-
-      // 로그인 진행 (로그인 성공 시 jwt 토큰을 프론트에 보내 줌)
-      const result = await userService.getUserToken({ email, password });
-
-      const { status, message, token } = result;
-
-      if (token != undefined) {
-        res.cookie('TOKEN', token, {
-          secure: false,
-          httpOnly: true,
-        });
-      }
-
-      // jwt 토큰을 프론트에 보냄 (jwt 토큰은, 문자열임)
-
-      res.status(status).json({ message });
-    } catch (error) {
-      next(error);
-    }
-  },
-  logOut: async (req, res) => {
-    console.log('로그아웃 테스트');
-    const result = await userService.logout(res);
-    res.status(200).json('로그아웃 완료');
-  },
+  // logOut: async (req, res) => {
+  //   console.log('로그아웃 테스트');
+  //   const result = await userService.logout(res);
+  //   res.status(200).json('로그아웃 완료');
+  // },
 
   getAllUsers: async (req, res) => {
     try {

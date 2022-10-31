@@ -68,27 +68,50 @@ class UserService {
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
 
-    try {
-      const token = jwt.sign(
-        {
-          userId: user._id,
-          role: user.role,
-        },
-        secretKey,
-        {
-          expiresIn: process.env.ACCESS_EXPIRE,
-          issuer: process.env.TOKEN_ISSUER,
-        },
-      );
-      return {
-        message: '로그인에 성공하셨습니다.',
-        status: 200,
-        token,
-      };
-    } catch (err) {}
+    // try {
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        role: user.role,
+      },
+      secretKey,
+      {
+        expiresIn: process.env.ACCESS_EXPIRE,
+        // issuer: process.env.TOKEN_ISSUER,
+      },
+    );
+
+    //로컬스토리지에 저장된 jwt를 사용
+    return {
+      message: '로그인에 성공하셨습니다.',
+      status: 200,
+      token,
+    };
+    //} catch (err) {}
     // 2개 프로퍼티를 jwt 토큰에 담음
 
-    return { token };
+    // return { token };
+  }
+
+  async getUser(userId) {
+    console.log('서비스단 진입');
+    try {
+      const userInfo = await this.userModel.findById(userId);
+
+      return {
+        status: 200,
+        message: '유저 정보 조회 성공',
+        userInfo: userInfo,
+      };
+    } catch (err) {
+      console.log(err);
+      console.log('잘못된 userId');
+      return {
+        status: 400,
+        message: '유저 정보를 조회할 수 없습니다. 고객센터에 문의해주십시오.',
+        userInfo: null,
+      };
+    }
   }
 
   // 사용자 목록을 받음.
@@ -144,10 +167,10 @@ class UserService {
     return user;
   }
 
-  async logout(res) {
-    // console.log(res);
-    res.cookie('token', '');
-  }
+  // async logout(res) {
+  //   // console.log(res);
+  //   res.cookie('TOKEN', '');
+  // }
 }
 
 const userService = new UserService(userModel);
