@@ -4,6 +4,7 @@ yarn.lock
 package-lock.json
 .env
 **/.DS_Store
+.node_modules
 
 # Template
 issue_dev_template.md
