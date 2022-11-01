@@ -9,7 +9,7 @@ const userRouter = Router();
 // 회원가입 api (아래는 / 이지만, 실제로는 /api/users 로 요청해야 함.)
 userRouter.post(
   '/',
-  userValidator.signUp,
+  userValidator.createUser,
   loginAuthenticator.isNotLoggedIn,
   userController.createUser,
 );
@@ -26,10 +26,13 @@ userRouter.post(
 userRouter.use(loginAuthenticator.isLoggedIn);
 
 // 로그인한 유저 정보를 가져옴
-userRouter.get('/:userId', userController.readUser);
+userRouter.get('/:userId', userController.getUserInfo);
 
 // 사용자 정보 수정
-userRouter.put('/:userId', userController.updateUser);
+userRouter.put('/:userId', userValidator.updateUser, userController.updateUser);
+
+// 사용자 삭제
+userRouter.delete('/:userId', userController.deleteUser);
 
 // 로그아웃
 // 로그아웃 요청시 쿠키 삭제

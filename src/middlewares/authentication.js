@@ -3,6 +3,7 @@ import * as jwt from 'jsonwebtoken';
 
 export const loginAuthenticator = {
   isLoggedIn: async (req, res, next) => {
+    console.log('isLoggedIn 실행');
     console.log('///////////////////////헤더 정보///////////////////////');
     console.log(req.headers);
 
@@ -52,17 +53,19 @@ export const loginAuthenticator = {
   },
 
   isNotLoggedIn: async (req, res, next) => {
+    console.log('isNotLoggedIn 실행');
     console.log('///////////////////////헤더 정보///////////////////////');
     console.log(req.headers);
 
-    const userToken = req.headers['authorization'].split(' ')[1];
-    console.log('///////////////////////토큰 정보///////////////////////');
-    console.log(userToken);
+    try {
+      const userToken = req.headers['authorization'].split(' ')[1];
 
-    if (!userToken || userToken === undefined) {
-      next();
-    } else {
-      try {
+      console.log('///////////////////////토큰 정보///////////////////////');
+      console.log(userToken);
+
+      if (!userToken || userToken === undefined) {
+        next();
+      } else {
         const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
         const jwtDecoded = jwt.verify(userToken, secretKey);
 
@@ -75,10 +78,12 @@ export const loginAuthenticator = {
           });
         }
         return;
-      } catch (error) {
-        console.log(error);
-        next();
       }
+    } catch (error) {
+      console.log('에러발생');
+      console.log(req.headers);
+      console.log(error);
+      next();
     }
   },
 };
