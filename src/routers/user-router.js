@@ -2,14 +2,14 @@ import { Router } from 'express';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { userController } from '../controllers/user-controller';
 import { loginAuthenticator } from '../middlewares/authentication';
-import { userValidator } from '../middlewares/validation/user-validator';
+import { userValidator } from '../middlewares/validation/index';
 
 const userRouter = Router();
 
 // 회원가입 api (아래는 / 이지만, 실제로는 /api/users 로 요청해야 함.)
 userRouter.post(
   '/',
-  userValidator.signUp,
+  userValidator.createUser,
   loginAuthenticator.isNotLoggedIn,
   userController.createUser,
 );
@@ -22,17 +22,20 @@ userRouter.post(
   userController.logIn,
 );
 
-// 로그아웃
-// 로그아웃 요청시 쿠키 삭제
-userRouter.get('/logout', userController.logOut);
-
 // 위 api를 제외한 아래 api들은 isLoggedIn를 거치게 됨
 userRouter.use(loginAuthenticator.isLoggedIn);
 
-// 전체 유저 목록을 가져옴 (배열 형태임)
-userRouter.get('/', userController.getAllUsers);
+// 로그인한 유저 정보를 가져옴
+userRouter.get('/:userId', userController.getUserInfo);
 
 // 사용자 정보 수정
-userRouter.put('/:userId', userController.updateUser);
+userRouter.put('/:userId', userValidator.updateUser, userController.updateUser);
+
+// 사용자 삭제
+userRouter.delete('/:userId', userController.deleteUser);
+
+// 로그아웃
+// 로그아웃 요청시 쿠키 삭제
+//userRouter.get('/logout', userController.logOut); //로그아웃은.....프론트가 한다!!
 
 export { userRouter };
