@@ -5,4 +5,4 @@ export * from './views-router';
 export * from './user-router';
 export * from './product-router';
 export * from './category-router';
-export * from './admin-service';
+export * from './admin-router';
