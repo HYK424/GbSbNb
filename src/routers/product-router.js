@@ -4,17 +4,20 @@ import {
   addProduct,
   getProudct,
   updateProduct,
-  deleteProduct,
 } from '../controllers/product-controller';
-import { productImageUpload } from '../middlewares/index';
+import { productImageUpload } from '../middlewares';
 
 const productRouter = Router();
 
-productRouter.get('/products', getProducts);
-productRouter.post('/products', addProduct);
+productRouter.get('/', getProducts);
+productRouter.post('/', productImageUpload.single('thumbnail'), addProduct);
 
-productRouter.get('/products/:productId', getProudct);
-productRouter.put('/products/:productId', updateProduct);
-productRouter.delete('/products/:productId', deleteProduct);
+productRouter.get('/:productId', getProudct);
+productRouter.put(
+  '/:productId',
+  productImageUpload.single('thumbnail'),
+  updateProduct,
+);
+// productRouter.delete('/:productId', deleteProduct);
 
 export { productRouter };

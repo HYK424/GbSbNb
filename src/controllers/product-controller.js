@@ -1,29 +1,40 @@
-import productService from '../services';
+import { productService } from '../services';
 
-const ITEMS_PER_PAGE = 12;
-
-const getProducts = async (req, res, next) => {
-  const page = +req.query.page || 1;
-  const productCount = await productService.getProductCount();
-  const lastPage = Math.ceil(productCount / ITEMS_PER_PAGE);
-  const products = productService.find(page, ITEMS_PER_PAGE);
-  return res.status(200).json(products, productCount, currentPage, lastPage);
-};
+const ITEMS_PER_PAGE = 9;
 
 const addProduct = async (req, res, next) => {
   const productInfo = { ...req.body, ...req.file };
   const newProduct = await productService.addProduct(productInfo);
-  return res.json(201).json(newProduct);
+  return res.status(201).json(newProduct);
+};
+
+const getProducts = async (req, res, next) => {
+  const page = +req.query.page || 1;
+  const totalPage = await productService.getTotalPage(ITEMS_PER_PAGE);
+  const products = await productService.getProducts(page, ITEMS_PER_PAGE);
+  return res.status(200).json({ products, totalPage });
 };
 
 const getProudct = async (req, res, next) => {
   const { productId } = req.params;
-  const product = productService.getProduct(productId);
+  const product = await productService.getProduct(productId);
   return res.status(200).json(product);
 };
 
-const updateProduct = async (req, res, next) => {};
+const updateProduct = async (req, res, next) => {
+  const { productId } = req.params;
+  const productInfo = { ...req.body, ...req.file };
+  const updatedProduct = await productService.updateProduct(
+    productId,
+    productInfo,
+  );
+  return res.status(200).json(updatedProduct);
+};
 
-const deleteProduct = async (req, res, next) => {};
+// const deleteProduct = async (req, res, next) => {
+//   const { productId } = req.params;
+//   const result = await productService.deleteProduct(productId);
+//   return res.status(200).json(result);
+// };
 
-export { getProducts, addProduct, getProudct, updateProduct, deleteProduct };
+export { getProducts, addProduct, getProudct, updateProduct };
