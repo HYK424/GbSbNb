@@ -5,6 +5,7 @@ import {
   userRouter,
   productRouter,
   categoryRouter,
+  adminRouter,
 } from './routers';
 import { errorHandler } from './middlewares';
 
