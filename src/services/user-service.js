@@ -8,35 +8,8 @@ class UserService {
   constructor(userModel) {
     this.userModel = userModel;
   }
-
-  // 회원가입
-  async addUser(userInfo) {
-    // 객체 destructuring
-    const { email, fullName, password } = userInfo;
-
-    // 이메일 중복 확인
-    const user = await this.userModel.findByEmail(email);
-    if (user) {
-      throw new Error(
-        '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.',
-      );
-    }
-
-    // 이메일 중복은 이제 아니므로, 회원가입을 진행함
-
-    // 우선 비밀번호 해쉬화(암호화)
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const newUserInfo = { fullName, email, password: hashedPassword };
-
-    // db에 저장
-    const createdNewUser = await this.userModel.create(newUserInfo);
-
-    return createdNewUser;
-  }
-
   // 로그인
-  async getUserToken(loginInfo) {
+  async login(loginInfo) {
     // 객체 destructuring
     const { email, password } = loginInfo;
 
@@ -68,37 +41,75 @@ class UserService {
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
 
-    try {
-      const token = jwt.sign(
-        {
-          userId: user._id,
-          role: user.role,
-        },
-        secretKey,
-        {
-          expiresIn: process.env.ACCESS_EXPIRE,
-          issuer: process.env.TOKEN_ISSUER,
-        },
-      );
-      return {
-        message: '로그인에 성공하셨습니다.',
-        status: 200,
-        token,
-      };
-    } catch (err) {}
-    // 2개 프로퍼티를 jwt 토큰에 담음
+    // try {
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        role: user.role,
+      },
+      secretKey,
+      {
+        expiresIn: process.env.ACCESS_EXPIRE,
+      },
+    );
 
-    return { token };
+    //로컬스토리지에 저장된 jwt를 사용
+    return {
+      message: '로그인에 성공하셨습니다.',
+      status: 200,
+      token,
+    };
   }
 
-  // 사용자 목록을 받음.
-  async getUsers() {
-    const users = await this.userModel.findAll();
-    return users;
+  async getUserInfo(userId) {
+    console.log('서비스단 진입');
+    try {
+      const userInfo = await this.userModel.findById(userId);
+
+      return {
+        status: 200,
+        message: '유저 정보 조회 성공',
+        userInfo: userInfo,
+      };
+    } catch (err) {
+      console.log(err);
+      console.log('잘못된 userId');
+      return {
+        status: 400,
+        message: '유저 정보를 조회할 수 없습니다. 고객센터에 문의해주십시오.',
+        userInfo: null,
+      };
+    }
+  }
+
+  // 회원가입
+  async createUser(userInfo) {
+    // 객체 destructuring
+    const { email, fullName, password } = userInfo;
+
+    // 이메일 중복 확인
+    const user = await this.userModel.findByEmail(email);
+    if (user) {
+      throw new Error(
+        '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.',
+      );
+    }
+
+    // 이메일 중복은 이제 아니므로, 회원가입을 진행함
+
+    // 우선 비밀번호 해쉬화(암호화)
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUserInfo = { fullName, email, password: hashedPassword };
+
+    // db에 저장
+    const createdNewUser = await this.userModel.create(newUserInfo);
+
+    return createdNewUser;
   }
 
   // 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
-  async setUser(userInfoRequired, toUpdate) {
+  async updateUser(userInfoRequired, toUpdate) {
     // 객체 destructuring
     const { userId, currentPassword } = userInfoRequired;
 
@@ -144,10 +155,7 @@ class UserService {
     return user;
   }
 
-  async logout(res) {
-    // console.log(res);
-    res.cookie('TOKEN', '');
-  }
+  async deleteUser() {}
 }
 
 const userService = new UserService(userModel);
