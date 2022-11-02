@@ -1,4 +1,5 @@
 import { categoryModel } from '../db';
+import { productModel } from '../db';
 
 class CategoryService {
   constructor(categoryModel) {

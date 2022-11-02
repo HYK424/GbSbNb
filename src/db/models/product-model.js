@@ -1,7 +1,7 @@
 import { model } from 'mongoose';
 import { ProductSchema } from '../schemas/product-schema';
 
-const Product = model('products', ProductSchema);
+const Product = model('Product', ProductSchema);
 
 export class ProductModel {
   async create(productInfo) {
