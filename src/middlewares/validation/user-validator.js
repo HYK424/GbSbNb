@@ -15,6 +15,11 @@ export const userValidator = {
     body('password').notEmpty().isLength({ min: 8, max: 20 }),
     validatorErrorChecker,
   ],
+  checkPassword: [
+    body('password').notEmpty().isLength({ min: 8, max: 20 }),
+    body('changedPassword').notEmpty().isLength({ min: 8, max: 20 }),
+    validatorErrorChecker,
+  ],
   updateUser: [
     body('fullName').notEmpty().isLength({ min: 2, max: 20 }),
     body('email').notEmpty().isLength({ max: 40 }).isEmail(),
@@ -24,8 +29,7 @@ export const userValidator = {
     validatorErrorChecker,
   ],
   deleteUser: [
-    param('id').isInt(),
-    body('password').notEmpty(),
+    body('password').notEmpty().isLength({ min: 8, max: 20 }),
     validatorErrorChecker,
   ],
 };
