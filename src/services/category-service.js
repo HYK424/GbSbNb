@@ -14,6 +14,11 @@ class CategoryService {
     return newCategory;
   }
 
+  async getCategories() {
+    const categories = await this.categoryModel.findAll({});
+    return categories;
+  }
+
   async getProducts(categoryId, page, ITEMS_PER_PAGE) {
     const products = await productModel.findByCategory(
       categoryId,
@@ -30,15 +35,14 @@ class CategoryService {
   }
 
   async updateCategory(categoryId, categoryInfo) {
-    const category = await this.categoryModel.findById(categoryId);
+    const category = await this.categoryModel.findCategory(categoryId);
     if (!category) {
       throw new Error(
         '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
-    const name = categoryInfo.name;
-    const id = categoryInfo.id;
+    const { name, id } = categoryInfo;
 
     const updatedInfo = {
       name,

@@ -3,10 +3,14 @@ import { categoryService } from '../services';
 const ITEMS_PER_PAGE = 9;
 
 const addCategory = async (req, res, next) => {
-  console.log(req.body);
   const categoryInfo = { ...req.body };
   const newCategory = await categoryService.addCategory(categoryInfo);
   return res.status(201).json(newCategory);
+};
+
+const getAllCategories = async (req, res, next) => {
+  const categories = await categoryService.getCategories();
+  return categories;
 };
 
 const getProductsByCategory = async (req, res, next) => {
