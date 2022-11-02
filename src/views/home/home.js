@@ -59,16 +59,6 @@ function goItem(){
   const cart="/cart"
   location.href=cart;
 }
-
-function insertTextToGreeting() {
-  greetingDiv.insertAdjacentHTML(
-    "beforeend",
-    `
-      <h1>반갑습니다! 자바스크립트 파일에서 삽입되었습니다.</h1>
-    `
-  );
-}
-
 cancel.addEventListener('click', ()=>{
   form.classList.toggle('active');
 });

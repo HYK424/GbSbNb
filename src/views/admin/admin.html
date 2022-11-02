@@ -34,18 +34,18 @@
                 <label for="description">설명</label>
                 <input type="text" id="description" name="description">
             </li> -->
-            <form action="http://localhost:3000/api/products" method="POST" enctype="application/x-www-form-urlencoded">
+            <form action="http://localhost:3000/api/products" method="POST" enctype="multipart/form-data">
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">제품명</span>
                 <input type="text" name="title" class="title" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">카테고리</span>
-                <input type="text" name="category" class="category" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <input type="text" name="categoryId" class="category" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">제조사</span>
-                <input type="text" name="manufacture" class="manufacture" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                <input type="text" name="manufacturer" class="manufacture" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
               </div>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">가격</span>
@@ -57,9 +57,9 @@
               </div>
             <div class="mb-3">
                 <label for="formFile" class="form-label">썸네일</label>
-                <input class="form-control" class="thumbanil" name="thumbnail" type="file" id="formFile">
+                <input class="form-control" class="thumbanil" name="image" type="file" id="formFile">
               </div>
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="formFile" class="form-label">이미지1</label>
                 <input class="form-control" class="images" name="images" type="file" id="formFile">
               </div>
@@ -70,7 +70,7 @@
               <div class="mb-3">
                 <label for="formFile" class="form-label">이미지3</label>
                 <input class="form-control" class="images" name="images" type="file" id="formFile">
-              </div>
+              </div> -->
               <input type="submit" value="등록">
             </form>
             <button class="btn">등록</button>
