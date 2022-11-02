@@ -3,32 +3,13 @@ import * as jwt from 'jsonwebtoken';
 
 export const loginAuthenticator = {
   isLoggedIn: async (req, res, next) => {
-    console.log('///////////////////////헤더 정보///////////////////////');
+    console.log('=isLoggedIn=');
+
     console.log(req.headers);
 
-    const cookieArr = req.headers['cookie'].split(' ');
-    console.log('///////////////////////쿠키 정보///////////////////////');
-    console.log(cookieArr);
+    const userToken = req.headers['authorization'].split(' ')[1];
 
-    let userToken = '';
-
-    cookieArr.forEach((element) => {
-      if (element.includes('TOKEN=')) {
-        console.log(element);
-        userToken = element.substring(6);
-      }
-    });
-    console.log(
-      '///////////////////////선택된 쿠키 정보///////////////////////',
-    );
-    console.log(userToken);
-
-    // 이 토큰은 jwt 토큰 문자열이거나, 혹은 "null" 문자열이거나, undefined임.
-    // 토큰이 "null" 일 경우, login_required 가 필요한 서비스 사용을 제한함.
-    if (!userToken || userToken === 'null') {
-      if (userToken == null) {
-        userToken = 'null';
-      }
+    if (!userToken || userToken === undefined) {
       console.log(
         `서비스 사용 요청이 있습니다.하지만, Authorization 토큰: ${userToken}`,
       );
@@ -36,27 +17,28 @@ export const loginAuthenticator = {
         result: '허용되지 않은 접근',
         reason: '로그인한 유저만 사용할 수 있는 서비스입니다.',
       });
-
       return;
     }
 
-    // 해당 token 이 정상적인 token인지 확인
     try {
       const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-      const jwtDecoded = jwt.verify(userToken, secretKey);
 
-      console.log('디코드');
-      console.log(jwtDecoded);
+      const jwtDecoded = jwt.verify(userToken, secretKey);
 
       const userId = jwtDecoded.userId;
 
-      // 라우터에서 req.currentUserId를 통해 유저의 id에 접근 가능하게 됨
+      const role = jwtDecoded.role;
+
       req.currentUserId = userId;
+
+      req.currentUserRole = role;
+
+      console.log(req.currentUserId);
+
+      console.log(req.currentUserRole);
 
       next();
     } catch (error) {
-      // jwt.verify 함수가 에러를 발생시키는 경우는 토큰이 정상적으로 decode 안되었을 경우임.
-      // 403 코드로 JSON 형태로 프론트에 전달함.
       console.log(error);
       res.status(403).json({
         result: '허용되지 않은 접근',
@@ -68,41 +50,40 @@ export const loginAuthenticator = {
   },
 
   isNotLoggedIn: async (req, res, next) => {
-    console.log('isNotLoggedIn 실행');
+    console.log('=isNotLoggedIn=');
 
-    if (req.headers['cookie'] == undefined) {
-      next();
-    } else {
-      const cookieArr = req.headers['cookie'].split(' '); //만약 우리가 쿠키를 여러개 사용한다면 .split을 사용
-      console.log(cookieArr);
-      cookieArr.forEach((element) => {
-        if (element.includes('TOKEN=')) {
-          console.log(`토큰 존재 여부 : ${element.substring(6) === ''}`);
-          if (element.substring(6) === '') {
-            console.log(`TOKEN=${element.substring(6)} / next실행`);
-            next();
-          } else {
-            const userToken = element.substring(6);
-            try {
-              const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-              const jwtDecoded = jwt.verify(userToken, secretKey);
-              console.log('디코드');
-              console.log(jwtDecoded);
-              res.status(400).json({
-                message: '이미 로그인 되어있습니다.',
-              });
-            } catch (err) {
-              console.log('토큰 만료');
-              res.cookie('TOKEN', '');
-              next();
-            }
-          }
+    try {
+      const userToken = req.headers['authorization'].split(' ')[1];
+
+      console.log(typeof userToken);
+
+      console.log(`!userToken : ${!userToken}`);
+
+      if (!userToken || userToken === undefined || userToken === 'null') {
+        next();
+      } else {
+        const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+        const jwtDecoded = jwt.verify(userToken, secretKey);
+
+        if (jwtDecoded) {
+          res.status(400).json({
+            message: '이미 로그인 되어있습니다.',
+          });
         }
-      });
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+      if (error.name === 'TokenExpiredError') {
+        res.status(419).json({
+          message: '로그인이 만료되었습니다.',
+        });
+      }
+      if (error.name === 'JsonWebTokenError') {
+        res.status(401).json({
+          message: '유효하지 않은 로그인 입니다.',
+        });
+      }
     }
   },
-};
-const verify = (userToken) => {
-  const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-  const jwtDecoded = jwt.verify(userToken, secretKey);
 };

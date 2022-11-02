@@ -1,12 +1,12 @@
-import { Schema } from "mongoose";
+import { Schema } from 'mongoose';
 
 const UserSchema = new Schema(
   {
-    email: {
+    fullName: {
       type: String,
       required: true,
     },
-    fullName: {
+    email: {
       type: String,
       required: true,
     },
@@ -14,10 +14,12 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+
     phoneNumber: {
       type: String,
-      required: false,
+      required: true,
     },
+
     address: {
       type: new Schema(
         {
@@ -27,20 +29,26 @@ const UserSchema = new Schema(
         },
         {
           _id: false,
-        }
+        },
       ),
       required: false,
     },
+
+    deletedAt: {
+      type: Date,
+      require: false,
+    },
+
     role: {
       type: String,
       required: false,
-      default: "basic-user",
+      default: 'basic-user',
     },
   },
   {
-    collection: "users",
+    collection: 'users',
     timestamps: true,
-  }
+  },
 );
 
 export { UserSchema };

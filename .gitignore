@@ -1,10 +1,13 @@
 # Dependencies
 node_modules
+src/routers
 yarn.lock
 package-lock.json
 .env
 **/.DS_Store
-.node_modules
+
+# Static
+images/
 
 # Template
 issue_dev_template.md
