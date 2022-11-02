@@ -1,4 +1,5 @@
 import { categoryModel } from '../db';
+import { productModel } from '../db';
 
 class CategoryService {
   constructor(categoryModel) {
@@ -13,8 +14,12 @@ class CategoryService {
     return newCategory;
   }
 
-  async getProducts(page, ITEMS_PER_PAGE) {
-    const products = await this.categoryModel.findByPage(page, ITEMS_PER_PAGE);
+  async getProducts(categoryId, page, ITEMS_PER_PAGE) {
+    const products = await productModel.findByCategory(
+      categoryId,
+      page,
+      ITEMS_PER_PAGE,
+    );
     return products;
   }
 

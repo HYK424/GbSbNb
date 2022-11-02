@@ -7,19 +7,19 @@ class ProductService {
   }
 
   async addProduct(productInfo) {
-    const { title, category, price, description, manufacturer } = productInfo;
+    const { title, categoryId, price, description, manufacturer } = productInfo;
     const thumbnail = productInfo.path;
 
     const newProduct = await this.productModel.create({
       title,
-      category,
+      categoryId,
       price,
       description,
       thumbnail,
       manufacturer,
     });
 
-    await categoryService.addToCategory(category, newProduct._id);
+    await categoryService.addToCategory(categoryId, newProduct._id);
     return newProduct;
   }
 
@@ -48,7 +48,7 @@ class ProductService {
     }
 
     const title = productInfo.title;
-    const category = productInfo.category || product.category;
+    const categoryId = productInfo.categoryId || product.categoryId;
     const price = productInfo.price;
     const description = productInfo.description;
     const imageUrl = productInfo.path || product.imageUrl;
@@ -57,7 +57,7 @@ class ProductService {
 
     const updatedInfo = {
       title,
-      category,
+      categoryId,
       price,
       description,
       imageUrl,

@@ -16,7 +16,11 @@ const getProductsByCategory = async (req, res, next) => {
     categoryId,
     ITEMS_PER_PAGE,
   );
-  const products = await categoryService.getProducts(page, ITEMS_PER_PAGE);
+  const products = await categoryService.getProducts(
+    categoryId,
+    page,
+    ITEMS_PER_PAGE,
+  );
   return res.status(200).json({ products, totalPage });
 };
 
