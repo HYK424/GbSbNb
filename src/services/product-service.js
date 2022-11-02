@@ -8,14 +8,14 @@ class ProductService {
 
   async addProduct(productInfo) {
     const { title, categoryId, price, description, manufacturer } = productInfo;
-    const thumbnail = productInfo.path;
+    const imageUrl = productInfo.path;
 
     const newProduct = await this.productModel.create({
       title,
       categoryId,
       price,
       description,
-      thumbnail,
+      imageUrl,
       manufacturer,
     });
 
@@ -47,13 +47,10 @@ class ProductService {
       );
     }
 
-    const title = productInfo.title;
-    const categoryId = productInfo.categoryId || product.categoryId;
-    const price = productInfo.price;
-    const description = productInfo.description;
-    const imageUrl = productInfo.path || product.imageUrl;
+    const { title, price, description, manufacturer } = productInfo;
     const view = productInfo.view || true;
-    const manufacturer = productInfo.manufacturer;
+    const categoryId = productInfo.categoryId || product.categoryId;
+    const imageUrl = productInfo.path || product.imageUrl;
 
     const updatedInfo = {
       title,
