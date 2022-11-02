@@ -14,6 +14,11 @@ export class CategoryModel {
     return categories;
   }
 
+  async findCategory(categoryId) {
+    const category = await Category.findOne({ id: categoryId });
+    return category;
+  }
+
   async findByPage(categoryId) {
     const products = await Category.findOne({ id: categoryId }).populate(
       'products',
@@ -29,13 +34,13 @@ export class CategoryModel {
     return productCount;
   }
 
-  async update(categoryId, updatedInfo) {
-    const filter = { _id: categoryId };
+  async update(categoryId, { id, name }) {
+    const filter = { id: categoryId };
     const option = { returnOriginal: false };
 
     const updatedCategory = await Category.findOneAndUpdate(
       filter,
-      updatedInfo,
+      { id, name },
       option,
     );
     return updatedCategory;

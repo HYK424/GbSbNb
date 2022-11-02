@@ -9,8 +9,6 @@ const ProductSchema = new Schema(
     categoryId: {
       type: String,
       required: true,
-      unique: true,
-      index: true,
     },
     manufacturer: {
       type: String,

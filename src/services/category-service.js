@@ -1,47 +1,85 @@
-import { categoryService } from '../services';
+import { categoryModel } from '../db';
+import { productModel } from '../db';
 
-const ITEMS_PER_PAGE = 9;
+class CategoryService {
+  constructor(categoryModel) {
+    this.categoryModel = categoryModel;
+  }
 
-const addCategory = async (req, res, next) => {
-  const categoryInfo = { ...req.body };
-  const newCategory = await categoryService.addCategory(categoryInfo);
-  return res.status(201).json(newCategory);
-};
+  async addCategory({ name, id }) {
+    const newCategory = await this.categoryModel.create({
+      name,
+      id,
+    });
+    return newCategory;
+  }
 
-const getAllCategories = async (req, res, next) => {
-  const categories = await categoryService.getCategories();
-  return categories;
-};
+  async getCategories() {
+    const categories = await this.categoryModel.findAll({});
+    return categories;
+  }
 
-const getProductsByCategory = async (req, res, next) => {
-  const { categoryId } = req.params;
-  const page = +req.query.page || 1;
-  const totalPage = await categoryService.getTotalPage(
-    categoryId,
-    ITEMS_PER_PAGE,
-  );
-  const products = await categoryService.getProducts(
-    categoryId,
-    page,
-    ITEMS_PER_PAGE,
-  );
-  return res.status(200).json({ products, totalPage });
-};
+  async getProducts(categoryId, page, ITEMS_PER_PAGE) {
+    const products = await productModel.findByCategory(
+      categoryId,
+      page,
+      ITEMS_PER_PAGE,
+    );
+    return products;
+  }
 
-const updateCategory = async (req, res, next) => {
-  const { categoryId } = req.params;
-  const categoryInfo = { ...req.body };
-  const updatedCategory = await categoryService.updateCategory(
-    categoryId,
-    categoryInfo,
-  );
-  return res.status(200).json(updatedCategory);
-};
+  async getTotalPage(categoryId, ITEMS_PER_PAGE) {
+    const productCount = await this.categoryModel.countAll(categoryId);
+    const totalPage = Math.ceil(productCount / ITEMS_PER_PAGE);
+    return totalPage;
+  }
 
-// const deletecategory = async (req, res, next) => {
-//   const { categoryId } = req.params;
-//   const result = await categoryService.deletecategory(categoryId);
-//   return res.status(200).json(result);
-// };
+  async updateCategory(categoryId, categoryInfo) {
+    const category = await this.categoryModel.findCategory(categoryId);
+    if (!category) {
+      throw new Error(
+        '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
+    }
 
-export { addCategory, getAllCategories, getProductsByCategory, updateCategory };
+    const { name, id } = categoryInfo;
+
+    const updatedInfo = {
+      name,
+      id,
+    };
+
+    const updatedCategory = await this.categoryModel.update(
+      categoryId,
+      updatedInfo,
+    );
+    return updatedCategory;
+  }
+
+  async addToCategory(categoryName, productId) {
+    const updatedCategory = await categoryModel.addProduct(
+      categoryName,
+      productId,
+    );
+
+    return updatedCategory;
+  }
+
+  // async deleteProduct(productId) {
+  //   let product = await this.categoryModel.findById(productId);
+
+  //   if (!product) {
+  //     throw new Error(
+  //       '해당 제품이 존재하지 않습니다. 다시 한 번 확인해 주세요.',
+  //     );
+  //   }
+
+  //   const result = await this.categoryModel.delete(productId);
+
+  //   return result;
+  // }
+}
+
+const categoryService = new CategoryService(categoryModel);
+
+export { categoryService };
