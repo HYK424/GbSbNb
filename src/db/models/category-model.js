@@ -14,15 +14,10 @@ export class CategoryModel {
     return categories;
   }
 
-<<<<<<< HEAD
-  async findByCategory(categoryId) {
-    const products = await Category.find({ code: categoryId });
-=======
   async findByPage(categoryId) {
     const products = await Category.findOne({ id: categoryId }).populate(
       'products',
     );
->>>>>>> parent of 3b43bd5... feat:finish category api
     return products;
   }
 

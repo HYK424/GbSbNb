@@ -13,17 +13,12 @@ class CategoryService {
     return newCategory;
   }
 
-<<<<<<< HEAD
-  async getProducts(page, ITEMS_PER_PAGE) {
-    const products = await this.categoryModel.findByPage(page, ITEMS_PER_PAGE);
-=======
   async getProducts(categoryId, page, ITEMS_PER_PAGE) {
     const products = await productModel.findByCategory(
       categoryId,
       page,
       ITEMS_PER_PAGE,
     );
->>>>>>> parent of 3b43bd5... feat:finish category api
     return products;
   }
 
