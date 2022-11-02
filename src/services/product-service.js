@@ -7,19 +7,19 @@ class ProductService {
   }
 
   async addProduct(productInfo) {
-    const { title, categoryId, price, description, manufacturer } = productInfo;
-    const imageUrl = productInfo.path;
+    const { title, category, price, description, manufacturer } = productInfo;
+    const thumbnail = productInfo.path;
 
     const newProduct = await this.productModel.create({
       title,
-      categoryId,
+      category,
       price,
       description,
-      imageUrl,
+      thumbnail,
       manufacturer,
     });
 
-    await categoryService.addToCategory(categoryId, newProduct._id);
+    await categoryService.addToCategory(category, newProduct._id);
     return newProduct;
   }
 
@@ -47,14 +47,17 @@ class ProductService {
       );
     }
 
-    const { title, price, description, manufacturer } = productInfo;
-    const view = productInfo.view || true;
-    const categoryId = productInfo.categoryId || product.categoryId;
+    const title = productInfo.title;
+    const category = productInfo.category || product.category;
+    const price = productInfo.price;
+    const description = productInfo.description;
     const imageUrl = productInfo.path || product.imageUrl;
+    const view = productInfo.view || true;
+    const manufacturer = productInfo.manufacturer;
 
     const updatedInfo = {
       title,
-      categoryId,
+      category,
       price,
       description,
       imageUrl,
@@ -69,19 +72,19 @@ class ProductService {
     return updatedProduct;
   }
 
-  // async deleteProduct(productId) {
-  //   let product = await this.productModel.findById(productId);
+  async deleteProduct(productId) {
+    let product = await this.productModel.findById(productId);
 
-  //   if (!product) {
-  //     throw new Error(
-  //       '해당 제품이 존재하지 않습니다. 다시 한 번 확인해 주세요.',
-  //     );
-  //   }
+    if (!product) {
+      throw new Error(
+        '해당 제품이 존재하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
+    }
 
-  //   const result = await this.productModel.delete(productId);
+    const result = await this.productModel.delete(productId);
 
-  //   return result;
-  // }
+    return result;
+  }
 }
 
 const productService = new ProductService(productModel);

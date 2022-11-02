@@ -6,11 +6,10 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    categoryId: {
+    category: {
       type: String,
       required: true,
       unique: true,
-      index: true,
     },
     manufacturer: {
       type: String,
@@ -24,23 +23,23 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    imageUrl: {
+    thumbnail: {
       type: String,
       required: true,
     },
-    // images: [
-    //   {
-    //     type: String,
-    //     required: true,
-    //   },
-    // ],
+    images: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     view: {
       type: Boolean,
       required: true,
       default: true,
     },
   },
-  { timestamps: true },
+  { timestams: true },
 );
 
 export { ProductSchema };
