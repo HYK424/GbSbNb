@@ -5,6 +5,8 @@ export const loginAuthenticator = {
   isLoggedIn: async (req, res, next) => {
     console.log('=isLoggedIn=');
 
+    console.log(req.headers);
+
     const userToken = req.headers['authorization'].split(' ')[1];
 
     if (!userToken || userToken === undefined) {
@@ -25,9 +27,15 @@ export const loginAuthenticator = {
 
       const userId = jwtDecoded.userId;
 
+      const role = jwtDecoded.role;
+
       req.currentUserId = userId;
 
+      req.currentUserRole = role;
+
       console.log(req.currentUserId);
+
+      console.log(req.currentUserRole);
 
       next();
     } catch (error) {
@@ -45,11 +53,13 @@ export const loginAuthenticator = {
     console.log('=isNotLoggedIn=');
 
     try {
-      console.log(req.headers);
       const userToken = req.headers['authorization'].split(' ')[1];
 
+      console.log(typeof userToken);
+
       console.log(`!userToken : ${!userToken}`);
-      if (!userToken || userToken === undefined) {
+
+      if (!userToken || userToken === undefined || userToken === 'null') {
         next();
       } else {
         const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';

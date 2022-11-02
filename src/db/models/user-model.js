@@ -1,4 +1,3 @@
-import { Timestamp } from 'mongodb';
 import { model } from 'mongoose';
 import { UserSchema } from '../schemas/user-schema';
 
@@ -21,7 +20,6 @@ export class UserModel {
   }
 
   async findAll() {
-    console.log('findAll');
     const users = await User.find({});
     return users;
   }

@@ -1,8 +1,5 @@
 import { userModel } from '../db';
 
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-
 class AdminService {
   constructor(requestModel) {
     if (requestModel === 'userModel') {
@@ -12,6 +9,7 @@ class AdminService {
 
   async getUsers() {
     const users = await this.userModel.findAll();
+    console.log('유저');
     console.log(users);
     if (users) {
       return {
