@@ -72,4 +72,3 @@ function insertTextToGreeting() {
 cancel.addEventListener('click', ()=>{
   form.classList.toggle('active');
 });
-
