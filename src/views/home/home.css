@@ -11,13 +11,7 @@
   padding: 10px;
 }
 
-<<<<<<< Updated upstream
-.greeting {
-  cursor: pointer;
-  border: 1px solid blue;
-  padding: 10px;
-  margin-left: 3rem;
-=======
+
 .navBar li{
   padding-left: 15px;
 }
@@ -55,5 +49,4 @@ a {
       grid-template-columns: repeat(2,1fr);
       grid-template-rows: repeat(5,minmax(250px,auto));
   }
->>>>>>> Stashed changes
 }
