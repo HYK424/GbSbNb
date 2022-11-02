@@ -26,7 +26,8 @@ async function addAllElements() {}
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
     editButton.addEventListener("click", handleEdit);
-    // submitButton.addEventListener("click", handleSubmit);
+    submitButton.addEventListener("click", handleSubmit);
+    deleteButton.addEventListener("click", handleDelete);
 }
 
 //로그인 상태가 아닐 때 로그인 창으로 보냄
@@ -53,29 +54,18 @@ function insertUserInfo() {
 // 정보 수정 진행 시작
 async function handleEdit(e) {
     e.preventDefault();
-    try {
-        // 모달창 띄우고 비밀번호 확인하기
-        popPasswordModal();
-        // 비밀번호 창 보이게 하기
-        document.querySelectorAll(".hidden-untill-edit").forEach((item) => {
-            item.style.display = 'inline-block';
-        })
-    } catch {
-        alert('회원 정보 수정 요청 취소');
-    }
-}
 
-function popPasswordModal() {
     //모달 창 만들기
     const modal = `
   <div class="moral-post">
   <form class="box moral-card">
-  <h2> 비밀번호 확인 <h2/>
+  <h2>비밀번호 확인</h2>
+  <p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.</p>
   <input class="input" id="passwordCheckInput" type="password" placeholder="********" autocomplete="off" />
   <button class="button is-primary" id="passwordCheckButton"> 확인 </button>
   <button class="button is-primary" id="passwordCancelButton"> 취소 </button>
   </form>
-<div/>
+</div>
   `;
     const modalEl = document.createElement('div');
     modalEl.setAttribute('class', 'modal-layout');
@@ -93,6 +83,12 @@ function popPasswordModal() {
             if (document.querySelector('#passwordCheckInput').value == userPasswordFake) {
                 alert('비밀번호 확인');
                 document.querySelector('body').removeChild(modalEl);
+
+                // 비밀번호 창 보이게 하기
+                document.querySelectorAll(".hidden-untill-edit").forEach((item) => {
+                    item.style.display = 'inline-block';
+                })
+                editButton.style.display = 'none';
 
             } else {
                 alert('비밀번호가 같지 않습니다');
@@ -136,7 +132,7 @@ async function handleSubmit(e) {
         return alert("비밀번호가 일치하지 않습니다.");
     }
 
-    // 회원가입 api 요청
+    // 회원 정보 수정 api 요청
     try {
         const data = { fullName, email, password };
 
@@ -144,10 +140,60 @@ async function handleSubmit(e) {
 
         alert(`정상적으로 수정되었습니다.`);
 
-        // 로그인 페이지 이동
-        window.location.href = "/login";
+        // 새로고침
+        window.location.reload();
+
     } catch (err) {
         console.error(err.stack);
         alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
     }
+}
+
+function handleDelete(e) {
+    //모달 창 만들기
+    const modal = `
+<div class="moral-post">
+<form class="box moral-card">
+<h2>비밀번호 확인</h2>
+<p>비밀번호를 입력하신 후 확인 버튼을 누르시면 계정 삭제가 완료됩니다. 한 번 삭제하신 계정은 다시 되돌릴 수 없습니다.</p>
+<input class="input" id="passwordCheckInput" type="password" placeholder="********" autocomplete="off" />
+<button class="button is-primary" id="passwordCheckButton"> 확인 </button>
+<button class="button is-primary" id="passwordCancelButton"> 취소 </button>
+</form>
+</div>
+`;
+    const modalEl = document.createElement('div');
+    modalEl.setAttribute('class', 'modal-layout');
+    modalEl.innerHTML = modal;
+    document.querySelector('body').prepend(modalEl);
+
+    // 확인 버튼 누를 시
+    document
+        .querySelector('#passwordCheckButton')
+        .addEventListener('click', function(e) {
+            e.preventDefault();
+            const userToken = sessionStorage.getItem("token");
+            // 토큰을 이용하여 BE에서 비밀번호 같은지 확인함
+            const userPasswordFake = "1234";
+            if (document.querySelector('#passwordCheckInput').value == userPasswordFake) {
+                alert('계정 삭제가 완료되었습니다. 이용해 주셔서 감사합니다.');
+
+                //BE에서 계정 삭제 
+
+                //홈으로 이동
+                location.href = '/';
+
+            } else {
+                alert('비밀번호가 같지 않습니다');
+            }
+        })
+
+    // 취소 버튼 누를 시
+    document
+        .querySelector('#passwordCancelButton')
+        .addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('body').removeChild(modalEl);
+            alert('계정 삭제 취소');
+        });
 }
