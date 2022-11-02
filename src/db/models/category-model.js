@@ -1,7 +1,7 @@
 import { model } from 'mongoose';
 import { CategorySchema } from '../schemas/category-schema';
 
-const Category = model('categories', CategorySchema);
+const Category = model('Category', CategorySchema);
 
 export class CategoryModel {
   async create(categoryInfo) {
@@ -23,7 +23,7 @@ export class CategoryModel {
 
   async countAll(categoryId) {
     const category = await Category.findOne({
-      _id: categoryId,
+      id: categoryId,
     });
     const productCount = category.products.length;
     return productCount;
