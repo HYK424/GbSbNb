@@ -26,15 +26,10 @@ export class ProductModel {
     return products;
   }
 
-<<<<<<< HEAD
-  async findByCategory(category) {
-    const products = await Product.find({ category });
-=======
   async findByCategory(categoryId, page, ITEMS_PER_PAGE) {
     const products = await Product.find({ id: categoryId, view: 1 })
       .skip((page - 1) * ITEMS_PER_PAGE)
       .limit(ITEMS_PER_PAGE);
->>>>>>> parent of 3b43bd5... feat:finish category api
     return products;
   }
 
