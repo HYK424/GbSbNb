@@ -25,7 +25,8 @@ app.use(viewsRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/categories', categoryRouter);
-
+//로그인이 되어있어야하고, admin role을 보유한 상태에서 아래 api에 접근가능하게 작성
+// app.use('');
 app.use('/api/admin', adminRouter);
 
 // 순서 중요 (errorHandler은 다른 일반 라우팅보다 나중에 있어야 함)
@@ -33,3 +34,5 @@ app.use('/api/admin', adminRouter);
 app.use(errorHandler);
 
 export { app };
+
+//토큰에 role을 담아서 사용.

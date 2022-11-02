@@ -14,10 +14,12 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+
     phoneNumber: {
       type: String,
-      required: false,
+      required: true,
     },
+
     address: {
       type: new Schema(
         {
@@ -31,6 +33,12 @@ const UserSchema = new Schema(
       ),
       required: false,
     },
+
+    deletedAt: {
+      type: Date,
+      require: false,
+    },
+
     role: {
       type: String,
       required: false,
