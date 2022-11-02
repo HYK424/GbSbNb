@@ -20,7 +20,6 @@ export class UserModel {
   }
 
   async findAll() {
-    console.log('findAll');
     const users = await User.find({});
     return users;
   }
@@ -31,6 +30,34 @@ export class UserModel {
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
     return updatedUser;
+  }
+
+  async changePassword({ userId, changedPassword }) {
+    const filter = { _id: userId };
+    const password = { password: changedPassword };
+    const option = { returnOriginal: false };
+
+    const changePassword = await User.findOneAndUpdate(
+      filter,
+      password,
+      option,
+    );
+
+    return changePassword;
+  }
+
+  async delete(userId) {
+    const user = await User.findOneAndUpdate({ _id: userId });
+    return user;
+  }
+
+  async deleteUser(userId) {
+    const filter = { _id: userId };
+    const deleteAt = { deletedAt: Date.now() };
+    const option = { returnOriginal: false };
+    const deleteUser = await User.findByIdAndUpdate(filter, deleteAt, option);
+
+    return deleteUser;
   }
 }
 
