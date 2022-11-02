@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 // 아래는 현재 home.html 페이지에서 쓰이는 코드는 아닙니다.
 // 다만, 앞으로 ~.js 파일을 작성할 때 아래의 코드 구조를 참조할 수 있도록,
 // 코드 예시를 남겨 두었습니다.
@@ -31,6 +32,68 @@ function insertTextToLanding() {
       <h2>n팀 쇼핑몰의 랜딩 페이지입니다. 자바스크립트 파일에서 삽입되었습니다.</h2>
     `
   );
+=======
+
+const search=document.querySelector(".search");
+const form=document.querySelector(".formDiv");
+const cancel=document.querySelector(".cancel");
+const items=document.querySelectorAll(".item");
+
+const json=JSON.stringify({
+  "title": "인체공학 마우스",
+  "price": 15000,
+  "images": "./img/mouse.jpg",
+  "link": "/"
+});
+const obj=JSON.parse(json);
+
+
+function innerItemList(obj){
+  const addItemList=`
+  <a href=${obj.link}>
+      <dl>
+        <dt><img src=${obj.images} alt=""></dt>
+        <dd>
+          <ul>
+            <li><span>${obj.title}</span> </li>
+            <li><span><strong>${obj.price}</strong> 원</span> </li>
+          </ul>
+        </dd>
+      </dl>
+      </a>
+`;
+
+  for(let i=0; i<items.length; i++){
+    if(!items[i].hasChildNodes()){
+      items[i].innerHTML=addItemList;
+      break;
+    }
+  }
+return;
+}
+
+innerItemList(obj);
+
+function goLink(link){
+location.href=link;
+}
+
+function goLogin(){
+  const login="/login";
+  location.href=login;
+}
+function goRegister(){
+  const register="/register";
+  location.href=register;
+}
+function goItem(){
+  const item="/"
+  location.href=item;
+>>>>>>> Stashed changes
+}
+function goItem(){
+  const cart="/cart"
+  location.href=cart;
 }
 
 function insertTextToGreeting() {
@@ -42,6 +105,7 @@ function insertTextToGreeting() {
   );
 }
 
+<<<<<<< Updated upstream
 function alertLandingText() {
   alert("n팀 쇼핑몰입니다. 안녕하세요.");
 }
@@ -58,3 +122,8 @@ async function getDataFromApi() {
   console.log({ data });
   console.log({ random });
 }
+=======
+cancel.addEventListener('click', ()=>{
+  form.classList.toggle('active');
+});
+>>>>>>> Stashed changes
