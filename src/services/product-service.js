@@ -20,7 +20,6 @@ class ProductService {
       manufacturer,
     });
 
-    await categoryService.addToCategory(categoryId, newProduct._id);
     return newProduct;
   }
 

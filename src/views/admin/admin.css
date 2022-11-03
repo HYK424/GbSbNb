@@ -49,15 +49,29 @@
     padding-left: 15px;
   }
   
-  .formDiv{
-    display: none;
-  }
-  
-  .formDiv.active{
-    display:inline;
-  }
-  
   a {
     text-decoration: none;
     color: black;
   }
+
+/* itemLists */
+
+  .posts{
+    display: flex;
+    justify-content: center;
+    border: solid rgb(114, 113, 113) 0.5px;
+  }
+
+  ul{
+    
+    list-style: none; 
+    padding: 0px 20px;
+  }
+
+  img{
+    width: 200px;
+    height: 200px;
+  }
+
+
+
