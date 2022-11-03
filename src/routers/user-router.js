@@ -40,7 +40,7 @@ userRouter.put('/myinfo', userValidator.updateUser, userController.updateUser);
 
 //회원 탈퇴
 userRouter.delete(
-  '/:userId/delete',
+  '/myinfo/delete',
   userValidator.deleteUser,
   userController.deleteUser,
 );
