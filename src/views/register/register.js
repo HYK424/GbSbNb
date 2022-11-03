@@ -1,6 +1,5 @@
-import { validateTel } from "../useful-functions";
 import * as Api from "/api.js";
-import { validateEmail } from "/useful-functions.js";
+import { validateEmail, validateTel } from "/useful-functions.js";
 
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector("#fullNameInput");
@@ -62,8 +61,6 @@ async function handleSubmit(e) {
 
     if (!isTelValid) {
         return alert("전화번호 형식이 맞지 않습니다.");
-    } else {
-        phoneNumber = phoneNumber.replace('-', '');
     }
 
     if (!isPasswordSame) {
