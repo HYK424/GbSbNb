@@ -45,6 +45,12 @@ async function post(endpoint, data) {
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (!res.ok) {
+    console.log(res);
+    console.log(res.json());
+    console.log(res.json());
+    // fetch(endpoint).then(res => res.json())
+    // .then(funcData => console.log(`이것이 바로 우리가 추출하고 싶어하는 value : ${funcData}`)
+
     const errorContent = await res.json();
     const { reason } = errorContent;
 

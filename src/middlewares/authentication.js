@@ -25,6 +25,8 @@ export const loginAuthenticator = {
 
       const jwtDecoded = jwt.verify(userToken, secretKey);
 
+      console.log(jwtDecoded);
+
       const userId = jwtDecoded.userId;
 
       const role = jwtDecoded.role;
@@ -64,6 +66,8 @@ export const loginAuthenticator = {
       } else {
         const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
         const jwtDecoded = jwt.verify(userToken, secretKey);
+
+        console.log(jwtDecoded);
 
         if (jwtDecoded) {
           res.status(400).json({

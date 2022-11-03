@@ -68,7 +68,7 @@ export const userController = {
         );
       }
 
-      const userId = req.params.userId;
+      const userId = req.currentUserId;
 
       const {
         fullName,
@@ -78,8 +78,6 @@ export const userController = {
         // role,
       } = req.body;
 
-      const userInfoRequired = { userId, currentPassword };
-
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(email && { email }),
@@ -88,10 +86,7 @@ export const userController = {
         // ...(role && { role }),
       };
 
-      const updatedUserInfo = await userService.updateUser(
-        userInfoRequired,
-        toUpdate,
-      );
+      const updatedUserInfo = await userService.updateUser(userId, toUpdate);
 
       res.status(200).json(updatedUserInfo);
     } catch (error) {
