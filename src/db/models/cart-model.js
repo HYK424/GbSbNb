@@ -5,23 +5,33 @@ const Cart = model('cart', CartSchema);
 
 export class CartModel {
   async getCartItems(userId) {
-    const cart = await Cart.findOne({ userId });
+    const filter = { userId };
+    const cart = await Cart.findOne(filter);
     return cart.items;
   }
-  async addProduct(categoryInfo) {
-    const newCategory = await Category.create(categoryInfo);
-    return newCategory;
+
+  async update(userId, updateInfo) {
+    const filter = { userId };
+    const updatedCart = await Cart.findOneAndUpdate(filter, {
+      items: updateInfo,
+    });
+    return updatedCart;
   }
 
-  async deleteProduct() {
-    const categories = await Category.find({});
-    return categories;
+  async deleteProduct(userId, updateInfo) {
+    const filter = { userId };
+    const updatedCart = await Cart.findOneAndUpdate(filter, {
+      items: updateInfo,
+    });
+    return updatedCart;
   }
 
   async deleteAllProducts(userId, updateInfo) {
     const filter = { userId };
-    await Cart.findOneAndUpdate(filter, updateInfo);
-    return;
+    const updatedCart = await Cart.findOneAndUpdate(filter, {
+      items: updateInfo,
+    });
+    return updatedCart;
   }
 }
 
