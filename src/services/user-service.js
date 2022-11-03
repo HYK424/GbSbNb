@@ -19,7 +19,9 @@ class UserService {
       );
     }
 
-    if (user['deleteAt']) {
+    console.log(user);
+
+    if (user['deletedAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
     }
 

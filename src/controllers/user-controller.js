@@ -114,7 +114,7 @@ export const userController = {
 
   deleteUser: async (req, res) => {
     console.log('delete Start');
-    const userId = req.params.userId;
+    const userId = req.currentUserId;
     const password = req.body.password;
 
     console.log(userId);
