@@ -59,6 +59,9 @@ function goItem(){
   const cart="/cart"
   location.href=cart;
 }
+search.addEventListener('click', ()=>{
+  form.classList.toggle('active');
+});
 cancel.addEventListener('click', ()=>{
   form.classList.toggle('active');
 });
