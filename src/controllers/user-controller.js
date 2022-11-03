@@ -61,6 +61,7 @@ export const userController = {
   },
 
   updateUser: async (req, res, next) => {
+    console.log('컨트롤러');
     try {
       if (is.emptyObject(req.body)) {
         throw new Error(
@@ -68,7 +69,7 @@ export const userController = {
         );
       }
 
-      const userId = req.params.userId;
+      const userId = req.currentUserId;
 
       const {
         fullName,
@@ -78,8 +79,6 @@ export const userController = {
         // role,
       } = req.body;
 
-      const userInfoRequired = { userId, currentPassword };
-
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(email && { email }),
@@ -88,10 +87,10 @@ export const userController = {
         // ...(role && { role }),
       };
 
-      const updatedUserInfo = await userService.updateUser(
-        userInfoRequired,
-        toUpdate,
-      );
+      console.log('서비스 전송');
+      const updatedUserInfo = await userService.updateUser(userId, toUpdate);
+      console.log('서비스 받아옴');
+      console.log(updatedUserInfo);
 
       res.status(200).json(updatedUserInfo);
     } catch (error) {

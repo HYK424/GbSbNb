@@ -26,6 +26,7 @@ export class UserModel {
   }
 
   async update({ userId, update }) {
+    console.log('업데이트');
     const filter = { _id: userId };
     const option = { returnOriginal: false };
 
