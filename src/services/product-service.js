@@ -1,6 +1,5 @@
 import { productModel } from '../db';
-import { categoryService } from './category-service';
-import { cloudinary, productImageUpload } from '../middlewares';
+import { cloudinary } from '../middlewares';
 
 class ProductService {
   constructor(productModel) {
@@ -20,7 +19,6 @@ class ProductService {
       manufacturer,
     });
 
-    await categoryService.addToCategory(categoryId, newProduct._id);
     return newProduct;
   }
 
