@@ -22,10 +22,10 @@ export const userController = {
     }
   },
 
-  getUserInfo: async (req, res) => {
+  getMyInfo: async (req, res) => {
     const userId = req.currentUserId;
 
-    const result = await userService.getUserInfo(userId);
+    const result = await userService.getMyInfo(userId);
 
     const { status, message, userInfo } = result;
 
