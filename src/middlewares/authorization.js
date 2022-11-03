@@ -4,5 +4,6 @@ export const checkRole = async (req, res, next) => {
     res.status(403).json({ message: '접근권한이 존재하지 않습니다!' });
     return;
   }
+  console.log(`현재 권한 : ${req.currentUserRole}`);
   next();
 };

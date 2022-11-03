@@ -26,7 +26,7 @@ userRouter.post(
 userRouter.use(loginAuthenticator.isLoggedIn);
 
 //내 계정정보
-userRouter.get('/myinfo', userController.getUserInfo);
+userRouter.get('/myinfo', userController.getMyInfo);
 
 //내 비밀번호 변경
 userRouter.put(

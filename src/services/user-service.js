@@ -19,7 +19,7 @@ class UserService {
       );
     }
 
-    console.log(user);
+    console.log(user); //이렇게 받는 것은 안전한가??
 
     if (user['deletedAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
@@ -58,7 +58,7 @@ class UserService {
     };
   }
 
-  async getUserInfo(userId) {
+  async getMyInfo(userId) {
     try {
       const userInfo = await this.userModel.findById(userId);
 
@@ -119,7 +119,11 @@ class UserService {
       update: toUpdate,
     });
 
-    return result;
+    if (!result) {
+      return { status: 400, message: '정보변경에 실패했습니다.' };
+    }
+
+    return { status: 200, message: '정보변경에 성공하였습니다.' };
   }
 
   async changePassword(userId, password, changedPassword) {

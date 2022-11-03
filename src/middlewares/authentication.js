@@ -67,8 +67,6 @@ export const loginAuthenticator = {
         const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
         const jwtDecoded = jwt.verify(userToken, secretKey);
 
-        console.log(jwtDecoded);
-
         if (jwtDecoded) {
           res.status(400).json({
             message: '이미 로그인 되어있습니다.',
