@@ -1,7 +1,7 @@
 import { model } from 'mongoose';
 import { ProductSchema } from '../schemas/product-schema';
 
-const Product = model('products', ProductSchema);
+const Product = model('Product', ProductSchema);
 
 export class ProductModel {
   async create(productInfo) {
@@ -26,8 +26,10 @@ export class ProductModel {
     return products;
   }
 
-  async findByCategory(category) {
-    const products = await Product.find({ category });
+  async findByCategory(categoryId, page, ITEMS_PER_PAGE) {
+    const products = await Product.find({ id: categoryId, view: 1 })
+      .skip((page - 1) * ITEMS_PER_PAGE)
+      .limit(ITEMS_PER_PAGE);
     return products;
   }
 

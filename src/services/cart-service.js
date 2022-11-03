@@ -1,5 +1,4 @@
-import { categoryModel } from '../db';
-import { productModel } from '../db';
+import { cartModel } from '../db';
 
 class CategoryService {
   constructor(categoryModel) {
@@ -76,6 +75,6 @@ class CategoryService {
   // }
 }
 
-const categoryService = new CategoryService(categoryModel);
+const cartService = new CategoryService(categoryModel);
 
-export { categoryService };
+export { cartService };
