@@ -10,7 +10,7 @@ import { productImageUpload } from '../middlewares';
 const productRouter = Router();
 
 productRouter.get('/', getProducts);
-productRouter.post('/', productImageUpload.single('thumbnail'), addProduct);
+productRouter.post('/', productImageUpload.single('image'), addProduct);
 
 productRouter.get('/:productId', getProudct);
 productRouter.put(
