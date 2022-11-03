@@ -5,42 +5,40 @@ class CartService {
     this.cartModel = cartModel;
   }
 
-  // async addToCart(userId, productId, quantity) {
-  //   const cartItems = this.cartModel.getCartItems(userId);
+  async addToCart(userId, productId, quantity) {
+    const cartItems = this.cartModel.getCartItems(userId);
+    const updatedCartItems = [...cart.items];
+    const itemIndex = cartItems.find((item) => item.productId === productId);
 
-  //   .findIndex((cp) => {
-  //     return cp.productId.toString() === product._id.toString();
-  //   });
-  //   let newQuantity = 1;
-  //   const updatedCartItems = [...this.cart.items];
-
-  //   if (cartProductIndex >= 0) {
-  //     newQuantity = this.cart.items[cartProductIndex].quantity + 1;
-  //     updatedCartItems[cartProductIndex].quantity = newQuantity;
-  //   } else {
-  //     updatedCartItems.push({
-  //       productId: product._id,
-  //       quantity: newQuantity,
-  //     });
-  //   }
-  //   const updatedCart = {
-  //   };
-  //   this.cart = updatedCart;
-  //   return this.save();
-  // }
+    if (itemIndex >= 0) {
+      updatedCartItems[itemIndex].quantity += quantity;
+    } else {
+      updatedCartItems.push({
+        productId: productId,
+        quantity: quantity,
+      });
+    }
+    const updatedCart = await cartModel.update(userId, updatedCartItems);
+    return updatedCart.items;
+  }
 
   async updateCart(userId, productId) {
-    const updatedCart = await cartModel.this.cart.items.filter((item) => {
-      return item.productId.toString() !== productId.toString();
-    });
-    this.cart.items = updatedCart;
-    return this.save();
+    const cartItems = this.cartModel.getCartItems(userId);
+    const itemIndex = cartItems.find((item) => item.productId === productId);
+    if (itemIndex === -1) {
+      throw new Error('장바구니에 해당 상품이 존재하지 않습니다.');
+    }
+    const updatedCartItems = cartItems.filter(
+      (_, index) => index !== itemIndex,
+    );
+    const updatedCart = await cartModel.deleteProduct(userId, updatedCartItems);
+    return updatedCart.items;
   }
 
   async clearCart(userId) {
     const updateInfo = [];
-    await cartModel.clearCart(userId, updateInfo);
-    return;
+    const updatedCart = await cartModel.deleteAllProducts(userId, updateInfo);
+    return updatedCart.items;
   }
 }
 
