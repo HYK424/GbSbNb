@@ -1,0 +1,49 @@
+#search {
+  width: 250px;
+}
+
+.search-form {
+  width: 400px;
+}
+
+#cart-notification {
+  opacity: 0.9;
+}
+
+#image-container {
+  border: 2px solid black;
+  border-radius: 30px;
+  padding: 20px;
+}
+#image {
+  object-fit: cover;
+}
+
+#main {
+  font-size: 18px;
+}
+
+#sub {
+  font-size: 16px;
+}
+
+#minus,
+#plus {
+  font-size: 20px;
+  padding: 0 10px;
+}
+
+#minus,
+#plus {
+  background-color: gainsboro;
+  border-radius: 50%;
+}
+
+#sub #description {
+  font-size: 10px;
+}
+
+#count {
+  padding: 0 20px;
+  width: 20px;
+}

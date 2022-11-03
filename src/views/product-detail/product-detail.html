@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="product-detail.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-light d-flex justify-content-evenly">
+      <div class="d-flex ms-5">
+        <a class="navbar-brand ms-3" href="/">개발세발네발🐶</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">홈으로</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              카테고리별
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="/">전체 상품 보기</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="search-form">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="상품명으로 검색"
+            aria-label="Search"
+            id="search"
+          />
+          <button class="btn btn-outline-success" type="submit">검색</button>
+        </form>
+      </div>
+      <div class="me-5">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/login"
+              >로그인</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/register"
+              >회원가입</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link active position-relative"
+              aria-current="page"
+              href="/cart"
+              >장바구니
+              <span
+                class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
+                id="cart-notification"
+              >
+                4
+                <span class="visually-hidden">unread messages</span>
+              </span></a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="container-fluid text-center">
+        <div class="row mt-4">
+          <div class="col-12"><h2>상품 상세 정보</h2></div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-1"></div>
+          <div class="col-10" id="imageContainer">
+            <div class="card mb-3">
+              <div class="row g-0 p-3">
+                <div class="col-md-6 p-2">
+                  <img
+                    src="https://res.cloudinary.com/dgwwwcsf7/image/upload/v1667458914/productImg/oe86pey1zdijmrsetapo.png"
+                    class="img-fluid rounded-start w-100"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body m-0 p-2">
+                    <div class="card">
+                      <h5
+                        class="card-header text-start product-title p-2"
+                        id="main"
+                      >
+                        상품명
+                      </h5>
+                      <div class="card-body p-1">
+                        <p
+                          class="card-title text-start m-0 ms-3"
+                          id="sub title"
+                        >
+                          개발자용 마우스
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body m-0 p-2">
+                    <div class="card">
+                      <h5
+                        class="card-header text-start product-title p-2"
+                        id="main"
+                      >
+                        가격
+                      </h5>
+                      <div class="card-body p-1">
+                        <p
+                          class="card-title text-start m-0 ms-3"
+                          id="sub price"
+                        >
+                          가격
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body m-0 p-2">
+                    <div class="card">
+                      <h5
+                        class="card-header text-start product-title p-2"
+                        id="main"
+                      >
+                        카테고리
+                      </h5>
+                      <div class="card-body p-1">
+                        <p
+                          class="card-title text-start m-0 ms-3"
+                          id="sub category"
+                        >
+                          카테고리
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body m-0 p-2">
+                    <div class="card">
+                      <h5
+                        class="card-header text-start product-title p-2"
+                        id="main"
+                      >
+                        제조사
+                      </h5>
+                      <div class="card-body p-1">
+                        <p
+                          class="card-title text-start m-0 ms-3"
+                          id="sub manufacture"
+                        >
+                          제조사
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body m-0 p-2">
+                    <div class="card">
+                      <h5
+                        class="card-header text-start product-title p-2"
+                        id="main"
+                      >
+                        제품 소개
+                      </h5>
+                      <div class="card-body p-1">
+                        <p
+                          class="card-title text-start m-0 ms-3"
+                          id="sub description"
+                        >
+                          이걸 쓰면 개발 효율이 100% 올라갑니다.이걸 쓰면 개발
+                          효율이 100% 올라갑니다.이걸 쓰면 개발 효율이 100%
+                          올라갑니다.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="d-flex justify-content-between align-items-center mx-3"
+                  >
+                    <div class="d-flex h-100">
+                      <p class="m-0" id="minus">-</p>
+                      <input type="text" value="1" class="m-0" id="count" />
+                      <p class="m-0" id="plus">+</p>
+                    </div>
+                    <button class="btn btn-primary me-5" id="addCart">
+                      장바구니 담기
+                    </button>
+                    <a
+                      class="btn btn-danger ms-5"
+                      href="javascript:history.back()"
+                      >더 둘러보기</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <img src="" id="image" class="w-100" />
+          </div>
+          <div class="col-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <script src="product-detail.js"></script>
+  </body>
+</html>
