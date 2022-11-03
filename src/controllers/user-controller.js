@@ -61,7 +61,6 @@ export const userController = {
   },
 
   updateUser: async (req, res, next) => {
-    console.log('컨트롤러');
     try {
       if (is.emptyObject(req.body)) {
         throw new Error(
@@ -87,10 +86,7 @@ export const userController = {
         // ...(role && { role }),
       };
 
-      console.log('서비스 전송');
       const updatedUserInfo = await userService.updateUser(userId, toUpdate);
-      console.log('서비스 받아옴');
-      console.log(updatedUserInfo);
 
       res.status(200).json(updatedUserInfo);
     } catch (error) {
