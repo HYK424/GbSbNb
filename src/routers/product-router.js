@@ -15,7 +15,7 @@ productRouter.post('/', productImageUpload.single('image'), addProduct);
 productRouter.get('/:productId', getProudct);
 productRouter.put(
   '/:productId',
-  productImageUpload.single('thumbnail'),
+  productImageUpload.single('image'),
   updateProduct,
 );
 // productRouter.delete('/:productId', deleteProduct);

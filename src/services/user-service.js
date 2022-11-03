@@ -19,12 +19,9 @@ class UserService {
       );
     }
 
-    console.log(user);
-
     if (user['deleteAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
     }
-    console.log(user.deletAt);
 
     const correctPasswordHash = user.password;
 
