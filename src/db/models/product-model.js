@@ -27,14 +27,21 @@ export class ProductModel {
   }
 
   async findByCategory(categoryId, page, ITEMS_PER_PAGE) {
-    const products = await Product.find({ id: categoryId, view: 1 })
+    const products = await Product.find({ categoryId: categoryId, view: true })
       .skip((page - 1) * ITEMS_PER_PAGE)
       .limit(ITEMS_PER_PAGE);
     return products;
   }
 
-  async countAll() {
-    const productCount = await Product.find({ view: 1 }).countDocuments();
+  async countAll(categoryId) {
+    if (!categoryId) {
+      const productCount = await Product.find({ view: 1 }).countDocuments();
+      return productCount;
+    }
+    const productCount = await Product.find({
+      view: true,
+      categoryId,
+    }).countDocuments();
     return productCount;
   }
 

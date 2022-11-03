@@ -3,10 +3,14 @@ import { categoryService } from '../services';
 const ITEMS_PER_PAGE = 9;
 
 const addCategory = async (req, res, next) => {
-  console.log(req.body);
   const categoryInfo = { ...req.body };
   const newCategory = await categoryService.addCategory(categoryInfo);
   return res.status(201).json(newCategory);
+};
+
+const getAllCategories = async (req, res, next) => {
+  const categories = await categoryService.getCategories();
+  return categories;
 };
 
 const getProductsByCategory = async (req, res, next) => {
@@ -16,7 +20,11 @@ const getProductsByCategory = async (req, res, next) => {
     categoryId,
     ITEMS_PER_PAGE,
   );
-  const products = await categoryService.getProducts(page, ITEMS_PER_PAGE);
+  const products = await categoryService.getProducts(
+    categoryId,
+    page,
+    ITEMS_PER_PAGE,
+  );
   return res.status(200).json({ products, totalPage });
 };
 
@@ -36,4 +44,4 @@ const updateCategory = async (req, res, next) => {
 //   return res.status(200).json(result);
 // };
 
-export { addCategory, getProductsByCategory, updateCategory };
+export { addCategory, getAllCategories, getProductsByCategory, updateCategory };

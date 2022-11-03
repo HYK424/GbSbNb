@@ -15,6 +15,8 @@ body {
   padding: 20px 0;
   font-size: 3rem;
   margin-bottom: 40px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 #orderDiv {
@@ -32,6 +34,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 460px;
+  overflow: scroll;
 }
 .item {
   width: 95%;
@@ -46,14 +50,82 @@ body {
   border-radius: 5px;
   height: 150px;
   margin-left: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
 }
 
-#buttonDiv {
+#buttonDiv,
+#buttonAndTotalPriceDiv {
   display: flex;
   padding: 10px 0px;
+  justify-content: flex-end;
+  padding: 20px 2.5%;
+  align-items: center;
 }
 
+#totalPrice {
+  font-size: 1.5rem;
+  margin-right: 30px;
+}
+
+#totalPrice b {
+  color: brown;
+}
 .button {
   padding: 5px 10px;
   margin-left: 10px;
+}
+
+.info {
+  width: 70%;
+  text-align: left;
+  display: flex;
+  justify-content: space-around;
+}
+
+.image {
+  width: 20%;
+  height: 80%;
+  object-fit: cover;
+}
+
+#infoNameDiv {
+  display: flex;
+  width: 95%;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin: 20px auto;
+  margin-bottom: 10px;
+  background-color: antiquewhite;
+  border-radius: 5px;
+  color: black;
+}
+
+#infoName {
+  display: flex;
+  width: 70%;
+  height: 70px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#selectAllDiv {
+  display: flex;
+  align-items: center;
+  width: 25%;
+}
+
+#selectAll {
+  margin-right: 5px;
+}
+
+#selectAll:checked {
+  accent-color: brown;
+  border: none;
+}
+
+.checkBox:checked {
+  accent-color: brown;
+  border: none;
 }

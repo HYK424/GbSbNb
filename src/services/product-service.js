@@ -1,5 +1,6 @@
 import { productModel } from '../db';
 import { categoryService } from './category-service';
+import { cloudinary, productImageUpload } from '../middlewares';
 
 class ProductService {
   constructor(productModel) {
@@ -50,6 +51,9 @@ class ProductService {
     const { title, price, description, manufacturer } = productInfo;
     const view = productInfo.view || true;
     const categoryId = productInfo.categoryId || product.categoryId;
+    if (productInfo.path) {
+      cloudinary.uploader.destroy(productInfo.path);
+    }
     const imageUrl = productInfo.path || product.imageUrl;
 
     const updatedInfo = {
