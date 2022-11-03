@@ -6,6 +6,7 @@ import { userValidator } from '../middlewares/validation/index';
 
 const userRouter = Router();
 
+//회원가입
 userRouter.post(
   '/',
   userValidator.createUser,
@@ -13,6 +14,7 @@ userRouter.post(
   userController.createUser,
 );
 
+//로그인
 userRouter.post(
   '/login',
   userValidator.login,
@@ -20,18 +22,23 @@ userRouter.post(
   userController.logIn,
 );
 
+//로그인 검증
 userRouter.use(loginAuthenticator.isLoggedIn);
 
+//내 계정정보
 userRouter.get('/:userId', userController.getUserInfo);
 
-userRouter.post(
+//내 비밀번호 변경
+userRouter.put(
   '/:userId/password',
   userValidator.checkPassword,
   userController.changePassword,
 );
 
+//내 계정정보 변경
 userRouter.put('/:userId', userValidator.updateUser, userController.updateUser);
 
+//회원 탈퇴
 userRouter.delete(
   '/:userId/delete',
   userValidator.deleteUser,
