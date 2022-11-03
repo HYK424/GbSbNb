@@ -15,76 +15,10 @@
     <link rel="stylesheet" href="product-detail.css" />
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg bg-light d-flex justify-content-evenly">
-      <div class="d-flex ms-5">
-        <a class="navbar-brand ms-3" href="/">개발세발네발🐶</a>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">홈으로</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              카테고리별
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li>
-                <a class="dropdown-item" href="/">전체 상품 보기</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <div class="search-form">
-        <form class="d-flex" role="search">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="상품명으로 검색"
-            aria-label="Search"
-            id="search"
-          />
-          <button class="btn btn-outline-success" type="submit">검색</button>
-        </form>
-      </div>
-      <div class="me-5">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/login"
-              >로그인</a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/register"
-              >회원가입</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              class="nav-link active position-relative"
-              aria-current="page"
-              href="/cart"
-              >장바구니
-              <span
-                class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
-                id="cart-notification"
-              >
-                4
-                <span class="visually-hidden">unread messages</span>
-              </span></a
-            >
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <nav
+      class="navbar navbar-expand-lg bg-light d-flex justify-content-evenly"
+      id="nav"
+    ></nav>
     <div class="container">
       <div class="container-fluid text-center">
         <div class="row mt-4">
@@ -97,8 +31,9 @@
               <div class="row g-0 p-3">
                 <div class="col-md-6 p-2">
                   <img
-                    src="https://res.cloudinary.com/dgwwwcsf7/image/upload/v1667458914/productImg/oe86pey1zdijmrsetapo.png"
+                    src=""
                     class="img-fluid rounded-start w-100"
+                    id="image"
                   />
                 </div>
                 <div class="col-md-6">
@@ -112,11 +47,9 @@
                       </h5>
                       <div class="card-body p-1">
                         <p
-                          class="card-title text-start m-0 ms-3"
-                          id="sub title"
-                        >
-                          개발자용 마우스
-                        </p>
+                          class="card-title text-start m-0 ms-3 sub"
+                          id="title"
+                        ></p>
                       </div>
                     </div>
                   </div>
@@ -130,11 +63,9 @@
                       </h5>
                       <div class="card-body p-1">
                         <p
-                          class="card-title text-start m-0 ms-3"
-                          id="sub price"
-                        >
-                          가격
-                        </p>
+                          class="card-title text-start m-0 ms-3 sub"
+                          id="price"
+                        ></p>
                       </div>
                     </div>
                   </div>
@@ -148,11 +79,9 @@
                       </h5>
                       <div class="card-body p-1">
                         <p
-                          class="card-title text-start m-0 ms-3"
-                          id="sub category"
-                        >
-                          카테고리
-                        </p>
+                          class="card-title text-start m-0 ms-3 sub"
+                          id="category"
+                        ></p>
                       </div>
                     </div>
                   </div>
@@ -166,11 +95,9 @@
                       </h5>
                       <div class="card-body p-1">
                         <p
-                          class="card-title text-start m-0 ms-3"
-                          id="sub manufacture"
-                        >
-                          제조사
-                        </p>
+                          class="card-title text-start m-0 ms-3 sub"
+                          id="manufacturer"
+                        ></p>
                       </div>
                     </div>
                   </div>
@@ -184,13 +111,9 @@
                       </h5>
                       <div class="card-body p-1">
                         <p
-                          class="card-title text-start m-0 ms-3"
-                          id="sub description"
-                        >
-                          이걸 쓰면 개발 효율이 100% 올라갑니다.이걸 쓰면 개발
-                          효율이 100% 올라갑니다.이걸 쓰면 개발 효율이 100%
-                          올라갑니다.
-                        </p>
+                          class="card-title text-start m-0 ms-3 sub"
+                          id="description"
+                        ></p>
                       </div>
                     </div>
                   </div>
@@ -198,9 +121,15 @@
                     class="d-flex justify-content-between align-items-center mx-3"
                   >
                     <div class="d-flex h-100">
-                      <p class="m-0" id="minus">-</p>
-                      <input type="text" value="1" class="m-0" id="count" />
-                      <p class="m-0" id="plus">+</p>
+                      <p class="btn btn-primary" id="minus">-</p>
+                      <input
+                        type="text"
+                        value="1"
+                        class="m-0"
+                        id="count"
+                        data-id=""
+                      />
+                      <p class="btn btn-primary" id="plus">+</p>
                     </div>
                     <button class="btn btn-primary me-5" id="addCart">
                       장바구니 담기
@@ -214,7 +143,6 @@
                 </div>
               </div>
             </div>
-            <img src="" id="image" class="w-100" />
           </div>
           <div class="col-1"></div>
         </div>
@@ -226,6 +154,7 @@
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
+    <script src="/renderingNav.js"></script>
     <script src="product-detail.js"></script>
   </body>
 </html>
