@@ -20,7 +20,8 @@ export class UserModel {
   }
 
   async findAll() {
-    const users = await User.find({});
+    const filter = { $or: [{ role: 'basic-user' }, { role: 'ADMIN_G' }] };
+    const users = await User.find(filter);
     return users;
   }
 
