@@ -4,6 +4,7 @@ const ITEMS_PER_PAGE = 9;
 
 const addProduct = async (req, res, next) => {
   const productInfo = { ...req.body, ...req.file };
+  console.log(productInfo);
   const newProduct = await productService.addProduct(productInfo);
   return res.status(201).json(newProduct);
 };
@@ -23,7 +24,7 @@ const getProudct = async (req, res, next) => {
 
 const updateProduct = async (req, res, next) => {
   const { productId } = req.params;
-  const tes=req.body.delete;
+  const tes = req.body.delete;
   console.log(tes);
   const productInfo = { ...req.body, ...req.file };
   const updatedProduct = await productService.updateProduct(
