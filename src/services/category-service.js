@@ -29,7 +29,7 @@ class CategoryService {
   }
 
   async getTotalPage(categoryId, ITEMS_PER_PAGE) {
-    const productCount = await this.categoryModel.countAll(categoryId);
+    const productCount = await productModel.countAll(categoryId);
     const totalPage = Math.ceil(productCount / ITEMS_PER_PAGE);
     return totalPage;
   }
@@ -53,15 +53,6 @@ class CategoryService {
       categoryId,
       updatedInfo,
     );
-    return updatedCategory;
-  }
-
-  async addToCategory(categoryName, productId) {
-    const updatedCategory = await categoryModel.addProduct(
-      categoryName,
-      productId,
-    );
-
     return updatedCategory;
   }
 

@@ -33,8 +33,15 @@ export class ProductModel {
     return products;
   }
 
-  async countAll() {
-    const productCount = await Product.find({ view: 1 }).countDocuments();
+  async countAll(categoryId) {
+    if (!categoryId) {
+      const productCount = await Product.find({ view: 1 }).countDocuments();
+      return productCount;
+    }
+    const productCount = await Product.find({
+      view: true,
+      categoryId,
+    }).countDocuments();
     return productCount;
   }
 

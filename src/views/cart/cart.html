@@ -11,6 +11,7 @@
   <body>
     <header>
       <div id="logoDiv">logo</div>
+      <div id="logoDiv">개발세발네발🐶</div>
     </header>
     <main>
       <div id="orderDiv">
@@ -27,11 +28,27 @@
           <div class="item">
             <input type="checkbox" />
             <div class="itemBox"></div>
+        <div id="infoNameDiv">
+          <label id="selectAllDiv">
+            <input type="checkbox" id="selectAll" />
+            전체 선택
+          </label>
+          <div id="infoName">
+            <span>상품명</span>
+            <span>가격</span>
+            <span>수량</span>
+            <span>옵션</span>
           </div>
+        </div>
+        <div id="itemDiv">
+          <!-- map 적용한 item 목록 출력(renderProductInCartList) -->
         </div>
       </div>
       <div id="buttonDiv">
         <button class="button">모두 주문하기</button>
+      <div id="buttonAndTotalPriceDiv">
+        <span id="totalPrice"></span>
+        <button class="button">계속 쇼핑하기</button>
         <button class="button">선택 상품 주문하기</button>
       </div>
     </main>
