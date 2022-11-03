@@ -25,6 +25,8 @@ export const loginAuthenticator = {
 
       const jwtDecoded = jwt.verify(userToken, secretKey);
 
+      console.log(jwtDecoded);
+
       const userId = jwtDecoded.userId;
 
       const role = jwtDecoded.role;

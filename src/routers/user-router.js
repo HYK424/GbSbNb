@@ -26,21 +26,21 @@ userRouter.post(
 userRouter.use(loginAuthenticator.isLoggedIn);
 
 //내 계정정보
-userRouter.get('/:userId', userController.getUserInfo);
+userRouter.get('/myinfo', userController.getMyInfo);
 
 //내 비밀번호 변경
 userRouter.put(
-  '/:userId/password',
+  '/myinfo/password',
   userValidator.checkPassword,
   userController.changePassword,
 );
 
 //내 계정정보 변경
-userRouter.put('/:userId', userValidator.updateUser, userController.updateUser);
+userRouter.put('/myinfo', userValidator.updateUser, userController.updateUser);
 
 //회원 탈퇴
 userRouter.delete(
-  '/:userId/delete',
+  '/myinfo/delete',
   userValidator.deleteUser,
   userController.deleteUser,
 );

@@ -19,7 +19,9 @@ class UserService {
       );
     }
 
-    if (user['deleteAt']) {
+    console.log(user); //이렇게 받는 것은 안전한가??
+
+    if (user['deletedAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
     }
 
@@ -56,7 +58,7 @@ class UserService {
     };
   }
 
-  async getUserInfo(userId) {
+  async getMyInfo(userId) {
     try {
       const userInfo = await this.userModel.findById(userId);
 
@@ -101,40 +103,27 @@ class UserService {
     return createdNewUser;
   }
 
-  async updateUser(userInfoRequired, toUpdate) {
-    const { userId, currentPassword } = userInfoRequired;
+  async updateUser(userId, toUpdate) {
+    console.log('서비스 실행');
 
-    let user = await this.userModel.findById(userId);
+    const user = await this.userModel.findById(userId);
+
+    console.log(user);
 
     if (!user) {
       throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
     }
 
-    const correctPasswordHash = user.password;
-    const isPasswordCorrect = await bcrypt.compare(
-      currentPassword,
-      correctPasswordHash,
-    );
-
-    if (!isPasswordCorrect) {
-      throw new Error(
-        '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
-      );
-    }
-
-    const { password } = toUpdate;
-
-    if (password) {
-      const newPasswordHash = await bcrypt.hash(password, 10);
-      toUpdate.password = newPasswordHash;
-    }
-
-    user = await this.userModel.update({
+    const result = await this.userModel.update({
       userId,
       update: toUpdate,
     });
 
-    return user;
+    if (!result) {
+      return { status: 400, message: '정보변경에 실패했습니다.' };
+    }
+
+    return { status: 200, message: '정보변경에 성공하였습니다.' };
   }
 
   async changePassword(userId, password, changedPassword) {

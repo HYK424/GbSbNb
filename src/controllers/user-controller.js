@@ -22,10 +22,10 @@ export const userController = {
     }
   },
 
-  getUserInfo: async (req, res) => {
+  getMyInfo: async (req, res) => {
     const userId = req.currentUserId;
 
-    const result = await userService.getUserInfo(userId);
+    const result = await userService.getMyInfo(userId);
 
     const { status, message, userInfo } = result;
 
@@ -68,7 +68,7 @@ export const userController = {
         );
       }
 
-      const userId = req.params.userId;
+      const userId = req.currentUserId;
 
       const {
         fullName,
@@ -78,8 +78,6 @@ export const userController = {
         // role,
       } = req.body;
 
-      const userInfoRequired = { userId, currentPassword };
-
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(email && { email }),
@@ -88,10 +86,7 @@ export const userController = {
         // ...(role && { role }),
       };
 
-      const updatedUserInfo = await userService.updateUser(
-        userInfoRequired,
-        toUpdate,
-      );
+      const updatedUserInfo = await userService.updateUser(userId, toUpdate);
 
       res.status(200).json(updatedUserInfo);
     } catch (error) {
@@ -119,7 +114,7 @@ export const userController = {
 
   deleteUser: async (req, res) => {
     console.log('delete Start');
-    const userId = req.params.userId;
+    const userId = req.currentUserId;
     const password = req.body.password;
 
     console.log(userId);
