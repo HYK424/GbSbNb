@@ -32,12 +32,20 @@ async function handleFormSubmit(event) {
   data.append('description', description);
   data.append('image', image);
   console.log(data);
+
   try {
     await fetch('http://localhost:3000/api/products', {
       method: 'POST',
       body: data,
-    });
+    }).then(res => res.json())
+      .then(console.log)
+      .then(reset());
   } catch (error) {
     console.log(error);
   }
+
+}
+
+function reset(){
+  form.reset();
 }

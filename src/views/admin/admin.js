@@ -13,7 +13,7 @@ async function innerItemList(i){
     for(let i=0; i<obj.products.length; i++){
      itemList.insertAdjacentHTML('beforeend',`
         <div class="posts" id="posts${i}">
-        <a href="/api/products/${obj.products[i]._id}">
+        <a class="a" href="/api/products/${obj.products[i]._id}">
           <img src=${obj.products[i].imageUrl} alt="">
             <ul>
               <li><span>제품명: ${obj.products[i].title}</span> </li>
@@ -21,9 +21,9 @@ async function innerItemList(i){
               <li><span>가격: <strong>${obj.products[i].price}</strong> 원</span> </li>
               <li>수정 날짜: ${obj.products[i].createdAt}</li>
               </a>
-              <button class="itemUpdate${i}">수정</button>
-              <button class="itemDelete${i}">삭제</button>
-              </ul>
+              <button class="btn btn-outline-danger" id="itemDelete${i}">삭제</button>
+              <a href="/admin/products/${obj.products[i]._id}?edit=true"><button class="btn btn-outline-danger" id="itemUpdate${i}">수정</button>
+              </a></ul>
         </div>
   `);
   deleteItem(obj.products[i], i);
@@ -31,7 +31,7 @@ async function innerItemList(i){
     }
   
  function deleteItem(obj, i){
-    const btn=document.querySelector(`.itemDelete${i}`);
+    const btn=document.querySelector(`#itemDelete${i}`);
     const div=document.querySelector(`#posts${i}`);
     btn.addEventListener('click',()=>{
         div.remove();
@@ -42,3 +42,8 @@ async function innerItemList(i){
     }
 
 innerItemList(getItems());
+
+function goPost(){
+    const login="/admin/post";
+    location.href=login;
+  }
