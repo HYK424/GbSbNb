@@ -40,7 +40,7 @@ function formData() {
   data.append('price', price);
   data.append('description', description);
   data.append('image', image);
-  
+
   return data;
 }
 
@@ -90,4 +90,4 @@ async function adminPost(event) {
   }
 }
 
-adminPostOrPut()
+adminPostOrPut();

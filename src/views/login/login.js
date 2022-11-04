@@ -50,7 +50,7 @@ async function handleSubmit(e) {
     // 로그인 성공
 
     // 기본 페이지로 이동
-    //window.location.href = '/';
+    window.location.href = '/';
   } catch (err) {
     console.log(err);
     console.error(err.stack);

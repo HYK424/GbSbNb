@@ -10,6 +10,9 @@ const json = JSON.stringify({
   "link": "/"
 });
 const obj = JSON.parse(json);
+console.log(sessionStorage.getItem('token'));
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MzY0ZjFiZWQ2MGVmYzljZDU1ZDhjOGYiLCJyb2xlIjoiYmFzaWMtdXNlciIsImlhdCI6MTY2NzU2NTQzNiwiZXhwIjoxNjY3NTY1NDk2fQ.9Bx2A0K6o0ceIsNNFDHbakIUY9x9sOec6tp1yFPKtdQ
+//토큰의 role에 따라 홈 화면이 다르게 보여지도록 구성
 
 
 function innerItemList(obj) {
