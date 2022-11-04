@@ -43,74 +43,71 @@ function checkLoginState() {
 }
 
 //최초 실행시 유저의 정보를 불러옴
-function insertUserInfo() {
-    const userToken = sessionStorage.getItem("token");
-    // 토큰을 이용하여 BE에서 유저 정보를 가져옴
-    const userDataFake = {
-        fullName: "ㅇㅇㅇ",
-        email: "elice@elice.com",
-    };
+async function insertUserInfo() {
+    const get = await Api.get("/api/users/myinfo");
+    let userInfo = get.userInfo
+    let notGetArr = new Array("password", "role", "createdAt", "updatedAt");
 
-    fullNameInput.value = userDataFake.fullName;
-    emailInput.value = userDataFake.email;
+    for (let key in userInfo) {
+        if (key[0] == "_" || notGetArr.includes(key)) {
+            continue;
+        }
+        if (typeof userInfo[key] == "object") {
+            for (let key2 in userInfo[key]) {
+                document
+                    .querySelector(`#${key2}Input`)
+                    .value = userInfo[key][key2]
+            }
+        } else {
+            document
+                .querySelector(`#${key}Input`)
+                .value = userInfo[key]
+        }
+    }
 }
 
 // 정보 수정 진행 시작
 async function handleEdit(e) {
     e.preventDefault();
 
-    //모달 창 만들기
-    const modal = `
-  <div class="moral-post">
-  <form class="box moral-card">
-  <h2>비밀번호 확인</h2>
-  <p>회원님의 정보를 안전하게 보호하기 위해 비밀번호를 다시 한번 확인 합니다.</p>
-  <input class="input" id="passwordCheckInput" type="password" placeholder="********" autocomplete="off" />
-  <button class="button is-primary" id="passwordCheckButton"> 확인 </button>
-  <button class="button is-primary" id="passwordCancelButton"> 취소 </button>
-  </form>
-</div>
-  `;
-    const modalEl = document.createElement('div');
-    modalEl.setAttribute('class', 'modal-layout');
-    modalEl.innerHTML = modal;
-    document.querySelector('body').prepend(modalEl);
+    // 비밀번호 창 보이게 하기
+    document.querySelectorAll(".hidden-until-edit").forEach((item) => {
+        item.style.display = 'block';
+    })
 
-    // 확인 버튼 누를 시
-    document
-        .querySelector('#passwordCheckButton')
-        .addEventListener('click', function(e) {
-            e.preventDefault();
-            const userToken = sessionStorage.getItem("token");
-            // 토큰을 이용하여 BE에서 비밀번호 같은지 확인함
-            const userPasswordFake = "1234";
-            if (document.querySelector('#passwordCheckInput').value == userPasswordFake) {
-                alert('비밀번호 확인');
-                document.querySelector('body').removeChild(modalEl);
+    document.querySelectorAll(".hidden-when-edit").forEach((item) => {
+        item.style.display = 'none';
+    })
 
-                // 비밀번호 창 보이게 하기
-                document.querySelectorAll(".hidden-untill-edit").forEach((item) => {
-                    item.style.display = 'inline-block';
-                })
-                editButton.style.display = 'none';
-
-            } else {
-                alert('비밀번호가 같지 않습니다');
-            }
-        })
-
-    // 취소 버튼 누를 시
-    document
-        .querySelector('#passwordCancelButton')
-        .addEventListener('click', function(e) {
-            e.preventDefault();
-            document.querySelector('body').removeChild(modalEl);
-            alert('비밀번호 입력 취소');
-        });
+    document.querySelectorAll(".able-when-edit").forEach((item) => {
+        item.disabled = false;
+    })
 }
 
 async function handleSubmit(e) {
     e.preventDefault();
+    //BE에 보낼 JSON 만들기
+    const formDataArr = document.querySelectorAll('label');
+    let userDataJson = {};
+
+    for (let item of formDataArr) {
+        let parantKey = item.getAttribute("name");
+        let itemChildArr = item.querySelectorAll('input');
+
+        if (itemChildArr.length == 1) {
+            userDataJson[parantKey] = itemChildArr[0].value
+        } else {
+            let childDataJson = {};
+            for (let childItem of itemChildArr) {
+                let childKey = childItem.getAttribute("name");
+                childDataJson[childKey] = childItem.value;
+            }
+            userDataJson[parantKey] = childDataJson
+        }
+    }
+
+    console.log(userDataJson)
+
 
     // 입력 완료시
     const fullName = fullNameInput.value;
