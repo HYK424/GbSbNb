@@ -1,10 +1,14 @@
-import { userModel, productModel, shippingModel } from '../db';
+import { userModel, productModel, orderModel } from '../db';
 import bcrypt from 'bcrypt';
 
 class AdminService {
   constructor(requestModel) {
+    console.log(requestModel);
     if (requestModel === 'userModel') {
       this.userModel = userModel;
+    }
+    if (requestModel === 'orderModel') {
+      this.orderModel = orderModel;
     }
   }
 
@@ -49,15 +53,16 @@ class AdminService {
     }
   }
 
-  async getShipping(state) {
+  async getOrder(state) {
     console.log('서비스');
 
-    if (state === undefined) state = 'null';
+    // if (state === undefined) state = 'null';
 
     console.log(`state : ${state}`);
 
-    const data = await this.shippingModel.findAll(state);
+    const data = await this.orderModel.findOrder(state);
 
+    console.log('스키마 종료');
     console.log(data);
 
     // if (!data) {
@@ -77,6 +82,6 @@ class AdminService {
 
 const userManagement = new AdminService('userModel');
 const productManagement = new AdminService('productModel');
-const shippingManagement = new AdminService();
+const orderManagement = new AdminService('orderModel');
 
-export { userManagement, productManagement, shippingManagement };
+export { userManagement, productManagement, orderManagement };

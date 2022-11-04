@@ -1,7 +1,7 @@
 import {
   userManagement,
   productManagement,
-  shippingManagement,
+  orderManagement,
   userService,
 } from '../services';
 import is from '@sindresorhus/is';
@@ -90,12 +90,12 @@ export const adminController = {
     res.status(status).json({ check: check });
   },
 
-  async getShipping(req, res) {
+  async getOrder(req, res) {
     console.log('컨트롤러');
     const state = req.query.state;
     console.log(`state : ${state}`);
 
-    const result = await shippingManagement.getShipping(state);
+    const result = await orderManagement.getOrder(state);
 
     //const { status, message, data } = result;
 

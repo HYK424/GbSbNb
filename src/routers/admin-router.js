@@ -22,7 +22,7 @@ adminRouter.get('/allusers/:userId/password', adminController.resetPassword);
 /////////////////////////////
 
 //전체 배송 조회
-adminRouter.get('/shipping', adminController.getShipping);
+adminRouter.get('/order', adminController.getOrder);
 
 //배송 정보 변경
 adminRouter.put('/shipping/:shippingId/:state');
