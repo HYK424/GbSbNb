@@ -20,23 +20,29 @@
         <div class="col-12">
           <h2>상품 상세 정보</h2>
         </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-1"></div>
-        <div class="col-10" id="imageContainer">
-          <div class="card mb-3">
-            <div class="row g-0 p-3">
-              <div class="col-md-6 p-2">
-                <img src="" class="img-fluid rounded-start w-100" id="image" />
-              </div>
-              <div class="col-md-6">
-                <div class="card-body m-0 p-2">
-                  <div class="card">
-                    <h5 class="card-header text-start product-title p-2" id="main">
-                      상품명
-                    </h5>
-                    <div class="card-body p-1">
-                      <p class="card-title text-start m-0 ms-3 sub" id="title"></p>
+        <div class="row mt-4">
+          <div class="col-1"></div>
+          <div class="col-10" id="imageContainer">
+            <div class="card mb-3">
+              <div class="row g-0 p-3">
+                <div class="col-md-6 p-2 d-flex align-items-center">
+                  <img src="" class="img-fluid rounded-start" id="image" />
+                </div>
+                <div class="col-md-6">
+                  <div class="card-body m-0 p-2">
+                    <div class="card">
+                      <h5
+                        class="card-header text-start product-title p-2"
+                        id="main"
+                      >
+                        상품명
+                      </h5>
+                      <div class="card-body p-1">
+                        <p
+                          class="card-title text-start m-0 ms-3 sub"
+                          id="title"
+                        ></p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -79,12 +85,28 @@
                       <p class="card-title text-start m-0 ms-3 sub" id="description"></p>
                     </div>
                   </div>
-                </div>
-                <div class="d-flex justify-content-between align-items-center mx-3">
-                  <div class="d-flex h-100">
-                    <p class="btn btn-primary" id="minus">-</p>
-                    <input type="text" value="1" class="m-0" id="count" data-id="" />
-                    <p class="btn btn-primary" id="plus">+</p>
+                  <div
+                    class="d-flex justify-content-between align-items-center mx-3"
+                  >
+                    <div class="d-flex h-100">
+                      <p class="btn btn-secondary" id="minus">-</p>
+                      <input
+                        type="text"
+                        value="1"
+                        class="m-0"
+                        id="count"
+                        data-id=""
+                      />
+                      <p class="btn btn-secondary" id="plus">+</p>
+                    </div>
+                    <button class="btn btn-dark me-5" id="addCart">
+                      장바구니 담기
+                    </button>
+                    <a
+                      class="btn btn-success ms-5"
+                      href="javascript:history.back()"
+                      >더 둘러보기</a
+                    >
                   </div>
                   <button class="btn btn-primary me-5" id="addCart">
                     장바구니 담기
@@ -107,4 +129,13 @@
   <script src="product-detail.js"></script>
 </body>
 
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/renderingNav.js"></script>
+    <script src="product-detail.js"></script>
+    <script src="handle-cart.js"></script>
+  </body>
 </html>

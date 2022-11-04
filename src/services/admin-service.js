@@ -1,10 +1,14 @@
-import { userModel, productModel } from '../db';
+import { userModel, productModel, orderModel } from '../db';
 import bcrypt from 'bcrypt';
 
 class AdminService {
   constructor(requestModel) {
+    console.log(requestModel);
     if (requestModel === 'userModel') {
       this.userModel = userModel;
+    }
+    if (requestModel === 'orderModel') {
+      this.orderModel = orderModel;
     }
   }
 
@@ -48,9 +52,36 @@ class AdminService {
       }
     }
   }
+
+  async getOrder(state) {
+    console.log('서비스');
+
+    // if (state === undefined) state = 'null';
+
+    console.log(`state : ${state}`);
+
+    const data = await this.orderModel.findOrder(state);
+
+    console.log('스키마 종료');
+    console.log(data);
+
+    // if (!data) {
+    //   return {
+    //     status: 400,
+    //     message: '배송 조회 실패',
+    //     data: null,
+    //   };
+    // }
+    // return {
+    //   status: 200,
+    //   message: '배송 조회 성공',
+    //   data: data,
+    // };
+  }
 }
 
 const userManagement = new AdminService('userModel');
 const productManagement = new AdminService('productModel');
+const orderManagement = new AdminService('orderModel');
 
-export { userManagement, productManagement };
+export { userManagement, productManagement, orderManagement };

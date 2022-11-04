@@ -1,8 +1,9 @@
 import { userService } from '../services';
 import is from '@sindresorhus/is';
+
 export const userController = {
   logIn: async (req, res, next) => {
-    console.log('컨트롤러');
+    console.log('로그인 컨트롤러');
     try {
       if (is.emptyObject(req.body)) {
         throw new Error(
@@ -14,7 +15,13 @@ export const userController = {
 
       const result = await userService.login({ email, password });
 
-      const { status, message, token } = result;
+      const { status, token } = result;
+
+      let { message } = result;
+
+      if (req.newUserMessage) {
+        message = req.newUserMessage;
+      }
 
       res.status(status).json({ message: message, token: token });
     } catch (error) {
@@ -32,7 +39,7 @@ export const userController = {
     res.status(status).json({ message: message, userInfo: userInfo });
   },
 
-  createUser: async (req, res) => {
+  createUser: async (req, res, next) => {
     try {
       if (is.emptyObject(req.body)) {
         res.status(400).json({ message: '계정생성에 실패하였습니다.' });
@@ -52,7 +59,11 @@ export const userController = {
         phoneNumber,
       });
 
-      res.status(201).json(newUser);
+      if (newUser) {
+        req.newUserMessage = '계정생성에 성공했습니다.';
+      }
+
+      userController.logIn(req, res, next);
     } catch (error) {
       console.log('createUser실패');
       console.log(error);

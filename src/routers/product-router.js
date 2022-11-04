@@ -1,26 +1,28 @@
 import { Router } from 'express';
-import {
-  getProducts,
-  addProduct,
-  getProudct,
-  updateProduct,
-} from '../controllers/product-controller';
+import { productController } from '../controllers';
 import { productImageUpload } from '../middlewares';
+import { productValidator } from '../middlewares/validation';
 
 import { loginAuthenticator } from '../middlewares/authentication';
 import { checkRole } from '../middlewares/authorization';
 
 const productRouter = Router();
 
-productRouter.get('/', getProducts);
-productRouter.get('/:productId', getProudct);
+productRouter.get('/', productController.getProducts);
+productRouter.get('/:productId', productController.getProudct);
 
 //productRouter.use(loginAuthenticator.isLoggedIn, checkRole);
-productRouter.post('/', productImageUpload.single('image'), addProduct);
+productRouter.post(
+  '/',
+  productImageUpload.single('image'),
+  productValidator.createProduct,
+  productController.addProduct,
+);
 productRouter.put(
   '/:productId',
   productImageUpload.single('image'),
-  updateProduct,
+  productValidator.createProduct,
+  productController.updateProduct,
 );
 // productRouter.delete('/:productId', deleteProduct);
 

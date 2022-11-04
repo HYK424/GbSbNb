@@ -1,6 +1,11 @@
 const nav = document.querySelector('#nav');
 
-const renderingNav = () => {
+const cartItems = JSON.parse(localStorage.getItem('cart'));
+const cartItemsTotalCount = cartItems?.length;
+
+nav.innerHTML = renderingNav();
+
+function renderingNav() {
   return `<div class="d-flex ms-5">
         <a class="navbar-brand ms-3" href="/">개발세발네발🐶</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -57,18 +62,23 @@ const renderingNav = () => {
               class="nav-link active position-relative"
               aria-current="page"
               href="/cart"
+              id="cartNotification"
               >장바구니
-              <span
-                class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
-                id="cart-notification"
-              >
-                4
-                <span class="visually-hidden">unread messages</span>
-              </span></a
+              ${
+                !cartItemsTotalCount
+                  ? ''
+                  : `
+                  <span
+                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
+                    id="cart-notification"
+                  >
+                    ${cartItemsTotalCount}
+                    <span class="visually-hidden">unread messages</span>
+                  </span>`
+              }
+              </a
             >
           </li>
         </ul>
       </div>`;
-};
-
-nav.innerHTML = renderingNav();
+}

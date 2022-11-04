@@ -23,7 +23,7 @@ const UserSchema = new Schema(
     address: {
       type: new Schema(
         {
-          postalCode: String,
+          zipCode: String,
           address1: String,
           address2: String,
         },
@@ -31,7 +31,7 @@ const UserSchema = new Schema(
           _id: false,
         },
       ),
-      required: false,
+      required: true,
     },
 
     deletedAt: {
