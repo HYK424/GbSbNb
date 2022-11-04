@@ -12,19 +12,7 @@ const shippingSchema = new Schema(
       required: true,
     },
 
-    address: {
-      type: new Schema(
-        {
-          zipCode: String,
-          address1: String,
-          address2: String,
-        },
-        {
-          _id: false,
-        },
-      ),
-      required: false,
-    },
+    
 
     startedAt: {
       type: Date,

@@ -22,7 +22,19 @@ const OrderSchema = new Schema(
       type: String,
       required: true,
     },
-    address: {},
+    address: {
+      type: new Schema(
+        {
+          zipCode: String,
+          address1: String,
+          address2: String,
+        },
+        {
+          _id: false,
+        },
+      ),
+      required: false,
+    },
     startedAt: {
       type: Date,
     },
