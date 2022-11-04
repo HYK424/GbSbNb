@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="home.css">
-  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
 </head>
+
 <body>
     <!-- 헤더 -->
-    <header>
-        <div class="containerHead">
+    <nav class="navbar navbar-expand-lg bg-light d-flex justify-content-evenly" id="nav"></nav>
+    <!-- <div class="containerHead">
             <div class="containerBrand">
                 <a href=""></a>
                 <span>15팀</span>
@@ -22,57 +25,60 @@
                     <li><button onclick="goRegister()">회원가입</button></li>
                     <li><button class="search">검색</button></li>
                     <li><a href="/"><button>장바구니</button></a></li>
-                    
+
                 </ul>
-                <!-- 제품 검색 데이터 보냄 -->
+              
                 <div class="formDiv">
-                <form method="POST" action="/">
-                  <input type="text" name="searchItem">
-                  <button type="submit" >O</button>
-                  <button type="button" class="cancel">X</button>
-                </form>
-                
-              </div>
+                    <form method="POST" action="/">
+                        <input type="text" name="searchItem">
+                        <button type="submit">O</button>
+                        <button type="button" class="cancel">X</button>
+                    </form>
+
+                </div>
             </nav>
-        </div>
-    </header>
+        </div> -->
+
+
 
     <!-- 메인1 페이지네이션? -->
-<section>
-<div class="pageContainer">
-
-    
-</div>
-
-</section>
-
-<!-- 메인2 상품들 -->
-<section>
-<article class="recommend">
-    <span>이 달의 추천 상품</span>
-</article>
-
-<div class="containerItem">
-  <!-- 관리자 페이지에서 상품 등록 시 나타날 부분 -->
-  <div class="item"></div>
-    <div class="item">2</div>
-    <div class="item">3</div>
-    <div class="item">4</div>
-    <div class="item">5</div>
-    <div class="item">6</div>
-    <div class="item">7</div>
-    <div class="item">8</div>
-    <div class="item">9</div>
-</div>
+    <section>
+        <div class="pageContainer">
 
 
-</section>
-    
-<!-- 쇼핑물 정보 외 -->
-<footer>
+        </div>
 
-</footer>
+    </section>
+
+    <!-- 메인2 상품들 -->
+    <section>
+        <article class="recommend">
+            <span>이 달의 추천 상품</span>
+        </article>
+
+        <div class="containerItem">
+            <!-- 관리자 페이지에서 상품 등록 시 나타날 부분 -->
+            <div class="item"></div>
+            <div class="item">2</div>
+            <div class="item">3</div>
+            <div class="item">4</div>
+            <div class="item">5</div>
+            <div class="item">6</div>
+            <div class="item">7</div>
+            <div class="item">8</div>
+            <div class="item">9</div>
+        </div>
+
+
+    </section>
+
+    <!-- 쇼핑물 정보 외 -->
+    <footer>
+
+    </footer>
 
 </body>
 <script src="home.js"></script>
+<script src="/renderingNav.js"></script>
+
 </html>

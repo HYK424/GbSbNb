@@ -21,7 +21,7 @@ function main() {
 
 
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
-async function addAllElements() {}
+async function addAllElements() { }
 
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
@@ -75,7 +75,7 @@ async function handleEdit(e) {
     // 확인 버튼 누를 시
     document
         .querySelector('#passwordCheckButton')
-        .addEventListener('click', function(e) {
+        .addEventListener('click', function (e) {
             e.preventDefault();
             const userToken = sessionStorage.getItem("token");
             // 토큰을 이용하여 BE에서 비밀번호 같은지 확인함
@@ -98,7 +98,7 @@ async function handleEdit(e) {
     // 취소 버튼 누를 시
     document
         .querySelector('#passwordCancelButton')
-        .addEventListener('click', function(e) {
+        .addEventListener('click', function (e) {
             e.preventDefault();
             document.querySelector('body').removeChild(modalEl);
             alert('비밀번호 입력 취소');
@@ -170,7 +170,7 @@ function handleDelete(e) {
     // 확인 버튼 누를 시
     document
         .querySelector('#passwordCheckButton')
-        .addEventListener('click', function(e) {
+        .addEventListener('click', function (e) {
             e.preventDefault();
             const userToken = sessionStorage.getItem("token");
             // 토큰을 이용하여 BE에서 비밀번호 같은지 확인함
@@ -191,7 +191,7 @@ function handleDelete(e) {
     // 취소 버튼 누를 시
     document
         .querySelector('#passwordCancelButton')
-        .addEventListener('click', function(e) {
+        .addEventListener('click', function (e) {
             e.preventDefault();
             document.querySelector('body').removeChild(modalEl);
             alert('계정 삭제 취소');
