@@ -1,6 +1,6 @@
 import { Schema } from 'mongoose';
 
-const shippingSchema = new Schema(
+const OrderSchema = new Schema(
   {
     productId: {
       type: String,
@@ -29,7 +29,9 @@ const shippingSchema = new Schema(
       require: false,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+  },
 );
 
-export { shippingSchema };
+export { OrderSchema };
