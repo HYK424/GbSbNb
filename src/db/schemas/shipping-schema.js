@@ -1,21 +1,13 @@
 import { Schema } from 'mongoose';
 
-const UserSchema = new Schema(
+const shippingSchema = new Schema(
   {
-    fullName: {
-      type: String,
-      required: true,
-    },
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
+    productId: {
       type: String,
       required: true,
     },
 
-    phoneNumber: {
+    state: {
       type: String,
       required: true,
     },
@@ -31,24 +23,25 @@ const UserSchema = new Schema(
           _id: false,
         },
       ),
-      required: true,
+      required: false,
     },
 
-    deletedAt: {
+    startedAt: {
       type: Date,
       require: false,
     },
 
-    role: {
-      type: String,
-      required: false,
-      default: 'basic-user',
+    completedAt: {
+      type: Date,
+      require: false,
+    },
+
+    retransferedAt: {
+      type: Date,
+      require: false,
     },
   },
-  {
-    collection: 'users',
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 
-export { UserSchema };
+export { shippingSchema };

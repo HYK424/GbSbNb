@@ -1,4 +1,9 @@
-import { userManagement, userService } from '../services';
+import {
+  userManagement,
+  productManagement,
+  shippingManagement,
+  userService,
+} from '../services';
 import is from '@sindresorhus/is';
 
 export const adminController = {
@@ -83,5 +88,17 @@ export const adminController = {
     const { status, check } = result;
 
     res.status(status).json({ check: check });
+  },
+
+  async getShipping(req, res) {
+    console.log('컨트롤러');
+    const state = req.query.state;
+    console.log(`state : ${state}`);
+
+    const result = await shippingManagement.getShipping(state);
+
+    //const { status, message, data } = result;
+
+    res.status(200).json('시험중');
   },
 };
