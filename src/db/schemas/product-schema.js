@@ -26,10 +26,8 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    view: {
-      type: Boolean,
-      required: true,
-      default: true,
+    deletedAt: {
+      type: Date,
     },
   },
   { timestamps: true },
