@@ -1,5 +1,6 @@
 import { userService } from '../services';
 import is from '@sindresorhus/is';
+
 export const userController = {
   logIn: async (req, res, next) => {
     console.log('로그인 컨트롤러');
@@ -57,6 +58,7 @@ export const userController = {
         address,
         phoneNumber,
       });
+
       if (newUser) {
         req.newUserMessage = '계정생성에 성공했습니다.';
       }
