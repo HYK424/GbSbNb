@@ -22,7 +22,14 @@ const OrderSchema = new Schema(
       type: String,
       required: true,
     },
-    deliveriedAt: {
+    address: {},
+    startedAt: {
+      type: Date,
+    },
+    completedAt: {
+      type: Date,
+    },
+    retransferedAt: {
       type: Date,
     },
     deletedAt: {
