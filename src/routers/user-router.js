@@ -12,6 +12,7 @@ userRouter.post(
   userValidator.createUser,
   loginAuthenticator.isNotLoggedIn,
   userController.createUser,
+  userController.logIn,
 );
 
 //로그인
