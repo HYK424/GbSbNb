@@ -1,15 +1,11 @@
 import { Router } from 'express';
-import {
-  getProductsByCategory,
-  addCategory,
-  updateCategory,
-} from '../controllers/category-controller';
+import { categoryController } from '../controllers';
 
 const categoryRouter = Router();
 
-categoryRouter.post('/', addCategory);
+categoryRouter.post('/', categoryController.addCategory);
 
-categoryRouter.get('/:categoryId', getProductsByCategory);
-categoryRouter.put('/:categoryId', updateCategory);
+categoryRouter.get('/:categoryId', categoryController.getProductsByCategory);
+categoryRouter.put('/:categoryId', categoryController.updateCategory);
 
 export { categoryRouter };
