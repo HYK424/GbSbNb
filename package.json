@@ -4,6 +4,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "nodemonConfig": {
+    "ignore": [
+      "**/views/*"
+    ]
+  },
   "scripts": {
     "build": "babel src -d dist",
     "start": "nodemon index.js --exec babel-node",
@@ -33,4 +38,5 @@
     "mongodb": "^4.11.0",
     "nodemon": "^2.0.20"
   }
+
 }

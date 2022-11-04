@@ -37,6 +37,7 @@ body {
   height: 460px;
   overflow: scroll;
 }
+
 .item {
   width: 95%;
   height: 150px;
@@ -72,6 +73,7 @@ body {
 #totalPrice b {
   color: brown;
 }
+
 .button {
   padding: 5px 10px;
   margin-left: 10px;
