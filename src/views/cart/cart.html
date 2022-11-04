@@ -2,58 +2,49 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="cart.css" />
-  <script src="cart.js" type="module" defer></script>
-  <title>쇼핑-n팀/장바구니</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="cart.css" />
+    <script src="cart.js" type="module" defer></script>
+    <title>쇼핑-n팀/장바구니</title>
 </head>
 
 <body>
-  <header>
-    <div id="logoDiv">logo</div>
-    <div id="logoDiv">개발세발네발🐶</div>
-  </header>
-  <main>
-    <div id="orderDiv">
-      <span id="orderForm">orderForm</span>
-      <div id="itemDiv">
-        <div class="item">
-          <input type="checkbox" />
-          <div class="itemBox"></div>
-        </div>
-        <div class="item">
-          <input type="checkbox" />
-          <div class="itemBox"></div>
-        </div>
-        <div class="item">
-          <input type="checkbox" />
-          <div class="itemBox"></div>
-          <div id="infoNameDiv">
-            <label id="selectAllDiv">
-              <input type="checkbox" id="selectAll" />
-              전체 선택
-            </label>
-            <div id="infoName">
-              <span>상품명</span>
-              <span>가격</span>
-              <span>수량</span>
-              <span>옵션</span>
+    <header>
+        <div id="logoDiv">logo</div>
+        <div id="logoDiv">개발세발네발🐶</div>
+    </header>
+    <main>
+        <div id="cartDiv">
+            <span id="cartForm">orderForm</span>
+            <div id="cartHeader">
+                <label class="checkbox">
+                <input type="checkbox" id="allSelectCheckbox"> 
+                <p>전체선택</p>
+                </label>
+                <p> | </p>
+                <label class="delete-part" id="partialDeleteLabel">
+                <p>선택삭제</p>
+                </label>
             </div>
-          </div>
-          <div id="itemDiv">
-            <!-- map 적용한 item 목록 출력(renderProductInCartList) -->
-          </div>
+            <div id="itemContainer">
+            </div>
+            <div id="cartSummery">
+                <dl>
+                    <dt>상품수</dt>
+                    <dd></dd>
+                    <dt>상품금액</dt>
+                    <dd></dd>
+                    <dt>배송비</dt>
+                    <dd></dd>
+                    <dt>총 결제금액</dt>
+                    <dd></dd>
+                </dl>
+            </div>
         </div>
-        <div id="buttonDiv">
-          <button class="button">모두 주문하기</button>
-          <div id="buttonAndTotalPriceDiv">
-            <span id="totalPrice"></span>
-            <button class="button">계속 쇼핑하기</button>
-            <button class="button">선택 상품 주문하기</button>
-          </div>
-  </main>
+
+    </main>
 </body>
 
 </html>

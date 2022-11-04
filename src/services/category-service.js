@@ -1,26 +1,22 @@
-import { categoryModel } from '../db';
-import { productModel } from '../db';
+import { ProductService } from '../db';
+import { CartModel } from '../db';
 
 class CategoryService {
-  constructor(categoryModel) {
-    this.categoryModel = categoryModel;
-  }
-
-  async addCategory({ name, id }) {
-    const newCategory = await this.categoryModel.create({
+  static async addCategory({ name, id }) {
+    const newCategory = await CartModel.create({
       name,
       id,
     });
     return newCategory;
   }
 
-  async getCategories() {
-    const categories = await this.categoryModel.findAll({});
+  static async getCategories() {
+    const categories = await CartModel.findAll({});
     return categories;
   }
 
-  async getProducts(categoryId, page, ITEMS_PER_PAGE) {
-    const products = await productModel.findByCategory(
+  static async getProducts(categoryId, page, ITEMS_PER_PAGE) {
+    const products = await ProductService.findByCategory(
       categoryId,
       page,
       ITEMS_PER_PAGE,
@@ -28,14 +24,14 @@ class CategoryService {
     return products;
   }
 
-  async getTotalPage(categoryId, ITEMS_PER_PAGE) {
-    const productCount = await productModel.countAll(categoryId);
+  static async getTotalPage(categoryId, ITEMS_PER_PAGE) {
+    const productCount = await ProductService.countAll(categoryId);
     const totalPage = Math.ceil(productCount / ITEMS_PER_PAGE);
     return totalPage;
   }
 
-  async updateCategory(categoryId, categoryInfo) {
-    const category = await this.categoryModel.findCategory(categoryId);
+  static async updateCategory(categoryId, categoryInfo) {
+    const category = await CartModel.findCategory(categoryId);
     if (!category) {
       throw new Error(
         '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
@@ -49,15 +45,12 @@ class CategoryService {
       id,
     };
 
-    const updatedCategory = await this.categoryModel.update(
-      categoryId,
-      updatedInfo,
-    );
+    const updatedCategory = await CartModel.update(categoryId, updatedInfo);
     return updatedCategory;
   }
 
-  // async deleteProduct(productId) {
-  //   let product = await this.categoryModel.findById(productId);
+  // static async deleteProduct(productId) {
+  //   let product = await CartModel.findById(productId);
 
   //   if (!product) {
   //     throw new Error(
@@ -65,12 +58,10 @@ class CategoryService {
   //     );
   //   }
 
-  //   const result = await this.categoryModel.delete(productId);
+  //   const result = await CartModel.delete(productId);
 
   //   return result;
   // }
 }
 
-const categoryService = new CategoryService(categoryModel);
-
-export { categoryService };
+export { CategoryService };

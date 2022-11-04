@@ -1,4 +1,4 @@
-const commonErrors = {
+export const commonErrors = {
   authenticationError: `Authentication Error`,
   authorizationError: `Authorization Error`,
   inputError: `Input Error`,
@@ -13,5 +13,3 @@ const commonErrors = {
   remoteStorageError: `Remote Storage Error`,
   requestValidationError: `Request Validation Error`,
 };
-
-export { commonErrors };

@@ -16,7 +16,7 @@ productRouter.post(
   '/',
   productImageUpload.single('image'),
   productValidator.createProduct,
-  productController.addProduct,
+  productController.createProduct,
 );
 productRouter.put(
   '/:productId',

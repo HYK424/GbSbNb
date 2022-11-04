@@ -3,7 +3,7 @@ import { cartController } from '../controllers';
 
 const cartRouter = Router();
 
-cartRouter.post('/', cartController.addToCart);
+cartRouter.post('/', cartController.addProductToCart);
 cartRouter.put('/', cartController.deleteProduct);
 cartRouter.delete('/', cartController.clearCart);
 

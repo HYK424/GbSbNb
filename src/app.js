@@ -7,7 +7,11 @@ import {
   categoryRouter,
   adminRouter,
 } from './routers';
-import { appErrorHandler } from './middlewares';
+import {
+  notFoundErrorHandler,
+  errorHandler,
+  appErrorHandler,
+} from './middlewares';
 
 const app = express();
 
@@ -28,8 +32,8 @@ app.use('/api/products', productRouter);
 
 app.use('/api/categories', categoryRouter);
 
-// 백엔드 라우터
-
+app.use(notFoundErrorHandler);
+app.use(errorHandler);
 app.use(appErrorHandler);
 
 export { app };
