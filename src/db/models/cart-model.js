@@ -1,16 +1,16 @@
 import { model } from 'mongoose';
 import { CartSchema } from '../schemas/category-schema';
 
-const Cart = model('cart', CartSchema);
+const Cart = model('Cart', CartSchema);
 
 export class CartModel {
-  async getCartItems(userId) {
+  static async getItems(userId) {
     const filter = { userId };
     const cart = await Cart.findOne(filter);
     return cart.items;
   }
 
-  async update(userId, updateInfo) {
+  static async update(userId, updateInfo) {
     const filter = { userId };
     const updatedCart = await Cart.findOneAndUpdate(filter, {
       items: updateInfo,
@@ -18,7 +18,7 @@ export class CartModel {
     return updatedCart;
   }
 
-  async deleteProduct(userId, updateInfo) {
+  static async deleteProduct(userId, updateInfo) {
     const filter = { userId };
     const updatedCart = await Cart.findOneAndUpdate(filter, {
       items: updateInfo,
@@ -26,7 +26,7 @@ export class CartModel {
     return updatedCart;
   }
 
-  async deleteAllProducts(userId, updateInfo) {
+  static async deleteAllProducts(userId, updateInfo) {
     const filter = { userId };
     const updatedCart = await Cart.findOneAndUpdate(filter, {
       items: updateInfo,
@@ -34,7 +34,3 @@ export class CartModel {
     return updatedCart;
   }
 }
-
-const cartModel = new CartModel();
-
-export { cartModel };

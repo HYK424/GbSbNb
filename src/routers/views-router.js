@@ -17,6 +17,9 @@ viewsRouter.use('/products/:productId', serveStatic('product-detail'));
 viewsRouter.use('/admin/post', serveStatic('adminPost'));
 viewsRouter.use('/admin/products/:productId', serveStatic('adminPost'));
 
+// 존재하지 않는 페이지에 접근하는 경우 404 페이지를 렌더링
+viewsRouter.use(serveStatic('404'));
+
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함
 viewsRouter.use('/', serveStatic(''));
 
