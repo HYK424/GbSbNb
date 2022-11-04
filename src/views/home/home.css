@@ -1,24 +1,22 @@
-*{
+* {
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
 }
 
-:root{
+:root {}
 
-}
-
-.containerHead{
+.containerHead {
   display: flex;
   justify-content: space-between;
 }
 
-.navBar{
+.navBar {
   list-style: none;
   display: flex;
 }
 
-.navBar li{
+.navBar li {
   padding-left: 15px;
 }
 
@@ -32,29 +30,30 @@
 
 
 /* 메인 */
-.recommend{
+.recommend {
   font-size: 22px;
-  padding: 40px 0px 20px 20px;;
+  padding: 40px 0px 20px 20px;
+  ;
 }
 
-.containerItem{
+.containerItem {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(3,minmax(350px,auto));
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, minmax(350px, auto));
 }
 
 
-.navBar li{
+.navBar li {
   padding-left: 15px;
 }
 
-.formDiv{
+.formDiv {
   display: none;
 }
 
-.formDiv.active{
-  display:inline;
+.formDiv.active {
+  display: inline;
 }
 
 a {
@@ -63,23 +62,24 @@ a {
 }
 
 /* 메인 */
-.recommend{
+.recommend {
   font-size: 22px;
-  padding: 40px 0px 20px 20px;;
+  padding: 40px 0px 20px 20px;
+  ;
 }
 
-.containerItem{
+.containerItem {
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3,1fr);
-  grid-template-rows: repeat(3,minmax(350px,auto));
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, minmax(350px, auto));
 }
 
 @media screen and (max-width: 980px) {
-  .containerItem{
-      display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(2,1fr);
-      grid-template-rows: repeat(5,minmax(250px,auto));
+  .containerItem {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(5, minmax(250px, auto));
   }
 }

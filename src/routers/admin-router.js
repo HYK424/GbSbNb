@@ -19,11 +19,13 @@ adminRouter.put('/allusers/:userId', adminController.forceChangeUserInfo);
 //지정 유저 비밀번호 초기화
 adminRouter.get('/allusers/:userId/password', adminController.resetPassword);
 
+/////////////////////////////
+
 //전체 배송 조회
-adminRouter.get('/shipping');
+adminRouter.get('/order', adminController.getOrder);
 
 //배송 정보 변경
-adminRouter.put('/shipping');
+adminRouter.put('/shipping/:shippingId/:state');
 
 //재고 조회
 adminRouter.get('/inventory');

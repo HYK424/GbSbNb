@@ -36,9 +36,8 @@ async function post(endpoint, data) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${
-        sessionStorage.getItem('token') ? sessionStorage.getItem('token') : ' '
-      }`,
+            Authorization: `Bearer ${sessionStorage.getItem('token') ? sessionStorage.getItem('token') : ' '
+                }`,
         },
         body: bodyData,
     });
@@ -123,4 +122,4 @@ async function del(endpoint, params = '', data = {}) {
 }
 
 // 아래처럼 export하면, import * as Api 로 할 시 Api.get, Api.post 등으로 쓸 수 있음.
-export {get, post, put, del as delete };
+export { get, post, put, del as delete };
