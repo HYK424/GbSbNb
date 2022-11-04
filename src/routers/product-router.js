@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { productController } from '../controllers';
 import { productImageUpload } from '../middlewares';
+import { productValidator } from '../middlewares/validation';
 
 import { loginAuthenticator } from '../middlewares/authentication';
 import { checkRole } from '../middlewares/authorization';
@@ -14,11 +15,13 @@ productRouter.get('/:productId', productController.getProudct);
 productRouter.post(
   '/',
   productImageUpload.single('image'),
+  productValidator.createProduct,
   productController.addProduct,
 );
 productRouter.put(
   '/:productId',
   productImageUpload.single('image'),
+  productValidator.createProduct,
   productController.updateProduct,
 );
 // productRouter.delete('/:productId', deleteProduct);

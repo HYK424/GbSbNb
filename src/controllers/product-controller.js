@@ -1,9 +1,15 @@
 import { productService } from '../services';
+import is from '@sindresorhus/is';
 
 const ITEMS_PER_PAGE = 9;
 
 export const productController = {
   addProduct: async (req, res, next) => {
+    if (is.emptyObject(req.body)) {
+      throw new AppError(
+        'headers의 Content-Type을 application/json으로 설정해주세요',
+      );
+    }
     const productInfo = { ...req.body, ...req.file };
     const newProduct = await productService.addProduct(productInfo);
     return res.status(201).json(newProduct);

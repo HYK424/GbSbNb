@@ -48,7 +48,7 @@ const OrderSchema = new Schema(
       type: Date,
     },
   },
-  { timestamps: true },
+  { collection: 'a', timestamps: true },
 );
 
 export { OrderSchema };

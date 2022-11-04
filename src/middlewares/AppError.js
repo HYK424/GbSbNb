@@ -4,7 +4,6 @@ class AppError extends Error {
 
     this.name = name;
     this.httpCode = httpCode;
-    Error.captureStackTrace(this);
   }
 }
 
