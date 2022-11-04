@@ -4,6 +4,10 @@ import { validateEmail } from "/useful-functions.js";
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector("#fullNameInput");
 const emailInput = document.querySelector("#emailInput");
+const telInput = document.querySelector("#telInput");
+const addressZipInput = document.querySelector("#addressZipInput");
+const addressBasicInput = document.querySelector("#addressBasicInput");
+const addressOptionInput = document.querySelector("#addressOptionInput");
 const passwordInput = document.querySelector("#passwordInput");
 const passwordConfirmInput = document.querySelector("#passwordConfirmInput");
 const submitButton = document.querySelector("#submitButton");

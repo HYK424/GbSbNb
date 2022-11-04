@@ -66,34 +66,50 @@
             <div class="field">
                 <label class="label" for="fullNameInput">이름</label>
                 <div class="control">
-                    <input class="input" id="fullNameInput" type="text" placeholder="유재석" autocomplete="on" disabled/>
+                    <input class="input able-when-edit" id="fullNameInput" type="text" placeholder="유재석" autocomplete="on" disabled/>
                 </div>
             </div>
 
             <div class="field">
                 <label class="label" for="emailInput">이메일</label>
                 <div class="control">
-                    <input class="input" id="emailInput" type="email" placeholder="abc@example.com" autocomplete="on" disabled/>
+                    <input class="input able-when-edit" id="emailInput" type="email" placeholder="abc@example.com" autocomplete="on" disabled/>
                 </div>
             </div>
 
-            <div class="field hidden-untill-edit">
+            <div class="field">
+                <label class="label" for="telInput">전화번호</label>
+                <div class="control">
+                    <input class="input able-when-edit" id="telInput" type="tel" placeholder="010-0000-0000" autocomplete="on" disabled/>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label" for="adressInput">주소</label>
+                <div class="control">
+                    <input class="input able-when-edit" id="addressZipInput" type="tel" placeholder="우편 변호" autocomplete="on" disabled/>
+                    <input class="input able-when-edit" id="addressBasicInput" type="tel" placeholder="기본 주소" autocomplete="on" disabled/>
+                    <input class="input able-when-edit" id="addressOptionInput" type="tel" placeholder="상세 주소" autocomplete="on" disabled/>
+                </div>
+            </div>
+
+            <div class="field hidden-until-edit">
                 <label class="label" for="passwordInput">비밀번호</label>
                 <div class="control">
                     <input class="input" id="passwordInput" type="password" placeholder="********" autocomplete="off" />
                 </div>
             </div>
 
-            <div class="field hidden-untill-edit mb-5">
+            <div class="field hidden-until-edit mb-5">
                 <label class="label" for="passwordConfirmInput">비밀번호 확인</label>
                 <div class="control">
                     <input class="input" id="passwordConfirmInput" type="password" placeholder="********" autocomplete="off" />
                 </div>
             </div>
 
-            <button class="button is-primary" id="editButton"> 내 정보 수정하기 </button>
-            <button class="button hidden-untill-edit is-primary" id="submitButton"> 수정 완료 </button>
-            <button class="button is-primary" id="deleteButton"> 회원 탈퇴하기 </button>
+            <button class="button hidden-when-edit is-primary" id="editButton"> 내 정보 수정하기 </button>
+            <button class="button hidden-until-edit is-primary" id="submitButton"> 수정 완료 </button>
+            <button class="button hidden-when-edit is-primary" id="deleteButton"> 회원 탈퇴하기 </button>
         </form>
     </div>
 </body>
