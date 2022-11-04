@@ -24,8 +24,6 @@ const getProudct = async (req, res, next) => {
 
 const updateProduct = async (req, res, next) => {
   const { productId } = req.params;
-  const tes = req.body.delete;
-  console.log(tes);
   const productInfo = { ...req.body, ...req.file };
   const updatedProduct = await productService.updateProduct(
     productId,

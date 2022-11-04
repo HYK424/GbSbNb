@@ -29,12 +29,8 @@
           <div class="col-10" id="imageContainer">
             <div class="card mb-3">
               <div class="row g-0 p-3">
-                <div class="col-md-6 p-2">
-                  <img
-                    src=""
-                    class="img-fluid rounded-start w-100"
-                    id="image"
-                  />
+                <div class="col-md-6 p-2 d-flex align-items-center">
+                  <img src="" class="img-fluid rounded-start" id="image" />
                 </div>
                 <div class="col-md-6">
                   <div class="card-body m-0 p-2">
@@ -121,7 +117,7 @@
                     class="d-flex justify-content-between align-items-center mx-3"
                   >
                     <div class="d-flex h-100">
-                      <p class="btn btn-primary" id="minus">-</p>
+                      <p class="btn btn-secondary" id="minus">-</p>
                       <input
                         type="text"
                         value="1"
@@ -129,13 +125,13 @@
                         id="count"
                         data-id=""
                       />
-                      <p class="btn btn-primary" id="plus">+</p>
+                      <p class="btn btn-secondary" id="plus">+</p>
                     </div>
-                    <button class="btn btn-primary me-5" id="addCart">
+                    <button class="btn btn-dark me-5" id="addCart">
                       장바구니 담기
                     </button>
                     <a
-                      class="btn btn-danger ms-5"
+                      class="btn btn-success ms-5"
                       href="javascript:history.back()"
                       >더 둘러보기</a
                     >
@@ -156,5 +152,6 @@
     ></script>
     <script src="/renderingNav.js"></script>
     <script src="product-detail.js"></script>
+    <script src="handle-cart.js"></script>
   </body>
 </html>
