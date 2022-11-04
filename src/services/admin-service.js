@@ -1,4 +1,4 @@
-import { userModel, productModel } from '../db';
+import { userModel, productModel, shippingModel } from '../db';
 import bcrypt from 'bcrypt';
 
 class AdminService {
@@ -48,9 +48,35 @@ class AdminService {
       }
     }
   }
+
+  async getShipping(state) {
+    console.log('서비스');
+
+    if (state === undefined) state = 'null';
+
+    console.log(`state : ${state}`);
+
+    const data = await this.shippingModel.findAll(state);
+
+    console.log(data);
+
+    // if (!data) {
+    //   return {
+    //     status: 400,
+    //     message: '배송 조회 실패',
+    //     data: null,
+    //   };
+    // }
+    // return {
+    //   status: 200,
+    //   message: '배송 조회 성공',
+    //   data: data,
+    // };
+  }
 }
 
 const userManagement = new AdminService('userModel');
 const productManagement = new AdminService('productModel');
+const shippingManagement = new AdminService();
 
-export { userManagement, productManagement };
+export { userManagement, productManagement, shippingManagement };
