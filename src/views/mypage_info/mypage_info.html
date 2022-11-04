@@ -64,47 +64,41 @@
         <form class="box register-user-form-box" id="registerUserForm">
             <p class="title is-5 has-text-primary">내 정보 확인</p>
             <div class="field">
-                <label class="label" for="fullNameInput">이름</label>
-                <div class="control">
-                    <input class="input able-when-edit" id="fullNameInput" type="text" placeholder="유재석" autocomplete="on" disabled/>
-                </div>
+                <label class="label" name="fullName">이름
+                    <input class="input able-when-edit" name="fullName" type="text" placeholder="유재석" autocomplete="on" disabled/>
+                </label>
             </div>
 
             <div class="field">
-                <label class="label" for="emailInput">이메일</label>
-                <div class="control">
-                    <input class="input able-when-edit" id="emailInput" type="email" placeholder="abc@example.com" autocomplete="on" disabled/>
-                </div>
+                <label class="label" name="email">이메일
+                    <input class="input able-when-edit" name="email" type="email" placeholder="abc@example.com" autocomplete="on" disabled/>
+                </label>
             </div>
 
             <div class="field">
-                <label class="label" for="telInput">전화번호</label>
-                <div class="control">
-                    <input class="input able-when-edit" id="telInput" type="tel" placeholder="010-0000-0000" autocomplete="on" disabled/>
-                </div>
+                <label class="label" name="phoneNumber">전화번호
+                    <input class="input able-when-edit" name="phoneNumber" type="tel" placeholder="010-0000-0000" autocomplete="on" disabled/>
+                </label>
             </div>
 
             <div class="field">
-                <label class="label" for="adressInput">주소</label>
-                <div class="control">
-                    <input class="input able-when-edit" id="addressZipInput" type="tel" placeholder="우편 변호" autocomplete="on" disabled/>
-                    <input class="input able-when-edit" id="addressBasicInput" type="tel" placeholder="기본 주소" autocomplete="on" disabled/>
-                    <input class="input able-when-edit" id="addressOptionInput" type="tel" placeholder="상세 주소" autocomplete="on" disabled/>
-                </div>
+                <label class="label" name="address">주소
+                    <input class="input able-when-edit" name="postalCode" type="number" placeholder="우편 변호" autocomplete="on" disabled/>
+                    <input class="input able-when-edit" name="address1" type="text" placeholder="기본 주소" autocomplete="on" disabled/>
+                    <input class="input able-when-edit" name="address2" type="text" placeholder="상세 주소" autocomplete="on" disabled/>
+                </label>
             </div>
 
             <div class="field hidden-until-edit">
-                <label class="label" for="passwordInput">비밀번호</label>
-                <div class="control">
-                    <input class="input" id="passwordInput" type="password" placeholder="********" autocomplete="off" />
-                </div>
+                <label class="label" name="password">비밀번호
+                    <input class="input" name="password" type="password" placeholder="********" autocomplete="off" />
+                </label>
             </div>
 
             <div class="field hidden-until-edit mb-5">
-                <label class="label" for="passwordConfirmInput">비밀번호 확인</label>
-                <div class="control">
-                    <input class="input" id="passwordConfirmInput" type="password" placeholder="********" autocomplete="off" />
-                </div>
+                <label class="label" name="passwordConfirm">비밀번호 확인
+                    <input class="input" name="passwordConfirm" type="password" placeholder="********" autocomplete="off" />
+                </label>
             </div>
 
             <button class="button hidden-when-edit is-primary" id="editButton"> 내 정보 수정하기 </button>
