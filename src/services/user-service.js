@@ -9,6 +9,7 @@ class UserService {
   }
   // 로그인
   async login(loginInfo) {
+    console.log('로그인 서비스');
     const { email, password } = loginInfo;
 
     // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
@@ -52,8 +53,8 @@ class UserService {
     );
 
     return {
-      message: '로그인에 성공하셨습니다.',
       status: 200,
+      message: '로그인에 성공하셨습니다.',
       token,
     };
   }
