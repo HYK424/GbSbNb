@@ -1,8 +1,8 @@
 import { Router } from 'express';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
-import { userController } from '../controllers/user-controller';
-import { loginAuthenticator } from '../middlewares/authentication';
-import { userValidator } from '../middlewares/validation/index';
+import { userController } from '../../controllers/user-controller';
+import { loginAuthenticator } from '../../middlewares/authentication';
+import { userValidator } from '../../middlewares/validation/index';
 
 const userRouter = Router();
 

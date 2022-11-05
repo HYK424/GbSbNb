@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { adminController } from '../controllers/admin-controller';
-import { loginAuthenticator } from '../middlewares/authentication';
-import { checkRole } from '../middlewares/authorization';
+import { adminController } from '../../controllers/admin-controller';
+import { loginAuthenticator } from '../../middlewares/authentication';
+import { checkRole } from '../../middlewares/authorization';
 
 const adminRouter = Router();
 //어드민 로그인, 권한 검증

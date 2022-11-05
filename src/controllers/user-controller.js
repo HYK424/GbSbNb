@@ -15,7 +15,7 @@ export const userController = {
 
       const result = await userService.login({ email, password });
 
-      const { status, token } = result;
+      const { status, token, role } = result;
 
       let { message } = result;
 
@@ -23,7 +23,15 @@ export const userController = {
         message = req.newUserMessage;
       }
 
-      res.status(status).json({ message: message, token: token });
+      let data = { message: message, token: token };
+
+      console.log(role);
+
+      if (role === 'ADMIN' || role === 'ADMIN_G') {
+        data.role = role;
+      }
+
+      res.status(status).json(data);
     } catch (error) {
       next(error);
     }
