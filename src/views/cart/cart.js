@@ -28,7 +28,8 @@ async function insertProductsfromCart() {
             alt="product-image"
         />
         <p id="title-${productId}">${title}</p>
-        <p id="unitPrice-${productId}">${price}원</p>
+        <p id="unitPrice-${productId}">${price}</p>
+        <p>원</p>
         <button class="button" id="minus-${productId}" ${quantity <= 1 ? "disabled" : ""}>
             -
         </button>
