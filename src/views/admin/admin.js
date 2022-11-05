@@ -19,7 +19,7 @@ async function innerItemCategory(i) {
     itemCategory.insertAdjacentHTML('beforeend', `
     <option value="${item}">${item}</option>
     `);
-    }
+  }
 
   //2. 기본적으로 전체 항목 렌더링
 

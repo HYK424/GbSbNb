@@ -1,6 +1,5 @@
 # Dependencies
 node_modules
-src/routers
 yarn.lock
 package-lock.json
 .env
