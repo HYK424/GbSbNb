@@ -11,6 +11,8 @@ const categoryNameInput = form2.querySelector('#categoryName');
 const categoryIdInput = form2.querySelector('#categoryId');
 let file;
 
+const categoryOption = form.querySelector('.category');
+
 thumbnailInput.addEventListener('change', handleFiles, false);
 function handleFiles() {
   file = this.files[0];
@@ -40,7 +42,7 @@ function formData() {
   const price = priceInput.value;
   const description = descriptionInput.value;
   const image = file;
-
+  
   const data = new FormData();
   data.enctype = 'multipart/form-data';
   data.append('title', title);
@@ -49,10 +51,20 @@ function formData() {
   data.append('price', price);
   data.append('description', description);
   data.append('image', image);
-
+  
   return data;
 }
 
+//빈 input에 채우기
+function inputPosts(data) {
+  titleInput.value = data.title;
+  categoryInput.value = data.categoryId;
+  manufactureInput.value = data.manufacturer;
+  priceInput.value = data.price;
+  descriptionInput.value = data.description;
+  
+  // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
+}
 //리셋
 function reset() {
   form.reset();
@@ -69,23 +81,20 @@ async function handleGetCategories() {
   });
   const categories = await res.json();
 
-  categories.forEach((category) => {
-    console.log(category);
-  })
-
   return categories;
 };
 
-//빈 input에 채우기
-function inputPosts(data) {
-  titleInput.value = data.title;
-  categoryInput.value = data.categoryId;
-  manufactureInput.value = data.manufacturer;
-  priceInput.value = data.price;
-  descriptionInput.value = data.description;
-
-  // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
+async function updateOptions(handleGetCategories){
+ const categories= await handleGetCategories();
+  // 카테고리 옵션 추가
+  console.log(categories);
+  categories.forEach((category) => {
+    categoryOption.insertAdjacentHTML('beforeend', `
+    <option value="${category}">${category}</option>
+    `);
+  })
 }
+
 
 async function adminPut(event) {
   event.preventDefault();
