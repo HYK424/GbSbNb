@@ -1,11 +1,20 @@
 import { Router } from 'express';
 import { categoryController } from '../../controllers';
+import { asyncHandler } from '../../middlewares';
 
 const categoryRouter = Router();
 
-categoryRouter.post('/', categoryController.createCategory);
+categoryRouter.get('/', asyncHandler(categoryController.getAllCategories));
+categoryRouter.post('/', asyncHandler(categoryController.createCategory));
 
-categoryRouter.get('/:categoryId', categoryController.getProductsByCategory);
-categoryRouter.put('/:categoryId', categoryController.updateCategory);
+categoryRouter.put(
+  '/:categoryId',
+  asyncHandler(categoryController.updateCategory),
+);
+
+categoryRouter.delete(
+  '/:categoryId',
+  asyncHandler(categoryController.deleteCategory),
+);
 
 export { categoryRouter };

@@ -4,36 +4,15 @@
   box-sizing: border-box;
 }
 
-:root {}
-
 .containerHead {
   display: flex;
   justify-content: space-between;
 }
 
-.navBar {
-  list-style: none;
-  display: flex;
-}
-
-.navBar li {
-  padding-left: 15px;
-}
-
-/* .formDiv{
-  display: none;
-}
-
-.formDiv.active{
-  display:inline;
-} */
-
-
 /* 메인 */
 .recommend {
   font-size: 22px;
   padding: 40px 0px 20px 20px;
-  ;
 }
 
 .containerItem {
@@ -42,7 +21,6 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, minmax(350px, auto));
 }
-
 
 .navBar li {
   padding-left: 15px;
@@ -65,7 +43,6 @@ a {
 .recommend {
   font-size: 22px;
   padding: 40px 0px 20px 20px;
-  ;
 }
 
 .containerItem {
@@ -82,4 +59,19 @@ a {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(5, minmax(250px, auto));
   }
+}
+
+.card {
+  width: 33%;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-link {
+  text-decoration: none;
+  color: black;
 }

@@ -3,7 +3,7 @@ class AppError extends Error {
     super(description);
 
     this.name = name;
-    this.httpCode = httpCode;
+    this.status = httpCode;
   }
 }
 const appErrorHandler = (err, req, res, next) => {

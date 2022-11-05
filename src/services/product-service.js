@@ -1,5 +1,5 @@
 import { ProductModel } from '../db';
-import { cloudinary } from '../middlewares';
+import { AppError, cloudinary, commonErrors } from '../middlewares';
 
 class ProductService {
   static async addProduct(productInfo) {
@@ -18,20 +18,42 @@ class ProductService {
     return newProduct;
   }
 
+  static async getTotalPage(ITEMS_PER_PAGE) {
+    const productCount = await ProductModel.countAll();
+    const totalPage = Math.ceil(productCount / ITEMS_PER_PAGE);
+    return totalPage;
+  }
+
   static async getProducts(page, ITEMS_PER_PAGE) {
     const products = await ProductModel.findByPage(page, ITEMS_PER_PAGE);
     return products;
   }
 
-  static async getProduct(productId) {
-    const product = await ProductModel.findById(productId);
-    return product;
-  }
-
-  static async getTotalPage(ITEMS_PER_PAGE) {
-    const productCount = await ProductModel.countAll();
+  static async getTotalPageByCategory(categoryName, ITEMS_PER_PAGE) {
+    const productCount = await ProductModel.countAll(categoryName);
     const totalPage = Math.ceil(productCount / ITEMS_PER_PAGE);
     return totalPage;
+  }
+
+  static async getProductsByCategory(categoryName, page, ITEMS_PER_PAGE) {
+    const products = await ProductModel.findByCategory(
+      categoryName,
+      page,
+      ITEMS_PER_PAGE,
+    );
+    return products;
+  }
+
+  static async getProduct(productId) {
+    const product = await ProductModel.findById(productId);
+    if (!product) {
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
+        '존재하지 않는 상품입니다. URL을 확인해주세요.',
+      );
+    }
+    return product;
   }
 
   static async updateProduct(productId, productInfo) {

@@ -1,15 +1,10 @@
 import { ProductService } from '../services';
-import is from '@sindresorhus/is';
+import { AppError, commonErrors } from '../middlewares';
 
 const ITEMS_PER_PAGE = 9;
 
 export const productController = {
   createProduct: async (req, res, next) => {
-    if (is.emptyObject(req.body)) {
-      throw new AppError(
-        'headers의 Content-Type을 application/json으로 설정해주세요',
-      );
-    }
     const productInfo = { ...req.body, ...req.file };
     const newProduct = await ProductService.addProduct(productInfo);
     return res.status(201).json(newProduct);
@@ -17,9 +12,28 @@ export const productController = {
 
   getProducts: async (req, res, next) => {
     const page = +req.query.page || 1;
-    const totalPage = await ProductService.getTotalPage(ITEMS_PER_PAGE);
-    const products = await ProductService.getProducts(page, ITEMS_PER_PAGE);
-    return res.status(200).json({ products, totalPage });
+    const categoryName = req.query.q;
+    if (categoryName) {
+      const totalPage = await ProductService.getTotalPageByCategory(
+        ITEMS_PER_PAGE,
+      );
+      if (page > totalPage) {
+        throw new AppError('페이지 에러', 400, '올바른 페이지를 입력하세요.');
+      }
+      const products = await ProductService.getProductsByCategory(
+        categoryName,
+        page,
+        ITEMS_PER_PAGE,
+      );
+      return res.status(200).json({ products, totalPage });
+    } else {
+      const totalPage = await ProductService.getTotalPage(ITEMS_PER_PAGE);
+      if (page > totalPage) {
+        throw new AppError('페이지 에러', 400, '올바른 페이지를 입력하세요.');
+      }
+      const products = await ProductService.getProducts(page, ITEMS_PER_PAGE);
+      return res.status(200).json({ products, totalPage });
+    }
   },
 
   getProudct: async (req, res, next) => {
