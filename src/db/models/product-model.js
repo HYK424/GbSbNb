@@ -26,21 +26,24 @@ export class ProductModel {
     return products;
   }
 
-  static async findByCategory(categoryId, page, ITEMS_PER_PAGE) {
-    const products = await Product.find({ categoryId: categoryId, view: true })
+  static async findByCategory(categoryName, page, ITEMS_PER_PAGE) {
+    const products = await Product.find({
+      categoryId: categoryName,
+      view: true,
+    })
       .skip((page - 1) * ITEMS_PER_PAGE)
       .limit(ITEMS_PER_PAGE);
     return products;
   }
 
-  static async countAll(categoryId) {
-    if (!categoryId) {
+  static async countAll(categoryName) {
+    if (!categoryName) {
       const productCount = await Product.find({ view: 1 }).countDocuments();
       return productCount;
     }
     const productCount = await Product.find({
       view: true,
-      categoryId,
+      categoryId: categoryName,
     }).countDocuments();
     return productCount;
   }

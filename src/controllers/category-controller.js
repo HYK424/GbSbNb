@@ -1,7 +1,5 @@
 import { CategoryService } from '../services';
 
-const ITEMS_PER_PAGE = 9;
-
 export const categoryController = {
   createCategory: async (req, res, next) => {
     const categoryInfo = { ...req.body };
@@ -11,22 +9,7 @@ export const categoryController = {
 
   getAllCategories: async (req, res, next) => {
     const categories = await CategoryService.getCategories();
-    return categories;
-  },
-
-  getProductsByCategory: async (req, res, next) => {
-    const { categoryId } = req.params;
-    const page = +req.query.page || 1;
-    const totalPage = await CategoryService.getTotalPage(
-      categoryId,
-      ITEMS_PER_PAGE,
-    );
-    const products = await CategoryService.getProducts(
-      categoryId,
-      page,
-      ITEMS_PER_PAGE,
-    );
-    return res.status(200).json({ products, totalPage });
+    return res.status(200).json(categories);
   },
 
   updateCategory: async (req, res, next) => {
