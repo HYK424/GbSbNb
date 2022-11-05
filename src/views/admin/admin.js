@@ -2,8 +2,6 @@ const itemList = document.querySelector('.itemList');
 const itemCategory = document.querySelector('.form-select-sm');
 const form = document.querySelector('#form');
 
-// innerItemList(getItems());
-
 innerItemCategory(getItems());
 
 async function getItems() {
@@ -22,15 +20,35 @@ async function innerItemCategory(i) {
   );
 
   for (let item of setCategory) {
-    itemCategory.insertAdjacentHTML(
-      'beforeend',
-      `
-  <option value="${item}">${item}</option>
-  `,
-    );
-  }
+    itemCategory.insertAdjacentHTML('beforeend', `
+    <option value="${item}">${item}</option>
+    `);
+    }
 
   //2. 기본적으로 전체 항목 렌더링
+
+  //   obj.foreach((item, index)=>{
+  //     itemList.insertAdjacentHTML('beforeend', `
+  //       <div class="posts" id="posts${index}">
+  //       <a class="a" href="/products/${item._id}">
+  //         <img src=${item.imageUrl} alt="">
+  //           <ul>
+  //             <li><span>제품명: ${item.title}</span> </li>
+  //             <li>제조사: ${item.manufacturer}</li>
+  //             <li><span>가격: <strong>${item.price}</strong> 원</span> </li>
+  //             <li>수정 날짜: ${item.createdAt}</li>
+  //             </a>
+  //             <button class="btn btn-outline-danger" id="itemDelete${index}">삭제</button>
+  //             <a href="/admin/products/${item._id}"><button class="btn btn-outline-danger" id="itemUpdate${i}">수정</button>
+  //             </a>
+  //             <button class="btn btn-outline-light" id="itemMain${index}">대표 상품 등록</button>
+  //             </ul>
+  //       </div>
+  // `);
+  //     deleteItem(item, index);
+  //   }
+  //   );
+
   for (let i = 0; i < obj.products.length; i++) {
     itemList.insertAdjacentHTML(
       'beforeend',

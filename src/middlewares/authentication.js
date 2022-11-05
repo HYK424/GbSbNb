@@ -7,20 +7,20 @@ export const loginAuthenticator = {
 
     console.log(req.headers);
 
-    const userToken = req.headers['authorization'].split(' ')[1];
-
-    if (!userToken || userToken === undefined) {
-      console.log(
-        `서비스 사용 요청이 있습니다.하지만, Authorization 토큰: ${userToken}`,
-      );
-      res.status(403).json({
-        result: '허용되지 않은 접근',
-        reason: '로그인한 유저만 사용할 수 있는 서비스입니다.',
-      });
-      return;
-    }
-
     try {
+      const userToken = req.headers['authorization'].split(' ')[1];
+
+      if (!userToken || userToken === undefined) {
+        console.log(
+          `서비스 사용 요청이 있습니다.하지만, Authorization 토큰: ${userToken}`,
+        );
+        res.status(403).json({
+          result: '허용되지 않은 접근',
+          reason: '로그인한 유저만 사용할 수 있는 서비스입니다.',
+        });
+        return;
+      }
+
       const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
 
       const jwtDecoded = jwt.verify(userToken, secretKey);
@@ -46,7 +46,6 @@ export const loginAuthenticator = {
         result: '허용되지 않은 접근',
         reason: '다시 로그인해 주십시오.',
       });
-
       return;
     }
   },

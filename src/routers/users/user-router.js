@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { orderController } from '../../controllers/order-controller';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { userController } from '../../controllers/user-controller';
 import { loginAuthenticator } from '../../middlewares/authentication';
@@ -6,6 +7,7 @@ import { userValidator } from '../../middlewares/validation/index';
 
 const userRouter = Router();
 
+//////// 계정관련 ////////
 //회원가입
 userRouter.post(
   '/',
@@ -45,5 +47,12 @@ userRouter.delete(
   userValidator.deleteUser,
   userController.deleteUser,
 );
+//////// 계정관련 ////////
 
+//////// 주문관련 ////////
+userRouter.post('/myorder', orderController.createMyOrders);
+
+userRouter.get('/myorder', orderController.getMyOrders);
+
+//////// 주문관련 ////////
 export { userRouter };

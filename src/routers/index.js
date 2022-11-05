@@ -5,7 +5,7 @@ import { Router } from 'express';
 // export * from './category-router';
 //export * from './admin-router';
 
-import { admin_userRouter } from './admins';
+import { adminRouter } from './admins';
 import { userRouter } from './users/user-router';
 import { cartRouter, categoryRouter, productRouter } from './commons';
 
@@ -13,7 +13,8 @@ import { viewsRouter } from './views-router';
 
 const router = Router();
 
-router.use('/admin', admin_userRouter);
+router.use('/admin', adminRouter);
+
 router.use('/users', userRouter);
 router.use('/products', productRouter);
 router.use('/cart', cartRouter);
