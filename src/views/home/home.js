@@ -15,17 +15,20 @@ async function renderProducts() {
 }
 
 function renderProduct(product) {
-  const productCard = `<div class="card mb-4" style="width: 27%"><a href="" class="card-link">
-    <img src="${product.imageUrl}" class="card-img-top thumbnail mt-2"/>
+  const productCard = `<div class="card mb-4 shadow-lg" style="width: 27%"><a href="/products/${
+    product._id
+  }" class="card-link">
+    <img src="${
+      product.imageUrl
+    }" class="card-img-top thumbnail mt-2 rounded shadow-sm"/>
     <div class="card-body p-2">
-      <h5 class="card-title my-0">${product.title}</h5>
-      <p class="card-text">
-        ${product.description.slice(0, 20)}
+      <h5 class="card-title mt-0 mb-2">${product.title}</h5>
+      <p class="card-text overflow-hidden">
+        ${product.description}
       </p>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">${product.price}</li>
-      <li class="list-group-item">A third item</li>
+      <li class="list-group-item p-0 pb-2">${product.price.toLocaleString()}원</li>
     </ul>
     </a></div>`;
   productContainer.insertAdjacentHTML('beforeend', productCard);

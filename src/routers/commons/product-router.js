@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { productController } from '../../controllers';
-import { productImageUpload } from '../../middlewares';
+import { productImageUpload } from '../../util';
 import { productValidator } from '../../middlewares/validation';
 import { asyncHandler } from '../../middlewares';
 

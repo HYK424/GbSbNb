@@ -1,15 +1,3 @@
-#search {
-  width: 250px;
-}
-
-.search-form {
-  width: 400px;
-}
-
-#cart-notification {
-  opacity: 0.9;
-}
-
 #image-container {
   border: 2px solid black;
   border-radius: 30px;

@@ -15,6 +15,7 @@ export const jwtModule = {
       const decodeToken = jwt.verify(accessToken, secretKey);
       return decodeToken;
     } catch (err) {
+      console.log('여기서 에러가 터지는 게 맞나요?');
       if (err.name === 'TokenExpiredError') {
         res.status(419).json({
           message: '로그인이 만료되었습니다.',

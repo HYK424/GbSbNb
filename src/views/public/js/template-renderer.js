@@ -1,13 +1,15 @@
 const hostTitle = document.querySelector('title');
 const favicon = document.createElement('link');
 const nav = document.querySelector('#nav');
+const footer = document.querySelector('#footer');
 
 const cartItems = JSON.parse(localStorage.getItem('cart'));
 const cartItemsTotalCount = cartItems?.length;
 
 async function main() {
   setHeader();
-  nav.innerHTML = renderingNav();
+  nav.innerHTML = renderNav();
+  footer.innerHTML = renderFooter();
   const searchForm = document.querySelector('#searchForm');
   searchForm.addEventListener('submit', handleSearchSubmit);
   handleGetCategories();
@@ -22,7 +24,7 @@ function setHeader() {
   document.head.appendChild(favicon);
 }
 
-function renderingNav() {
+function renderNav() {
   return `<div class="d-flex ms-5">
         <a class="navbar-brand ms-3" href="/">개발세발네발🐶</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -94,6 +96,15 @@ function renderingNav() {
             >
           </li>
         </ul>
+      </div>`;
+}
+
+function renderFooter() {
+  return `<div class="w-100 d-flex justify-content-center align-items-center">
+        <a class="mx-5 btn btn-dark opacity-75">회사소개</a>
+        <a class="mx-5 btn btn-dark opacity-75">공지사항</a>
+        <a class="mx-5 btn btn-dark opacity-75">입점 / 제휴문의</a>
+        <a class="mx-5 btn btn-dark opacity-75">고객의 소리</a>
       </div>`;
 }
 

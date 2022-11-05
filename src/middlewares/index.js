@@ -3,4 +3,3 @@
 
 export * from './errors';
 export * from './login-required';
-export * from './product-image-upload';
