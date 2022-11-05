@@ -2,6 +2,7 @@ import { userModel } from '../db';
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { jwtModule } from '../util/jwt';
 
 class UserService {
   constructor(userModel) {
@@ -39,24 +40,32 @@ class UserService {
       );
     }
 
-    const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+    const accessToken = jwtModule.access(user._id, user.role);
 
-    const token = jwt.sign(
-      {
-        userId: user._id,
-        role: user.role,
-      },
-      secretKey,
-      {
-        expiresIn: process.env.ACCESS_EXPIRE,
-      },
-    );
+    const refreshToken = jwtModule.refresh();
+
+    console.log(`accessToken : ${accessToken}`);
+
+    console.log(`refreshToken : ${refreshToken}`);
+
+    // const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
+
+    // const token = jwt.sign(
+    //   {
+    //     userId: user._id,
+    //     role: user.role,
+    //   },
+    //   secretKey,
+    //   {
+    //     expiresIn: process.env.ACCESS_EXPIRE,
+    //   },
+    // );
 
     return {
       status: 200,
       message: '로그인에 성공하셨습니다.',
       role: user.role,
-      token,
+      accessToken,
     };
   }
 

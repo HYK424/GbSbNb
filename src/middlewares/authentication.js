@@ -8,7 +8,7 @@ export const loginAuthenticator = {
     console.log(req.headers);
 
     try {
-      const userToken = req.headers['authorization'].split(' ')[1];
+      const userToken = req.headers['authorization']?.split(' ')[1];
 
       if (!userToken || userToken === undefined) {
         console.log(
