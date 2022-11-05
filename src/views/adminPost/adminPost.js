@@ -29,8 +29,8 @@ async function adminPostOrPut() {
     const productData = await product.json();
     inputPosts(productData);
     form.addEventListener('submit', adminPut);
-    form2.style.display='none';
-    
+    form2.style.display = 'none';
+
   }
 }
 
@@ -42,7 +42,7 @@ function formData() {
   const price = priceInput.value;
   const description = descriptionInput.value;
   const image = file;
-  
+
   const data = new FormData();
   data.enctype = 'multipart/form-data';
   data.append('title', title);
@@ -51,7 +51,7 @@ function formData() {
   data.append('price', price);
   data.append('description', description);
   data.append('image', image);
-  
+
   return data;
 }
 
@@ -62,7 +62,7 @@ function inputPosts(data) {
   manufactureInput.value = data.manufacturer;
   priceInput.value = data.price;
   descriptionInput.value = data.description;
-  
+
   // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
 //리셋
@@ -81,19 +81,19 @@ async function handleGetCategories() {
   });
   const categories = await res.json();
 
-  return categories;
+  async function updateOptions(categories) {
+    // 카테고리 옵션 추가
+    console.log(categories);
+    categories.forEach((category) => {
+      categoryOption.insertAdjacentHTML('beforeend', `
+      <option value="${category}">${category}</option>
+      `);
+    })
+  }
+  updateOptions(categories);
 };
 
-async function updateOptions(handleGetCategories){
- const categories= await handleGetCategories();
-  // 카테고리 옵션 추가
-  console.log(categories);
-  categories.forEach((category) => {
-    categoryOption.insertAdjacentHTML('beforeend', `
-    <option value="${category}">${category}</option>
-    `);
-  })
-}
+
 
 
 async function adminPut(event) {
