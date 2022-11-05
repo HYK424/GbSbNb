@@ -16,11 +16,19 @@ const OrderSchema = new Schema(
           type: Number,
           required: true,
         },
+        eachPrice: {
+          type: Number,
+          required: true,
+        },
+        totalItemPrice: {
+          type: Number,
+          required: true,
+        },
       },
     ],
-    status: {
+    state: {
       type: String,
-      required: true,
+      default: 'standby',
     },
     address: {
       type: new Schema(
@@ -35,6 +43,12 @@ const OrderSchema = new Schema(
       ),
       required: false,
     },
+
+    // totalprice: {
+    //   type: Number,
+    //   required: true,
+    // },
+
     startedAt: {
       type: Date,
     },
@@ -48,7 +62,7 @@ const OrderSchema = new Schema(
       type: Date,
     },
   },
-  { collection: 'a', timestamps: true },
+  { collection: 'orders', timestamps: true },
 );
 
 export { OrderSchema };

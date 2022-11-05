@@ -5,11 +5,11 @@ export const userController = {
   logIn: async (req, res, next) => {
     console.log('로그인 컨트롤러');
     try {
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요',
-        );
-      }
+      // if (is.emptyObject(req.body)) {
+      //   throw new Error(
+      //     'headers의 Content-Type을 application/json으로 설정해주세요',
+      //   );
+      // }
 
       const { email, password } = req.body;
 
