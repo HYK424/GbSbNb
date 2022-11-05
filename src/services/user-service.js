@@ -55,6 +55,7 @@ class UserService {
     return {
       status: 200,
       message: '로그인에 성공하셨습니다.',
+      role: user.role,
       token,
     };
   }

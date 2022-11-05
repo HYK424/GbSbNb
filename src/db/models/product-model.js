@@ -4,48 +4,51 @@ import { ProductSchema } from '../schemas/product-schema';
 const Product = model('Product', ProductSchema);
 
 export class ProductModel {
-  async create(productInfo) {
+  static async create(productInfo) {
     const newProduct = await Product.create(productInfo);
     return newProduct;
   }
   // Admin 페이지용
-  async findAll() {
+  static async findAll() {
     const products = await Product.find({});
     return products;
   }
 
-  async findById(productId) {
+  static async findById(productId) {
     const product = await Product.findOne({ _id: productId });
     return product;
   }
 
-  async findByPage(page, ITEMS_PER_PAGE) {
+  static async findByPage(page, ITEMS_PER_PAGE) {
     const products = await Product.find({ view: true })
       .skip((page - 1) * ITEMS_PER_PAGE)
       .limit(ITEMS_PER_PAGE);
     return products;
   }
 
-  async findByCategory(categoryId, page, ITEMS_PER_PAGE) {
-    const products = await Product.find({ categoryId: categoryId, view: true })
+  static async findByCategory(categoryName, page, ITEMS_PER_PAGE) {
+    const products = await Product.find({
+      categoryId: categoryName,
+      view: true,
+    })
       .skip((page - 1) * ITEMS_PER_PAGE)
       .limit(ITEMS_PER_PAGE);
     return products;
   }
 
-  async countAll(categoryId) {
-    if (!categoryId) {
+  static async countAll(categoryName) {
+    if (!categoryName) {
       const productCount = await Product.find({ view: 1 }).countDocuments();
       return productCount;
     }
     const productCount = await Product.find({
       view: true,
-      categoryId,
+      categoryId: categoryName,
     }).countDocuments();
     return productCount;
   }
 
-  async update(productId, updatedInfo) {
+  static async update(productId, updatedInfo) {
     const filter = { _id: productId };
     const option = { returnOriginal: false };
 
@@ -57,13 +60,9 @@ export class ProductModel {
     return updatedProduct;
   }
 
-  // async delete(productId) {
+  // static delete: async (productId) {
   //   const filter = { _id: productId };
   //   const result = await Product.findOneAndDelete(filter);
   //   return result;
   // }
 }
-
-const productModel = new ProductModel();
-
-export { productModel };

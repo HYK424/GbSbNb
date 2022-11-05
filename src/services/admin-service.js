@@ -64,19 +64,6 @@ class AdminService {
 
     console.log('스키마 종료');
     console.log(data);
-
-    // if (!data) {
-    //   return {
-    //     status: 400,
-    //     message: '배송 조회 실패',
-    //     data: null,
-    //   };
-    // }
-    // return {
-    //   status: 200,
-    //   message: '배송 조회 성공',
-    //   data: data,
-    // };
   }
 }
 

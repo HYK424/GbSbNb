@@ -1,38 +1,21 @@
-import { categoryService } from '../services';
-
-const ITEMS_PER_PAGE = 9;
+import { CategoryService } from '../services';
 
 export const categoryController = {
-  addCategory: async (req, res, next) => {
+  createCategory: async (req, res, next) => {
     const categoryInfo = { ...req.body };
-    const newCategory = await categoryService.addCategory(categoryInfo);
+    const newCategory = await CategoryService.addCategory(categoryInfo);
     return res.status(201).json(newCategory);
   },
 
   getAllCategories: async (req, res, next) => {
-    const categories = await categoryService.getCategories();
-    return categories;
-  },
-
-  getProductsByCategory: async (req, res, next) => {
-    const { categoryId } = req.params;
-    const page = +req.query.page || 1;
-    const totalPage = await categoryService.getTotalPage(
-      categoryId,
-      ITEMS_PER_PAGE,
-    );
-    const products = await categoryService.getProducts(
-      categoryId,
-      page,
-      ITEMS_PER_PAGE,
-    );
-    return res.status(200).json({ products, totalPage });
+    const categories = await CategoryService.getCategories();
+    return res.status(200).json(categories);
   },
 
   updateCategory: async (req, res, next) => {
     const { categoryId } = req.params;
     const categoryInfo = { ...req.body };
-    const updatedCategory = await categoryService.updateCategory(
+    const updatedCategory = await CategoryService.updateCategory(
       categoryId,
       categoryInfo,
     );
@@ -41,7 +24,7 @@ export const categoryController = {
 
   // const deletecategory = async (req, res, next) => {
   //   const { categoryId } = req.params;
-  //   const result = await categoryService.deletecategory(categoryId);
+  //   const result = await CategoryService.deletecategory(categoryId);
   //   return res.status(200).json(result);
   // };
 };

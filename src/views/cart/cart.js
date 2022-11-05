@@ -1,100 +1,75 @@
-const productInCartList = [
-  {
-    img: '../../../images/views/cart/cartTempImage.jpeg',
-    name: '하얀 니트와 청반바지',
-    price: 50000,
-    quantity: 1,
-    option: 'small',
-  },
-  {
-    img: '../../../images/views/cart/cartTempImage.jpeg',
-    name: '하얀 니트와 청반바지',
-    price: 50000,
-    quantity: 2,
-    option: 'small',
-  },
-  {
-    img: '../../../images/views/cart/cartTempImage.jpeg',
-    name: '하얀 니트와 청반바지',
-    price: 50000,
-    quantity: 3,
-    option: 'small',
-  },
-  {
-    img: '../../../images/views/cart/cartTempImage.jpeg',
-    name: '하얀 니트와 청반바지',
-    price: 50000,
-    quantity: 2,
-    option: 'small',
-  },
-  {
-    img: '../../../images/views/cart/cartTempImage.jpeg',
-    name: '하얀 니트와 청반바지',
-    price: 50000,
-    quantity: 2,
-    option: 'small',
-  },
-  {
-    img: '../../../images/views/cart/cartTempImage.jpeg',
-    name: '하얀 니트와 청반바지',
-    price: 50000,
-    quantity: 2,
-    option: 'small',
-  },
-];
+import * as cartDB from "./cart_db.js";
 
-const fetchFake = (url, payload) =>
-  new Promise((resolve, reject) => resolve(productInCartList));
+addAllElements();
+addAllEvents();
 
-const fetchProductInCart = async () => {
-  const data = await fetchFake(URL);
-  return data;
-};
+function addAllElements() {
+    insertProductsfromCart();
+}
 
-let totalPrice = 0;
+async function insertProductsfromCart() {
+    const cartItems = cartDB.getItemAll();
+    for (let item of cartItems) {
+        let { productId, quantity } = item;
+        let itemGet = await Api.get("/api/products", productId);
+        let { price, title, imageUrl } = itemGet;
 
-const renderProductInCartListAndTotalPrice = () => {
-  const itemList = fetchProductInCart();
-  itemList.then(
-    (data) =>
-      (document.getElementById('itemDiv').innerHTML = data
-        .map(
-          (item) =>
-            `<div class="item">
-            <input type="checkbox" name="checkBox" class="checkBox"/>
-            <div class="itemBox">
-              <img class="image" src=${item.img}>
-              <div class="info">
-                <div class="name">${item.name}</div>
-                <div class="price">${item.price} won</div>
-                <div class="quantity">${item.quantity}</div>
-                <div class="option">${item.option}</div>
-              </div>
-            </div>
-          </div>`,
-        )
-        .join('')),
-  );
+        const itemContainer = document.querySelector("#itemContainer");
+        const itemHTML = `<div class="item-div" id="productItem-${productId}">
+        <label class="checkbox">
+            <input type="checkbox" id="checkbox-${productId}" checked>
+        </label>
+        <button class="delete-button" id="delete-${productId}">
+            지우기
+        </button>
+        <img
+            id="image-${productId}"
+            src="${imageUrl}"
+            alt="product-image"
+        />
+        <p id="title-${productId}">${title}</p>
+        <p id="unitPrice-${productId}">${price}원</p>
+        <button class="button" id="minus-${productId}" ${quantity <= 1 ? "disabled" : ""}>
+            -
+        </button>
+        <input class="input" id="quantityInput-${productId}" type="number" min="1" max="99" value="${quantity}"/>
+        <button class="button" id="plus-${productId}" ${quantity >= 99 ? "disabled" : ""}>
+            +
+        </button>
+        <p id="totalPrice-${productId}">${quantity * price}원</p>
+    </div>`;
 
-  itemList.then((data) => {
-    data.map((item) => {
-      totalPrice = item.quantity * item.price;
-    });
-  });
+        itemContainer.insertAdjacentHTML("beforeend", itemHTML);
 
-  document.getElementById(
-    'totalPrice',
-  ).innerHTML = `총 주문 가격 + 배송비 : ${totalPrice} + 2500 = <b>${
-    totalPrice + 2500
-  }</b>원`;
-};
+        document
+            .querySelector(`#delete-${productId}`)
+            .addEventListener("click", () => deleteItem(productId));
 
-renderProductInCartListAndTotalPrice();
+        document
+            .querySelector(`#checkbox-${productId}`)
+            .addEventListener("change", () => toggleItem(productId));
 
-const selectAllCheckBox = document.getElementById('selectAll');
-selectAllCheckBox.addEventListener('click', function () {
-  const checkboxes = document.getElementsByName('checkBox');
-  for (let checkbox of checkboxes) {
-    checkbox.checked = this.checked;
-  }
-});
+        document
+            .querySelector(`#plus-${productId}`)
+            .addEventListener("click", () => increaseItemQuantity(productId));
+
+        document
+            .querySelector(`#minus-${productId}`)
+            .addEventListener("click", () => decreaseItemQuantity(productId));
+
+        document
+            .querySelector(`#quantityInput-${productId}`)
+            .addEventListener("change", () => handleQuantityInput(productId));
+    }
+}
+
+async function deleteItem(id) {
+    cartDB.deleteItem(id);
+
+    // 결제정보를 업데이트함.
+
+    // 제품 요소(컴포넌트)를 페이지에서 제거함
+    document.querySelector(`#productItem-${id}`).remove();
+
+    // 전체선택 체크박스를 업데이트함
+}
