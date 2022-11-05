@@ -1,17 +1,22 @@
 import cors from 'cors';
 import express from 'express';
-import {
-  viewsRouter,
-  userRouter,
-  productRouter,
-  categoryRouter,
-  adminRouter,
-} from './routers';
+
 import {
   notFoundErrorHandler,
   errorHandler,
   appErrorHandler,
 } from './middlewares';
+
+// import {
+//   viewsRouter,
+//   userRouter,
+//   productRouter,
+//   categoryRouter,
+//   adminRouter,
+// } from './routers';
+import { router } from './routers';
+
+import { viewsRouter } from './routers';
 
 const app = express();
 
@@ -24,13 +29,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(viewsRouter);
 
 // 백엔드 라우터
-app.use('/api/users', userRouter);
 
-app.use('/api/admin', adminRouter);
+// app.use('/api/users', userRouter);
 
-app.use('/api/products', productRouter);
+app.use('/api', router);
 
-app.use('/api/categories', categoryRouter);
+// app.use('/api/products', productRouter);
+
+// app.use('/api/categories', categoryRouter);
 
 app.use(notFoundErrorHandler);
 app.use(errorHandler);

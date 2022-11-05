@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { productController } from '../controllers';
-import { productImageUpload } from '../middlewares';
-import { productValidator } from '../middlewares/validation';
+import { productController } from '../../controllers';
+import { productImageUpload } from '../../middlewares';
+import { productValidator } from '../../middlewares/validation';
 
-import { loginAuthenticator } from '../middlewares/authentication';
-import { checkRole } from '../middlewares/authorization';
+import { loginAuthenticator } from '../../middlewares/authentication';
+import { checkRole } from '../../middlewares/authorization';
 
 const productRouter = Router();
 

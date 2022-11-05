@@ -7,13 +7,17 @@ innerItemCategory(getItems());
 async function getItems() {
   const posts = await fetch('http://localhost:3000/api/products');
   const itemLists = await posts.json();
-  return itemLists
+  return itemLists;
 }
 
 async function innerItemCategory(i) {
   //1. 카테고리 만들기
   const obj = await i;
-  const setCategory = new Set(obj.products.map((e) => { return e.categoryId }));
+  const setCategory = new Set(
+    obj.products.map((e) => {
+      return e.categoryId;
+    }),
+  );
 
   for (let item of setCategory) {
     itemCategory.insertAdjacentHTML('beforeend', `
@@ -46,7 +50,9 @@ async function innerItemCategory(i) {
   //   );
 
   for (let i = 0; i < obj.products.length; i++) {
-    itemList.insertAdjacentHTML('beforeend', `
+    itemList.insertAdjacentHTML(
+      'beforeend',
+      `
       <div class="posts" id="posts${i}">
       <a class="a" href="/products/${obj.products[i]._id}">
         <img src=${obj.products[i].imageUrl} alt="">
@@ -62,7 +68,8 @@ async function innerItemCategory(i) {
             <button class="btn btn-outline-light" id="itemMain${i}">대표 상품 등록</button>
             </ul>
       </div>
-`);
+`,
+    );
     deleteItem(obj.products[i], i);
   }
 
@@ -75,10 +82,11 @@ async function innerItemCategory(i) {
 
     itemList.innerHTML = '';
 
-    if (selectItem == "full") {
-
+    if (selectItem == 'full') {
       for (let i = 0; i < obj.products.length; i++) {
-        itemList.insertAdjacentHTML('beforeend', `
+        itemList.insertAdjacentHTML(
+          'beforeend',
+          `
             <div class="posts" id="posts${i}">
             <a class="a" href="/products/${obj.products[i]._id}">
               <img src=${obj.products[i].imageUrl} alt="">
@@ -94,7 +102,8 @@ async function innerItemCategory(i) {
                   <button class="btn btn-outline-light" id="itemMain${i}">대표 상품 등록</button>
                   </ul>
             </div>
-      `);
+      `,
+        );
         deleteItem(obj.products[i], i);
       }
     } else {
@@ -102,8 +111,9 @@ async function innerItemCategory(i) {
       const objItem = await categoryItems.json();
 
       for (let i = 0; i < objItem.products.length; i++) {
-
-        itemList.insertAdjacentHTML('beforeend', `
+        itemList.insertAdjacentHTML(
+          'beforeend',
+          `
             <div class="posts" id="posts${i}">
             <a class="a" href="/products/${objItem.products[i]._id}">
               <img src=${objItem.products[i].imageUrl} alt="">
@@ -119,11 +129,12 @@ async function innerItemCategory(i) {
                   <button class="btn btn-outline-light" id="itemMain${i}">대표 상품 등록</button>
                   </ul>
             </div>
-      `);
+      `,
+        );
         deleteItem(objItem.products[i], i);
       }
     }
-  })
+  });
 }
 
 function deleteItem(obj, i) {
@@ -132,15 +143,14 @@ function deleteItem(obj, i) {
   btn.addEventListener('click', async () => {
     div.remove();
     await fetch(`http://localhost:3000/api/products/${obj._id}`, {
-      method: "PUT",
+      method: 'PUT',
       body: JSON.stringify({ delete: 'yes' }),
       headers: { 'Content-Type': 'application/json' },
-    }
-    )
+    });
   });
 }
 
 function goPost() {
-  const login = "/admin/post";
+  const login = '/admin/post';
   location.href = login;
 }
