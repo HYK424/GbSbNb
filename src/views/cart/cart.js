@@ -1,4 +1,9 @@
 import * as cartDB from "./cart_db.js";
+import * as cartTempDB from "./cart_temp_db.js";
+
+const itemCountAll = document.querySelector('#itemCountAll');
+const itemPriceAll = document.querySelector('#itemPriceAll');
+const totalPrice = document.querySelector('#totalPrice');
 
 addAllElements();
 addAllEvents();
@@ -68,9 +73,21 @@ async function deleteItem(id) {
     cartDB.deleteItem(id);
 
     // 결제정보를 업데이트함.
+    cartTempDB.deleteItem(id);
+    updateBill()
 
     // 제품 요소(컴포넌트)를 페이지에서 제거함
     document.querySelector(`#productItem-${id}`).remove();
 
     // 전체선택 체크박스를 업데이트함
+}
+
+function updateBill() {
+    itemCountAll.innerHTML = cartTempDB.getTotalCount()
+    itemPriceAll.innerHTML = cartTempDB.getTotalPrice()
+    totalPrice.innerHTML = cartTempDB.getTotalPrice() + 3000
+}
+
+async function increaseItemQuantity() {
+    const newQuantity = '';
 }
