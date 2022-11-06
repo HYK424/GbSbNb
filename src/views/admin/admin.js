@@ -5,7 +5,7 @@ const form = document.querySelector('#form');
 innerItemCategory(getItems());
 
 async function getItems() {
-  const posts = await fetch('http://localhost:3000/api/products');
+  const posts = await fetch('/api/products');
   const itemLists = await posts.json();
   return itemLists;
 }
@@ -15,39 +15,16 @@ async function innerItemCategory(i) {
   const obj = await i;
   const setCategory = new Set(
     obj.products.map((e) => {
-      return e.categoryId;
+      return e.category;
     }),
   );
 
+  //카테고리 option 추가
   for (let item of setCategory) {
     itemCategory.insertAdjacentHTML('beforeend', `
     <option value="${item}">${item}</option>
     `);
   }
-
-  //2. 기본적으로 전체 항목 렌더링
-
-  //   obj.foreach((item, index)=>{
-  //     itemList.insertAdjacentHTML('beforeend', `
-  //       <div class="posts" id="posts${index}">
-  //       <a class="a" href="/products/${item._id}">
-  //         <img src=${item.imageUrl} alt="">
-  //           <ul>
-  //             <li><span>제품명: ${item.title}</span> </li>
-  //             <li>제조사: ${item.manufacturer}</li>
-  //             <li><span>가격: <strong>${item.price}</strong> 원</span> </li>
-  //             <li>수정 날짜: ${item.createdAt}</li>
-  //             </a>
-  //             <button class="btn btn-outline-danger" id="itemDelete${index}">삭제</button>
-  //             <a href="/admin/products/${item._id}"><button class="btn btn-outline-danger" id="itemUpdate${i}">수정</button>
-  //             </a>
-  //             <button class="btn btn-outline-light" id="itemMain${index}">대표 상품 등록</button>
-  //             </ul>
-  //       </div>
-  // `);
-  //     deleteItem(item, index);
-  //   }
-  //   );
 
   for (let i = 0; i < obj.products.length; i++) {
     itemList.insertAdjacentHTML(
@@ -74,7 +51,6 @@ async function innerItemCategory(i) {
   }
 
   //3. 이후 카테고리 선택마다 렌더링
-
   select.addEventListener('change', async (event) => {
     event.preventDefault();
     const select = document.querySelector('#select');
@@ -107,6 +83,7 @@ async function innerItemCategory(i) {
         deleteItem(obj.products[i], i);
       }
     } else {
+      //상품 조회(카테고리)에서 실행
       const categoryItems = await fetch(`/api/categories/${selectItem}`);
       const objItem = await categoryItems.json();
 

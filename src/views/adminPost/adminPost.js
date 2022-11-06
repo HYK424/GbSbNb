@@ -11,7 +11,7 @@ const categoryNameInput = form2.querySelector('#categoryName');
 const categoryIdInput = form2.querySelector('#categoryId');
 let file;
 
-const categoryOption = form.querySelector('.category');
+const select = form.querySelector('.select');
 
 thumbnailInput.addEventListener('change', handleFiles, false);
 function handleFiles() {
@@ -21,48 +21,49 @@ function handleFiles() {
 adminPostOrPut();
 
 async function adminPostOrPut() {
-  if (!adminPostPath().length) {
+  if (!getProductId().length) {
+    handleGetCategories();
     form.addEventListener('submit', adminPost);
     form2.addEventListener('submit', categoryPost);
   } else {
-    const product = await fetch(`http://localhost:3000/api/products/${adminPostPath()}`)
-    const productData = await product.json();
+    handleGetCategories();
+    const productData = await fetch(`/api/products/${getProductId()}`)
+      .then(res => res.json());
     inputPosts(productData);
     form.addEventListener('submit', adminPut);
     form2.style.display = 'none';
-
   }
 }
 
 //FormData생성
 function formData() {
   const title = titleInput.value;
-  const categoryId = categoryInput.value;
   const manufacturer = manufactureInput.value;
   const price = priceInput.value;
   const description = descriptionInput.value;
   const image = file;
+  const category = select.options[select.selectedIndex].value;
 
   const data = new FormData();
   data.enctype = 'multipart/form-data';
   data.append('title', title);
-  data.append('categoryId', categoryId);
+  data.append('category', category);
   data.append('manufacturer', manufacturer);
   data.append('price', price);
   data.append('description', description);
   data.append('image', image);
-
   return data;
 }
 
 //빈 input에 채우기
 function inputPosts(data) {
   titleInput.value = data.title;
-  categoryInput.value = data.categoryId;
   manufactureInput.value = data.manufacturer;
   priceInput.value = data.price;
   descriptionInput.value = data.description;
-
+  select.insertAdjacentHTML('afterbegin', `
+  <option selected value="${data.category}">${data.category}</option>
+  `);
   // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
 //리셋
@@ -71,36 +72,33 @@ function reset() {
 }
 
 //productsId반환
-function adminPostPath() {
+function getProductId() {
   return window.location.pathname.split('/')[3];
 }
 
+//카테고리들 가져오면서 원래 있던 옵션에 카테고리들 추가
 async function handleGetCategories() {
-  const res = await fetch(/api/categories, {
-    method: 'GET',
-  });
-  const categories = await res.json();
+  const categories = await fetch('/api/categories')
+    .then(res => res.json());
 
   async function updateOptions(categories) {
     // 카테고리 옵션 추가
+    //추후 option의 value를 category.name으로 바꿀 것
     console.log(categories);
     categories.forEach((category) => {
-      categoryOption.insertAdjacentHTML('beforeend', `
-      <option value="${category}">${category}</option>
+      select.insertAdjacentHTML('beforeend', `
+      <option value="${category.name}">${category.name}</option>
       `);
     })
   }
   updateOptions(categories);
 };
 
-
-
-
 async function adminPut(event) {
   event.preventDefault();
   //productsId에 해당하는 상품 상세 정보 가져와서 조작
   try {
-    await fetch(`http://localhost:3000/api/products/${adminPostPath()}`, {
+    await fetch(`http://localhost:3000/api/products/${getProductId()}`, {
       method: 'PUT',
       body: formData(),
     })
@@ -143,4 +141,3 @@ async function categoryPost(event) {
     console.log(error);
   }
 }
-
