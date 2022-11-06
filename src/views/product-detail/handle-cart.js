@@ -1,14 +1,14 @@
-const minusBtn = document.querySelector('#minus');
-const plusBtn = document.querySelector('#plus');
-const cartBtn = document.querySelector('#addCart');
-const countElement = document.querySelector('#count');
-const cartNotification = document.querySelector('#cartNotification');
+const minusBtn = document.getElementById('minus');
+const plusBtn = document.getElementById('plus');
+const cartBtn = document.getElementById('addCart');
+const countElement = document.getElementById('count');
+const cartNotification = document.getElementById('cartNotification');
 
 cartBtn.addEventListener('click', handleCartBtnClick);
-minusBtn.addEventListener('click', handleminusBtnClick);
+minusBtn.addEventListener('click', handleMinusBtnClick);
 plusBtn.addEventListener('click', handlePlusBtnClick);
 
-function handleminusBtnClick() {
+function handleMinusBtnClick() {
   let count = Number(countElement.value);
   if (count <= 1) return;
   count--;
@@ -21,26 +21,31 @@ function handlePlusBtnClick() {
   countElement.value = count;
 }
 
-function handleCartBtnClick() {
+async function handleCartBtnClick() {
   const productId = window.location.pathname.split('/')[2];
   const quantity = Number(countElement.value);
-  console.log(quantity);
   const newItem = { productId, quantity };
-  if (!localStorage.getItem('cart')) {
-    const emptyArray = [];
-    localStorage.setItem('cart', JSON.stringify(emptyArray));
-  }
-  const cartItems = JSON.parse(localStorage.getItem('cart'));
-  console.log(cartItems);
-  const updatedCartItems = [...cartItems];
+  const cartItems = ((stringifiedCart) => JSON.parse(stringifiedCart))(
+    localStorage.getItem('cart') || JSON.stringify([]),
+  );
   const itemIndex = cartItems.findIndex((item) => item.productId === productId);
 
   if (itemIndex >= 0) {
-    updatedCartItems[itemIndex].quantity += quantity;
+    cartItems[itemIndex].quantity += quantity;
   } else {
-    updatedCartItems.push(newItem);
+    cartItems.push(newItem);
   }
-  localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+  const updatedCartItems = JSON.stringify(cartItems);
+  if (sessionStorage.getItem('token')) {
+    await fetch('/api/cart/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    });
+  }
+  localStorage.setItem('cart', updatedCartItems);
   updateCartNotification(updatedCartItems.length);
 }
 

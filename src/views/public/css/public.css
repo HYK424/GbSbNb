@@ -1,0 +1,33 @@
+html {
+  height: 1vh;
+}
+
+#search {
+  width: 250px;
+}
+
+.search-form {
+  width: 400px;
+}
+
+#cart-notification {
+  opacity: 0.9;
+}
+
+#toPrevious {
+  margin-left: 200px;
+  padding-bottom: 50px;
+}
+
+#left-arrow {
+  font-size: 80px;
+}
+
+#toNext {
+  margin-right: 200px;
+  padding-bottom: 50px;
+}
+
+#right-arrow {
+  font-size: 80px;
+}

@@ -8,7 +8,6 @@ export class ProductModel {
     const newProduct = await Product.create(productInfo);
     return newProduct;
   }
-  // Admin 페이지용
   static async findAll() {
     const products = await Product.find({});
     return products;
@@ -19,6 +18,15 @@ export class ProductModel {
     return product;
   }
 
+  static async findByKeyword(keyword) {
+    const products = await Product.find({
+      title: {
+        $regex: new RegExp(keyword, 'i'),
+      },
+    });
+    return products;
+  }
+
   static async findByPage(page, ITEMS_PER_PAGE) {
     const products = await Product.find({ view: true })
       .skip((page - 1) * ITEMS_PER_PAGE)
@@ -26,24 +34,24 @@ export class ProductModel {
     return products;
   }
 
-  static async findByCategory(categoryName, page, ITEMS_PER_PAGE) {
+  static async findByCategory(categoryName, page, itemsPerPage) {
     const products = await Product.find({
-      categoryId: categoryName,
+      category: categoryName,
       view: true,
     })
-      .skip((page - 1) * ITEMS_PER_PAGE)
-      .limit(ITEMS_PER_PAGE);
+      .skip((page - 1) * itemsPerPage)
+      .limit(itemsPerPage);
     return products;
   }
 
   static async countAll(categoryName) {
     if (!categoryName) {
-      const productCount = await Product.find({ view: 1 }).countDocuments();
+      const productCount = await Product.find({ view: true }).countDocuments();
       return productCount;
     }
     const productCount = await Product.find({
       view: true,
-      categoryId: categoryName,
+      category: categoryName,
     }).countDocuments();
     return productCount;
   }
@@ -60,9 +68,9 @@ export class ProductModel {
     return updatedProduct;
   }
 
-  // static delete: async (productId) {
-  //   const filter = { _id: productId };
-  //   const result = await Product.findOneAndDelete(filter);
-  //   return result;
-  // }
+  static async delete(productId) {
+    const filter = { _id: productId };
+    const result = await Product.findOneAndDelete(filter);
+    return result;
+  }
 }

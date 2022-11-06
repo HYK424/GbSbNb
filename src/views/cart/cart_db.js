@@ -2,6 +2,13 @@ function getItemAll() {
     return JSON.parse(localStorage.getItem('cart'));
 }
 
+function getItemQuantity(productId) {
+    const cartItems = JSON.parse(localStorage.getItem('cart'));
+    const updatedCartItems = [...cartItems];
+    const itemIndex = cartItems.findIndex((item) => item.productId === productId);
+    return updatedCartItems[itemIndex].quantity
+}
+
 function deleteItem(productId) {
     const cartItems = JSON.parse(localStorage.getItem('cart'));
     const updatedCartItems = [...cartItems];
@@ -17,4 +24,4 @@ function updateItem(productId, quantity) {
     localStorage.setItem('cart', JSON.stringify(updatedCartItems));
 }
 
-export { getItemAll, deleteItem, updateItem };
+export { getItemAll, getItemQuantity, deleteItem, updateItem };

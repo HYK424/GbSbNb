@@ -3,19 +3,12 @@ import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
-    console.log('로그인 컨트롤러');
     try {
-      // if (is.emptyObject(req.body)) {
-      //   throw new Error(
-      //     'headers의 Content-Type을 application/json으로 설정해주세요',
-      //   );
-      // }
-
       const { email, password } = req.body;
 
       const result = await userService.login({ email, password });
 
-      const { status, token, role } = result;
+      const { status, role, accessToken, refreshToken } = result;
 
       let { message } = result;
 
@@ -23,9 +16,10 @@ export const userController = {
         message = req.newUserMessage;
       }
 
-      let data = { message: message, token: token };
-
-      console.log(role);
+      let data = {
+        message: message,
+        tokens: { accessToken: accessToken, refreshToken: refreshToken },
+      };
 
       if (role === 'ADMIN' || role === 'ADMIN_G') {
         data.role = role;
@@ -37,12 +31,15 @@ export const userController = {
     }
   },
 
-  getMyInfo: async (req, res) => {
+  getMyInfo: async (req, res, next) => {
     const userId = req.currentUserId;
+    console.log(userId);
 
     const result = await userService.getMyInfo(userId);
 
     const { status, message, userInfo } = result;
+
+    console.log('반환시작');
 
     res.status(status).json({ message: message, userInfo: userInfo });
   },
