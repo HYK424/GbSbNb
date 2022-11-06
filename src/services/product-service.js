@@ -1,6 +1,5 @@
 import { ProductModel } from '../db';
 import { AppError, commonErrors } from '../middlewares';
-import { cloudinary } from '../middlewares';
 
 class ProductService {
   static async createProduct(productInfo) {
@@ -115,11 +114,7 @@ class ProductService {
     }
 
     const { title, price, description, manufacturer } = productInfo;
-    const view = productInfo.view || true;
     const category = productInfo.category || product.category;
-    if (productInfo.path) {
-      cloudinary.uploader.destroy(product.path);
-    }
     const imageUrl = productInfo.path || product.imageUrl;
 
     const updatedInfo = {
@@ -128,7 +123,6 @@ class ProductService {
       price,
       description,
       imageUrl,
-      view,
       manufacturer,
     };
 
@@ -136,7 +130,7 @@ class ProductService {
     return updatedProduct;
   }
 
-  static async deleteProduct(productId) {
+  static async softDeleteProduct(productId) {
     let product = await ProductModel.findById(productId);
 
     if (!product) {
@@ -144,8 +138,8 @@ class ProductService {
         '해당 제품이 존재하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
-
-    const result = await ProductModel.delete(productId);
+    const updateInfo = product.view ? { view: false } : { view: true };
+    const result = await ProductModel.softDelete(productId, updateInfo);
 
     return result;
   }

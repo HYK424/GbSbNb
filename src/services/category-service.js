@@ -33,7 +33,6 @@ class CategoryService {
     return updatedCategory;
   }
 
-  // 카테고리를 삭제하면 그 안에 있는 상품은 어떻게 할 지 고민.
   static async deleteCategory(categoryId) {
     const category = await CategoryModel.findById(categoryId);
 

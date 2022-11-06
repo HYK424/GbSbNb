@@ -68,9 +68,9 @@ export class ProductModel {
     return updatedProduct;
   }
 
-  static async delete(productId) {
+  static async softDelete(productId, updateInfo) {
     const filter = { _id: productId };
-    const result = await Product.findOneAndDelete(filter);
+    const result = await Product.findOneAndUpdate(filter, updateInfo);
     return result;
   }
 }

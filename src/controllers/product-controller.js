@@ -82,7 +82,7 @@ export const productController = {
 
   deleteProduct: async (req, res, next) => {
     const { productId } = req.params;
-    const result = await ProductService.deleteProduct(productId);
+    const result = await ProductService.softDeleteProduct(productId);
     return res.status(200).json(result);
   },
 };
