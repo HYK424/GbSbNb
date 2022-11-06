@@ -1,21 +1,38 @@
-const search = document.querySelector('.search');
-const form = document.querySelector('.formDiv');
-const cancel = document.querySelector('.cancel');
-const items = document.querySelectorAll('.item');
-const productContainer = document.querySelector('#productContainer');
+const productContainer = document.getElementById('productContainer');
+const pageContainer = document.getElementById('pageContainer');
 
 async function renderProducts() {
-  const res = await fetch(`/api/products`, {
-    method: 'get',
-  });
-  const data = await res.json();
-  const products = data.products;
+  let data;
+  if (location.href.split('?')[1]) {
+    const query = location.href
+      .split('?')[1]
+      .split('&')
+      .map((query) => query.split('='));
+    let page = query.filter((q) => q[0] === 'page')[0];
+    if (page) page = page[1];
+    const category = query.filter((q) => q[0] === 'q')[0][1];
+    console.log(page, category);
+    if (category || page) {
+      if (category && page) {
+        data = await (
+          await fetch(`/api/products?q=${category}&page=${page}`)
+        ).json();
+      } else if (category) {
+        data = await (await fetch(`/api/products?q=${category}`)).json();
+      } else if (page) {
+        data = await (await fetch(`/api/products?page=${page}`)).json();
+      }
+    }
+  } else {
+    data = await (await fetch(`/api/products`)).json();
+  }
+  const { products } = data;
   const { totalPage } = data;
   products.forEach(renderProduct);
 }
 
 function renderProduct(product) {
-  const productCard = `<div class="card mb-4 shadow-lg" style="width: 27%"><a href="/products/${
+  const productCard = `<div class="card mb-4 shadow-lg ms-5" style="width: 27%"><a href="/products/${
     product._id
   }" class="card-link">
     <img src="${

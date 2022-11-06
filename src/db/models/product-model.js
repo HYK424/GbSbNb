@@ -26,24 +26,24 @@ export class ProductModel {
     return products;
   }
 
-  static async findByCategory(categoryName, page, ITEMS_PER_PAGE) {
+  static async findByCategory(categoryName, page, itemsPerPage) {
     const products = await Product.find({
-      categoryId: categoryName,
+      category: categoryName,
       view: true,
     })
-      .skip((page - 1) * ITEMS_PER_PAGE)
-      .limit(ITEMS_PER_PAGE);
+      .skip((page - 1) * itemsPerPage)
+      .limit(itemsPerPage);
     return products;
   }
 
   static async countAll(categoryName) {
     if (!categoryName) {
-      const productCount = await Product.find({ view: 1 }).countDocuments();
+      const productCount = await Product.find({ view: true }).countDocuments();
       return productCount;
     }
     const productCount = await Product.find({
       view: true,
-      categoryId: categoryName,
+      category: categoryName,
     }).countDocuments();
     return productCount;
   }
@@ -60,9 +60,9 @@ export class ProductModel {
     return updatedProduct;
   }
 
-  // static delete: async (productId) {
-  //   const filter = { _id: productId };
-  //   const result = await Product.findOneAndDelete(filter);
-  //   return result;
-  // }
+  static async delete(productId) {
+    const filter = { _id: productId };
+    const result = await Product.findOneAndDelete(filter);
+    return result;
+  }
 }

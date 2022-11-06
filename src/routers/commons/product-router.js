@@ -25,6 +25,9 @@ productRouter.put(
   productValidator.createProduct,
   asyncHandler(productController.updateProduct),
 );
-// productRouter.delete('/:productId', async(productController.deleteProduct));
+productRouter.delete(
+  '/:productId',
+  asyncHandler(productController.deleteProduct),
+);
 
 export { productRouter };

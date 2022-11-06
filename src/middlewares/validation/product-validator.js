@@ -11,9 +11,9 @@ export const productValidator = {
       .notEmpty()
       .isNumeric({ min: 1000, max: 10000000 })
       .withMessage('가격은 1,000원 이상, 1,000만원 이하로 입력하세요.'),
-    body('categoryId')
+    body('category')
       .notEmpty()
-      .isLength({ min: 6, max: 12 })
+      .isLength({ min: 2, max: 8 })
       .withMessage('카테고리 ID는 6자 이상, 12자 이하입니다.'),
     body('description')
       .notEmpty()
