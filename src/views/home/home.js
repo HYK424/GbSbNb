@@ -40,9 +40,9 @@ function renderProduct(product) {
     }" class="card-img-top thumbnail mt-2 rounded shadow-sm"/>
     <div class="card-body p-2">
       <h5 class="card-title mt-0 mb-2">${product.title}</h5>
-      <p class="card-text overflow-hidden">
-        ${product.description}
-      </p>
+      <div class="overflow-hidden" id="product-description">${
+        product.description
+      }</div>
     </div>
     <ul class="list-group list-group-flush">
       <li class="list-group-item p-0 pb-2">${product.price.toLocaleString()}원</li>
