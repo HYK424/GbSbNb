@@ -21,7 +21,7 @@ function handlePlusBtnClick() {
   countElement.value = count;
 }
 
-function handleCartBtnClick() {
+async function handleCartBtnClick() {
   const productId = window.location.pathname.split('/')[2];
   const quantity = Number(countElement.value);
   const newItem = { productId, quantity };
@@ -35,7 +35,17 @@ function handleCartBtnClick() {
   } else {
     cartItems.push(newItem);
   }
-  localStorage.setItem('cart', JSON.stringify(cartItems));
+  const updatedCartItems = JSON.stringify(cartItems);
+  if (sessionStorage.getItem('token')) {
+    await fetch('/api/cart/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      },
+    });
+  }
+  localStorage.setItem('cart', updatedCartItems);
   updateCartNotification(updatedCartItems.length);
 }
 

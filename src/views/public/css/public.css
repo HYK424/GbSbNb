@@ -1,5 +1,5 @@
-body {
-  height: 100vh;
+html {
+  height: 1vh;
 }
 
 #search {
@@ -12,4 +12,22 @@ body {
 
 #cart-notification {
   opacity: 0.9;
+}
+
+#toPrevious {
+  margin-left: 200px;
+  padding-bottom: 50px;
+}
+
+#left-arrow {
+  font-size: 80px;
+}
+
+#toNext {
+  margin-right: 200px;
+  padding-bottom: 50px;
+}
+
+#right-arrow {
+  font-size: 80px;
 }

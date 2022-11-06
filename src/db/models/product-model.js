@@ -8,7 +8,6 @@ export class ProductModel {
     const newProduct = await Product.create(productInfo);
     return newProduct;
   }
-  // Admin 페이지용
   static async findAll() {
     const products = await Product.find({});
     return products;
@@ -17,6 +16,15 @@ export class ProductModel {
   static async findById(productId) {
     const product = await Product.findOne({ _id: productId });
     return product;
+  }
+
+  static async findByKeyword(keyword) {
+    const products = await Product.find({
+      title: {
+        $regex: new RegExp(keyword, 'i'),
+      },
+    });
+    return products;
   }
 
   static async findByPage(page, ITEMS_PER_PAGE) {

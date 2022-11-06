@@ -29,6 +29,11 @@ function setHead() {
   favicon.sizes = '16x16';
   favicon.href = '/public/img/favicon.png';
   document.head.appendChild(favicon);
+
+  document.head.insertAdjacentHTML(
+    'beforeend',
+    `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />`,
+  );
 }
 
 function renderNav() {
@@ -49,7 +54,7 @@ function getNaveHTML() {
       <ul class="dropdown-menu" id="categoryFilter">
       </ul>
       </div>
-      <div class="search-form me-5">
+      <div class="search-form ms-3 me-5">
       <form class="d-flex" role="search" id="searchForm">
       <input
       class="form-control me-2"
@@ -124,7 +129,7 @@ function getFooterHTML() {
 
 async function handleSearchSubmit(event) {
   event.preventDefault();
-  const input = document.getElemetById('search');
+  const input = document.getElementById('search');
   const query = input.value;
-  location.href = `/search?q=${query}`;
+  location.href = `/search?keyword=${query}`;
 }

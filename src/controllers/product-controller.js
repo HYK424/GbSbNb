@@ -14,28 +14,54 @@ export const productController = {
     const page = Math.abs(+req.query.page) || 1;
     const categoryName = req.query.q;
     if (categoryName) {
-      const totalPage = await ProductService.getTotalPageByCategory(
-        categoryName,
-        ITEMS_PER_PAGE,
-      );
+      const { totalPage, productCount } =
+        await ProductService.getTotalPageByCategory(
+          categoryName,
+          ITEMS_PER_PAGE,
+        );
       if (page > totalPage) {
         throw new AppError('페이지 에러', 400, '올바른 페이지를 입력하세요.');
       }
-      console.log(page, categoryName);
       const products = await ProductService.getProductsByCategory(
         categoryName,
         page,
         ITEMS_PER_PAGE,
       );
-      return res.status(200).json({ products, totalPage });
+      return res.status(200).json({
+        products,
+        totalPage,
+        productCount,
+        currentPage: page,
+        hasNextPage: ITEMS_PER_PAGE * page < productCount,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+      });
     } else {
-      const totalPage = await ProductService.getTotalPage(ITEMS_PER_PAGE);
+      const { totalPage, productCount } = await ProductService.getTotalPage(
+        ITEMS_PER_PAGE,
+      );
       if (page > totalPage) {
         throw new AppError('페이지 에러', 400, '올바른 페이지를 입력하세요.');
       }
       const products = await ProductService.getProducts(page, ITEMS_PER_PAGE);
-      return res.status(200).json({ products, totalPage });
+      return res.status(200).json({
+        products,
+        totalPage,
+        currentPage: page,
+        productCount,
+        hasNextPage: ITEMS_PER_PAGE * page < productCount,
+        hasPreviousPage: page > 1,
+        nextPage: page + 1,
+        previousPage: page - 1,
+      });
     }
+  },
+
+  getProudctsByKeyword: async (req, res, next) => {
+    const { keyword } = req.query;
+    const products = await ProductService.getProudctsByKeyword(keyword);
+    return res.status(200).json({ products, productsCount: products.length });
   },
 
   getProudct: async (req, res, next) => {

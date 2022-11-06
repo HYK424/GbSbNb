@@ -43,7 +43,7 @@ class ProductService {
       );
     }
     const totalPage = Math.ceil(productCount / itemsPerPage);
-    return totalPage;
+    return { totalPage, productCount };
   }
 
   static async getProducts(page, itemsPerPage) {
@@ -58,6 +58,11 @@ class ProductService {
     return products;
   }
 
+  static async getProudctsByKeyword(keyword) {
+    const products = await ProductModel.findByKeyword(keyword);
+    return products;
+  }
+
   static async getTotalPageByCategory(categoryName, itemsPerPage) {
     const productCount = await ProductModel.countAll(categoryName);
     if (!productCount) {
@@ -68,7 +73,7 @@ class ProductService {
       );
     }
     const totalPage = Math.ceil(productCount / itemsPerPage);
-    return totalPage;
+    return { totalPage, productCount };
   }
 
   static async getProductsByCategory(categoryName, page, itemsPerPage) {

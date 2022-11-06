@@ -1,5 +1,7 @@
 const productContainer = document.getElementById('productContainer');
 const pageContainer = document.getElementById('pageContainer');
+const toPrevious = document.getElementById('toPrevious');
+const toNext = document.getElementById('toNext');
 
 async function renderProducts() {
   let data;
@@ -26,8 +28,17 @@ async function renderProducts() {
   } else {
     data = await (await fetch(`/api/products`)).json();
   }
-  const { products } = data;
-  const { totalPage } = data;
+  console.log(data);
+  const {
+    products,
+    currentPage,
+    hasNextPage,
+    hasPreviousPage,
+    nextPage,
+    previousPage,
+  } = data;
+  if (!hasNextPage) toNext.remove();
+  if (!hasPreviousPage) toPrevious.remove();
   products.forEach(renderProduct);
 }
 
