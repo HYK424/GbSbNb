@@ -1,0 +1,15 @@
+# Dependencies
+node_modules
+yarn.lock
+package-lock.json
+.env
+**/.DS_Store
+./vscode
+
+# Static
+images/
+
+# Template
+issue_dev_template.md
+merge_request_template.md
+README_BE.md
