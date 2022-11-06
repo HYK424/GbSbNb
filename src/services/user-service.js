@@ -1,27 +1,24 @@
 import { userModel } from '../db';
 
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+
 import { jwtModule } from '../util/jwt';
 
 class UserService {
   constructor(userModel) {
     this.userModel = userModel;
   }
-  // 로그인
+
   async login(loginInfo) {
-    console.log('로그인 서비스');
+    console.log('서비스');
     const { email, password } = loginInfo;
 
-    // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
     const user = await this.userModel.findByEmail(email);
     if (!user) {
       throw new Error(
         '해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.',
       );
     }
-
-    console.log(user); //이렇게 받는 것은 안전한가??
 
     if (user['deletedAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
@@ -42,30 +39,14 @@ class UserService {
 
     const accessToken = jwtModule.access(user._id, user.role);
 
-    const refreshToken = jwtModule.refresh();
-
-    console.log(`accessToken : ${accessToken}`);
-
-    console.log(`refreshToken : ${refreshToken}`);
-
-    // const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-
-    // const token = jwt.sign(
-    //   {
-    //     userId: user._id,
-    //     role: user.role,
-    //   },
-    //   secretKey,
-    //   {
-    //     expiresIn: process.env.ACCESS_EXPIRE,
-    //   },
-    // );
+    const refreshToken = jwtModule.refresh(user._id, user.role);
 
     return {
       status: 200,
-      message: '로그인에 성공하셨습니다.',
+      message: '정상적으로 로그인되었습니다.',
       role: user.role,
       accessToken,
+      refreshToken,
     };
   }
 
