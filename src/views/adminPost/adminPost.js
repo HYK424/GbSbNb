@@ -27,11 +27,9 @@ async function adminPostOrPut() {
     form2.addEventListener('submit', categoryPost);
   } else {
     handleGetCategories();
-    const productData = await fetch(`/api/products/${getProductId()}`)
-      .then(res => res.json());
-    inputPosts(productData);
+    inputPosts();
     form.addEventListener('submit', adminPut);
-    form2.style.display = 'none';
+
   }
 }
 
@@ -56,7 +54,10 @@ function formData() {
 }
 
 //빈 input에 채우기
-function inputPosts(data) {
+async function inputPosts() {
+  form2.style.visibility = 'hidden';
+  const data = await (await fetch(`/api/products/${getProductId()}`)).json();
+
   titleInput.value = data.title;
   manufactureInput.value = data.manufacturer;
   priceInput.value = data.price;
@@ -83,7 +84,7 @@ async function handleGetCategories() {
 
   async function updateOptions(categories) {
     // 카테고리 옵션 추가
-    //추후 option의 value를 category.name으로 바꿀 것
+
     console.log(categories);
     categories.forEach((category) => {
       select.insertAdjacentHTML('beforeend', `
@@ -98,7 +99,7 @@ async function adminPut(event) {
   event.preventDefault();
   //productsId에 해당하는 상품 상세 정보 가져와서 조작
   try {
-    await fetch(`http://localhost:3000/api/products/${getProductId()}`, {
+    await fetch(`/api/products/${getProductId()}`, {
       method: 'PUT',
       body: formData(),
     })
@@ -110,7 +111,7 @@ async function adminPut(event) {
 async function adminPost(event) {
   event.preventDefault();
   try {
-    await fetch('http://localhost:3000/api/products', {
+    await fetch('/api/products', {
       method: 'POST',
       body: formData(),
     })
