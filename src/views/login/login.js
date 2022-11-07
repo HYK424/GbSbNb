@@ -1,4 +1,4 @@
-import * as Api from '/api.js';
+import * as Api from '../api.js';
 import { validateEmail } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
@@ -39,6 +39,8 @@ async function handleSubmit(e) {
     const data = { email, password };
 
     const result = await Api.post('/api/users/login', data);
+    console.log('요청결과 받음');
+    console.log(result);
 
     const token = result.tokens;
 
@@ -53,7 +55,7 @@ async function handleSubmit(e) {
     // 로그인 성공
 
     // 기본 페이지로 이동
-    window.location.href = '/';
+    //window.location.href = '/';
   } catch (err) {
     console.log(err);
     console.error(err.stack);

@@ -19,6 +19,7 @@ async function get(endpoint, params = '') {
     console.log('419찾음');
     window.location.href = '/login';
   }
+
   if (!res.ok) {
     console.log(await res.json());
     const errorContent = await res.json();
@@ -41,13 +42,20 @@ async function post(endpoint, data) {
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
 
+  let auth = 'Bearer';
+  if (sessionStorage.getItem('accessToken') != null) {
+    auth += ` ${sessionStorage.getItem('accessToken')}`;
+  }
+
+  if (sessionStorage.getItem('refreshToken') != null) {
+    auth += ` ${sessionStorage.getItem('refreshToken')}`;
+  }
+
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${sessionStorage.getItem(
-        'accessToken',
-      )} ${sessionStorage.getItem('refreshToken')}`,
+      Authorization: auth,
     },
     body: bodyData,
   });
@@ -107,14 +115,18 @@ async function put(endpoint, params = '', data) {
 
 // 아래 함수명에 관해, delete 단어는 자바스크립트의 reserved 단어이기에,
 // 여기서는 우선 delete 대신 del로 쓰고 아래 export 시에 delete로 alias 함.
-async function del(endpoint, params = '') {
+async function del(endpoint, params = '', data = {}) {
+  const tokenRes = tokenCheck();
+  if (tokenCheck.refreshToken || tokenCheck.accessToken) {
+    sessionStorage.setItem('accesstoken', tokenCheck.accessToken);
+  }
   const apiUrl = `${endpoint}/${params}`;
 
   const res = await fetch(apiUrl, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
     },
   });
 

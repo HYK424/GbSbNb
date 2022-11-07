@@ -3,6 +3,7 @@ import { userModel } from '../db';
 import bcrypt from 'bcrypt';
 
 import { jwtModule } from '../util/jwt';
+import { tokenReseter } from '../util/jwt-logic';
 
 class UserService {
   constructor(userModel) {
@@ -24,6 +25,8 @@ class UserService {
       throw new Error('회원 탈퇴한 계정입니다.');
     }
 
+    console.log(user);
+
     const correctPasswordHash = user.password;
 
     const isPasswordCorrect = await bcrypt.compare(
@@ -44,6 +47,7 @@ class UserService {
     return {
       status: 200,
       message: '정상적으로 로그인되었습니다.',
+      userName: user.fullName,
       role: user.role,
       accessToken,
       refreshToken,
@@ -54,10 +58,19 @@ class UserService {
     try {
       const userInfo = await this.userModel.findById(userId);
 
+      const userData = {
+        fullName: userInfo.fullName,
+        email: userInfo.email,
+        phoneNumber: userInfo.phoneNumber,
+        address: userInfo.address,
+        role: userInfo.role,
+        createdAt: userInfo.createdAt,
+      };
+
       return {
         status: 200,
         message: '유저 정보 조회 성공',
-        userInfo: userInfo,
+        userData: userData,
       };
     } catch (err) {
       console.log(err);
