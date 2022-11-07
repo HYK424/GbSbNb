@@ -70,7 +70,7 @@ class UserService {
       return {
         status: 200,
         message: '유저 정보 조회 성공',
-        userData: userData,
+        userInfo: userData,
       };
     } catch (err) {
       console.log(err);

@@ -9,11 +9,16 @@ import { adminRouter } from './admins';
 import { userRouter } from './users/user-router';
 import { cartRouter, categoryRouter, productRouter } from './commons';
 
+import { authenticator } from '../middlewares/authentication';
+
 import { viewsRouter } from './views-router';
 
 const router = Router();
 
 router.use('/admin', adminRouter);
+
+router.use('/token/access', authenticator.accessVerify);
+router.use('/token/refresh', authenticator.refreshVerify);
 
 router.use('/users', userRouter);
 router.use('/products', productRouter);

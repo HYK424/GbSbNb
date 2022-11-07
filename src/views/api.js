@@ -1,7 +1,12 @@
 // api 로 GET 요청 (/endpoint/params 형태로 요청함)
+
+import { setToken } from './public/js/header-handler.js';
+
 async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
+
+  await setToken.tokenCheck();
 
   const res = await fetch(apiUrl, {
     headers: {
@@ -10,6 +15,8 @@ async function get(endpoint, params = '') {
       )} ${sessionStorage.getItem('refreshToken')}`,
     },
   });
+
+  console.log(res);
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (res.status === 419) {

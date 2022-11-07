@@ -1,6 +1,16 @@
 // api 로 GET 요청 (/endpoint/params 형태로 요청함)
+
 async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
+
+  let auth = 'Bearer';
+
+  if (sessionStorage.getItem('accessToken')) {
+    auth += `/${sessionStorage.getItem('accessToken')}`;
+  }
+  if (sessionStorage.getItem('refreshToken')) {
+    auth += `/${sessionStorage.getItem('refreshToken')}`;
+  }
 
   const res = await fetch(apiUrl, {
     headers: {
@@ -182,6 +192,7 @@ const refreshToken = async () => {
       })
     ).json();
     const { accessToken, refreshToken } = data;
+
     sessionStorage.setItem('accessToken', accessToken);
     sessionStorage.setItem('refreshToken', refreshToken);
   } catch (err) {
@@ -191,4 +202,4 @@ const refreshToken = async () => {
   }
 };
 
-export { get, post, put, del as delete };
+export { get, post, put, test, del as delete };
