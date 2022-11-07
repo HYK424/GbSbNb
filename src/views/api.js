@@ -6,7 +6,7 @@ async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
 
-  await setToken.tokenCheck();
+  await setToken.tokenCheck(endpoint);
 
   const Bearer = 'Bearer ';
 
@@ -46,20 +46,13 @@ async function post(endpoint, data) {
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
 
-  let auth = 'Bearer';
-  if (sessionStorage.getItem('accessToken') != null) {
-    auth += ` ${sessionStorage.getItem('accessToken')}`;
-  }
-
-  if (sessionStorage.getItem('refreshToken') != null) {
-    auth += ` ${sessionStorage.getItem('refreshToken')}`;
-  }
+  const Bearer = 'Bearer ';
 
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: auth,
+      Authorization: getAccess(Bearer),
     },
     body: bodyData,
   });

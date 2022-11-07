@@ -5,6 +5,10 @@ const Order = model('order', OrderSchema);
 
 export class OrderModel {
   async getOrders(state, userId) {
+    console.log(state);
+    console.log(userId);
+    console.log(state === undefined);
+    console.log(userId === undefined);
     return state === undefined // 어드민이 보낸 state가 undefined인 경우
       ? await Order.find({}) // 모든데이터 검색
       : userId === undefined // 어드민은 userId를 보내지않음 => 일반유저만 userId를 보냄 / userId가 undefined인 경우
@@ -18,13 +22,14 @@ export class OrderModel {
   }
 
   async createMyOrders(data) {
-    const createMyOrders = await Order.create(data)
-      .then(() => {
-        console.log('성공');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const createMyOrders = await Order.create(data);
+    // .then(() => {
+    //   console.log('성공');
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
+
     return createMyOrders;
   }
 

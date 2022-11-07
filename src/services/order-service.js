@@ -2,7 +2,7 @@ import { userModel, productModel, orderModel } from '../db';
 
 export const orderService = {
   getOrders: async (state) => {
-    return orderModel.getOrders(state);
+    return orderModel.getOrders(state, undefined);
   },
   createMyOrders: async (data) => {
     console.log(data.userId);
@@ -11,6 +11,6 @@ export const orderService = {
     return orderModel.createMyOrders(data);
   },
   getMyOrders: async (userId) => {
-    return orderModel.find;
+    return orderModel.getOrders(undefined, userId);
   },
 };

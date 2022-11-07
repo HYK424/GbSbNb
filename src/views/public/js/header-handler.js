@@ -1,11 +1,11 @@
 export const setToken = {
-  tokenCheck: async () => {
+  tokenCheck: async (endpoint) => {
     console.log('//////////////header-handler//////////////');
     const accessHeaders = createHeaders(sessionStorage.getItem('accessToken'));
 
     const oldaccess = sessionStorage.getItem('accessToken');
 
-    const accessRes = await fetch('/api/token/access', {
+    const accessRes = await fetch(`${endpoint}/access`, {
       headers: accessHeaders,
     });
 
@@ -18,7 +18,7 @@ export const setToken = {
       const refreshHeaders = createHeaders(
         sessionStorage.getItem('refreshToken'),
       );
-      const refreshRes = await fetch('/api/token/refresh', {
+      const refreshRes = await fetch(`${endpoint}/refresh`, {
         headers: refreshHeaders,
       });
 

@@ -4,49 +4,40 @@ import { jwtModule } from '../util/jwt';
 
 export const authenticator = {
   accessVerify: async (req, res, next) => {
-    console.log('=!!=accessVerify=!!=');
+    // console.log('=!!=accessVerify=!!=');
     const accessToken = req.headers['authorization']?.split(' ')[1];
 
-    console.log(`accessToken : ${accessToken}`);
+    // console.log(`accessToken : ${accessToken}`);
 
     const accessVerify = jwtModule.accessVerify(accessToken);
 
-    console.log(`검증결과 1 : ${accessVerify}`);
+    // console.log(`검증결과 1 : ${accessVerify}`);
 
     !accessVerify
       ? res.status(400).json({ result: false })
       : res.status(200).json({ result: true });
-
-    // if (!accessVerify) {
-    //   console.log('반환실행1');
-    //   res.status(400).json({ result: false });
-    // }
-    // console.log('반환실행2');
-    // res.status(200).json({ result: true });
   },
 
   refreshVerify: async (req, res, next) => {
-    console.log('=!!=refreshVerify=!!=');
+    // console.log('=!!=refreshVerify=!!=');
     const refreshToken = req.headers['authorization']?.split(' ')[1];
 
-    console.log(`refreshToken : ${refreshToken}`);
+    // console.log(`refreshToken : ${refreshToken}`);
 
     const refreshVerify = jwtModule.refreshVerify(refreshToken);
 
-    console.log(`검증결과 2 : ${refreshVerify}`);
+    // console.log(`검증결과 2 : ${refreshVerify}`);
 
     if (!refreshVerify) {
-      console.log('반환실행3');
       res.status(419).json({ result: false });
     }
     if (refreshVerify) {
-      console.log(refreshVerify.decodeToken['userId']);
-      console.log(refreshVerify.decodeToken['role']);
+      // console.log(refreshVerify.decodeToken['userId']);
+      // console.log(refreshVerify.decodeToken['role']);
       const accessToken = jwtModule.access(
         refreshVerify.decodeToken['userId'],
         refreshVerify.decodeToken['role'],
       );
-      console.log('반환실행4');
       res
         .status(200)
         .json({ accessToken: accessToken, refreshToken: refreshToken });
@@ -54,25 +45,25 @@ export const authenticator = {
   },
 
   isLoggedIn: async (req, res, next) => {
-    console.log('=isLoggedIn=');
+    // console.log('=isLoggedIn=');
 
     const accessToken = req.headers['authorization']?.split(' ')[1];
 
     const accessVerify = jwtModule.accessVerify(accessToken);
 
-    console.log(accessVerify);
+    // console.log(accessVerify);
 
-    console.log(accessVerify.userId);
+    // console.log(accessVerify.userId);
 
     req.currentUserId = accessVerify.userId;
     req.currentUserRole = accessVerify.role;
 
-    console.log('isLoggedIn 종료');
+    // console.log('isLoggedIn 종료');
 
     !accessVerify
       ? res.status(419).json({
           message: '정상적이지 않은 접근입니다.\n다시 로그인해 주십시오.',
-          postmanOnly: '엑세스 토큰이 만료되어 리턴합니다.',
+          POSTMAN: '엑세스 토큰이 만료되어 리턴합니다.',
         })
       : next();
 
