@@ -46,14 +46,14 @@ function renderNav() {
 
 function getNaveHTML() {
   const isLoggedIn = sessionStorage.getItem('accessToken');
-  const isAdmin = sessionStorage.getItem('role') === 'basic-user';
+  const isAdmin = sessionStorage.getItem('refreshToken');
   return `<div class="d-flex">
   <a class="navbar-brand me-5" href="/" id="logo">개발세발네발🐶</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <div class="dropdown me-5">
+      <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle me-5 ms-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
       카테고리별
       </button>
@@ -72,7 +72,7 @@ function getNaveHTML() {
             <button class="btn btn-outline-success" type="submit" id="searchBtn">검색</button>
             </form>
             </div>
-            <div class="ms-5">
+            <div class="">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
             ${
               isLoggedIn
@@ -81,19 +81,19 @@ function getNaveHTML() {
             >로그아웃</a
             >`
                 : `<li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/login"
+            <a class="nav-link active ms-2" aria-current="page" href="/login"
             >로그인</a
             >
             </li>
             <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/register"
+            <a class="nav-link active ms-2" aria-current="page" href="/register"
             >회원가입</a
             >
             </li>`
             }
             <li class="nav-item">
             <a
-            class="nav-link active position-relative"
+            class="nav-link active position-relative ms-2"
             aria-current="page"
             href="/cart"
             id="cartNotification"
@@ -110,14 +110,12 @@ function getNaveHTML() {
                     <span class="visually-hidden">unread messages</span>
                   </span>`
             }
-
-
             </a
             >
             ${
               isAdmin
                 ? `<li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/admin"
+            <a class="nav-link active ms-2" aria-current="page" href="/admin"
             >ADMIN</a
             >`
                 : ``
@@ -163,5 +161,8 @@ async function addLogoutEvent() {
   if (!logout) {
     return;
   }
-  logout.addEventListener('click', () => sessionStorage.clear());
+  logout.addEventListener('click', () => {
+    sessionStorage.clear();
+    location.reload();
+  });
 }
