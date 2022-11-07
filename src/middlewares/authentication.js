@@ -31,8 +31,6 @@ export const loginAuthenticator = {
   isNotLoggedIn: async (req, res, next) => {
     console.log('=isNotLoggedIn=');
 
-    console.log(req.headers['authorization']);
-
     let [Bearer, accessToken, refreshToken] =
       req.headers['authorization']?.split(' ');
 
