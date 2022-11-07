@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { productController } from '../../controllers';
-import { productImageUpload } from '../../middlewares';
+import { productImageUpload } from '../../util';
 import { productValidator } from '../../middlewares/validation';
 import { asyncHandler } from '../../middlewares';
 
@@ -10,6 +10,10 @@ import { checkRole } from '../../middlewares/authorization';
 const productRouter = Router();
 
 productRouter.get('/', asyncHandler(productController.getProducts));
+productRouter.get(
+  '/search',
+  asyncHandler(productController.getProudctsByKeyword),
+);
 productRouter.get('/:productId', asyncHandler(productController.getProudct));
 
 //productRouter.use(loginAuthenticator.isLoggedIn, checkRole);
@@ -25,6 +29,9 @@ productRouter.put(
   productValidator.createProduct,
   asyncHandler(productController.updateProduct),
 );
-// productRouter.delete('/:productId', async(productController.deleteProduct));
+productRouter.delete(
+  '/:productId',
+  asyncHandler(productController.deleteProduct),
+);
 
 export { productRouter };

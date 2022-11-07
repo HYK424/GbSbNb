@@ -1,31 +1,62 @@
-const search = document.querySelector('.search');
-const form = document.querySelector('.formDiv');
-const cancel = document.querySelector('.cancel');
-const items = document.querySelectorAll('.item');
-const productContainer = document.querySelector('#productContainer');
+const productContainer = document.getElementById('productContainer');
+const pageContainer = document.getElementById('pageContainer');
+const toPrevious = document.getElementById('toPrevious');
+const toNext = document.getElementById('toNext');
 
 async function renderProducts() {
-  const res = await fetch(`/api/products`, {
-    method: 'get',
-  });
-  const data = await res.json();
-  const products = data.products;
-  const { totalPage } = data;
+  let data;
+  if (location.href.split('?')[1]) {
+    const query = location.href
+      .split('?')[1]
+      .split('&')
+      .map((query) => query.split('='));
+    let page = query.filter((q) => q[0] === 'page')[0];
+    if (page) page = page[1];
+    const category = query.filter((q) => q[0] === 'q')[0][1];
+    console.log(page, category);
+    if (category || page) {
+      if (category && page) {
+        data = await (
+          await fetch(`/api/products?q=${category}&page=${page}`)
+        ).json();
+      } else if (category) {
+        data = await (await fetch(`/api/products?q=${category}`)).json();
+      } else if (page) {
+        data = await (await fetch(`/api/products?page=${page}`)).json();
+      }
+    }
+  } else {
+    data = await (await fetch(`/api/products`)).json();
+  }
+  console.log(data);
+  const {
+    products,
+    currentPage,
+    hasNextPage,
+    hasPreviousPage,
+    nextPage,
+    previousPage,
+  } = data;
+  if (!hasNextPage) toNext.remove();
+  if (!hasPreviousPage) toPrevious.remove();
   products.forEach(renderProduct);
 }
 
 function renderProduct(product) {
-  const productCard = `<div class="card mb-4" style="width: 27%"><a href="" class="card-link">
-    <img src="${product.imageUrl}" class="card-img-top thumbnail mt-2"/>
+  const productCard = `<div class="card mb-4 shadow-lg ms-5" style="width: 27%"><a href="/products/${
+    product._id
+  }" class="card-link">
+    <img src="${
+      product.imageUrl
+    }" class="card-img-top thumbnail mt-2 rounded shadow-sm"/>
     <div class="card-body p-2">
-      <h5 class="card-title my-0">${product.title}</h5>
-      <p class="card-text">
-        ${product.description.slice(0, 20)}
-      </p>
+      <h5 class="card-title mt-0 mb-2">${product.title}</h5>
+      <div class="overflow-hidden" id="product-description">${
+        product.description
+      }</div>
     </div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item">${product.price}</li>
-      <li class="list-group-item">A third item</li>
+      <li class="list-group-item p-0 pb-2">${product.price.toLocaleString()}원</li>
     </ul>
     </a></div>`;
   productContainer.insertAdjacentHTML('beforeend', productCard);

@@ -1,31 +1,29 @@
-const title = document.querySelector('#title');
-const image = document.querySelector('#image');
-const price = document.querySelector('#price');
-const category = document.querySelector('#category');
-const manufacturer = document.querySelector('#manufacturer');
-const description = document.querySelector('#description');
+const title = document.getElementById('title');
+const image = document.getElementById('image');
+const price = document.getElementById('price');
+const category = document.getElementById('category');
+const manufacturer = document.getElementById('manufacturer');
+const description = document.getElementById('description');
 
 const fetchProductInfo = async () => {
   const productId = window.location.pathname.split('/')[2];
   try {
-    const res = await fetch(`/api/products/${productId}`, {
-      method: 'GET',
-    });
-    const data = await res.json();
-    if (!res.ok) {
-      console.log(data);
-      //오류 처리 ex) flashError(data);
-    } else {
-      title.innerText = data.title;
-      image.src = data.imageUrl;
-      price.innerText = `${data.price.toLocaleString()}원`;
-      category.innerText = data.categoryId;
-      manufacturer.innerText = data.manufacturer;
-      description.innerText = data.description;
-    }
+    const productInfo = await (
+      await fetch(`/api/products/${productId}`)
+    ).json();
+    renderProductInfo(productInfo);
   } catch (err) {
-    console.log(err);
+    alert(err.message);
   }
+};
+
+const renderProductInfo = (productInfo) => {
+  title.innerText = productInfo.title;
+  image.src = productInfo.imageUrl;
+  price.innerText = `${productInfo.price.toLocaleString('ko-KR')}원`;
+  category.innerText = productInfo.category;
+  manufacturer.innerText = productInfo.manufacturer;
+  description.innerText = productInfo.description;
 };
 
 fetchProductInfo();
