@@ -2,26 +2,27 @@ const itemList = document.querySelector('.itemList');
 const itemCategory = document.querySelector('.form-select-sm');
 const form = document.querySelector('#form');
 
-innerItemCategory(getItems());
-
-async function getItems() {
-  const posts = await fetch('/api/products');
-  const itemLists = await posts.json();
-  return itemLists;
-}
+innerItemCategory();
 
 async function innerItemCategory(i) {
-  //1. 카테고리 만들기
-  const obj = (await i).products;
+  //상품들 가져오기
+  const obj = await (await fetch('/api/products')).json();
+  //카테고리 가져오기
   const setCategory = await (await fetch('/api/categories')).json();
 
-  //카테고리 option 추가
-  setCategory.forEach((item) => {
-    itemCategory.insertAdjacentHTML('beforeend', `
+   //카테고리에 option 추가
+  itemCategory.innerHTML=setCategory.map((item)=>{
+    return `
     <option value="${item.name}">${item.name}</option>
-    `);
-  })
+    `
+  }).join('');
 
+  console.log(setCategory.map((item)=>{
+    return `
+    <option value="${item.name}">${item.name}</option>
+    `
+  }).join(''));
+debugger
   obj.forEach((products, i) => {
     itemList.insertAdjacentHTML(
       'beforeend',
