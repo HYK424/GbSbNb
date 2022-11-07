@@ -19,6 +19,11 @@ export class CategoryModel {
     return category;
   }
 
+  static async findByName(name) {
+    const category = await Category.findOne({ name });
+    return category;
+  }
+
   static async update(categoryId, updateInfo) {
     const filter = { id: categoryId };
     const option = { returnOriginal: false };

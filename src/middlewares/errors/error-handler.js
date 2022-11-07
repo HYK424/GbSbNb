@@ -7,8 +7,8 @@ const errorHandler = (err, req, res, next) => {
     'ko-KR',
   )} ${now.toLocaleTimeString('ko-KR')}`;
   console.error('\x1b[41m%s\x1b[0m', err.name, timestamp, req.url, err.stack);
-  res.statusCode = err.status ?? 500;
-  return res.json({
+  const { status = 500, message = '알 수 없는 오류가 발생했어요 :(' } = err;
+  return res.status(status).json({
     data: null,
     err: err.message,
   });

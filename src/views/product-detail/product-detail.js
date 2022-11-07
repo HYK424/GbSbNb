@@ -13,7 +13,7 @@ const fetchProductInfo = async () => {
     ).json();
     renderProductInfo(productInfo);
   } catch (err) {
-    // 에러 처리 방법 구현할 것
+    alert(err.message);
   }
 };
 

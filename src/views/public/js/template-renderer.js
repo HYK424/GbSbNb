@@ -13,6 +13,7 @@ async function main() {
   renderCategoryFilter();
   const searchForm = document.getElementById('searchForm');
   searchForm.addEventListener('submit', handleSearchSubmit);
+  addLogoutEvent();
 }
 
 async function handleGetCategories() {
@@ -29,10 +30,13 @@ function setHead() {
   favicon.sizes = '16x16';
   favicon.href = '/public/img/favicon.png';
   document.head.appendChild(favicon);
-
   document.head.insertAdjacentHTML(
-    'beforeend',
-    `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />`,
+    'afterbegin',
+    `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" /><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,700;1,400&display=swap" rel="stylesheet"></link><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poor+Story&family=Roboto:ital,wght@0,700;1,400&display=swap" rel="stylesheet">`,
   );
 }
 
@@ -41,8 +45,10 @@ function renderNav() {
 }
 
 function getNaveHTML() {
+  const isLoggedIn = sessionStorage.getItem('accessToken');
+  const isAdmin = sessionStorage.getItem('role') === 'basic-user';
   return `<div class="d-flex">
-  <a class="navbar-brand me-5" href="/">개발세발네발🐶</a>
+  <a class="navbar-brand me-5" href="/" id="logo">개발세발네발🐶</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -68,7 +74,13 @@ function getNaveHTML() {
             </div>
             <div class="ms-5">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-5">
-            <li class="nav-item">
+            ${
+              isLoggedIn
+                ? `<li class="nav-item">
+            <a class="nav-link active" aria-current="page" id="logout"
+            >로그아웃</a
+            >`
+                : `<li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/login"
             >로그인</a
             >
@@ -77,7 +89,8 @@ function getNaveHTML() {
             <a class="nav-link active" aria-current="page" href="/register"
             >회원가입</a
             >
-            </li>
+            </li>`
+            }
             <li class="nav-item">
             <a
             class="nav-link active position-relative"
@@ -86,18 +99,29 @@ function getNaveHTML() {
             id="cartNotification"
             >장바구니
             ${
-              cartItemsTotalCount &&
-              `
-              <span
-              class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
-              id="cart-notification"
-              >
-              ${cartItemsTotalCount}
-              <span class="visually-hidden">unread messages</span>
-              </span>`
+              !cartItemsTotalCount
+                ? ''
+                : `
+                  <span
+                    class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger"
+                    id="cart-notification"
+                  >
+                    ${cartItemsTotalCount}
+                    <span class="visually-hidden">unread messages</span>
+                  </span>`
             }
+
+
             </a
             >
+            ${
+              isAdmin
+                ? `<li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/admin"
+            >ADMIN</a
+            >`
+                : ``
+            }
           </li>
           </ul>
           </div>
@@ -120,10 +144,10 @@ function renderFooter() {
 
 function getFooterHTML() {
   return `<div class="row"><div class="w-100 d-flex justify-content-center align-items-center">
-          <a class="mx-5 btn btn-dark opacity-75">회사소개</a>
+          <a class="mx-5 btn btn-dark opacity-75">프로젝트 소개</a>
                 <a class="mx-5 btn btn-dark opacity-75">공지사항</a>
-                <a class="mx-5 btn btn-dark opacity-75">입점 / 제휴문의</a>
-                <a class="mx-5 btn btn-dark opacity-75">고객의 소리</a>
+                <a class="mx-5 btn btn-dark opacity-75">입점 문의</a>
+                <a class="mx-5 btn btn-dark opacity-75">관리자 문의</a>
               </div></div>`;
 }
 
@@ -132,4 +156,12 @@ async function handleSearchSubmit(event) {
   const input = document.getElementById('search');
   const query = input.value;
   location.href = `/search?keyword=${query}`;
+}
+
+async function addLogoutEvent() {
+  const logout = document.getElementById('logout');
+  if (!logout) {
+    return;
+  }
+  logout.addEventListener('click', () => sessionStorage.clear());
 }

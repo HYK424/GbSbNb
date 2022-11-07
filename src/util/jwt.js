@@ -17,7 +17,6 @@ export const jwtModule = {
 
       return { decodeToken };
     } catch (err) {
-      console.log('여기서 에러가 터지는 게 맞나요?');
       if (err.name === 'TokenExpiredError') {
         console.log('accessToken 만료됨');
         return false;

@@ -1,18 +1,19 @@
 import { CategoryModel } from '../db';
+import { AppError, commonErrors } from '../middlewares';
 
 class CategoryService {
   static async addCategory({ name, id }) {
+    if (await CategoryModel.findByName(name)) {
+      throw new AppError(
+        commonErrors.resourceDuplicationError,
+        400,
+        '이미 존재하는 카테고리입니다.',
+      );
+    }
     const newCategory = await CategoryModel.create({
       name,
       id,
     });
-    if (!newCategory) {
-      throw AppError(
-        commonErrors.databaseError,
-        500,
-        'DB에서 알 수 없는 오류가 발생했어요 :( DB 관리자에게 문의하세요.',
-      );
-    }
     return newCategory;
   }
 
@@ -24,7 +25,9 @@ class CategoryService {
   static async updateCategory(categoryId, updateInfo) {
     const category = await CategoryModel.findCategory(categoryId);
     if (!category) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
         '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
@@ -37,7 +40,9 @@ class CategoryService {
     const category = await CategoryModel.findById(categoryId);
 
     if (!category) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
         '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }

@@ -46,7 +46,7 @@ async function handleCartBtnClick() {
     });
   }
   localStorage.setItem('cart', updatedCartItems);
-  updateCartNotification(updatedCartItems.length);
+  updateCartNotification(cartItems.length);
 }
 
 function updateCartNotification(cartItemsTotalCount) {

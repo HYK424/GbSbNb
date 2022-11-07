@@ -1,3 +1,14 @@
+* {
+  font-family: 'Poor Story', cursive, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+#logo {
+  font-size: 32px;
+  font-weight: 700;
+}
+
 html {
   height: 1vh;
 }
@@ -30,4 +41,8 @@ html {
 
 #right-arrow {
   font-size: 80px;
+}
+
+.card-title {
+  font-weight: 700;
 }

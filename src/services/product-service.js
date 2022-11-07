@@ -21,14 +21,6 @@ class ProductService {
       manufacturer,
     });
 
-    if (!newProduct) {
-      throw AppError(
-        commonErrors.databaseError,
-        500,
-        'DB에서 알 수 없는 오류가 발생했어요 :( DB 관리자에게 문의하세요.',
-      );
-    }
-
     return newProduct;
   }
 
@@ -36,7 +28,7 @@ class ProductService {
     const productCount = await ProductModel.countAll();
     if (!productCount) {
       throw new AppError(
-        '해당 상품 없음',
+        commonErrors.resourceNotFoundError,
         400,
         '해당 조건을 만족하는 상품이 없습니다 :(',
       );
@@ -66,7 +58,7 @@ class ProductService {
     const productCount = await ProductModel.countAll(categoryName);
     if (!productCount) {
       throw new AppError(
-        '해당 상품 없음',
+        commonErrors.resourceNotFoundError,
         400,
         '해당 조건을 만족하는 상품이 없습니다 :(',
       );
@@ -134,7 +126,9 @@ class ProductService {
     let product = await ProductModel.findById(productId);
 
     if (!product) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
         '해당 제품이 존재하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
