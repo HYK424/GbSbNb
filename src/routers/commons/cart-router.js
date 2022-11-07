@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { loginAuthenticator } from '../../middlewares/authentication';
+import { authenticator } from '../../middlewares/authentication';
 import { cartController } from '../../controllers';
 import { asyncHandler } from '../../middlewares';
 
@@ -7,17 +7,17 @@ const cartRouter = Router();
 
 cartRouter.post(
   '/',
-  loginAuthenticator.isLoggedIn,
+  authenticator.isLoggedIn,
   asyncHandler(cartController.addProductToCart),
 );
 cartRouter.put(
   '/',
-  loginAuthenticator.isLoggedIn,
+  authenticator.isLoggedIn,
   asyncHandler(cartController.deleteProduct),
 );
 cartRouter.delete(
   '/',
-  loginAuthenticator.isLoggedIn,
+  authenticator.isLoggedIn,
   asyncHandler(cartController.clearCart),
 );
 

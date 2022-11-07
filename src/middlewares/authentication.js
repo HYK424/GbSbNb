@@ -2,7 +2,40 @@
 
 import { jwtModule } from '../util/jwt';
 
-export const loginAuthenticator = {
+export const authenticator = {
+  accessVerify: async (req, res, next) => {
+    console.log(req.headers['authorization']);
+
+    const accessToken = req.headers['authorization']?.split(' ')[1];
+
+    const accessVerify = jwtModule.accessVerify(accessToken);
+
+    if (!accessVerify) {
+      return res.status(403).json(false);
+    }
+
+    return res.status(200).json(true);
+  },
+
+  refreshVerify: async (req, res, next) => {
+    console.log(req.headers['authorization']);
+
+    const refreshToken = req.headers['authorization']?.split(' ')[1];
+
+    const refreshVerify = jwtModule.refreshVerify(refreshToken);
+
+    if (!refreshVerify) {
+      return res.status(403).json(false);
+    }
+    if (refreshVerify) {
+      const accessToken = jwtModule.access(
+        refreshVerify.decodeToken['userId'],
+        refreshVerify.decodeToken['role'],
+      );
+      return res.status(200).json({ accessToken: accessToken });
+    }
+  },
+
   isLoggedIn: async (req, res, next) => {
     console.log('=isLoggedIn=');
 
@@ -39,52 +72,52 @@ export const loginAuthenticator = {
     }
   },
 
-  isNotLoggedIn: async (req, res, next) => {
-    console.log('=isNotLoggedIn=');
+  // isNotLoggedIn: async (req, res, next) => {
+  //   console.log('=isNotLoggedIn=');
 
-    console.log(req.headers['authorization']);
+  //   console.log(req.headers['authorization']);
 
-    let [Bearer, accessToken, refreshToken] =
-      req.headers['authorization']?.split(' ');
+  //   let [Bearer, accessToken, refreshToken] =
+  //     req.headers['authorization']?.split(' ');
 
-    console.log(Bearer);
+  //   console.log(Bearer);
 
-    console.log(accessToken);
+  //   console.log(accessToken);
 
-    console.log(refreshToken);
+  //   console.log(refreshToken);
 
-    if (accessToken == undefined && refreshToken == undefined) {
-      next();
-    } else {
-      const accessVerify = jwtModule.accessVerify(accessToken);
+  //   if (accessToken == undefined && refreshToken == undefined) {
+  //     next();
+  //   } else {
+  //     const accessVerify = jwtModule.accessVerify(accessToken);
 
-      const refreshVerify = jwtModule.refreshVerify(refreshToken);
+  //     const refreshVerify = jwtModule.refreshVerify(refreshToken);
 
-      console.log(accessVerify);
+  //     console.log(accessVerify);
 
-      console.log(refreshVerify);
+  //     console.log(refreshVerify);
 
-      if (accessVerify.status === 419) {
-        return res.status(419).json({
-          message: '정상적이지 않은 접근입니다.',
-        });
-      }
+  //     if (accessVerify.status === 419) {
+  //       return res.status(419).json({
+  //         message: '정상적이지 않은 접근입니다.',
+  //       });
+  //     }
 
-      if (refreshVerify.status === 419) {
-        return res.status(419).json({
-          message: '정상적이지 않은 접근입니다.',
-        });
-      }
+  //     if (refreshVerify.status === 419) {
+  //       return res.status(419).json({
+  //         message: '정상적이지 않은 접근입니다.',
+  //       });
+  //     }
 
-      const result = jwtLogic(req, res, accessVerify, refreshVerify);
+  //     const result = jwtLogic(req, res, accessVerify, refreshVerify);
 
-      // console.log(result);
+  //     // console.log(result);
 
-      if (result) {
-        next();
-      }
-    }
-  },
+  //     if (result) {
+  //       next();
+  //     }
+  //   }
+  // },
 };
 
 const jwtLogic = (req, res, accessVerify, refreshVerify) => {

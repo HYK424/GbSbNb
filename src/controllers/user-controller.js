@@ -3,6 +3,7 @@ import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
+    console.log('컨트롤러');
     try {
       const { email, password } = req.body;
 
@@ -39,9 +40,7 @@ export const userController = {
 
     const data = await userService.getMyInfo(userId);
 
-    const { status, message, userData } = result;
-
-    const result = tokenReseter(req, userData);
+    const { status, message, userInfo } = data;
 
     console.log(data);
 
