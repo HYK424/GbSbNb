@@ -117,9 +117,7 @@ class ProductService {
     const { title, price, description, manufacturer } = productInfo;
     const view = productInfo.view || true;
     const category = productInfo.category || product.category;
-    if (productInfo.path) {
-      cloudinary.uploader.destroy(product.path);
-    }
+   
     const imageUrl = productInfo.path || product.imageUrl;
 
     const updatedInfo = {
