@@ -13,24 +13,14 @@ async function getItems() {
 async function innerItemCategory(i) {
   //1. 카테고리 만들기
   const obj = (await i).products;
-  const setCategory = new Set(
-    obj.map((e) => {
-      return e.category;
-    }),
-  );
+  const setCategory = await (await fetch('/api/categories')).json();
 
   //카테고리 option 추가
-  for (let item of setCategory) {
+  setCategory.forEach((item) => {
     itemCategory.insertAdjacentHTML('beforeend', `
-    <option value="${item}">${item}</option>
+    <option value="${item.name}">${item.name}</option>
     `);
-  }
-
-  obj.forEach((products, i) => {
-    console.log(products.title);
-    console.log(i);
-  });
-
+  })
 
   obj.forEach((products, i) => {
     itemList.insertAdjacentHTML(
@@ -63,7 +53,7 @@ async function innerItemCategory(i) {
     // deleteItem(products, i);
   })
 
-  //3. 이후 카테고리 선택마다 렌더링
+  //3. 카테고리 선택마다 렌더링
   select.addEventListener('change', async (event) => {
     event.preventDefault();
 

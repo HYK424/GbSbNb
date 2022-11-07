@@ -92,6 +92,7 @@ async function handleGetCategories() {
       `);
     })
   }
+  
   updateOptions(categories);
 };
 
