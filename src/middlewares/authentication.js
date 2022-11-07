@@ -1,90 +1,100 @@
 //로그인 되어있는가 되어있지 않은가??
-import * as jwt from 'jsonwebtoken';
+
+import { jwtModule } from '../util/jwt';
 
 export const loginAuthenticator = {
   isLoggedIn: async (req, res, next) => {
     console.log('=isLoggedIn=');
 
-    console.log(req.headers);
+    const [Bearer, accessToken, refreshToken] =
+      req.headers['authorization']?.split(' ');
 
-    try {
-      const userToken = req.headers['authorization']?.split(' ')[1];
+    const accessVerify = jwtModule.accessVerify(accessToken);
 
-      if (!userToken || userToken === undefined) {
-        console.log(
-          `서비스 사용 요청이 있습니다.하지만, Authorization 토큰: ${userToken}`,
-        );
-        res.status(403).json({
-          result: '허용되지 않은 접근',
-          reason: '로그인한 유저만 사용할 수 있는 서비스입니다.',
-        });
-        return;
-      }
+    const refreshVerify = jwtModule.refreshVerify(refreshToken);
 
-      const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-
-      const jwtDecoded = jwt.verify(userToken, secretKey);
-
-      console.log(jwtDecoded);
-
-      const userId = jwtDecoded.userId;
-
-      const role = jwtDecoded.role;
-
-      req.currentUserId = userId;
-
-      req.currentUserRole = role;
-
-      console.log(req.currentUserId);
-
-      console.log(req.currentUserRole);
-
-      next();
-    } catch (error) {
-      console.log(error);
-      res.status(403).json({
-        result: '허용되지 않은 접근',
-        reason: '다시 로그인해 주십시오.',
+    if (refreshVerify.status === 419) {
+      return res.status(419).json({
+        message: '정상적이지 않은 접근입니다.\n로그인을 확인하십시오.',
       });
-      return;
+    }
+
+    const result = jwtLogic(req, res, accessVerify, refreshVerify);
+
+    console.log(result);
+
+    if (result) {
+      next();
     }
   },
 
   isNotLoggedIn: async (req, res, next) => {
     console.log('=isNotLoggedIn=');
 
-    try {
-      const userToken = req.headers['authorization'].split(' ')[1];
+    console.log(req.headers['authorization']);
 
-      console.log(typeof userToken);
+    let [Bearer, accessToken, refreshToken] =
+      req.headers['authorization']?.split(' ');
 
-      console.log(`!userToken : ${!userToken}`);
+    if (accessToken == 'null' && accessToken == 'null') {
+      next();
+    } else {
+      const accessVerify = jwtModule.accessVerify(accessToken);
 
-      if (!userToken || userToken === undefined || userToken === 'null') {
+      const refreshVerify = jwtModule.refreshVerify(refreshToken);
+
+      console.log(accessVerify);
+
+      console.log(refreshVerify);
+
+      if (refreshVerify.status === 419) {
+        return res.status(419).json({
+          message: '정상적이지 않은 접근입니다.',
+        });
+      }
+
+      const result = jwtLogic(req, res, accessVerify, refreshVerify);
+
+      // console.log(result);
+
+      if (result) {
         next();
-      } else {
-        const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-        const jwtDecoded = jwt.verify(userToken, secretKey);
-
-        if (jwtDecoded) {
-          res.status(400).json({
-            message: '이미 로그인 되어있습니다.',
-          });
-        }
-        return;
-      }
-    } catch (error) {
-      console.log(error);
-      if (error.name === 'TokenExpiredError') {
-        res.status(419).json({
-          message: '로그인이 만료되었습니다.',
-        });
-      }
-      if (error.name === 'JsonWebTokenError') {
-        res.status(401).json({
-          message: '유효하지 않은 로그인 입니다.',
-        });
       }
     }
   },
+};
+
+const jwtLogic = (req, res, accessVerify, refreshVerify) => {
+  console.log(accessVerify);
+  console.log(refreshVerify);
+  if (!accessVerify && refreshVerify) {
+    req.currentUserId = refreshVerify.decodeToken['userId'];
+    req.currentUserRole = refreshVerify.decodeToken['role'];
+
+    return true;
+  }
+
+  // if (accessVerify && !refreshVerify) {
+  //   console.log('refreshToken 만료 / 재발급');
+  //   const refreshToken = jwtModule.refresh(
+  //     accessVerify.userId,
+  //     accessVerify.role,
+  //   );
+  //   console.log('refreshToken 만료 / 재발급 종료');
+  //   return res.status(202).json({ refreshToken: refreshToken });
+  // }
+
+  if (!accessVerify && !refreshVerify) {
+    console.log('모든 토큰 만료됨');
+    return res
+      .status(419)
+      .json({ message: '로그인이 만료되었습니다. 다시 로그인 해주세요' });
+  }
+
+  if (accessVerify && refreshVerify) {
+    req.currentUserId = accessVerify.decodeToken['userId'];
+    req.currentUserRole = accessVerify.decodeToken['role'];
+    // console.log('모든 토큰 정상');
+    return true;
+  }
 };

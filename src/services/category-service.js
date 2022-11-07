@@ -1,7 +1,15 @@
 import { CategoryModel } from '../db';
+import { AppError, commonErrors } from '../middlewares';
 
 class CategoryService {
   static async addCategory({ name, id }) {
+    if (await CategoryModel.findByName(name)) {
+      throw new AppError(
+        commonErrors.resourceDuplicationError,
+        400,
+        '이미 존재하는 카테고리입니다.',
+      );
+    }
     const newCategory = await CategoryModel.create({
       name,
       id,
@@ -14,38 +22,35 @@ class CategoryService {
     return categories;
   }
 
-  static async updateCategory(categoryId, categoryInfo) {
+  static async updateCategory(categoryId, updateInfo) {
     const category = await CategoryModel.findCategory(categoryId);
     if (!category) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
         '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
-    const { name, id } = categoryInfo;
-
-    const updatedInfo = {
-      name,
-      id,
-    };
-
-    const updatedCategory = await CategoryModel.update(categoryId, updatedInfo);
+    const updatedCategory = await CategoryModel.update(categoryId, updateInfo);
     return updatedCategory;
   }
 
-  // static async deleteProduct(productId) {
-  //   let product = await CartModel.findById(productId);
+  static async deleteCategory(categoryId) {
+    const category = await CategoryModel.findById(categoryId);
 
-  //   if (!product) {
-  //     throw new Error(
-  //       '해당 제품이 존재하지 않습니다. 다시 한 번 확인해 주세요.',
-  //     );
-  //   }
+    if (!category) {
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
+        '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
+    }
 
-  //   const result = await CartModel.delete(productId);
+    const result = await CategoryModel.delete(categoryId);
 
-  //   return result;
-  // }
+    return result;
+  }
 }
 
 export { CategoryService };

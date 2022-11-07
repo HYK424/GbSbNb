@@ -14,17 +14,17 @@ export const categoryController = {
 
   updateCategory: async (req, res, next) => {
     const { categoryId } = req.params;
-    const categoryInfo = { ...req.body };
+    const updateInfo = { ...req.body };
     const updatedCategory = await CategoryService.updateCategory(
       categoryId,
-      categoryInfo,
+      updateInfo,
     );
     return res.status(200).json(updatedCategory);
   },
 
-  // const deletecategory = async (req, res, next) => {
-  //   const { categoryId } = req.params;
-  //   const result = await CategoryService.deletecategory(categoryId);
-  //   return res.status(200).json(result);
-  // };
+  deleteCategory: async (req, res, next) => {
+    const { categoryId } = req.params;
+    const result = await CategoryService.deleteCategory(categoryId);
+    return res.status(200).json(result);
+  },
 };
