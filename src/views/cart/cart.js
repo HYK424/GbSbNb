@@ -1,4 +1,9 @@
 import * as cartDB from './cart_db.js';
+import * as cartTempDB from './cart_temp_db.js';
+
+const itemCountAll = document.querySelector('#itemCountAll');
+const itemPriceAll = document.querySelector('#itemPriceAll');
+const totalPrice = document.querySelector('#totalPrice');
 
 addAllElements();
 addAllEvents();
