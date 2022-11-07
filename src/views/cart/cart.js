@@ -74,7 +74,7 @@ async function deleteItem(id) {
 
     // 결제정보를 업데이트함.
     cartTempDB.deleteItem(id);
-    updateBill()
+    updateSummary()
 
     // 제품 요소(컴포넌트)를 페이지에서 제거함
     document.querySelector(`#productItem-${id}`).remove();
@@ -82,12 +82,29 @@ async function deleteItem(id) {
     // 전체선택 체크박스를 업데이트함
 }
 
-function updateBill() {
+function updateSummary() {
     itemCountAll.innerHTML = cartTempDB.getTotalCount()
     itemPriceAll.innerHTML = cartTempDB.getTotalPrice()
     totalPrice.innerHTML = cartTempDB.getTotalPrice() + 3000
 }
 
 async function increaseItemQuantity() {
-    const newQuantity = '';
+    const newQuantity = 'any number';
+    cartTempDB.updateItemQuantity();
+
+    updateSummary()
+}
+
+async function decreaseItemQuantity() {
+    const newQuantity = 'any number';
+    cartTempDB.updateItemQuantity();
+
+    updateSummary()
+}
+
+async function handleQuantityInput() {
+    const newQuantity = 'any number';
+    cartTempDB.updateItemQuantity();
+
+    updateSummary()
 }
