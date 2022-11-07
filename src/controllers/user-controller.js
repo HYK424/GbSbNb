@@ -36,6 +36,7 @@ export const userController = {
 
   getMyInfo: async (req, res) => {
     const userId = req.currentUserId;
+
     console.log(userId);
 
     const data = await userService.getMyInfo(userId);

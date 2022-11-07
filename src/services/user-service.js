@@ -3,7 +3,6 @@ import { userModel } from '../db';
 import bcrypt from 'bcrypt';
 
 import { jwtModule } from '../util/jwt';
-import { tokenReseter } from '../util/jwt-logic';
 
 class UserService {
   constructor(userModel) {

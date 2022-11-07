@@ -8,15 +8,13 @@ async function get(endpoint, params = '') {
 
   await setToken.tokenCheck();
 
+  const Bearer = 'Bearer ';
+
   const res = await fetch(apiUrl, {
     headers: {
-      Authorization: `Bearer ${sessionStorage.getItem(
-        'accessToken',
-      )} ${sessionStorage.getItem('refreshToken')}`,
+      Authorization: getAccess(Bearer),
     },
   });
-
-  console.log(res);
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (res.status === 419) {
@@ -24,11 +22,10 @@ async function get(endpoint, params = '') {
 
     alert(getMessage.message);
     console.log('419찾음');
-    window.location.href = '/login';
+    // window.location.href = '/login';
   }
 
   if (!res.ok) {
-    console.log(await res.json());
     const errorContent = await res.json();
     const { reason } = errorContent;
 
@@ -158,6 +155,13 @@ const tokenCheck = async () => {
       )} ${sessionStorage.getItem('refreshToken')}`,
     },
   });
+};
+
+const getAccess = (Bearer) => {
+  if (sessionStorage.getItem('accessToken')) {
+    const auth = Bearer + String(sessionStorage.getItem('accessToken'));
+    return auth;
+  }
 };
 
 // 아래처럼 export하면, import * as Api 로 할 시 Api.get, Api.post 등으로 쓸 수 있음.
