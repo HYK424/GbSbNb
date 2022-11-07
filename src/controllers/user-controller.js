@@ -8,7 +8,7 @@ export const userController = {
 
       const result = await userService.login({ email, password });
 
-      const { status, role, accessToken, refreshToken } = result;
+      const { status, role, userName, accessToken, refreshToken } = result;
 
       let { message } = result;
 
@@ -19,6 +19,8 @@ export const userController = {
       let data = {
         message: message,
         tokens: { accessToken: accessToken, refreshToken: refreshToken },
+        role: role,
+        userName: userName,
       };
 
       if (role === 'ADMIN' || role === 'ADMIN_G') {
@@ -31,13 +33,17 @@ export const userController = {
     }
   },
 
-  getMyInfo: async (req, res, next) => {
+  getMyInfo: async (req, res) => {
     const userId = req.currentUserId;
     console.log(userId);
 
-    const result = await userService.getMyInfo(userId);
+    const data = await userService.getMyInfo(userId);
 
-    const { status, message, userInfo } = result;
+    const { status, message, userData } = result;
+
+    const result = tokenReseter(req, userData);
+
+    console.log(data);
 
     console.log('반환시작');
 
