@@ -16,7 +16,7 @@ productRouter.get(
 );
 productRouter.get('/:productId', asyncHandler(productController.getProudct));
 
-//productRouter.use(loginAuthenticator.isLoggedIn, checkRole);
+// productRouter.use(loginAuthenticator.isLoggedIn, checkRole);
 productRouter.post(
   '/',
   productImageUpload.single('image'),

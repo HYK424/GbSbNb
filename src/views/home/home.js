@@ -2,20 +2,22 @@ const productContainer = document.getElementById('productContainer');
 const pageContainer = document.getElementById('pageContainer');
 const toPrevious = document.getElementById('toPrevious');
 const toNext = document.getElementById('toNext');
-const previousPage = document.getElementById('previousPage');
-const nextPage = document.getElementById('nextPage');
+const previousPageLink = document.getElementById('previousPage');
+const nextPageLink = document.getElementById('nextPage');
 
 async function renderProducts() {
   try {
     let data;
+    let page, category;
     if (location.href.split('?')[1]) {
       const query = location.href
         .split('?')[1]
         .split('&')
         .map((query) => query.split('='));
-      let page = query.filter((q) => q[0] === 'page')[0];
+      page = query.filter((q) => q[0] === 'page')[0];
       if (page) page = page[1];
-      const category = query.filter((q) => q[0] === 'q')[0][1];
+      category = query.filter((q) => q[0] === 'q')[0];
+      if (category) category = category[1];
       console.log(page, category);
       if (category || page) {
         if (category && page) {
@@ -43,16 +45,17 @@ async function renderProducts() {
     products.forEach(renderProduct);
     if (totalPage === 1) return;
     if (hasNextPage) {
-      if (location.search) {
-        nextPage.href = `${location.href}&page=${nextPage}`;
-      } else {
-        nextPage.href = `${location.href}?page=${nextPage}`;
-      }
-      console.log(location);
-      nextPage.href = location.pathname;
+      nextPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
+        category ? category : ''
+      }${category ? '&' : '?'}page=${nextPage}`;
       toNext.classList.toggle('d-none');
     }
-    if (hasPreviousPage) toPrevious.classList.toggle('d-none');
+    if (hasPreviousPage) {
+      previousPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
+        category ? category : ''
+      }${category ? '&' : '?'}page=${previousPage}`;
+      toPrevious.classList.toggle('d-none');
+    }
   } catch (err) {
     console.log(err);
   }
