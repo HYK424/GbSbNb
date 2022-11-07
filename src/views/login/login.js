@@ -42,20 +42,12 @@ async function handleSubmit(e) {
     console.log('요청결과 받음');
     console.log(result);
 
-    const token = result.tokens;
+    sessionStorage.setItem('accessToken', tokens.accessToken);
 
-    // 로그인 성공, 토큰을 세션 스토리지에 저장
-    // 물론 다른 스토리지여도 됨
-    sessionStorage.setItem('accessToken', token.accessToken);
-
-    sessionStorage.setItem('refreshToken', token.refreshToken);
+    sessionStorage.setItem('refreshToken', tokens.refreshToken);
 
     alert(result.message);
-
-    // 로그인 성공
-
-    // 기본 페이지로 이동
-    //window.location.href = '/';
+    window.location.href = '/';
   } catch (err) {
     console.log(err);
     console.error(err.stack);

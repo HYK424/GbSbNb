@@ -62,7 +62,7 @@ const OrderSchema = new Schema(
       type: Date,
     },
   },
-  { collection: 'orders', timestamps: true },
+  { timestamps: true },
 );
 
 export { OrderSchema };
