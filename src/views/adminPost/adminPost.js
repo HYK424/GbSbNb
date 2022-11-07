@@ -54,10 +54,9 @@ function formData() {
 }
 
 //빈 input에 채우기
-function inputPosts() {
+async function inputPosts() {
   form2.style.visibility = 'hidden';
-  const productData = await fetch(`/api/products/${getProductId()}`)
-    .then(res => res.json());
+  const data = await (await fetch(`/api/products/${getProductId()}`)).json();
 
   titleInput.value = data.title;
   manufactureInput.value = data.manufacturer;
