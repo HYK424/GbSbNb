@@ -15,8 +15,8 @@ userRouter.post(
   '/',
   userValidator.createUser,
   //authenticator.isNotLoggedIn,
-  userController.createUser,
-  userController.logIn,
+  asyncHandler(userController.createUser),
+  // asyncHandler(userController.logIn),
 );
 
 //로그인
