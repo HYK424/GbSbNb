@@ -43,9 +43,9 @@ class UserService {
       );
     }
 
-    const accessToken = jwtModule.access(user._id, user.role);
+    const accessToken = jwtModule.generateAccess(user._id, user.role);
 
-    const refreshToken = jwtModule.refresh(user._id, user.role);
+    const refreshToken = jwtModule.generateRefresh(user._id, user.role);
 
     return {
       status: 200,

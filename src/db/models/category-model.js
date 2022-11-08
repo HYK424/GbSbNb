@@ -37,7 +37,7 @@ export class CategoryModel {
   }
 
   static async delete(categoryId) {
-    const filter = { _id: categoryId };
+    const filter = { id: categoryId };
     const result = await Category.findOneAndDelete(filter);
     return result;
   }
