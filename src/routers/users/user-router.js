@@ -5,6 +5,8 @@ import { userController } from '../../controllers/user-controller';
 import { authenticator } from '../../middlewares/authentication';
 import { userValidator } from '../../middlewares/validation/index';
 
+import { asyncHandler } from '../../middlewares';
+
 const userRouter = Router();
 
 //////// 계정관련 ////////
@@ -13,8 +15,8 @@ userRouter.post(
   '/',
   userValidator.createUser,
   //authenticator.isNotLoggedIn,
-  userController.createUser,
-  userController.logIn,
+  asyncHandler(userController.createUser),
+  // asyncHandler(userController.logIn),
 );
 
 //로그인
@@ -22,7 +24,7 @@ userRouter.post(
   '/login',
   userValidator.login,
   //authenticator.isNotLoggedIn,
-  userController.logIn,
+  asyncHandler(userController.logIn),
 );
 
 // // 엑세스 토큰 검증
@@ -56,9 +58,9 @@ userRouter.delete(
 //////// 계정관련 ////////
 
 //////// 주문관련 ////////
-userRouter.post('/orders', OrderController.createOrder);
+userRouter.post('/myorder', OrderController.createOrder);
 
-userRouter.get('/orders', OrderController.getMyOrders);
+userRouter.get('/myorder', OrderController.getMyOrders);
 
 //////// 주문관련 ////////
 export { userRouter };

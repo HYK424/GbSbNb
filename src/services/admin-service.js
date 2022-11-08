@@ -62,7 +62,6 @@ class AdminService {
 
     const data = await this.orderModel.findOrder(state);
 
-    console.log('스키마 종료');
     console.log(data);
   }
 

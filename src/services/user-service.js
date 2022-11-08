@@ -1,5 +1,7 @@
 import { userModel } from '../db';
 
+import { AppError, commonErrors } from '../middlewares';
+
 import bcrypt from 'bcrypt';
 
 import { jwtModule } from '../util/jwt';
@@ -34,14 +36,16 @@ class UserService {
     );
 
     if (!isPasswordCorrect) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.inputError,
+        400,
         '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
-    const accessToken = jwtModule.access(user._id, user.role);
+    const accessToken = jwtModule.generateAccess(user._id, user.role);
 
-    const refreshToken = jwtModule.refresh(user._id, user.role);
+    const refreshToken = jwtModule.generateRefresh(user._id, user.role);
 
     return {
       status: 200,
