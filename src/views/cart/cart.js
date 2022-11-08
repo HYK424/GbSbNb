@@ -124,10 +124,7 @@ function itemInputEvent(e) {
             let isChecked = target.checked
             cartTempDB.updateItemChecked(productId, isChecked)
             if (isChecked) {
-                console.log('hellow');
-                console.log(cartTempDB.isAllChecked());
                 if (cartTempDB.isAllChecked()) {
-                    console.log('howdi');
                     allSelectCheckbox.checked = true;
                 }
             } else {
@@ -168,7 +165,10 @@ function toggleDeleteEvent(e) {
     const itemCheckedAll = cartTempDB.getItemChecked();
     for (let item of itemCheckedAll) {
         document.querySelector(`#productItem-${item.productId}`).remove();
+        console.log(cartTempDB.deleteItem)
         cartTempDB.deleteItem(item.productId)
+        console.log(cartTempDB.deleteItem)
+        cartDB.deleteItem(item.productId);
     }
 
     updateSummary()
@@ -183,7 +183,6 @@ function updateSummary() {
 function updateItemTotalPrice(productId) {
     let itemTotalPriceInput = document.querySelector(`#totalPrice-${productId}`)
     let item = cartTempDB.getItem(productId)
-    console.log(item)
     let { quantity, price } = item
     let totalPrice = quantity * price
 
