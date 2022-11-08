@@ -1,5 +1,6 @@
 const form = document.querySelector('#form');
-const form2 = document.querySelector('#form2');
+const form2=document.querySelector('#form2');
+const categoryContainer = document.querySelector('.category');
 const titleInput = form.querySelector('#title');
 const categoryInput = form.querySelector('#category');
 const manufactureInput = form.querySelector('#manufacturer');
@@ -55,7 +56,7 @@ function formData() {
 
 //빈 input에 채우기
 async function inputPosts() {
-  form2.style.visibility = 'hidden';
+  categoryContainer.style.visibility = 'hidden';
   const data = await (await fetch(`/api/products/${getProductId()}`)).json();
 
   titleInput.value = data.title;
@@ -85,7 +86,6 @@ async function handleGetCategories() {
   async function updateOptions(categories) {
     // 카테고리 옵션 추가
 
-    console.log(categories);
     categories.forEach((category) => {
       select.insertAdjacentHTML('beforeend', `
       <option value="${category.name}">${category.name}</option>
