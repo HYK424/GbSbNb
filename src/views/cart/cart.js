@@ -47,11 +47,11 @@ async function insertProductsfromCart() {
         <p id="title-${productId}">${title}</p>
         <p id="unitPrice-${productId}">${price}</p>
         <p>원</p>
-        <button class="button" data-action="minus" data-id="${productId}" id="minus-${productId}" ${quantity <= 1 ? "disabled" : ""}>
+        <button class="button" data-action="minus" data-id="${productId}" id="minus-${productId}">
             -
         </button>
         <input class="input" data-action="quantityInput" data-id="${productId}" id="quantityInput-${productId}" type="number" min="1" max="99" value="${quantity}"/>
-        <button class="button" data-action="plus" data-id="${productId}" id="plus-${productId}" ${quantity >= 99 ? "disabled" : ""}>
+        <button class="button" data-action="plus" data-id="${productId}" id="plus-${productId}">
             +
         </button>
         <p id="totalPrice-${productId}">${quantity * price}원</p>
@@ -71,7 +71,6 @@ function itemButtonEvent(e) {
     let productId = target.dataset.id
     let oldQuantity = 0
 
-
     switch (actionCase) {
         case 'delete':
             cartDB.deleteItem(productId);
@@ -90,7 +89,10 @@ function itemButtonEvent(e) {
 
             cartTempDB.updateItemQuantity(productId, oldQuantity - 1);
 
-            updateItemTotalPrice()
+            document.querySelector(`#quantityInput-${productId}`).value = oldQuantity - 1
+
+            updateItemTotalPrice(productId)
+
 
             break;
 
@@ -100,8 +102,9 @@ function itemButtonEvent(e) {
             if (oldQuantity >= 99) break;
 
             cartTempDB.updateItemQuantity(productId, oldQuantity + 1);
+            document.querySelector(`#quantityInput-${productId}`).value = oldQuantity + 1
 
-            updateItemTotalPrice()
+            updateItemTotalPrice(productId)
 
             break;
     }
@@ -121,16 +124,16 @@ function itemInputEvent(e) {
             let isChecked = target.checked
             cartTempDB.updateItemChecked(productId, isChecked)
             if (isChecked) {
-                if (cartTempDB.isAllChecked) {
+                console.log('hellow');
+                console.log(cartTempDB.isAllChecked());
+                if (cartTempDB.isAllChecked()) {
+                    console.log('howdi');
                     allSelectCheckbox.checked = true;
                 }
             } else {
                 allSelectCheckbox.checked = false;
             }
 
-            if (cartTempDB.isAllChecked()) {
-
-            }
             break;
 
         case "quantityInput":
@@ -142,7 +145,7 @@ function itemInputEvent(e) {
 
             cartTempDB.updateItemQuantity(productId, newQuantity)
 
-            updateItemTotalPrice()
+            updateItemTotalPrice(productId)
             break;
     }
 
@@ -174,14 +177,15 @@ function toggleDeleteEvent(e) {
 function updateSummary() {
     itemCountAll.innerHTML = cartTempDB.getTotalCount()
     itemPriceAll.innerHTML = cartTempDB.getTotalPrice()
-    console.log(cartTempDB.getItemAll())
     totalPrice.innerHTML = cartTempDB.getTotalPrice() + 3000
 }
 
 function updateItemTotalPrice(productId) {
-    const itemTotalPriceInput = document.querySelector(`#totalPrice-${productId}`)
-    const item = cartTempDB.getItem(productId)
-    const totalPrice = item.quantity * item.price
+    let itemTotalPriceInput = document.querySelector(`#totalPrice-${productId}`)
+    let item = cartTempDB.getItem(productId)
+    console.log(item)
+    let { quantity, price } = item
+    let totalPrice = quantity * price
 
     itemTotalPriceInput.innerHTML = totalPrice
 }

@@ -15,7 +15,7 @@ export class CategoryModel {
   }
 
   static async findById(categoryId) {
-    const category = await Category.findOne({ _id: categoryId });
+    const category = await Category.findOne({ id: categoryId });
     return category;
   }
 
@@ -37,7 +37,7 @@ export class CategoryModel {
   }
 
   static async delete(categoryId) {
-    const filter = { _id: categoryId };
+    const filter = { id: categoryId };
     const result = await Category.findOneAndDelete(filter);
     return result;
   }

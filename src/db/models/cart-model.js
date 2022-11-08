@@ -1,13 +1,13 @@
 import { model } from 'mongoose';
-import { CartSchema } from '../schemas/category-schema';
+import { CartSchema } from '../schemas/cart-schema';
 
 const Cart = model('Cart', CartSchema);
 
-export class CartModel {
-  static async getItems(userId) {
+class CartModel {
+  static async findByUserId(userId) {
     const filter = { userId };
     const cart = await Cart.findOne(filter);
-    return cart.items;
+    return cart;
   }
 
   static async update(userId, updateInfo) {
@@ -18,19 +18,13 @@ export class CartModel {
     return updatedCart;
   }
 
-  static async deleteProduct(userId, updateInfo) {
+  static async reset(userId) {
     const filter = { userId };
-    const updatedCart = await Cart.findOneAndUpdate(filter, {
-      items: updateInfo,
+    const result = await Cart.findOneAndUpdate(filter, {
+      items: [],
     });
-    return updatedCart;
-  }
-
-  static async deleteAllProducts(userId, updateInfo) {
-    const filter = { userId };
-    const updatedCart = await Cart.findOneAndUpdate(filter, {
-      items: updateInfo,
-    });
-    return updatedCart;
+    return result;
   }
 }
+
+export { CartModel };

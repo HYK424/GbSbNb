@@ -68,7 +68,7 @@ function getTotalCount() {
 }
 
 function isAllChecked() {
-    return cartTempDBArr.reduce((acc, cur) => acc && cur.insertItem, true)
+    return cartTempDBArr.reduce((acc, cur) => acc && cur.isChecked, true)
 }
 
 function updateItemQuantity(productId, newQuantity) {

@@ -5,15 +5,15 @@ import { asyncHandler } from '../../middlewares';
 
 const cartRouter = Router();
 
-cartRouter.post(
+cartRouter.get(
   '/',
   authenticator.isLoggedIn,
-  asyncHandler(cartController.addProductToCart),
+  asyncHandler(cartController.getCart),
 );
 cartRouter.put(
   '/',
   authenticator.isLoggedIn,
-  asyncHandler(cartController.deleteProduct),
+  asyncHandler(cartController.updateCart),
 );
 cartRouter.delete(
   '/',
