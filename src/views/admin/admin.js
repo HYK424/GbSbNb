@@ -1,14 +1,13 @@
+// import * as Api from '/api.js';
+
 const itemList = document.querySelector('.itemList');
 const itemCategory = document.querySelector('.form-select-sm');
 const form = document.querySelector('#form');
 const select = document.getElementById('select');
 
-
-
 setCategory();
 setItemList();
 allEvents();
-
 
 function allEvents() {
   select.addEventListener('change', handleSelect);
@@ -25,8 +24,6 @@ async function setCategory() {
     `
   }).join(''));
 }
-
-
 
 function productsTemplate(obj) {
   itemList.innerHTML = obj.map((products, i) => {
@@ -52,7 +49,7 @@ function productsTemplate(obj) {
   }).join('');
   const vtn = document.querySelectorAll('.vtn');
   for (const btn of vtn) {
-    btn.addEventListener('click', changeView); 
+    btn.addEventListener('click', changeView);
   }
 }
 
@@ -74,42 +71,31 @@ async function handleSelect(event) {
   }
 }
 
- async function changeView(event) {
+async function changeView(event) {
 
   const viewId = event.target.id;
   const btn = document.getElementById(`${viewId}`);
-  
-  
+
+
   //요청을 보내면 버튼을 공개-비공개로 바뀌어야 함
   // console.log(btn.classList[1]);
-  if(btn.classList[1] == 'btn-outline-primary'){
-    btn.classList.replace('btn-outline-primary','btn-outline-secondary');
-    btn.innerText='비공개';
-    await fetch(`/api/products/${viewId}`, {
-      method: 'PUT',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        view: false
-      })
-    });
+  if (btn.classList[1] == 'btn-outline-primary') {
+    btn.classList.replace('btn-outline-primary', 'btn-outline-secondary');
+    btn.innerText = '비공개';
+
+    // putView(viewId,false);
   }
-  else{
-    btn.classList.replace('btn-outline-secondary','btn-outline-primary');
-    btn.innerText='공개';
-    await fetch(`/api/products/${viewId}`, {
-      method: 'PUT',
-      headers:{
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        view: true
-      })
-    });
+  else {
+    btn.classList.replace('btn-outline-secondary', 'btn-outline-primary');
+    btn.innerText = '공개';
+    // putView(viewId,true);
+
   }
 }
 
+// async function putView(viewId,view){
+//   const viewResult = await Api.put(`/api/admin/products/${viewId}/view?view=${view}`);
+// }
 
 //삭제 기능 막아놓음/ PUT으로 보냄
 // <button class="btn btn-outline-danger" id="itemDelete${i}">삭제</button>
