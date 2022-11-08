@@ -7,6 +7,9 @@ export const responseHandler = async (res) => {
   if (res.status === 400) {
     errorHandler(data);
   }
+  if (!res.ok) {
+    errorHandler(data);
+  }
   //   if (statusCode === 1234) {
   //   }
 };

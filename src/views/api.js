@@ -11,14 +11,6 @@ async function get(endpoint, params = '') {
 
   const res = await fetchModule('GET', apiUrl);
 
-  console.log(res);
-
-  // const res = await fetch(apiUrl, {
-  //   headers: {
-  //     Authorization: getAccess(Bearer),
-  //   },
-  // });
-
   const result = await responseHandler(res);
 
   return result;
@@ -35,17 +27,6 @@ async function post(endpoint, extra, data) {
 
   const res = await fetchModule('POST', apiUrl, bodyData);
 
-  console.log(res);
-
-  // const res = await fetch(apiUrl, {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: getAccess(Bearer),
-  //   },
-  //   body: bodyData,
-  // });
-
   const result = await responseHandler(res);
 
   return result;
@@ -59,15 +40,6 @@ async function put(endpoint, params = '', data) {
   const bodyData = JSON.stringify(data);
 
   const res = await fetchModule('PUT', apiUrl, bodyData);
-
-  // const res = await fetch(apiUrl, {
-  //   method: 'PUT',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //     Authorization: getAccess(Bearer),
-  //   },
-  //   body: bodyData,
-  // });
 
   const result = await responseHandler(res);
 
@@ -103,7 +75,7 @@ async function fetchModule(reqMethod, apiUrl, bodyData = null) {
 const getAccess = (Bearer) => {
   if (sessionStorage.getItem('accessToken')) {
     const auth = Bearer + String(sessionStorage.getItem('accessToken'));
-    console.log(auth);
+
     return auth;
   }
 };
