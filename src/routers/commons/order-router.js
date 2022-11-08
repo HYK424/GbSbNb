@@ -6,7 +6,6 @@ import { checkRole } from '../../middlewares/authorization';
 const orderRouter = Router();
 
 orderRouter.get('/', OrderController.getOrders);
-//orderRouter.get('/myorders', OrderController.getMyOrders);
 orderRouter.use(authenticator.isLoggedIn, checkRole);
 
 export { orderRouter };
