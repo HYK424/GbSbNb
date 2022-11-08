@@ -89,4 +89,9 @@ export const adminController = {
 
     res.status(status).json({ check: check });
   },
+
+  updateUserRole: async (req, res) => {
+    const insertData = req.body.role;
+    console.log(insertData);
+  },
 };

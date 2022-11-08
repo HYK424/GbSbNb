@@ -11,6 +11,9 @@ adminRouter.use(authenticator.isLoggedIn, checkRole);
 //모든 유저 검색
 adminRouter.get('/allusers', adminController.getAllUsers);
 
+//지정 유저 권한 변경
+adminRouter.put('/allusers/changerole', adminController.updateUserRole);
+
 //지정 유저 정보 확인
 adminRouter.get('/allusers/:userId', adminController.getUserInfo);
 
