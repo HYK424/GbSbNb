@@ -165,9 +165,7 @@ function toggleDeleteEvent(e) {
     const itemCheckedAll = cartTempDB.getItemChecked();
     for (let item of itemCheckedAll) {
         document.querySelector(`#productItem-${item.productId}`).remove();
-        console.log(cartTempDB.deleteItem)
         cartTempDB.deleteItem(item.productId)
-        console.log(cartTempDB.deleteItem)
         cartDB.deleteItem(item.productId);
     }
 
