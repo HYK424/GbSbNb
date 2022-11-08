@@ -8,7 +8,11 @@ export class ProductModel {
     const newProduct = await Product.create(productInfo);
     return newProduct;
   }
-  static async findAll() {
+  static async findAll(categoryName) {
+    if (categoryName) {
+      const products = await Product.find({ category: categoryName });
+      return products;
+    }
     const products = await Product.find({});
     return products;
   }
