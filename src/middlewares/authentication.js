@@ -45,6 +45,9 @@ export const authenticator = {
     }
   },
 
+  // [{유저아이디 , 현재 롤},{유저아이디 , 현재 롤},{유저아이디 , 현재 롤},{유저아이디 , 현재 롤},{유저아이디 , 현재 롤}]
+  // 유저아이디  현재 롤 -> 반대로
+  //             basic -> admin_g
   isLoggedIn: async (req, res, next) => {
     // console.log('=isLoggedIn=');
 

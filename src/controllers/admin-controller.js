@@ -4,6 +4,7 @@ import {
   orderManagement,
   userService,
 } from '../services';
+
 import is from '@sindresorhus/is';
 
 export const adminController = {
@@ -88,5 +89,25 @@ export const adminController = {
     const { status, check } = result;
 
     res.status(status).json({ check: check });
+  },
+
+  updateUserRole: async (req, res) => {
+    console.log(req.currentUserRole);
+    if (req.currentUserRole != 'ADMIN') {
+      res
+        .status(400)
+        .json({ message: '해당 기능의 접근 권한이 존재하지 않습니다.' });
+    }
+    const insertData = req.body.checkedArr;
+
+    console.log(insertData);
+    console.log(insertData[0]);
+    console.log(Object.keys(insertData[0]));
+    console.log(Object.values(insertData[0]));
+    console.log(Object.values(insertData[0]).join() === 'basic-user');
+
+    const result = await userManagement.updateUserRole(insertData);
+
+    res.status(result.status).json(true);
   },
 };

@@ -4,9 +4,6 @@ import { productImageUpload } from '../../util';
 import { productValidator } from '../../middlewares/validation';
 import { asyncHandler } from '../../middlewares';
 
-import { loginAuthenticator } from '../../middlewares/authentication';
-import { checkRole } from '../../middlewares/authorization';
-
 const productRouter = Router();
 
 productRouter.get('/', asyncHandler(productController.getProducts));
@@ -34,5 +31,7 @@ productRouter.delete(
   '/:productId',
   asyncHandler(productController.deleteProduct),
 );
+
+// productRouter.put('/:productId/view -> 쿼리문', productController.changeView);
 
 export { productRouter };

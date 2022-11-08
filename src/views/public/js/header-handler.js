@@ -21,6 +21,8 @@ export const setToken = {
         headers: refreshHeaders,
       });
 
+      console.log(refreshRes);
+
       const result = await refreshRes.json();
 
       console.log(!refreshRes.ok);

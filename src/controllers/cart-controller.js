@@ -1,20 +1,14 @@
 import { CartService } from '../services';
 
 export const cartController = {
-  updateCart: async (req, res, next) => {
-    console.log(req.body);
-    const updatedCart = req.body;
-    const updatedCartItems = await CartService.addToCart(
-      userId,
-      productId,
-      quantity,
-    );
-    return res.status(200).json(updatedCartItems);
+  getCartItems: async (req, res, next) => {
+    const userId = req.currentUserId;
+    const cartItems = await CartService.getCartItems(userId);
+    return res.status(200).json(cartItems);
   },
-
-  deleteProduct: async (req, res, next) => {
-    const { userId, productId } = req.body;
-    const updatedCartItems = await CartService.updateCart(userId, productId);
+  updateCart: async (req, res, next) => {
+    const updateInfo = req.body.cartItems;
+    const updatedCartItems = await CartService.updateCart(userId, updateInfo);
     return res.status(200).json(updatedCartItems);
   },
 

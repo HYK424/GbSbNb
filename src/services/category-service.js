@@ -23,7 +23,7 @@ class CategoryService {
   }
 
   static async updateCategory(categoryId, updateInfo) {
-    const category = await CategoryModel.findCategory(categoryId);
+    const category = await CategoryModel.findById(categoryId);
     if (!category) {
       throw new AppError(
         commonErrors.resourceNotFoundError,
