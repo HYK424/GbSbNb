@@ -36,6 +36,33 @@ class OrderModel {
     return updatedOrder;
   }
 
+  static async updateStatus(insertData) {
+    const option = { returnOriginal: false };
+    let count = 0;
+    for (let i = 0; i < insertData.length; i++) {
+      const updateRole = {
+        role:
+          Object.values(insertData[i]).join() === 'basic-user'
+            ? 'ADMIN_G'
+            : 'basic-user',
+      };
+      console.log(updateRole);
+      const order = await Order.findOne({ _id: Object.keys(insertData[i]) });
+      console.log(Order);
+      const filter = { _id: Object.keys(insertData[i]) };
+      const updatedOrder = await Order.findOneAndUpdate(
+        filter,
+        updateRole,
+        option,
+      );
+      console.log(updatedOrder);
+      count += 1;
+    }
+    if (count == insertData.length) {
+      return true;
+    }
+  }
+
   static async softDelete(orderId, updateInfo) {
     const filter = { _id: orderId };
     const result = await Order.findOneAndUpdate(filter, updateInfo);

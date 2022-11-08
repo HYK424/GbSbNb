@@ -28,6 +28,7 @@ class OrderService {
     }
     return order;
   }
+
   static async updateOrder(orderId, updateInfo) {
     const order = await OrderModel.findById(orderId);
     if (order.status !== '배송 준비 중') {
@@ -42,6 +43,19 @@ class OrderService {
       updateInfo,
     });
     return updatedOrder;
+  }
+
+  static async updateOrderStatus(insertData) {
+    const data = await OrderModel.updateStatus(insertData);
+
+    if (!data) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '배송 상태 변경에 실패했습니다. 동일한 상태의 주문에 대해서만 상태 변경 요청을 해주세요!',
+      );
+    }
+    return true;
   }
 
   static async deleteMyOrder(orderId) {

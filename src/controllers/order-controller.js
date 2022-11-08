@@ -48,7 +48,6 @@ class OrderController {
     return res.status(200).json(order);
   }
 
-  // 사용자가 수정하는 경우 수량과 주소 요청사항?
   static async updateOrder(req, res, next) {
     const { orderId } = req.params;
     const { orderItems, totalPrice, address, request } = req.body;
@@ -58,13 +57,22 @@ class OrderController {
       ...(totalPrice && { totalPrice }),
       ...(request && { request }),
     };
-    const updatedOrder = await OrderService.updateOrder(orderId, updateInfo);
-
-    res.status(200).json(updatedOrder);
+    const result = await OrderService.updateOrder(orderId, updateInfo);
+    return res.sendStatus(200);
   }
 
   static async updateOrderStatus(req, res, next) {
-    const orderId = 
+    const insertData = req.body.checkedArr;
+
+    console.log(insertData);
+    console.log(insertData[0]);
+    console.log(Object.keys(insertData[0]));
+    console.log(Object.values(insertData[0]));
+    console.log(Object.values(insertData[0]).join() === 'basic-user');
+
+    const result = await userManagement.updateUserRole(insertData);
+
+    res.status(result.status).json(true);
   }
 
   // 이건 소프트 딜리트임
