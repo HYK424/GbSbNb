@@ -1,7 +1,9 @@
 // api 로 GET 요청 (/endpoint/params 형태로 요청함)
 
 import { setToken } from './public/js/header-handler.js';
+
 const Bearer = 'Bearer ';
+
 async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
@@ -44,6 +46,8 @@ async function post(endpoint, data) {
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
 
+  await setToken.tokenCheck();
+
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: {
@@ -58,18 +62,27 @@ async function post(endpoint, data) {
     return result;
   }
 
+  // console.log(res);
+
+  // const result = await res.json();
+
+  // console.log(result.err);
+
   if (!res.ok) {
     // 응답 코드가 4XX 계열일 때 (400, 403 등)
     // fetch(endpoint).then(res => res.json())
     // .then(funcData => console.log(`이것이 바로 우리가 추출하고 싶어하는 value : ${funcData}`)
 
     const errorContent = await res.json();
-    const { reason } = errorContent;
+    console.log(errorContent);
+    const errs = errorContent.split('/');
 
-    throw new Error(reason);
+    for (let i = 0; i < errs.length; i++) {
+      alert(errs[i]);
+    }
+
+    //throw new Error(reason);
   }
-
-  const result = await res.json();
 
   return result;
 }
@@ -80,6 +93,9 @@ async function put(endpoint, params = '', data) {
 
   // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
   // 예시: {name: "Kim"} => {"name": "Kim"}
+
+  await setToken.tokenCheck();
+
   const bodyData = JSON.stringify(data);
   console.log(`%cPUT 요청: ${apiUrl}`, 'color: #059c4b;');
   console.log(`%cPUT 요청 데이터: ${bodyData}`, 'color: #059c4b;');
@@ -124,6 +140,15 @@ async function del(endpoint, params = '', data = {}) {
       Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
     },
   });
+
+  // 함수(res){
+  //   if(res.status()=== 419){
+
+  //   }
+  //   if(500){
+
+  //   }
+  // }
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
   if (!res.ok) {

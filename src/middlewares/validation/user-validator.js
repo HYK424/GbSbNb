@@ -3,22 +3,37 @@ import { validatorErrorChecker } from './validatorErrorChecker';
 
 export const userValidator = {
   createUser: [
-    body('fullName').notEmpty().isLength({ min: 2, max: 20 }),
-    body('email').notEmpty().isLength({ max: 40 }).isEmail(),
-    body('password').notEmpty().isLength({ min: 8, max: 20 }),
-    body('phoneNumber').notEmpty().isLength({ min: 8, max: 20 }),
-    body('address').notEmpty().isLength({ min: 8, max: 20 }),
+    body('fullName')
+      .notEmpty()
+      .isLength({ min: 2, max: 20 })
+      .withMessage('이름이 너무 길거나 짧습니다.'),
+    body('email')
+      .notEmpty()
+      .isLength({ max: 40 })
+      .isEmail()
+      .withMessage('이메일 형식이 아닙니다.'),
+    body('password')
+      .notEmpty()
+      .isLength({ min: 8, max: 20 })
+      .withMessage('비밀번호는 8자리 이상 20자리 이하로 작성해야 합니다.'),
+    body('phoneNumber')
+      .notEmpty()
+      .isLength({ min: 8, max: 12 })
+      .withMessage('전화번호가 올바르지 않습니다.'),
+    //body('address').notEmpty().isLength({ min: 8, max: 20 }),
     validatorErrorChecker,
   ],
 
   login: [
-    body('email').notEmpty().isLength({ max: 40 }).isEmail(),
+    body('email')
+      .notEmpty()
+      .isLength({ max: 40 })
+      .isEmail()
+      .withMessage('이메일이 올바르지 않습니다.'),
     body('password')
       .notEmpty()
       .isLength({ min: 8, max: 20 })
-      .withMessage(
-        '비밀번호는 영문과 숫자, 8자 이상 20자 이하로 입력해주세요!',
-      ),
+      .withMessage('비밀번호는 8자리 이상 20자리 이하로 작성해야 합니다.'),
     validatorErrorChecker,
   ],
 

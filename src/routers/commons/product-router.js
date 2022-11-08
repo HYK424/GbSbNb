@@ -32,4 +32,6 @@ productRouter.delete(
   asyncHandler(productController.deleteProduct),
 );
 
+// productRouter.put('/:productId/view -> 쿼리문', productController.changeView);
+
 export { productRouter };
