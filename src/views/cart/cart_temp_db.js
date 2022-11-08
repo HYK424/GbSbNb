@@ -29,6 +29,17 @@ function deleteItem(productId) {
     cartTempDBArr = cartTempDBArr.filter((item) => item.productId != productId);
 }
 
+function deleteItemChecked() {
+    deleteItem = cartTempDBArr.filter((item) => item.isChecked);
+
+    for (let item of deleteItem) {
+        cartTotalPrice -= item.quantity * item.price
+        cartTotalCount -= item.quantity
+    }
+
+    cartTempDBArr = cartTempDBArr.filter((item) => !item.isChecked);
+}
+
 function getItem(productId) {
     return cartTempDBArr.find(item => item.productId === productId);
 }
@@ -37,12 +48,24 @@ function getItemAll() {
     return cartTempDBArr
 }
 
+function getItemIdAll() {
+    return cartTempDBArr.map(item => item.productId)
+}
+
+function getItemChecked() {
+    return cartTempDBArr.filter((item) => item.isChecked)
+}
+
 function getTotalPrice() {
     return cartTotalPrice
 }
 
 function getTotalCount() {
     return cartTotalCount
+}
+
+function isAllChecked() {
+    return cartTempDBArr.reduce((acc, cur) => acc && cur.insertItem, true)
 }
 
 function updateItemQuantity(productId, quantity) {
@@ -76,4 +99,18 @@ function updateItemChecked(productId, isChecked) {
     currentItem.isChecked = isChecked
 }
 
-export { insertItem, deleteItem, getItem, getItemAll, updateItemQuantity, updateItemChecked, getTotalPrice, getTotalCount }
+
+export {
+    insertItem,
+    deleteItem,
+    deleteItemChecked,
+    getItem,
+    getItemAll,
+    getItemChecked,
+    getItemIdAll,
+    isAllChecked,
+    updateItemQuantity,
+    updateItemChecked,
+    getTotalPrice,
+    getTotalCount
+}

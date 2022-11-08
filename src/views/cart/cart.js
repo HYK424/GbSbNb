@@ -5,17 +5,22 @@ const itemCountAll = document.querySelector('#itemCountAll');
 const itemPriceAll = document.querySelector('#itemPriceAll');
 const totalPrice = document.querySelector('#totalPrice');
 const itemContainer = document.querySelector('#itemContainer');
+const allSelectCheckbox = document.querySelector('#allSelectCheckbox');
+const partialDeleteLabel = document.querySelector('#partialDeleteLabel');
 
 addAllElements();
 addAllEvents();
 
 function addAllElements() {
     insertProductsfromCart();
+    updateSummary();
 }
 
 function addAllEvents() {
     itemContainer.addEventListener('click', itemButtonEvent);
     itemContainer.addEventListener("change", itemInputEvent);
+    allSelectCheckbox.addEventListener("change", toggleAllEvent);
+    partialDeleteLabel.addEventListener('click', toggleDeleteEvent);
 }
 
 async function insertProductsfromCart() {
@@ -70,7 +75,10 @@ function itemButtonEvent(e) {
             cartTempDB.deleteItem(productId);
             document.querySelector(`#productItem-${productId}`).remove();
             // 전체선택 체크박스를 업데이트함
-            break;
+            if (cartTempDB.isAllChecked) {
+                allSelectCheckbox.checked = true;
+            }
+
         case 'minus':
             oldQuantity = cartTempDB.getItem(productId).quantity
 
@@ -106,18 +114,54 @@ function itemInputEvent(e) {
 
     switch (actionCase) {
         case "checkbox":
+            let isChecked = target.checked
+            cartTempDB.updateItemChecked(productId, isChecked)
+            if (isChecked) {
+                if (cartTempDB.isAllChecked) {
+                    allSelectCheckbox.checked = true;
+                }
+            } else {
+                allSelectCheckbox.checked = false;
+            }
+
+            if (cartTempDB.isAllChecked()) {
+
+            }
             break;
+
         case "quantityInput":
             let newQuantity = target.value
 
             if (newQuantity < 1 || newQuantity > 99) {
-                return alert("수량은 1~99 사이가 가능합니다.");
+                return alert("수량은 1~99 사이만 가능합니다.");
             }
 
             cartTempDB.updateItemQuantity(productId, newQuantity)
 
             updateItemTotalPrice()
             break;
+    }
+
+    updateSummary()
+}
+
+function toggleAllEvent(e) {
+    const isChecked = e.target.checked;
+    const itemIdArr = cartTempDB.getItemIdAll();
+
+    for (let itemId of itemIdArr) {
+        cartTempDB.updateItemChecked(itemId, isChecked)
+        document.querySelector(`#checkbox-${itemId}`).checked = isChecked
+    }
+
+    updateSummary()
+}
+
+function toggleDeleteEvent(e) {
+    const itemCheckedAll = cartTempDB.getItemChecked();
+    for (let item of itemCheckedAll) {
+        document.querySelector(`#productItem-${item.productId}`).remove();
+        cartTempDB.deleteItem(item.productId)
     }
 
     updateSummary()
