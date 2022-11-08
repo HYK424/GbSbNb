@@ -1,4 +1,4 @@
-import { checkRole, loginRequired } from '../middlewares';
+import { AppError, commonErrors } from '../middlewares';
 import { OrderService } from '../services';
 
 class OrderController {
@@ -17,9 +17,15 @@ class OrderController {
     return res.status(201).json(newOrder);
   }
 
-  static async getOrders() {
+  static async getOrders(req, res, next) {
     const orders = await OrderService.getOrders();
     return res.status(200).json(orders);
+  }
+
+  static async getOrderById(req, res, next) {
+    const { orderId } = req.body;
+    const order = await OrderService.getOrderById(orderId);
+    res.status(200).json(order);
   }
 
   static async getMyOrders(req, res, next) {
@@ -28,22 +34,24 @@ class OrderController {
     return res.status(200).json(orders);
   }
 
-  static async getMyOrders(req, res, next) {
-    const { userId } = req.currentUserId;
-    const orders = await OrderService.getMyOrders(userId);
-    return res.status(200).json(orders);
-  }
-
-  static async getMyOrder(req, res, next) {
+  static async getOrder(req, res, next) {
     const { orderId } = req.params;
+    const { currentUserId, currentUserRole } = req;
     const order = await OrderService.getOrder(orderId);
+    if (currentUserId !== order.userId && currentUserRole === 'basic-user') {
+      throw new AppError(
+        commonErrors.authorizationError,
+        403,
+        '해당 주문은 고객님의 주문이 아니에요!',
+      );
+    }
     return res.status(200).json(order);
   }
 
   // 사용자가 수정하는 경우 수량과 주소 요청사항?
-  static async updateOrder() {
+  static async updateOrder(req, res, next) {
     const { orderId } = req.params;
-    const { orderItems, address, request } = req.body;
+    const { orderItems, totalPrice, address, request } = req.body;
     const updateInfo = {
       ...(orderItems && { orderItems }),
       ...(address && { address }),
@@ -55,34 +63,19 @@ class OrderController {
     res.status(200).json(updatedOrder);
   }
 
-  static async getOrdersByAdmin(req, res, next) {
-    const orders = await OrderService.getOrdersByAdmin();
-
-    res.status(200).json(orders);
+  static async updateOrderStatus(req, res, next) {
+    const orderId = 
   }
 
-  static async getOrderById() {
-    const { orderId } = req.params;
-    const order = await OrderService.getOrderById(orderId);
-
-    res.status(200).json(order);
-  }
-
-  static async getOrdersByProduct() {
-    const productId = req.params.productId;
-    const orderItems = await OrderService.getItemsByProductId(productId);
-
-    res.status(200).json(orderItems);
-  }
   // 이건 소프트 딜리트임
-  static async deleteMyOrder() {
-    const orderId = req.params.orderId;
+  static async deleteMyOrder(req, res, next) {
+    const { orderId } = req.params;
     const result = await OrderService.deleteMyOrder(orderId);
 
     res.status(200).json(result);
   }
   // 이건 진짜 딜리트임
-  static async deleteOrder() {
+  static async deleteOrder(req, res, next) {
     const { orderId } = req.params;
     const result = await OrderService.deleteOrder(orderId);
 

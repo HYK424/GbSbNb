@@ -30,25 +30,16 @@ async function handleSubmit(e) {
 
   if (!isEmailValid || !isPasswordValid) {
     return alert(
-      '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.',
+      '비밀번호가 8글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.',
     );
   }
 
   // 로그인 api 요청
-  try {
-    const data = { email, password };
+  const data = { email, password };
 
-    const result = await Api.post('/api/users/login', data);
-
-    sessionStorage.setItem('accessToken', result.tokens.accessToken);
-    sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
-    sessionStorage.setItem('role', result.role);
-
-    alert(result.message);
-    window.location.href = '/';
-  } catch (err) {
-    console.log(err);
-    console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  }
+  const result = await Api.post('/api/users/login', data);
+  sessionStorage.setItem('accessToken', result.tokens.accessToken);
+  sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
+  sessionStorage.setItem('role', result.role);
+  window.location.href = '/';
 }

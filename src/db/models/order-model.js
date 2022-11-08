@@ -4,26 +4,27 @@ import { OrderSchema } from '../schemas/order-schema';
 const Order = model('orders', OrderSchema);
 
 class OrderModel {
-  async create(orderInfo) {
+  static async create(orderInfo) {
     const newOrder = await Order.create(orderInfo);
     return newOrder;
   }
-  async findById(orderId) {
+
+  static async findById(orderId) {
     const order = await Order.findOne({ _id: orderId });
     return order;
   }
 
-  async findAllByUserId(userId) {
+  static async findAllByUserId(userId) {
     const orders = await Order.find({ userId, deletedAt: null });
     return orders;
   }
 
-  async findAll() {
+  static async findAll() {
     const orders = await Order.find({});
     return orders;
   }
 
-  async update({ orderId, updateInfo }) {
+  static async update({ orderId, updateInfo }) {
     const filter = { _id: orderId };
     const option = { returnOriginal: false };
 
@@ -41,7 +42,7 @@ class OrderModel {
     return result;
   }
 
-  async delete(orderId) {
+  static async delete(orderId) {
     const result = await Order.deleteOne({ _id: orderId });
     return result;
   }
