@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { orderController } from '../../controllers/order-controller';
+import { OrderController } from '../../controllers/order-controller';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { userController } from '../../controllers/user-controller';
 import { authenticator } from '../../middlewares/authentication';
@@ -56,9 +56,9 @@ userRouter.delete(
 //////// 계정관련 ////////
 
 //////// 주문관련 ////////
-userRouter.post('/myorder', orderController.createMyOrders);
+userRouter.post('/orders', OrderController.createOrder);
 
-userRouter.get('/myorder', orderController.getMyOrders);
+userRouter.get('/orders', OrderController.getMyOrders);
 
 //////// 주문관련 ////////
 export { userRouter };

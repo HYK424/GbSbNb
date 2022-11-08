@@ -95,6 +95,11 @@ class ProductService {
     return product;
   }
 
+  static async getProductsByAdmin(categoryName) {
+    const products = await ProductModel.findAll(categoryName);
+    return products;
+  }
+
   static async updateProduct(productId, productInfo) {
     let product = await ProductModel.findById(productId);
     if (!product) {

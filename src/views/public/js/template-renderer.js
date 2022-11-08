@@ -45,8 +45,10 @@ function renderNav() {
 }
 
 function getNaveHTML() {
+  const role = sessionStorage.getItem('role');
   const isLoggedIn = sessionStorage.getItem('accessToken');
-  const isAdmin = sessionStorage.getItem('refreshToken');
+
+  const isAdmin = role === 'ADMIN' || role === 'admin_G';
   return `<div class="d-flex">
   <a class="navbar-brand me-5" href="/" id="logo">개발세발네발🐶</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

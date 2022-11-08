@@ -1,49 +1,93 @@
-import { AppError } from '../middlewares';
-import { orderService } from '../services';
+import { checkRole, loginRequired } from '../middlewares';
+import { OrderService } from '../services';
 
-export const orderController = {
-  getOrders: async (req, res) => {
-    const state = req.query.state;
-
-    const data = await orderService.getOrders(state);
-
-    !data
-      ? res.status(400).json({ message: '데이터를 불러오지 못했습니다.' })
-      : res.status(200).json({ message: '데이터를 불러왔습니다.', data: data });
-  },
-
-  createMyOrders: async (req, res) => {
+class OrderController {
+  static async createOrder(req, res, next) {
     const userId = req.currentUserId;
-    const { orderItems, address, payment } = req.body;
+    const { orderItems, totalPrice, address, request } = req.body;
 
-    for (let i = 0; i < orderItems.length; i++) {
-      const calc = orderItems[i].quantity * orderItems[i].eachPrice;
+    const newOrder = await OrderService.createOrder({
+      userId,
+      orderItems,
+      totalPrice,
+      address,
+      request,
+    });
 
-      if (calc != orderItems[i].totalItemPrice) {
-        throw new AppError('상품 계산결과가 맞지 않습니다.');
-      }
-    }
+    return res.status(201).json(newOrder);
+  }
 
-    const insertData = { userId, orderItems, address, payment };
-    const resultData = await orderService.createMyOrders(insertData);
+  static async getOrders() {
+    const orders = await OrderService.getOrders();
+    return res.status(200).json(orders);
+  }
 
-    // console.log(resultData);
-
-    !resultData
-      ? res.status(400).json({
-          message: '주문을 실패하였습니다. 잠시후 다시 시도해주십시오.',
-        })
-      : res
-          .status(200)
-          .json({ message: '주문을 성공하였습니다..', data: resultData });
-
-    //console.log(data);
-  },
-  getMyOrders: async (req, res) => {
+  static async getMyOrders(req, res, next) {
     const userId = req.currentUserId;
+    const orders = await OrderService.getMyOrder(userId);
+    return res.status(200).json(orders);
+  }
 
-    const data = await orderService.getMyOrders(userId);
+  static async getMyOrders(req, res, next) {
+    const { userId } = req.currentUserId;
+    const orders = await OrderService.getMyOrders(userId);
+    return res.status(200).json(orders);
+  }
 
-    console.log(data);
-  },
-};
+  static async getMyOrder(req, res, next) {
+    const { orderId } = req.params;
+    const order = await OrderService.getOrder(orderId);
+    return res.status(200).json(order);
+  }
+
+  // 사용자가 수정하는 경우 수량과 주소 요청사항?
+  static async updateOrder() {
+    const { orderId } = req.params;
+    const { orderItems, address, request } = req.body;
+    const updateInfo = {
+      ...(orderItems && { orderItems }),
+      ...(address && { address }),
+      ...(totalPrice && { totalPrice }),
+      ...(request && { request }),
+    };
+    const updatedOrder = await OrderService.updateOrder(orderId, updateInfo);
+
+    res.status(200).json(updatedOrder);
+  }
+
+  static async getOrdersByAdmin(req, res, next) {
+    const orders = await OrderService.getOrdersByAdmin();
+
+    res.status(200).json(orders);
+  }
+
+  static async getOrderById() {
+    const { orderId } = req.params;
+    const order = await OrderService.getOrderById(orderId);
+
+    res.status(200).json(order);
+  }
+
+  static async getOrdersByProduct() {
+    const productId = req.params.productId;
+    const orderItems = await OrderService.getItemsByProductId(productId);
+
+    res.status(200).json(orderItems);
+  }
+  // 이건 소프트 딜리트임
+  static async deleteMyOrder() {
+    const orderId = req.params.orderId;
+    const result = await OrderService.deleteMyOrder(orderId);
+
+    res.status(200).json(result);
+  }
+  // 이건 진짜 딜리트임
+  static async deleteOrder() {
+    const { orderId } = req.params;
+    const result = await OrderService.deleteOrder(orderId);
+
+    res.status(200).json(result);
+  }
+}
+
+export { OrderController };
