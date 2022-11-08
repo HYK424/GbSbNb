@@ -60,6 +60,28 @@ export class UserModel {
 
     return deleteUser;
   }
+
+  async updateRole(insertData) {
+    const option = { returnOriginal: false };
+    for (let i = 0; i < insertData.length; i++) {
+      const updateRole = {
+        role:
+          Object.values(insertData[0]).join() === 'basic-user'
+            ? 'ADMIN_G'
+            : 'basic-user',
+      };
+      console.log(role);
+      const user = await User.findOne({ _id: Object.keys(insertData[0]) });
+      console.log(user);
+      const filter = { _id: Object.keys(insertData[0]) };
+      const updatedUser = await User.findOneAndUpdate(
+        filter,
+        updateRole,
+        option,
+      );
+      console.log(updatedUser);
+    }
+  }
 }
 
 const userModel = new UserModel();

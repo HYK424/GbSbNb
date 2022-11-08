@@ -65,6 +65,12 @@ class AdminService {
     console.log('스키마 종료');
     console.log(data);
   }
+
+  async updateUserRole(insertData) {
+    console.log('서비스');
+
+    const data = await this.userModel.updateRole(insertData);
+  }
 }
 
 const userManagement = new AdminService('userModel');
