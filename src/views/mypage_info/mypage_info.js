@@ -46,9 +46,8 @@ function checkLoginState() {
 async function insertUserInfo() {
   //await setToken.tokenCheck();
   const get = await Api.get('/api/users/myinfo');
-  let userInfo = get.userInfo;
 
-  console.log(userInfo);
+  let userInfo = get.userInfo;
 
   let notGetArr = new Array('password', 'role', 'createdAt', 'updatedAt');
 

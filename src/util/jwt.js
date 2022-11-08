@@ -6,6 +6,7 @@ const refreshSecretKey = process.env.REFRESH_KEY;
 export const jwtModule = {
   access: (userId, role) => {
     const payload = { userId, role };
+
     return jwt.sign(payload, accessSecretKey, {
       expiresIn: process.env.ACCESS_EXPIRE,
     });
@@ -15,17 +16,9 @@ export const jwtModule = {
     try {
       const decodeToken = jwt.verify(accessToken, accessSecretKey);
 
-      return { decodeToken };
+      return decodeToken;
     } catch (err) {
-      if (err.name === 'TokenExpiredError') {
-        console.log('accessToken 만료됨');
-        return false;
-      }
-
-      if (err.name === 'JsonWebTokenError') {
-        console.log('유효하지 않은 접근');
-        return { status: 419 };
-      }
+      return false;
     }
   },
 
@@ -39,17 +32,9 @@ export const jwtModule = {
   refreshVerify: (refreshToken) => {
     try {
       const decodeToken = jwt.verify(refreshToken, refreshSecretKey);
-      return { decodeToken };
+      return decodeToken;
     } catch (err) {
-      if (err.name === 'TokenExpiredError') {
-        console.log('refreshToken 만료됨');
-        return false;
-      }
-
-      if (err.name === 'JsonWebTokenError') {
-        console.log('유효하지 않은 접근');
-        return { status: 419 };
-      }
+      return false;
     }
   },
 };
