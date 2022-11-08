@@ -38,20 +38,14 @@ async function handleSubmit(e) {
 
   const data = { email, password };
 
-  const result = await Api.post('/api/users/login', data);
-
-  // console.log(result);
-  // const message = result.message;
-  // console.log(message);
-  if (!result.ok) {
-    alert('여기서 띄움');
-  }
+  const result = await Api.post('/api/users/login', true, data);
 
   sessionStorage.setItem('accessToken', result.tokens.accessToken);
   sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
   sessionStorage.setItem('role', result.role);
 
   alert(result.message);
+
   window.location.href = '/';
   // } catch (err) {
   //   console.log(err);
