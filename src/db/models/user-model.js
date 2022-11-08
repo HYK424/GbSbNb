@@ -62,24 +62,30 @@ export class UserModel {
   }
 
   async updateRole(insertData) {
+    console.log('롤들어옴');
     const option = { returnOriginal: false };
+    let count = 0;
     for (let i = 0; i < insertData.length; i++) {
       const updateRole = {
         role:
-          Object.values(insertData[0]).join() === 'basic-user'
+          Object.values(insertData[i]).join() === 'basic-user'
             ? 'ADMIN_G'
             : 'basic-user',
       };
-      console.log(role);
-      const user = await User.findOne({ _id: Object.keys(insertData[0]) });
+      console.log(updateRole);
+      const user = await User.findOne({ _id: Object.keys(insertData[i]) });
       console.log(user);
-      const filter = { _id: Object.keys(insertData[0]) };
+      const filter = { _id: Object.keys(insertData[i]) };
       const updatedUser = await User.findOneAndUpdate(
         filter,
         updateRole,
         option,
       );
       console.log(updatedUser);
+      count += 1;
+    }
+    if (count == insertData.length) {
+      return true;
     }
   }
 }

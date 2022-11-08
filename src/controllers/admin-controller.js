@@ -100,5 +100,7 @@ export const adminController = {
     console.log(Object.values(insertData[0]).join() === 'basic-user');
 
     const result = await userManagement.updateUserRole(insertData);
+
+    res.status(result.status).json(true);
   },
 };

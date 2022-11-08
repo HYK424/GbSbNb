@@ -70,6 +70,11 @@ class AdminService {
     console.log('서비스');
 
     const data = await this.userModel.updateRole(insertData);
+
+    console.log(data);
+    if (data) {
+      return { status: 200 };
+    }
   }
 }
 
