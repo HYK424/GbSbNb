@@ -2,6 +2,7 @@
 import * as Api from '/api.js';
 
 const userList = document.querySelector('#userList');
+
 const rolebtn = document.querySelector('#roleBtn');
 
 getUserList();
@@ -15,16 +16,16 @@ async function getUserList() {
       'beforeend',
       `
             <tr>
-            <th onclick="location.href='/api/admin/allusers/${
+            <th onclick="location.href='/admin/allusers/${
               user._id
             }'" width="200rem"scope="row">${user.email}</th>           
-            <td onclick="location.href='/api/admin/allusers/${
+            <td onclick="location.href='/admin/allusers/${
               user._id
             }'" width="100rem">${user.fullName}</td>
-            <td onclick="location.href='/api/admin/allusers/${
+            <td onclick="location.href='/admin/allusers/${
               user._id
             }'" width="150rem">${user.phoneNumber}</td>
-            <td onclick="location.href='/api/admin/allusers/${
+            <td onclick="location.href='/admin/allusers/${
               user._id
             }'" width="350rem">${Object.values(user.address).join(' ')}</td>
             <td width="80rem" >${

@@ -88,7 +88,7 @@ async function handleSubmit(e) {
 
   console.log(result);
 
-  if (!result) {
+  if (result === undefined) {
     window.location.reload();
   }
 

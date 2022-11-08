@@ -49,15 +49,19 @@ export const authenticator = {
   // 유저아이디  현재 롤 -> 반대로
   //             basic -> admin_g
   isLoggedIn: async (req, res, next) => {
-    // console.log('=isLoggedIn=');
+    console.log('=isLoggedIn=');
+
+    console.log(req.headers);
 
     const accessToken = req.headers['authorization']?.split(' ')[1];
 
+    console.log(accessToken);
+
     const accessVerify = jwtModule.accessVerify(accessToken);
 
-    // console.log(accessVerify);
+    console.log(accessVerify);
 
-    // console.log(accessVerify.userId);
+    console.log(accessVerify.userId);
 
     req.currentUserId = accessVerify.userId;
     req.currentUserRole = accessVerify.role;

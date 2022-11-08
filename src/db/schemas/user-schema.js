@@ -23,7 +23,7 @@ const UserSchema = new Schema(
     address: {
       type: new Schema(
         {
-          zipCode: String,
+          postalCode: String,
           address1: String,
           address2: String,
         },
