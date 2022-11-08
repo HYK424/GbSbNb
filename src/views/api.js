@@ -87,13 +87,13 @@ async function put(endpoint, params = '', data) {
   const bodyData = JSON.stringify(data);
   console.log(`%cPUT 요청: ${apiUrl}`, 'color: #059c4b;');
   console.log(`%cPUT 요청 데이터: ${bodyData}`, 'color: #059c4b;');
-
+console.log(bodyData);
   const res = await fetch(apiUrl, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${sessionStorage.getItem('token')}`,
-    },
+    }, 
     body: bodyData,
   });
 

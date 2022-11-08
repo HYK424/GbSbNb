@@ -54,7 +54,6 @@ function productsTemplate(obj) {
   for (const btn of vtn) {
     btn.addEventListener('click', changeView); 
   }
-
 }
 
 async function setItemList() {

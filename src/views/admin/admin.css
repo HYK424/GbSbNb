@@ -70,8 +70,13 @@ img {
   height: 200px;
 }
 
-.btn-outline-secondary {
-  margin: 50px 0px 40px 1020px;
+.addContainer{
+  display: flex;
+}
+
+.add {
+  margin: 50px 50px 50px auto
+ 
 }
 
 .btn-outline-danger {
