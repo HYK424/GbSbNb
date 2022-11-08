@@ -1,6 +1,9 @@
 const form = document.querySelector('#form');
-const form2=document.querySelector('#form2');
-const categoryContainer = document.querySelector('.category');
+const categoryPostForm = document.querySelector('#form2');
+const categoryPutForm = document.querySelector('#form3');
+const categoryDeleteForm = document.querySelector('#form4');
+
+const categoryContainer = document.querySelector('#hidden');
 const titleInput = form.querySelector('#title');
 const categoryInput = form.querySelector('#category');
 const manufactureInput = form.querySelector('#manufacturer');
@@ -8,30 +11,36 @@ const priceInput = form.querySelector('#price');
 const descriptionInput = form.querySelector('#description');
 const thumbnailInput = form.querySelector('#formFile');
 
-const categoryNameInput = form2.querySelector('#categoryName');
-const categoryIdInput = form2.querySelector('#categoryId');
+const categoryNameInput = categoryPostForm.querySelector('#categoryName');
+const categoryIdInput = categoryPostForm.querySelector('#categoryId');
 let file;
+const select = document.querySelectorAll('.form-select');
 
-const select = form.querySelector('.select');
 
 thumbnailInput.addEventListener('change', handleFiles, false);
 function handleFiles() {
   file = this.files[0];
 }
 
+handleGetCategories();
 adminPostOrPut();
 
 async function adminPostOrPut() {
   if (!getProductId().length) {
-    handleGetCategories();
     form.addEventListener('submit', adminPost);
-    form2.addEventListener('submit', categoryPost);
+    allCategoriesEvent();
   } else {
-    handleGetCategories();
-    inputPosts();
+    categoryContainer.style.display = 'none';
+    innerPutForm();
     form.addEventListener('submit', adminPut);
-
   }
+}
+
+function allCategoriesEvent() {
+  select[2].addEventListener('change', innerCategoryPostForm);
+  categoryPostForm.addEventListener('submit', categoryPost);
+  categoryPutForm.addEventListener('submit', categoryPut);
+  categoryDeleteForm.addEventListener('submit', categoryDelete);
 }
 
 //FormData생성
@@ -41,7 +50,7 @@ function formData() {
   const price = priceInput.value;
   const description = descriptionInput.value;
   const image = file;
-  const category = select.options[select.selectedIndex].value;
+  const category = select[0].options[select[0].selectedIndex].value;
 
   const data = new FormData();
   data.enctype = 'multipart/form-data';
@@ -55,10 +64,9 @@ function formData() {
 }
 
 //빈 input에 채우기
-async function inputPosts() {
-  categoryContainer.style.visibility = 'hidden';
+async function innerPutForm() {
+ 
   const data = await (await fetch(`/api/products/${getProductId()}`)).json();
-
   titleInput.value = data.title;
   manufactureInput.value = data.manufacturer;
   priceInput.value = data.price;
@@ -68,6 +76,13 @@ async function inputPosts() {
   `);
   // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
+
+async function innerCategoryPostForm(){
+  const data=await (await fetch(''))
+
+}
+
+
 //리셋
 function reset() {
   form.reset();
@@ -80,19 +95,19 @@ function getProductId() {
 
 //카테고리들 가져오면서 원래 있던 옵션에 카테고리들 추가
 async function handleGetCategories() {
-  const categories = await fetch('/api/categories')
-    .then(res => res.json());
+  const categories = await (await fetch('/api/categories')).json();
 
   async function updateOptions(categories) {
     // 카테고리 옵션 추가
-
-    categories.forEach((category) => {
-      select.insertAdjacentHTML('beforeend', `
-      <option value="${category.name}">${category.name}</option>
-      `);
-    })
+    const categoryTempleate = categories.map((category) => {
+      return `
+      <option value="${category.name}" id="${category.id}">${category.name}</option>
+      `
+    });
+    select.forEach((item) => {
+      item.insertAdjacentHTML('beforeend', categoryTempleate)
+    });
   }
-  
   updateOptions(categories);
 };
 
@@ -104,6 +119,7 @@ async function adminPut(event) {
       method: 'PUT',
       body: formData(),
     })
+    console.log(select[0].options[select[0].selectedIndex].value);
   } catch (error) {
     console.log(error);
   }
@@ -117,6 +133,7 @@ async function adminPost(event) {
       body: formData(),
     })
       .then(reset());
+    console.log(select[0].options[select[0].selectedIndex].id);
   } catch (error) {
     console.log(error);
   }
@@ -142,4 +159,44 @@ async function categoryPost(event) {
   catch (error) {
     console.log(error);
   }
+}
+
+
+async function categoryDelete(event) {
+  event.preventDefault();
+  try{
+  const deleteCategory = select[1].options[select[1].selectedIndex].id;
+
+  await fetch(`/api/categories/${deleteCategory}`, {
+    method: "DELETE"
+  })
+  .then(reset());
+}catch(error){
+  console.log(error);
+}
+}
+
+async function categoryPut(event) {
+  event.preventDefault();
+
+
+
+  try{
+  const selectPutId = document.querySelector('#selectPutId').value;
+  const selectPutName = document.querySelector('#selectPutName').value;
+  const showCategory = select[2].options[select[2].selectedIndex].id;
+
+  await fetch(`/api/categories/${showCategory}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: selectPutId,
+      name: selectPutName,
+    }),
+  }).then(reset());
+}catch(error){
+  console.log(error);
+}
 }
