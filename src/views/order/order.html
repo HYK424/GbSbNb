@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="cart.css" />
+    <script src="cart.js" type="module" defer></script>
+    <title>쇼핑-n팀/장바구니</title>
+</head>
+
+<body>
+    <header>
+        <div id="logoDiv">logo</div>
+        <div id="logoDiv">개발세발네발🐶</div>
+    </header>
+    <main>
+        <div id="orderInfoDiv">
+            <h2>배송지정보</h2>
+            <form id="orderInfoForm">
+                <label id="nameInput" name="fullName">이름
+                    <input class="input" name="email" id="fullNameInput" type="text" placeholder="유재석" autocomplete="on"/>
+                </label>
+                <label class="label" name="phoneNumber">전화번호
+                    <input class="input" name="phoneNumber" id="phoneNumberInput" type="tel" placeholder="010-0000-0000" autocomplete="on"/>
+                </label>
+                <label class="label" name="address">주소
+                    <input class="input" name="postalCode" id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"/>
+                    <input class="input" name="address1" id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"/>
+                    <input class="input" name="address2" id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"/>
+                </label>
+                <label class="label" name="request">
+                    요청사항
+                    <select id="requestSelectBox">
+                    <option value="0">
+                      배송시 요청사항을 선택해 주세요.
+                    </option>
+                    <option value="1" class="select-option">
+                      직접 수령하겠습니다.
+                    </option>
+                    <option value="2" class="select-option">
+                      배송 전 연락바랍니다.
+                    </option>
+                    <option value="3" class="select-option">
+                      부재 시 경비실에 맡겨주세요.
+                    </option>
+                    <option value="4" class="select-option">
+                      부재 시 문 앞에 놓아주세요.
+                    </option>
+                    <option value="5" class="select-option">
+                      부재 시 택배함에 넣어주세요.
+                    </option>
+                    <option value="6" class="select-option">직접 입력</option>
+                  </select>
+                  <input class="input" name="request" id="requestInput" type="text" placeholeder="50자 이내" disable/>
+                </label>
+            </form>
+        </div>
+        <div id="orderBillDiv">
+            <p>결제 정보</p>
+            <dl>
+                <dt>주문상품</dt>
+                <dd id="orderItemAll"></dd>
+                <dt>상품총액</dt>
+                <dd id="orderPrice"></dd>
+                <dt>배송비</dt>
+                <dd>3000</dd>
+                <dt>총 결제금액</dt>
+                <dd id="totalPrice"></dd>
+            </dl>
+            <button type="button">결제하기</button>
+        </div>
+
+    </main>
+</body>
+
+</html>
