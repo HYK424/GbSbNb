@@ -7,11 +7,9 @@ export const orderController = {
 
     const data = await orderService.getOrders(state);
 
-    if (!data) {
-      res.status(400).json({ message: '데이터를 불러오지 못했습니다.' });
-    }
-
-    res.status(200).json({ message: '데이터를 불러왔습니다.', data: data });
+    !data
+      ? res.status(400).json({ message: '데이터를 불러오지 못했습니다.' })
+      : res.status(200).json({ message: '데이터를 불러왔습니다.', data: data });
   },
 
   createMyOrders: async (req, res) => {
@@ -26,13 +24,26 @@ export const orderController = {
       }
     }
 
-    const data = { userId, orderItems, address, payment };
-    const test = await orderService.createMyOrders(data);
+    const insertData = { userId, orderItems, address, payment };
+    const resultData = await orderService.createMyOrders(insertData);
+
+    // console.log(resultData);
+
+    !resultData
+      ? res.status(400).json({
+          message: '주문을 실패하였습니다. 잠시후 다시 시도해주십시오.',
+        })
+      : res
+          .status(200)
+          .json({ message: '주문을 성공하였습니다..', data: resultData });
+
     //console.log(data);
   },
   getMyOrders: async (req, res) => {
     const userId = req.currentUserId;
 
-    const data = await orderService.getMyOrder(userId);
+    const data = await orderService.getMyOrders(userId);
+
+    console.log(data);
   },
 };

@@ -3,6 +3,7 @@ import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
+    console.log('컨트롤러');
     try {
       const { email, password } = req.body;
 
@@ -35,13 +36,12 @@ export const userController = {
 
   getMyInfo: async (req, res) => {
     const userId = req.currentUserId;
+
     console.log(userId);
 
     const data = await userService.getMyInfo(userId);
 
-    const { status, message, userData } = result;
-
-    const result = tokenReseter(req, userData);
+    const { status, message, userInfo } = data;
 
     console.log(data);
 
@@ -92,20 +92,14 @@ export const userController = {
 
       const userId = req.currentUserId;
 
-      const {
-        fullName,
-        email,
-        address,
-        phoneNumber,
-        // role,
-      } = req.body;
+      const { fullName, email, address, phoneNumber, role } = req.body;
 
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(email && { email }),
         ...(address && { address }),
         ...(phoneNumber && { phoneNumber }),
-        // ...(role && { role }),
+        ...(role && { role }),
       };
 
       const updatedUserInfo = await userService.updateUser(userId, toUpdate);

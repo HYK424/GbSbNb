@@ -1,4 +1,5 @@
 import * as Api from '/api.js';
+
 import { validateEmail } from '/useful-functions.js';
 
 // 요소(element), input 혹은 상수
@@ -43,9 +44,11 @@ function checkLoginState() {
 
 //최초 실행시 유저의 정보를 불러옴
 async function insertUserInfo() {
+  //await setToken.tokenCheck();
   const get = await Api.get('/api/users/myinfo');
+
   let userInfo = get.userInfo;
-  console.log(userInfo);
+
   let notGetArr = new Array('password', 'role', 'createdAt', 'updatedAt');
 
   for (let key in userInfo) {
