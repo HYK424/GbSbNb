@@ -19,7 +19,7 @@ async function getUserList() {
             <td onclick="location.href='/api/admin/allusers/${user._id}'" width="100rem">${user.fullName}</td>
             <td onclick="location.href='/api/admin/allusers/${user._id}'" width="150rem">${user.phoneNumber}</td>
             <td onclick="location.href='/api/admin/allusers/${user._id}'" width="350rem">${Object.values(user.address).join(' ')}</td>
-            <td width="80rem" >${user.role} <input type="checkbox" name="role" value="${user.value}" id="${user._id}"></td>
+            <td width="80rem" >${user.role} <input type="checkbox" name="role" value="${user.role}" id="${user._id}"></td>
             </tr>
             `
         )
@@ -32,10 +32,11 @@ function getId() {
 
     checked.forEach((e) => {
         const data = {};
-        data.id = e.id;
-        data.role = e.value;
+        const {id,value}=e;
+        data[`${id}`]=value
         checkedArr.push(data);
     });
+console.log({ checkedArr: checkedArr });
     return { checkedArr: checkedArr };
 }
 
