@@ -35,10 +35,11 @@ export const authenticator = {
       console.log(refreshVerify);
       console.log(refreshVerify.userId);
       console.log(refreshVerify.role);
-      const accessToken = jwtModule.generate(
+      const accessToken = jwtModule.generateAccess(
         refreshVerify.userId,
         refreshVerify.role,
       );
+      console.log(accessToken);
       res
         .status(200)
         .json({ accessToken: accessToken, refreshToken: refreshToken });

@@ -11,14 +11,15 @@
     display: flex;
     flex-wrap: wrap;
 }
-#cContainer{
+
+.category{
     display: flex;
-    margin-top: 100px;
     flex-wrap: nowrap;
+   
 }
 
 .form{
-   flex:1
+    flex:1;
 }
 
 .btnInput{

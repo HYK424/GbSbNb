@@ -49,6 +49,7 @@ export class ProductModel {
   }
 
   static async countAll(categoryName) {
+    console.log(categoryName);
     if (!categoryName) {
       const productCount = await Product.find({ view: true }).countDocuments();
       return productCount;
@@ -57,6 +58,7 @@ export class ProductModel {
       view: true,
       category: categoryName,
     }).countDocuments();
+    console.log(productCount);
     return productCount;
   }
 

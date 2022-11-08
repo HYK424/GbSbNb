@@ -5,6 +5,10 @@ const refreshSecretKey = process.env.REFRESH_KEY;
 
 export const jwtModule = {
   generate: (userId, role, secretKey, expire) => {
+    console.log(userId);
+    console.log(role);
+    console.log(secretKey);
+    console.log(expire);
     return jwt.sign({ userId, role }, secretKey, {
       expiresIn: expire,
     });
