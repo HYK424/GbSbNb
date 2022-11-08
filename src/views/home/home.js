@@ -36,7 +36,6 @@ async function renderProducts() {
     const {
       products,
       totalPage,
-      currentPage,
       hasNextPage,
       hasPreviousPage,
       nextPage,
@@ -62,7 +61,7 @@ async function renderProducts() {
 }
 
 function renderProduct(product) {
-  const productCard = `<div class="card mb-4 shadow-lg ms-5" style="width: 27%"><a href="/products/${
+  const productCard = `<div class="card mb-4 shadow-lg ms-5" id="productCard"><a href="/products/${
     product._id
   }" class="card-link">
     <img src="${

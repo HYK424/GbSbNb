@@ -26,7 +26,7 @@ const OrderSchema = new Schema(
     address: {
       type: new Schema(
         {
-          zipCode: String,
+          postalCode: String,
           address1: String,
           address2: String,
         },
@@ -35,6 +35,8 @@ const OrderSchema = new Schema(
         },
       ),
     },
+    receiver: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
     totalprice: {
       type: Number,
       required: true,

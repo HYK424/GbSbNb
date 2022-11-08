@@ -1,6 +1,11 @@
 import * as Api from '../api.js';
 import { validateEmail } from '/useful-functions.js';
 
+if (sessionStorage.getItem('accessToken')) {
+  alert('이미 로그인하셨어요 :) 홈으로 보내드릴게요!');
+  location.href = '/';
+}
+
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
@@ -24,32 +29,14 @@ async function handleSubmit(e) {
   const email = emailInput.value;
   const password = passwordInput.value;
 
-  // // 잘 입력했는지 확인
-  // const isEmailValid = validateEmail(email);
-  // const isPasswordValid = password.length >= 4;
-
-  // if (!isEmailValid || !isPasswordValid) {
-  //   return alert(
-  //     '비밀번호가 4글자 이상인지, 이메일 형태가 맞는지 확인해 주세요.',
-  //   );
-  // }
-
-  // 로그인 api 요청
-
   const data = { email, password };
 
   const result = await Api.post('/api/users/login', true, data);
 
   sessionStorage.setItem('accessToken', result.tokens.accessToken);
   sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
-  sessionStorage.setItem('role', result.role);
 
   alert(result.message);
 
   window.location.href = '/';
-  // } catch (err) {
-  //   console.log(err);
-  //   console.error(err.stack);
-  //   alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  // }
 }

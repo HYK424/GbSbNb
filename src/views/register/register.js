@@ -14,7 +14,6 @@ const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const submitButton = document.querySelector('#submitButton');
 const searchAddress = document.getElementById('searchAddress');
 
-checkLoginState();
 addAllElements();
 addAllEvents();
 
@@ -24,13 +23,6 @@ async function addAllElements() {}
 // 여러 개의 addEventListener들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 function addAllEvents() {
   submitButton.addEventListener('click', handleSubmit);
-}
-
-function checkLoginState() {
-  if (sessionStorage.getItem('token')) {
-    alert('로그인 상태입니다');
-    location.href = '/';
-  }
 }
 
 // 회원가입 진행
@@ -51,7 +43,7 @@ async function handleSubmit(e) {
   // const isEmailValid = validateEmail(email);
   // const isTelValid = validateTel(phoneNumber);
   // const isPasswordValid = password.length >= 4;
-  // const isPasswordSame = password === passwordConfirm;
+  const isPasswordSame = password === passwordConfirm;
 
   // if (!isFullNameValid || !isPasswordValid) {
   //   return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
@@ -65,12 +57,13 @@ async function handleSubmit(e) {
   //   return alert('전화번호 형식이 맞지 않습니다.');
   // }
 
-  // if (!isPasswordSame) {
-  //   return alert('비밀번호가 일치하지 않습니다.');
-  // }
+  if (!isPasswordSame) {
+    return alert('비밀번호가 일치하지 않습니다.');
+  }
 
   // 회원가입 api 요청
   // try {
+  console.log(postalCode);
   const data = {
     fullName,
     email,
@@ -82,32 +75,14 @@ async function handleSubmit(e) {
       address2,
     },
   };
-  console.log(data);
 
   const result = await Api.post('/api/users', true, data);
 
   console.log(result);
-
-  if (!result) {
-    window.location.reload();
-  }
-
-  // await fetch('/api/users', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(data),
-  // });
-
+  if (!result) return;
   alert(`정상적으로 회원가입되었습니다.`);
 
-  // 로그인 페이지 이동
-  window.location.href = '/login';
-  // } catch (err) {
-  //   console.error(err.stack);
-  //   alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
-  // }
+  location.href = '/login';
 }
 
 searchAddress.addEventListener('click', handleSearchAddressClick);
