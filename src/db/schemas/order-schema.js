@@ -16,19 +16,11 @@ const OrderSchema = new Schema(
           type: Number,
           required: true,
         },
-        eachPrice: {
-          type: Number,
-          required: true,
-        },
-        totalItemPrice: {
-          type: Number,
-          required: true,
-        },
       },
     ],
-    state: {
+    status: {
       type: String,
-      default: 'standby',
+      default: '상품 준비 중',
     },
     address: {
       type: new Schema(
@@ -41,22 +33,13 @@ const OrderSchema = new Schema(
           _id: false,
         },
       ),
-      required: false,
     },
-
-    // totalprice: {
-    //   type: Number,
-    //   required: true,
-    // },
-
-    startedAt: {
-      type: Date,
+    totalprice: {
+      type: Number,
+      required: true,
     },
-    completedAt: {
-      type: Date,
-    },
-    retransferedAt: {
-      type: Date,
+    request: {
+      type: String,
     },
     deletedAt: {
       type: Date,

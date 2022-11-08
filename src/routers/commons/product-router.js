@@ -10,6 +10,7 @@ import { checkRole } from '../../middlewares/authorization';
 const productRouter = Router();
 
 productRouter.get('/', asyncHandler(productController.getProducts));
+productRouter.get('/admin', asyncHandler(productController.getProductsByAdmin));
 productRouter.get(
   '/search',
   asyncHandler(productController.getProudctsByKeyword),

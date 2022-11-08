@@ -39,12 +39,10 @@ async function handleSubmit(e) {
     const data = { email, password };
 
     const result = await Api.post('/api/users/login', data);
-    console.log('요청결과 받음');
-    console.log(result);
 
-    sessionStorage.setItem('accessToken', tokens.accessToken);
-
-    sessionStorage.setItem('refreshToken', tokens.refreshToken);
+    sessionStorage.setItem('accessToken', result.tokens.accessToken);
+    sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
+    sessionStorage.setItem('role', result.role);
 
     alert(result.message);
     window.location.href = '/';
