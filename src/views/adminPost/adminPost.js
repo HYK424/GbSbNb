@@ -1,23 +1,25 @@
 const form = document.querySelector('#form');
 const categoryPostForm = document.querySelector('#form2');
-const categoryPutForm = document.querySelector('#form3');
-const categoryDeleteForm = document.querySelector('#form4');
+const categoryDeleteForm = document.querySelector('#form3');
+const categoryPutForm = document.querySelector('#form4');
 
 const categoryContainer = document.querySelector('#hidden');
-const titleInput = form.querySelector('#title');
-const categoryInput = form.querySelector('#category');
-const manufactureInput = form.querySelector('#manufacturer');
-const priceInput = form.querySelector('#price');
-const descriptionInput = form.querySelector('#description');
-const thumbnailInput = form.querySelector('#formFile');
+const titleIn = form.querySelector('#title');
+const manufactureIn = form.querySelector('#manufacturer');
+const priceIn = form.querySelector('#price');
+const descriptionIn = form.querySelector('#description');
+const thumbnailIn = form.querySelector('#formFile');
 
-const categoryNameInput = categoryPostForm.querySelector('#categoryName');
-const categoryIdInput = categoryPostForm.querySelector('#categoryId');
+const categoryNameIn = categoryPostForm.querySelector('#categoryName');
+const categoryIdIn = categoryPostForm.querySelector('#categoryId');
+
+const categoryPutNameIn = categoryPutForm.querySelector('#selectPutName');
+const categoryPutIdIn = categoryPutForm.querySelector('#selectPutId');
+
 let file;
 const select = document.querySelectorAll('.form-select');
 
-
-thumbnailInput.addEventListener('change', handleFiles, false);
+thumbnailIn.addEventListener('change', handleFiles, false);
 function handleFiles() {
   file = this.files[0];
 }
@@ -45,10 +47,10 @@ function allCategoriesEvent() {
 
 //FormData생성
 function formData() {
-  const title = titleInput.value;
-  const manufacturer = manufactureInput.value;
-  const price = priceInput.value;
-  const description = descriptionInput.value;
+  const title = titleIn.value;
+  const manufacturer = manufactureIn.value;
+  const price = priceIn.value;
+  const description = descriptionIn.value;
   const image = file;
   const category = select[0].options[select[0].selectedIndex].value;
 
@@ -65,27 +67,31 @@ function formData() {
 
 //빈 input에 채우기
 async function innerPutForm() {
- 
   const data = await (await fetch(`/api/products/${getProductId()}`)).json();
-  titleInput.value = data.title;
-  manufactureInput.value = data.manufacturer;
-  priceInput.value = data.price;
-  descriptionInput.value = data.description;
+  titleIn.value = data.title;
+  manufactureIn.value = data.manufacturer;
+  priceIn.value = data.price;
+  descriptionIn.value = data.description;
   select.insertAdjacentHTML('afterbegin', `
   <option selected value="${data.category}">${data.category}</option>
   `);
   // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
 
-async function innerCategoryPostForm(){
-  const data=await (await fetch(''))
+async function innerCategoryPostForm(event) {
+  event.preventDefault();
+  categoryPutIdIn.value = select[2].options[select[2].selectedIndex].id;
+  categoryPutNameIn.value = select[2].options[select[2].selectedIndex].value;
 
+  console.log(select[2].options[select[2].selectedIndex].id);
 }
 
 
 //리셋
-function reset() {
-  form.reset();
+const reset = {
+  form: () => { form.reset() },
+  PostForm: () => { categoryPostForm.reset() },
+  PutForm: () => { categoryPutForm.reset() },
 }
 
 //productsId반환
@@ -116,10 +122,11 @@ async function adminPut(event) {
   //productsId에 해당하는 상품 상세 정보 가져와서 조작
   try {
     await fetch(`/api/products/${getProductId()}`, {
+
       method: 'PUT',
       body: formData(),
-    })
-    console.log(select[0].options[select[0].selectedIndex].value);
+    }).then(reset.form());
+
   } catch (error) {
     console.log(error);
   }
@@ -127,13 +134,16 @@ async function adminPut(event) {
 
 async function adminPost(event) {
   event.preventDefault();
+  // const result = await Api.post('/api/products', false, formData());
+  // alert(result.message);
+
   try {
     await fetch('/api/products', {
       method: 'POST',
       body: formData(),
     })
-      .then(reset());
-    console.log(select[0].options[select[0].selectedIndex].id);
+      .then(reset.form());
+
   } catch (error) {
     console.log(error);
   }
@@ -141,8 +151,8 @@ async function adminPost(event) {
 
 async function categoryPost(event) {
   event.preventDefault();
-  const categoryid = categoryIdInput.value;
-  const categoryname = categoryNameInput.value;
+  const categoryid = categoryIdIn.value;
+  const categoryname = categoryNameIn.value;
 
   try {
     await fetch('/api/categories', {
@@ -154,49 +164,57 @@ async function categoryPost(event) {
         id: categoryid,
         name: categoryname,
       })
-    }).then(reset());
+    }).then(reset.PostForm());
   }
   catch (error) {
     console.log(error);
   }
 }
 
-
 async function categoryDelete(event) {
   event.preventDefault();
-  try{
-  const deleteCategory = select[1].options[select[1].selectedIndex].id;
 
-  await fetch(`/api/categories/${deleteCategory}`, {
-    method: "DELETE"
-  })
-  .then(reset());
-}catch(error){
-  console.log(error);
-}
+  const Category = select[1].options[select[1].selectedIndex];
+
+  let isConfirmed = false;
+  try {
+    const deleteCheck = await (await fetch(`/api/products?q=${Category.value}`)).json();
+    isConfirmed = confirm(`해당 카테고리에는 ${deleteCheck.products.length}개의 상품이 있습니다. 정말 삭제하시겠습니까?`);
+  } catch (error) {
+    isConfirmed = confirm('해당 카테고리에는 0개의 아이템이 있습니다');
+    console.log(error);
+  }
+  if (isConfirmed) {
+    try {
+      await fetch(`/api/categories/${Category.id}`, {
+        method: "DELETE"
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+  }
 }
 
 async function categoryPut(event) {
   event.preventDefault();
+  try {
+    const selectPutId = categoryPutIdIn.value;
+    const selectPutName = categoryPutNameIn.value;
+    const categoryId = select[2].options[select[2].selectedIndex].id;
 
 
-
-  try{
-  const selectPutId = document.querySelector('#selectPutId').value;
-  const selectPutName = document.querySelector('#selectPutName').value;
-  const showCategory = select[2].options[select[2].selectedIndex].id;
-
-  await fetch(`/api/categories/${showCategory}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id: selectPutId,
-      name: selectPutName,
-    }),
-  }).then(reset());
-}catch(error){
-  console.log(error);
-}
+    await fetch(`/api/categories/${categoryId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: selectPutId,
+        name: selectPutName,
+      }),
+    }).then(reset.PutForm());
+  } catch (error) {
+    console.log(error);
+  }
 }
