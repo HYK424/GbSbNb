@@ -182,6 +182,7 @@ class UserService {
 
     const result = await this.userModel.deleteUser(userId);
     console.log(result);
+    return { status: 200, message: '회원탈퇴 되셨습니다. 감사합니다.' };
   }
 }
 

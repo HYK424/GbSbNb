@@ -25,6 +25,7 @@ export const adminController = {
     console.log(`req.currentUserRole : ${req.currentUserRole}`);
 
     const serchUserId = req.params.userId;
+    console.log(serchUserId);
     const result = await userService.getMyInfo(serchUserId);
     console.log(result);
     const { status, message, userInfo } = result;
@@ -73,6 +74,7 @@ export const adminController = {
       next(error);
     }
   },
+
   async resetPassword(req, res) {
     console.log(`req.params.userId : ${req.params.userId}`);
     console.log(`req.currentUserId : ${req.currentUserId}`);

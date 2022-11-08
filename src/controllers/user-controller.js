@@ -137,8 +137,8 @@ export const userController = {
 
     const result = await userService.deleteUser(userId, password);
 
-    //const { status, message } = result;
+    const { status, message } = result;
 
-    res.status(200).json({ message: '시험중' });
+    res.status(status).json({ message: message });
   },
 };

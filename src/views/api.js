@@ -4,11 +4,13 @@ import { responseHandler } from './public/js/response-handler.js';
 
 const Bearer = 'Bearer ';
 
-async function get(endpoint, params = '') {
+async function get(endpoint, params = '', extra = false) {
   const apiUrl = `${endpoint}/${params}`;
-
-  await setToken.tokenCheck();
-
+  console.log(apiUrl);
+  console.log(extra);
+  if (!extra) {
+    await setToken.tokenCheck();
+  }
   const res = await fetchModule('GET', apiUrl);
 
   const result = await responseHandler(res);
