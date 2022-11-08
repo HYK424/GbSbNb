@@ -1,3 +1,4 @@
+import { ObjectID } from 'bson';
 import { model } from 'mongoose';
 import { ProductSchema } from '../schemas/product-schema';
 
@@ -60,6 +61,26 @@ export class ProductModel {
     return productCount;
   }
 
+  static async countOrders(productId) {
+    const product = await Product.aggregate([
+      {
+        $match: {
+          _id: new ObjectID('636762aecc4d64e36cc46f82'),
+        },
+      },
+      {
+        $lookup: {
+          from: 'orders',
+          localField: 'orderItems',
+          foreignField: "ObjectId('636762aecc4d64e36cc46f82')",
+          as: 'orders',
+        },
+      },
+    ]);
+    console.log(product);
+    return product[0].orders.length;
+  }
+
   static async update(productId, updatedInfo) {
     const filter = { _id: productId };
     const option = { returnOriginal: false };
@@ -75,6 +96,13 @@ export class ProductModel {
   static async softDelete(productId, updateInfo) {
     const filter = { _id: productId };
     const result = await Product.findOneAndUpdate(filter, updateInfo);
+    return result;
+  }
+
+  static async delete(productId) {
+    const filter = { _id: productId };
+    const result = await Product.findOneAndRemove(filter);
+    console.log(result);
     return result;
   }
 }

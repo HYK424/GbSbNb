@@ -4,11 +4,11 @@ const OrderSchema = new Schema(
   {
     userId: {
       type: String,
-      required: true,
+      default: '비회원',
     },
     orderItems: [
       {
-        title: {
+        productId: {
           type: String,
           required: true,
         },
@@ -20,7 +20,6 @@ const OrderSchema = new Schema(
     ],
     status: {
       type: String,
-      enum: ['상품 준비중', '배송 중', '배송 완료'],
       default: '상품 준비 중',
     },
     address: {
@@ -37,7 +36,7 @@ const OrderSchema = new Schema(
     },
     receiver: { type: String, required: true },
     phoneNumber: { type: String, required: true },
-    totalprice: {
+    totalPrice: {
       type: Number,
       required: true,
     },

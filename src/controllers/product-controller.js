@@ -88,9 +88,14 @@ export const productController = {
     return res.status(200).json(updatedProduct);
   },
 
-  deleteProduct: async (req, res, next) => {
+  softDeleteProduct: async (req, res, next) => {
     const { productId } = req.params;
     const result = await ProductService.softDeleteProduct(productId);
+    return res.status(200).json(result);
+  },
+  deleteProduct: async (req, res, next) => {
+    const { productId } = req.params;
+    const result = await ProductService.deleteProduct(productId);
     return res.status(200).json(result);
   },
 };
