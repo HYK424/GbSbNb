@@ -15,7 +15,7 @@ export class CategoryModel {
   }
 
   static async findById(categoryId) {
-    const category = await Category.findOne({ _id: categoryId });
+    const category = await Category.findOne({ id: categoryId });
     return category;
   }
 

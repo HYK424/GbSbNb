@@ -4,34 +4,31 @@ import is from '@sindresorhus/is';
 export const userController = {
   logIn: async (req, res, next) => {
     console.log('컨트롤러');
-    try {
-      const { email, password } = req.body;
 
-      const result = await userService.login({ email, password });
+    const { email, password } = req.body;
 
-      const { status, role, userName, accessToken, refreshToken } = result;
+    const result = await userService.login({ email, password });
 
-      let { message } = result;
+    const { status, role, userName, accessToken, refreshToken } = result;
 
-      if (req.newUserMessage) {
-        message = req.newUserMessage;
-      }
+    let { message } = result;
 
-      let data = {
-        message: message,
-        tokens: { accessToken: accessToken, refreshToken: refreshToken },
-        role: role,
-        userName: userName,
-      };
-
-      if (role === 'ADMIN' || role === 'ADMIN_G') {
-        data.role = role;
-      }
-
-      res.status(status).json(data);
-    } catch (error) {
-      next(error);
+    if (req.newUserMessage) {
+      message = req.newUserMessage;
     }
+
+    let data = {
+      message: message,
+      tokens: { accessToken: accessToken, refreshToken: refreshToken },
+      role: role,
+      userName: userName,
+    };
+
+    if (role === 'ADMIN' || role === 'ADMIN_G') {
+      data.role = role;
+    }
+
+    res.status(status).json(data);
   },
 
   getMyInfo: async (req, res) => {
@@ -92,6 +89,8 @@ export const userController = {
 
       const userId = req.currentUserId;
 
+      console.log(userId);
+
       const { fullName, email, address, phoneNumber, role } = req.body;
 
       const toUpdate = {
@@ -111,7 +110,7 @@ export const userController = {
   },
 
   changePassword: async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.currentUserId;
     const password = req.body.password;
     const changedPassword = req.body.changedPassword;
     // console.log(`\nuserId : ${userId}\n`);
