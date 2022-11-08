@@ -22,14 +22,23 @@ export const userValidator = {
     body('phoneNumber')
       .trim()
       .notEmpty()
-      .isLength({ min: 8, max: 12 })
+      .isLength({ min: 8, max: 20 })
       .withMessage('전화번호가 올바르지 않습니다.'),
-    body('address.*.postalCode')
+    body('address.postalCode')
       .trim()
       .notEmpty()
-      .isLength({ min: 5, max: 10 }),
-    body('address.*.address1').trim().notEmpty().isLength({ min: 8, max: 30 }),
-    body('address.*.address2').trim().notEmpty().isLength({ min: 5, max: 30 }),
+      .isLength({ min: 5, max: 10 })
+      .withMessage('우편번호가 올바르지 않습니다.'),
+    body('address.address1')
+      .trim()
+      .notEmpty()
+      .isLength({ min: 8, max: 50 })
+      .withMessage('기본주소가 올바르지 않습니다.'),
+    body('address.address2')
+      .trim()
+      .notEmpty()
+      .isLength({ min: 0, max: 50 })
+      .withMessage('상세주소가 올바르지 않습니다.'),
     validatorErrorChecker,
   ],
 

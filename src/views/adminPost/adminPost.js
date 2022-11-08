@@ -1,5 +1,7 @@
+import { responseHandler } from '../public/js/response-handler';
+
 const form = document.querySelector('#form');
-const form2=document.querySelector('#form2');
+const form2 = document.querySelector('#form2');
 const categoryContainer = document.querySelector('.category');
 const titleInput = form.querySelector('#title');
 const categoryInput = form.querySelector('#category');
@@ -30,7 +32,6 @@ async function adminPostOrPut() {
     handleGetCategories();
     inputPosts();
     form.addEventListener('submit', adminPut);
-
   }
 }
 
@@ -63,9 +64,12 @@ async function inputPosts() {
   manufactureInput.value = data.manufacturer;
   priceInput.value = data.price;
   descriptionInput.value = data.description;
-  select.insertAdjacentHTML('afterbegin', `
+  select.insertAdjacentHTML(
+    'afterbegin',
+    `
   <option selected value="${data.category}">${data.category}</option>
-  `);
+  `,
+  );
   // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
 //리셋
@@ -80,21 +84,23 @@ function getProductId() {
 
 //카테고리들 가져오면서 원래 있던 옵션에 카테고리들 추가
 async function handleGetCategories() {
-  const categories = await fetch('/api/categories')
-    .then(res => res.json());
+  const categories = await fetch('/api/categories').then((res) => res.json());
 
   async function updateOptions(categories) {
     // 카테고리 옵션 추가
 
     categories.forEach((category) => {
-      select.insertAdjacentHTML('beforeend', `
+      select.insertAdjacentHTML(
+        'beforeend',
+        `
       <option value="${category.name}">${category.name}</option>
-      `);
-    })
+      `,
+      );
+    });
   }
-  
+
   updateOptions(categories);
-};
+}
 
 async function adminPut(event) {
   event.preventDefault();
@@ -103,20 +109,22 @@ async function adminPut(event) {
     await fetch(`/api/products/${getProductId()}`, {
       method: 'PUT',
       body: formData(),
-    })
+    });
   } catch (error) {
     console.log(error);
   }
 }
 
 async function adminPost(event) {
+  const result = await Api.post('/api/products', false, formData());
+  alert(result.message);
   event.preventDefault();
   try {
-    await fetch('/api/products', {
+    const res = await fetch('/api/products', {
       method: 'POST',
       body: formData(),
-    })
-      .then(reset());
+    }).then(reset());
+    const result = await responseHandler(res);
   } catch (error) {
     console.log(error);
   }
@@ -129,17 +137,16 @@ async function categoryPost(event) {
 
   try {
     await fetch('/api/categories', {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         id: categoryid,
         name: categoryname,
-      })
+      }),
     }).then(reset());
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
