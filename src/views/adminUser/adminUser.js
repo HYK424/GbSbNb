@@ -1,56 +1,67 @@
-import * as Api from '/api.js'
+// import { check } from 'express-validator';
+import * as Api from '/api.js';
 
 const userList = document.querySelector('#userList');
 const rolebtn = document.querySelector('#roleBtn');
 
-getUserList()
-
+getUserList();
+rolebtn.addEventListener('click', handleUserRole);
 //유저 리스트 만들기
 async function getUserList() {
+  const users = (await Api.get('/api/admin/allusers')).users;
 
-
-    const users = (await Api.get('/api/admin/allusers')).users;
- 
-        users.forEach((user) => {
-            
-        
-            userList.insertAdjacentHTML('beforeend',
-                `
+  users.forEach((user) => {
+    userList.insertAdjacentHTML(
+      'beforeend',
+      `
             <tr>
-            <th onclick="location.href='/api/admin/allusers/${user._id}'" width="200rem"scope="row">${user.email}</th>           
-            <td onclick="location.href='/api/admin/allusers/${user._id}'" width="100rem">${user.fullName}</td>
-            <td onclick="location.href='/api/admin/allusers/${user._id}'" width="150rem">${user.phoneNumber}</td>
-            <td onclick="location.href='/api/admin/allusers/${user._id}'" width="350rem">${Object.values(user.address).join(' ')}</td>
-            <td width="80rem" >${user.role} <input type="checkbox" name="role" value="${user._id}"></td>
+            <th onclick="location.href='/api/admin/allusers/${
+              user._id
+            }'" width="200rem"scope="row">${user.email}</th>           
+            <td onclick="location.href='/api/admin/allusers/${
+              user._id
+            }'" width="100rem">${user.fullName}</td>
+            <td onclick="location.href='/api/admin/allusers/${
+              user._id
+            }'" width="150rem">${user.phoneNumber}</td>
+            <td onclick="location.href='/api/admin/allusers/${
+              user._id
+            }'" width="350rem">${Object.values(user.address).join(' ')}</td>
+            <td width="80rem" >${
+              user.role
+            } <input type="checkbox" name="role" value="${user.role}" id="${
+        user._id
+      }"></td>
             </tr>
-            `
-            )
-        })
-    }
+            `,
+    );
+  });
+}
 
+function getId() {
+  const checked = document.querySelectorAll('input[name="role"]:checked');
+  const checkedArr = [];
 
-//체크 된 유저들 value 배열에 저장 후 PUT으로 전송
-// userRolePut(getId);
+  checked.forEach((e) => {
+    const { id, value } = e;
+    console.log(id);
+    console.log(value);
+    const data = {};
+    data[id] = value;
+    // data.id = e.id;
+    // data.role = e.value;
+    checkedArr.push(data);
+  });
+  return { checkedArr: checkedArr };
+}
 
-// function getId() {
-//     const checked = document.querySelectorAll('input[name="role"]:checked');
-//     const checkedArr = [];
-//     checked.forEach((e) => {
-//         checkedArr.push(e.value);
-//     });
-//     return checkedArr;
-// }
-
-// async function userRolePut(checkedArr) {
-
-//     await fetch(`/api/sdsds`, {
-//         method: "PUT",
-//         headers: {
-//             "Content-Type": "application/json",
-//         },
-//         body: JSON.stringify({
-//             userIds: checkedArr,
-//         })
-//     })
-// }
-
+async function handleUserRole() {
+  const result = await Api.put('/api/admin/allusers', '', getId());
+  console.log(result);
+  if (!result) {
+    alert('유저 정보 갱신 실패');
+  } else {
+    alert('유저 정보 갱신 성공');
+    location.reload();
+  }
+}

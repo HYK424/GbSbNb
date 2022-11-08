@@ -1,14 +1,12 @@
 // api 로 GET 요청 (/endpoint/params 형태로 요청함)
 
 import { setToken } from './public/js/header-handler.js';
-
+const Bearer = 'Bearer ';
 async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
 
   await setToken.tokenCheck();
-
-  const Bearer = 'Bearer ';
 
   const res = await fetch(apiUrl, {
     headers: {
@@ -45,8 +43,6 @@ async function post(endpoint, data) {
   const bodyData = JSON.stringify(data);
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
-
-  const Bearer = 'Bearer ';
 
   const res = await fetch(apiUrl, {
     method: 'POST',
@@ -87,12 +83,12 @@ async function put(endpoint, params = '', data) {
   const bodyData = JSON.stringify(data);
   console.log(`%cPUT 요청: ${apiUrl}`, 'color: #059c4b;');
   console.log(`%cPUT 요청 데이터: ${bodyData}`, 'color: #059c4b;');
-
+  console.log(bodyData);
   const res = await fetch(apiUrl, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      Authorization: getAccess(Bearer),
     },
     body: bodyData,
   });
@@ -106,6 +102,8 @@ async function put(endpoint, params = '', data) {
   }
 
   const result = await res.json();
+
+  console.log(result);
 
   return result;
 }

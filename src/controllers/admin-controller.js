@@ -89,4 +89,18 @@ export const adminController = {
 
     res.status(status).json({ check: check });
   },
+
+  updateUserRole: async (req, res) => {
+    const insertData = req.body.checkedArr;
+
+    console.log(insertData);
+    console.log(insertData[0]);
+    console.log(Object.keys(insertData[0]));
+    console.log(Object.values(insertData[0]));
+    console.log(Object.values(insertData[0]).join() === 'basic-user');
+
+    const result = await userManagement.updateUserRole(insertData);
+
+    res.status(result.status).json(true);
+  },
 };
