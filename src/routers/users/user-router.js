@@ -25,11 +25,11 @@ userRouter.post(
   userController.logIn,
 );
 
-// 엑세스 토큰 검증
-userRouter.use('/access', authenticator.accessVerify);
+// // 엑세스 토큰 검증
+// userRouter.use('/access', authenticator.accessVerify);
 
-// 엑세스 토큰 검증 실패시 리프레시 토큰 검증 및 토큰 재발급
-userRouter.use('/refresh', authenticator.refreshVerify);
+// // 엑세스 토큰 검증 실패시 리프레시 토큰 검증 및 토큰 재발급
+// userRouter.use('/refresh', authenticator.refreshVerify);
 
 // 로그인 검증 후 id / role 지정
 userRouter.use(authenticator.isLoggedIn);

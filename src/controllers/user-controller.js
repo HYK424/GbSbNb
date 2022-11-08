@@ -92,20 +92,14 @@ export const userController = {
 
       const userId = req.currentUserId;
 
-      const {
-        fullName,
-        email,
-        address,
-        phoneNumber,
-        // role,
-      } = req.body;
+      const { fullName, email, address, phoneNumber, role } = req.body;
 
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(email && { email }),
         ...(address && { address }),
         ...(phoneNumber && { phoneNumber }),
-        // ...(role && { role }),
+        ...(role && { role }),
       };
 
       const updatedUserInfo = await userService.updateUser(userId, toUpdate);

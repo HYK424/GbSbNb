@@ -15,11 +15,10 @@ import { viewsRouter } from './views-router';
 
 const router = Router();
 
+router.use('/access', authenticator.accessVerify);
+router.use('/refresh', authenticator.refreshVerify);
+
 router.use('/admin', adminRouter);
-
-router.use('/token/access', authenticator.accessVerify);
-router.use('/token/refresh', authenticator.refreshVerify);
-
 router.use('/users', userRouter);
 router.use('/products', productRouter);
 router.use('/cart', cartRouter);

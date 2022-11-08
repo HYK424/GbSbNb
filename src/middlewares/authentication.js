@@ -4,14 +4,14 @@ import { jwtModule } from '../util/jwt';
 
 export const authenticator = {
   accessVerify: async (req, res, next) => {
-    // console.log('=!!=accessVerify=!!=');
+    console.log('=!!=accessVerify=!!=');
     const accessToken = req.headers['authorization']?.split(' ')[1];
 
-    // console.log(`accessToken : ${accessToken}`);
+    console.log(`accessToken : ${accessToken}`);
 
     const accessVerify = jwtModule.accessVerify(accessToken);
 
-    // console.log(`검증결과 1 : ${accessVerify}`);
+    console.log(`검증결과 1 : ${accessVerify}`);
 
     !accessVerify
       ? res.status(400).json({ result: false })
@@ -19,24 +19,25 @@ export const authenticator = {
   },
 
   refreshVerify: async (req, res, next) => {
-    // console.log('=!!=refreshVerify=!!=');
+    console.log('=!!=refreshVerify=!!=');
     const refreshToken = req.headers['authorization']?.split(' ')[1];
 
-    // console.log(`refreshToken : ${refreshToken}`);
+    console.log(`refreshToken : ${refreshToken}`);
 
     const refreshVerify = jwtModule.refreshVerify(refreshToken);
 
-    // console.log(`검증결과 2 : ${refreshVerify}`);
+    console.log(`검증결과 2 : ${refreshVerify}`);
 
     if (!refreshVerify) {
       res.status(419).json({ result: false });
     }
     if (refreshVerify) {
-      // console.log(refreshVerify.decodeToken['userId']);
-      // console.log(refreshVerify.decodeToken['role']);
+      console.log(refreshVerify);
+      console.log(refreshVerify.userId);
+      console.log(refreshVerify.role);
       const accessToken = jwtModule.access(
-        refreshVerify.decodeToken['userId'],
-        refreshVerify.decodeToken['role'],
+        refreshVerify.userId,
+        refreshVerify.role,
       );
       res
         .status(200)

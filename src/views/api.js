@@ -6,7 +6,7 @@ async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
 
-  await setToken.tokenCheck(endpoint);
+  await setToken.tokenCheck();
 
   const Bearer = 'Bearer ';
 
@@ -153,6 +153,7 @@ const tokenCheck = async () => {
 const getAccess = (Bearer) => {
   if (sessionStorage.getItem('accessToken')) {
     const auth = Bearer + String(sessionStorage.getItem('accessToken'));
+    console.log(auth);
     return auth;
   }
 };
