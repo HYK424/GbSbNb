@@ -43,7 +43,7 @@ export const userValidator = {
     body('password')
       .trim()
       .notEmpty()
-      .isLength({ min: 8, max: 20 })
+      .isLength({ min: 5, max: 20 })
       .withMessage('비밀번호는 8자리 이상 20자리 이하로 작성해야 합니다.'),
     validatorErrorChecker,
   ],
@@ -52,12 +52,12 @@ export const userValidator = {
     body('password')
       .trim()
       .notEmpty()
-      .isLength({ min: 8, max: 20 })
+      .isLength({ min: 5, max: 20 })
       .withMessage('비밀번호는 8자리 이상 20자리 이하로 작성해야 합니다.'),
     body('changedPassword')
       .trim()
       .notEmpty()
-      .isLength({ min: 8, max: 20 })
+      .isLength({ min: 5, max: 20 })
       .withMessage('비밀번호는 8자리 이상 20자리 이하로 작성해야 합니다.'),
     validatorErrorChecker,
   ],
