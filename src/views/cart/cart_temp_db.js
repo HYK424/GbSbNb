@@ -12,7 +12,9 @@ function insertItem(productId, quantity, price, isChecked) {
 
     if (isChecked) {
         cartTotalPrice += quantity * price
+        console.log(cartTotalPrice)
         cartTotalCount += quantity
+        console.log(cartTotalCount)
     }
 
     cartTempDBArr.push(item)
@@ -20,6 +22,7 @@ function insertItem(productId, quantity, price, isChecked) {
 
 function deleteItem(productId) {
     deleteItem = cartTempDBArr.find(item => item.productId === productId);
+    let { isChecked, quantity, price } = deleteItem
 
     if (isChecked) {
         cartTotalPrice -= quantity * price
@@ -68,27 +71,28 @@ function isAllChecked() {
     return cartTempDBArr.reduce((acc, cur) => acc && cur.insertItem, true)
 }
 
-function updateItemQuantity(productId, quantity) {
+function updateItemQuantity(productId, newQuantity) {
     let currentItem = cartTempDBArr.find(item => item.productId === productId);
-    let oldQuantity = currentItem.quantity
+    let { isChecked, quantity, price } = currentItem
 
     if (isChecked) {
-        cartTotalPrice += (quantity - oldQuantity) * price
-        cartTotalCount += quantity - oldQuantity
+        cartTotalPrice += (newQuantity - quantity) * price
+        cartTotalCount += newQuantity - quantity
     }
 
-    currentItem.quantity = quantity
+    currentItem.quantity = newQuantity
 }
 
-function updateItemChecked(productId, isChecked) {
+function updateItemChecked(productId, isCheckedNew) {
     let currentItem = cartTempDBArr.find(item => item.productId === productId);
-    let oldChecked = currentItem.isChecked;
 
-    if (isChecked == oldChecked) {
+    let { quantity, price, isChecked } = currentItem
+
+    if (isCheckedNew == isChecked) {
         return;
     }
 
-    if (isChecked) {
+    if (isCheckedNew) {
         cartTotalPrice += quantity * price
         cartTotalCount += quantity
     } else {
@@ -96,7 +100,7 @@ function updateItemChecked(productId, isChecked) {
         cartTotalCount -= quantity
     }
 
-    currentItem.isChecked = isChecked
+    currentItem.isChecked = isCheckedNew
 }
 
 

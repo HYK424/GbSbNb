@@ -1,5 +1,6 @@
 import * as cartDB from "./cart_db.js";
 import * as cartTempDB from "./cart_temp_db.js";
+import * as Api from "/api.js";
 
 const itemCountAll = document.querySelector('#itemCountAll');
 const itemPriceAll = document.querySelector('#itemPriceAll');
@@ -10,16 +11,16 @@ const partialDeleteLabel = document.querySelector('#partialDeleteLabel');
 
 addAllElements();
 addAllEvents();
+updateSummary();
 
 function addAllElements() {
     insertProductsfromCart();
-    updateSummary();
 }
 
 function addAllEvents() {
     itemContainer.addEventListener('click', itemButtonEvent);
-    itemContainer.addEventListener("change", itemInputEvent);
-    allSelectCheckbox.addEventListener("change", toggleAllEvent);
+    itemContainer.addEventListener('change', itemInputEvent);
+    allSelectCheckbox.addEventListener('change', toggleAllEvent);
     partialDeleteLabel.addEventListener('click', toggleDeleteEvent);
 }
 
@@ -57,12 +58,14 @@ async function insertProductsfromCart() {
     </div>`;
 
         itemContainer.insertAdjacentHTML("beforeend", itemHTML);
+        cartTempDB.insertItem(productId, quantity, price, true)
     }
+    updateSummary()
 }
 
 function itemButtonEvent(e) {
     let target = e.target;
-    if (target.tagName != 'BUTTON' || target.tagName != 'INPUT') return;
+    if (target.tagName != 'BUTTON') return;
 
     let actionCase = target.dataset.action
     let productId = target.dataset.id
@@ -78,6 +81,7 @@ function itemButtonEvent(e) {
             if (cartTempDB.isAllChecked) {
                 allSelectCheckbox.checked = true;
             }
+            break;
 
         case 'minus':
             oldQuantity = cartTempDB.getItem(productId).quantity
@@ -170,6 +174,7 @@ function toggleDeleteEvent(e) {
 function updateSummary() {
     itemCountAll.innerHTML = cartTempDB.getTotalCount()
     itemPriceAll.innerHTML = cartTempDB.getTotalPrice()
+    console.log(cartTempDB.getItemAll())
     totalPrice.innerHTML = cartTempDB.getTotalPrice() + 3000
 }
 
