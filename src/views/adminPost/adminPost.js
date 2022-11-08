@@ -1,3 +1,5 @@
+import { responseHandler } from '../public/js/response-handler';
+
 const form = document.querySelector('#form');
 const categoryPostForm = document.querySelector('#form2');
 const categoryPutForm = document.querySelector('#form3');
@@ -15,7 +17,6 @@ const categoryNameInput = categoryPostForm.querySelector('#categoryName');
 const categoryIdInput = categoryPostForm.querySelector('#categoryId');
 let file;
 const select = document.querySelectorAll('.form-select');
-
 
 thumbnailInput.addEventListener('change', handleFiles, false);
 function handleFiles() {
@@ -65,23 +66,23 @@ function formData() {
 
 //빈 input에 채우기
 async function innerPutForm() {
- 
   const data = await (await fetch(`/api/products/${getProductId()}`)).json();
   titleInput.value = data.title;
   manufactureInput.value = data.manufacturer;
   priceInput.value = data.price;
   descriptionInput.value = data.description;
-  select.insertAdjacentHTML('afterbegin', `
+  select.insertAdjacentHTML(
+    'afterbegin',
+    `
   <option selected value="${data.category}">${data.category}</option>
-  `);
+  `,
+  );
   // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
 
-async function innerCategoryPostForm(){
-  const data=await (await fetch(''))
-
+async function innerCategoryPostForm() {
+  const data = await await fetch('');
 }
-
 
 //리셋
 function reset() {
@@ -102,14 +103,14 @@ async function handleGetCategories() {
     const categoryTempleate = categories.map((category) => {
       return `
       <option value="${category.name}" id="${category.id}">${category.name}</option>
-      `
+      `;
     });
     select.forEach((item) => {
-      item.insertAdjacentHTML('beforeend', categoryTempleate)
+      item.insertAdjacentHTML('beforeend', categoryTempleate);
     });
   }
   updateOptions(categories);
-};
+}
 
 async function adminPut(event) {
   event.preventDefault();
@@ -118,7 +119,7 @@ async function adminPut(event) {
     await fetch(`/api/products/${getProductId()}`, {
       method: 'PUT',
       body: formData(),
-    })
+    });
     console.log(select[0].options[select[0].selectedIndex].value);
   } catch (error) {
     console.log(error);
@@ -126,13 +127,14 @@ async function adminPut(event) {
 }
 
 async function adminPost(event) {
+  const result = await Api.post('/api/products', false, formData());
+  alert(result.message);
   event.preventDefault();
   try {
-    await fetch('/api/products', {
+    const res = await fetch('/api/products', {
       method: 'POST',
       body: formData(),
-    })
-      .then(reset());
+    }).then(reset());
     console.log(select[0].options[select[0].selectedIndex].id);
   } catch (error) {
     console.log(error);
@@ -146,57 +148,52 @@ async function categoryPost(event) {
 
   try {
     await fetch('/api/categories', {
-      method: "POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         id: categoryid,
         name: categoryname,
-      })
+      }),
     }).then(reset());
-  }
-  catch (error) {
+  } catch (error) {
     console.log(error);
   }
 }
 
-
 async function categoryDelete(event) {
   event.preventDefault();
-  try{
-  const deleteCategory = select[1].options[select[1].selectedIndex].id;
+  try {
+    const deleteCategory = select[1].options[select[1].selectedIndex].id;
 
-  await fetch(`/api/categories/${deleteCategory}`, {
-    method: "DELETE"
-  })
-  .then(reset());
-}catch(error){
-  console.log(error);
-}
+    await fetch(`/api/categories/${deleteCategory}`, {
+      method: 'DELETE',
+    }).then(reset());
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function categoryPut(event) {
   event.preventDefault();
 
+  try {
+    const selectPutId = document.querySelector('#selectPutId').value;
+    const selectPutName = document.querySelector('#selectPutName').value;
+    const showCategory = select[2].options[select[2].selectedIndex].id;
 
-
-  try{
-  const selectPutId = document.querySelector('#selectPutId').value;
-  const selectPutName = document.querySelector('#selectPutName').value;
-  const showCategory = select[2].options[select[2].selectedIndex].id;
-
-  await fetch(`/api/categories/${showCategory}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      id: selectPutId,
-      name: selectPutName,
-    }),
-  }).then(reset());
-}catch(error){
-  console.log(error);
-}
+    await fetch(`/api/categories/${showCategory}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: selectPutId,
+        name: selectPutName,
+      }),
+    }).then(reset());
+  } catch (error) {
+    console.log(error);
+  }
 }

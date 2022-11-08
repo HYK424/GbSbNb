@@ -1,5 +1,7 @@
 import { validateEmail, validateTel } from '/useful-functions.js';
+
 import * as Api from '../api.js';
+
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
@@ -44,7 +46,7 @@ async function handleSubmit(e) {
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
-  // 잘 입력했는지 확인
+  // // 잘 입력했는지 확인
   // const isFullNameValid = fullName.length >= 2;
   // const isEmailValid = validateEmail(email);
   // const isTelValid = validateTel(phoneNumber);
@@ -68,6 +70,7 @@ async function handleSubmit(e) {
   // }
 
   // 회원가입 api 요청
+  // try {
   const data = {
     fullName,
     email,
@@ -79,14 +82,32 @@ async function handleSubmit(e) {
       address2,
     },
   };
-  await Api.post('/api/users', true, data);
+  console.log(data);
+
+  const result = await Api.post('/api/users', true, data);
+
+  console.log(result);
+
+  if (!result) {
+    window.location.reload();
+  }
+
+  // await fetch('/api/users', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify(data),
+  // });
 
   alert(`정상적으로 회원가입되었습니다.`);
 
   // 로그인 페이지 이동
   window.location.href = '/login';
-  console.error(err.stack);
-  alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  // } catch (err) {
+  //   console.error(err.stack);
+  //   alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  // }
 }
 
 searchAddress.addEventListener('click', handleSearchAddressClick);
