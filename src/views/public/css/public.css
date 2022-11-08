@@ -46,3 +46,7 @@ html {
 .card-title {
   font-weight: 700;
 }
+
+#logout:hover {
+  cursor: pointer;
+}

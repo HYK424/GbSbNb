@@ -10,13 +10,14 @@ import { checkRole } from '../../middlewares/authorization';
 const productRouter = Router();
 
 productRouter.get('/', asyncHandler(productController.getProducts));
+productRouter.get('/admin', asyncHandler(productController.getProductsByAdmin));
 productRouter.get(
   '/search',
   asyncHandler(productController.getProudctsByKeyword),
 );
 productRouter.get('/:productId', asyncHandler(productController.getProudct));
 
-//productRouter.use(loginAuthenticator.isLoggedIn, checkRole);
+// productRouter.use(loginAuthenticator.isLoggedIn, checkRole);
 productRouter.post(
   '/',
   productImageUpload.single('image'),

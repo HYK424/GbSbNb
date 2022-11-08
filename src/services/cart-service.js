@@ -14,7 +14,7 @@ class CartService {
         quantity: quantity,
       });
     }
-    const updatedCart = await cartModel.update(userId, updatedCartItems);
+    const updatedCart = await CartModel.update(userId, updatedCartItems);
     return updatedCart.items;
   }
 

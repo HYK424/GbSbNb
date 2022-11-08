@@ -12,7 +12,9 @@ function insertItem(productId, quantity, price, isChecked) {
 
     if (isChecked) {
         cartTotalPrice += quantity * price
+        console.log(cartTotalPrice)
         cartTotalCount += quantity
+        console.log(cartTotalCount)
     }
 
     cartTempDBArr.push(item)
@@ -20,6 +22,7 @@ function insertItem(productId, quantity, price, isChecked) {
 
 function deleteItem(productId) {
     deleteItem = cartTempDBArr.find(item => item.productId === productId);
+    let { isChecked, quantity, price } = deleteItem
 
     if (isChecked) {
         cartTotalPrice -= quantity * price
@@ -27,6 +30,17 @@ function deleteItem(productId) {
     }
 
     cartTempDBArr = cartTempDBArr.filter((item) => item.productId != productId);
+}
+
+function deleteItemChecked() {
+    deleteItem = cartTempDBArr.filter((item) => item.isChecked);
+
+    for (let item of deleteItem) {
+        cartTotalPrice -= item.quantity * item.price
+        cartTotalCount -= item.quantity
+    }
+
+    cartTempDBArr = cartTempDBArr.filter((item) => !item.isChecked);
 }
 
 function getItem(productId) {
@@ -37,6 +51,14 @@ function getItemAll() {
     return cartTempDBArr
 }
 
+function getItemIdAll() {
+    return cartTempDBArr.map(item => item.productId)
+}
+
+function getItemChecked() {
+    return cartTempDBArr.filter((item) => item.isChecked)
+}
+
 function getTotalPrice() {
     return cartTotalPrice
 }
@@ -45,27 +67,32 @@ function getTotalCount() {
     return cartTotalCount
 }
 
-function updateItemQuantity(productId, quantity) {
-    let currentItem = cartTempDBArr.find(item => item.productId === productId);
-    let oldQuantity = currentItem.quantity
-
-    if (isChecked) {
-        cartTotalPrice += (quantity - oldQuantity) * price
-        cartTotalCount += quantity - oldQuantity
-    }
-
-    currentItem.quantity = quantity
+function isAllChecked() {
+    return cartTempDBArr.reduce((acc, cur) => acc && cur.insertItem, true)
 }
 
-function updateItemChecked(productId, isChecked) {
+function updateItemQuantity(productId, newQuantity) {
     let currentItem = cartTempDBArr.find(item => item.productId === productId);
-    let oldChecked = currentItem.isChecked;
+    let { isChecked, quantity, price } = currentItem
 
-    if (isChecked == oldChecked) {
+    if (isChecked) {
+        cartTotalPrice += (newQuantity - quantity) * price
+        cartTotalCount += newQuantity - quantity
+    }
+
+    currentItem.quantity = newQuantity
+}
+
+function updateItemChecked(productId, isCheckedNew) {
+    let currentItem = cartTempDBArr.find(item => item.productId === productId);
+
+    let { quantity, price, isChecked } = currentItem
+
+    if (isCheckedNew == isChecked) {
         return;
     }
 
-    if (isChecked) {
+    if (isCheckedNew) {
         cartTotalPrice += quantity * price
         cartTotalCount += quantity
     } else {
@@ -73,7 +100,21 @@ function updateItemChecked(productId, isChecked) {
         cartTotalCount -= quantity
     }
 
-    currentItem.isChecked = isChecked
+    currentItem.isChecked = isCheckedNew
 }
 
-export { insertItem, deleteItem, getItem, getItemAll, updateItemQuantity, updateItemChecked, getTotalPrice, getTotalCount }
+
+export {
+    insertItem,
+    deleteItem,
+    deleteItemChecked,
+    getItem,
+    getItemAll,
+    getItemChecked,
+    getItemIdAll,
+    isAllChecked,
+    updateItemQuantity,
+    updateItemChecked,
+    getTotalPrice,
+    getTotalCount
+}

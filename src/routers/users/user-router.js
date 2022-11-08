@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { orderController } from '../../controllers/order-controller';
+import { OrderController } from '../../controllers/order-controller';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { userController } from '../../controllers/user-controller';
-import { loginAuthenticator } from '../../middlewares/authentication';
+import { authenticator } from '../../middlewares/authentication';
 import { userValidator } from '../../middlewares/validation/index';
 
 const userRouter = Router();
@@ -12,7 +12,7 @@ const userRouter = Router();
 userRouter.post(
   '/',
   userValidator.createUser,
-  loginAuthenticator.isNotLoggedIn,
+  //authenticator.isNotLoggedIn,
   userController.createUser,
   userController.logIn,
 );
@@ -21,12 +21,18 @@ userRouter.post(
 userRouter.post(
   '/login',
   userValidator.login,
-  loginAuthenticator.isNotLoggedIn,
+  //authenticator.isNotLoggedIn,
   userController.logIn,
 );
 
-//로그인 검증
-userRouter.use(loginAuthenticator.isLoggedIn);
+// // 엑세스 토큰 검증
+// userRouter.use('/access', authenticator.accessVerify);
+
+// // 엑세스 토큰 검증 실패시 리프레시 토큰 검증 및 토큰 재발급
+// userRouter.use('/refresh', authenticator.refreshVerify);
+
+// 로그인 검증 후 id / role 지정
+userRouter.use(authenticator.isLoggedIn);
 
 //내 계정정보
 userRouter.get('/myinfo', userController.getMyInfo);
@@ -50,9 +56,9 @@ userRouter.delete(
 //////// 계정관련 ////////
 
 //////// 주문관련 ////////
-userRouter.post('/myorder', orderController.createMyOrders);
+userRouter.post('/orders', OrderController.createOrder);
 
-userRouter.get('/myorder', orderController.getMyOrders);
+userRouter.get('/orders', OrderController.getMyOrders);
 
 //////// 주문관련 ////////
 export { userRouter };

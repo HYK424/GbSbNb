@@ -3,12 +3,13 @@ import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
+    console.log('컨트롤러');
     try {
       const { email, password } = req.body;
 
       const result = await userService.login({ email, password });
 
-      const { status, role, accessToken, refreshToken } = result;
+      const { status, role, userName, accessToken, refreshToken } = result;
 
       let { message } = result;
 
@@ -19,6 +20,8 @@ export const userController = {
       let data = {
         message: message,
         tokens: { accessToken: accessToken, refreshToken: refreshToken },
+        role: role,
+        userName: userName,
       };
 
       if (role === 'ADMIN' || role === 'ADMIN_G') {
@@ -31,13 +34,16 @@ export const userController = {
     }
   },
 
-  getMyInfo: async (req, res, next) => {
+  getMyInfo: async (req, res) => {
     const userId = req.currentUserId;
+
     console.log(userId);
 
-    const result = await userService.getMyInfo(userId);
+    const data = await userService.getMyInfo(userId);
 
-    const { status, message, userInfo } = result;
+    const { status, message, userInfo } = data;
+
+    console.log(data);
 
     console.log('반환시작');
 
@@ -86,20 +92,14 @@ export const userController = {
 
       const userId = req.currentUserId;
 
-      const {
-        fullName,
-        email,
-        address,
-        phoneNumber,
-        // role,
-      } = req.body;
+      const { fullName, email, address, phoneNumber, role } = req.body;
 
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(email && { email }),
         ...(address && { address }),
         ...(phoneNumber && { phoneNumber }),
-        // ...(role && { role }),
+        ...(role && { role }),
       };
 
       const updatedUserInfo = await userService.updateUser(userId, toUpdate);

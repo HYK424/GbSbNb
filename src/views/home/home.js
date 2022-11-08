@@ -2,44 +2,63 @@ const productContainer = document.getElementById('productContainer');
 const pageContainer = document.getElementById('pageContainer');
 const toPrevious = document.getElementById('toPrevious');
 const toNext = document.getElementById('toNext');
+const previousPageLink = document.getElementById('previousPage');
+const nextPageLink = document.getElementById('nextPage');
 
 async function renderProducts() {
-  let data;
-  if (location.href.split('?')[1]) {
-    const query = location.href
-      .split('?')[1]
-      .split('&')
-      .map((query) => query.split('='));
-    let page = query.filter((q) => q[0] === 'page')[0];
-    if (page) page = page[1];
-    const category = query.filter((q) => q[0] === 'q')[0][1];
-    console.log(page, category);
-    if (category || page) {
-      if (category && page) {
-        data = await (
-          await fetch(`/api/products?q=${category}&page=${page}`)
-        ).json();
-      } else if (category) {
-        data = await (await fetch(`/api/products?q=${category}`)).json();
-      } else if (page) {
-        data = await (await fetch(`/api/products?page=${page}`)).json();
+  try {
+    let data;
+    let page, category;
+    if (location.href.split('?')[1]) {
+      const query = location.href
+        .split('?')[1]
+        .split('&')
+        .map((query) => query.split('='));
+      page = query.filter((q) => q[0] === 'page')[0];
+      if (page) page = page[1];
+      category = query.filter((q) => q[0] === 'q')[0];
+      if (category) category = category[1];
+      console.log(page, category);
+      if (category || page) {
+        if (category && page) {
+          data = await (
+            await fetch(`/api/products?q=${category}&page=${page}`)
+          ).json();
+        } else if (category) {
+          data = await (await fetch(`/api/products?q=${category}`)).json();
+        } else if (page) {
+          data = await (await fetch(`/api/products?page=${page}`)).json();
+        }
       }
+    } else {
+      data = await (await fetch(`/api/products`)).json();
     }
-  } else {
-    data = await (await fetch(`/api/products`)).json();
+    const {
+      products,
+      totalPage,
+      currentPage,
+      hasNextPage,
+      hasPreviousPage,
+      nextPage,
+      previousPage,
+    } = data;
+    products.forEach(renderProduct);
+    if (totalPage === 1) return;
+    if (hasNextPage) {
+      nextPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
+        category ? category : ''
+      }${category ? '&' : '?'}page=${nextPage}`;
+      toNext.classList.toggle('d-none');
+    }
+    if (hasPreviousPage) {
+      previousPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
+        category ? category : ''
+      }${category ? '&' : '?'}page=${previousPage}`;
+      toPrevious.classList.toggle('d-none');
+    }
+  } catch (err) {
+    console.log(err);
   }
-  console.log(data);
-  const {
-    products,
-    currentPage,
-    hasNextPage,
-    hasPreviousPage,
-    nextPage,
-    previousPage,
-  } = data;
-  if (!hasNextPage) toNext.remove();
-  if (!hasPreviousPage) toPrevious.remove();
-  products.forEach(renderProduct);
 }
 
 function renderProduct(product) {

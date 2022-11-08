@@ -58,6 +58,14 @@ export const productController = {
     }
   },
 
+  getProductsByAdmin: async (req, res, next) => {
+    const categoryName = req.query.q;
+    const products = await ProductService.getProductsByAdmin(categoryName);
+    return res.status(200).json({
+      products,
+    });
+  },
+
   getProudctsByKeyword: async (req, res, next) => {
     const { keyword } = req.query;
     const products = await ProductService.getProudctsByKeyword(keyword);

@@ -1,13 +1,18 @@
 // api 로 GET 요청 (/endpoint/params 형태로 요청함)
+
+import { setToken } from './public/js/header-handler.js';
+
 async function get(endpoint, params = '') {
   const apiUrl = `${endpoint}/${params}`;
   console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
 
+  await setToken.tokenCheck();
+
+  const Bearer = 'Bearer ';
+
   const res = await fetch(apiUrl, {
     headers: {
-      Authorization: `Bearer ${sessionStorage.getItem(
-        'accessToken',
-      )} ${sessionStorage.getItem('refreshToken')}`,
+      Authorization: getAccess(Bearer),
     },
   });
 
@@ -17,10 +22,10 @@ async function get(endpoint, params = '') {
 
     alert(getMessage.message);
     console.log('419찾음');
-    window.location.href = '/login';
+    // window.location.href = '/login';
   }
+
   if (!res.ok) {
-    console.log(await res.json());
     const errorContent = await res.json();
     const { reason } = errorContent;
 
@@ -41,13 +46,13 @@ async function post(endpoint, data) {
   console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
   console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
 
+  const Bearer = 'Bearer ';
+
   const res = await fetch(apiUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${sessionStorage.getItem(
-        'accessToken',
-      )} ${sessionStorage.getItem('refreshToken')}`,
+      Authorization: getAccess(Bearer),
     },
     body: bodyData,
   });
@@ -108,19 +113,18 @@ async function put(endpoint, params = '', data) {
 // 아래 함수명에 관해, delete 단어는 자바스크립트의 reserved 단어이기에,
 // 여기서는 우선 delete 대신 del로 쓰고 아래 export 시에 delete로 alias 함.
 async function del(endpoint, params = '', data = {}) {
+  const tokenRes = tokenCheck();
+  if (tokenCheck.refreshToken || tokenCheck.accessToken) {
+    sessionStorage.setItem('accesstoken', tokenCheck.accessToken);
+  }
   const apiUrl = `${endpoint}/${params}`;
-  const bodyData = JSON.stringify(data);
-
-  console.log(`DELETE 요청 ${apiUrl}`);
-  console.log(`DELETE 요청 데이터: ${bodyData}`);
 
   const res = await fetch(apiUrl, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
     },
-    body: bodyData,
   });
 
   // 응답 코드가 4XX 계열일 때 (400, 403 등)
@@ -144,6 +148,14 @@ const tokenCheck = async () => {
       )} ${sessionStorage.getItem('refreshToken')}`,
     },
   });
+};
+
+const getAccess = (Bearer) => {
+  if (sessionStorage.getItem('accessToken')) {
+    const auth = Bearer + String(sessionStorage.getItem('accessToken'));
+    console.log(auth);
+    return auth;
+  }
 };
 
 // 아래처럼 export하면, import * as Api 로 할 시 Api.get, Api.post 등으로 쓸 수 있음.
