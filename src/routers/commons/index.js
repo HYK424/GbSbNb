@@ -1,3 +1,8 @@
+export * from './cart-router';
+export * from './category-router';
+export * from './order-router';
+export * from './product-router';
+
 // 이 부분은 지우지 말아주세요!!
 // import { orderRouter } from './order-router';
 
@@ -11,8 +16,3 @@
 // commonsRouter.use('/orders', orderRouter);
 
 // export { commonsRouter };
-
-export * from './cart-router';
-export * from './category-router';
-export * from './order-router';
-export * from './product-router';

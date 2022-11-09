@@ -1,6 +1,6 @@
 //로그인 되어있는가 되어있지 않은가??
 
-import { jwtModule } from '../util/jwt';
+import { jwtModule } from '../../util/jwt';
 
 export const authenticator = {
   accessVerify: async (req, res, next) => {

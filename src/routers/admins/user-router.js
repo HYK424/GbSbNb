@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { adminController } from '../../controllers/admin-controller';
 import { OrderController } from '../../controllers/order-controller';
-import { authenticator } from '../../middlewares/authentication';
-import { checkRole } from '../../middlewares/authorization';
+import { authenticator } from '../../middlewares';
+import { checkRole } from '../../middlewares';
 
 const adminRouter = Router();
 
