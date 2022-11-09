@@ -1,4 +1,6 @@
+
 import * as Api from '/api.js';
+
 
 const form = document.querySelector('#form');
 const categoryPostForm = document.querySelector('#form2');
@@ -170,7 +172,8 @@ async function categoryPost(event) {
         id: categoryid,
         name: categoryname,
       }),
-    }).then(reset.PostForm());
+    }).then(reset.PostForm())
+    .then(()=>{location.reload()});
   } catch (error) {
     console.log(error);
   }
@@ -276,7 +279,9 @@ async function categoryPut(event) {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-      },
+
+      }
+      ,
       body: JSON.stringify({
         id: selectPutId,
         name: selectPutName,

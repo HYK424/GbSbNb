@@ -21,43 +21,47 @@
   </head>
 
   <body class="min-vh-100">
-    <nav
-      class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
-      id="nav"
-    ></nav>
+    <div class="pageWraper">
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
+        id="nav"
+      ></nav>
 
-    <!-- 메인2 상품들 -->
-    <section class="">
-      <h4 id="resultNotification" class="text-start mb-4 mt-5 text-center"></h4>
-      <div class="container w-100 mt-5">
-        <div
-          class="container-fluid d-flex text-center justify-content-center ps-5"
-        >
-          <div class="row d-flex" id="productContainer"></div>
+      <!-- 메인2 상품들 -->
+      <section class="">
+        <!-- <article class="recommend text-center">
+        <span class="">이 달의 추천 상품(뺄 수도 있음)</span>
+      </article> -->
+        <div class="container w-100 mt-5">
+          <div
+            class="container-fluid d-flex text-center justify-content-center ps-5"
+          >
+            <div class="row d-flex" id="productContainer"></div>
+          </div>
         </div>
+      </section>
+      <footer
+        class="container-fluid text-center mt-auto py-3"
+        id="footer"
+      ></footer>
+      <div id="toPrevious" class="position-fixed top-50 start-0 d-none">
+        <a href="" id="previousPage">
+          <i
+            class="fa-sharp fa-solid fa-arrow-left text-secondary"
+            id="left-arrow"
+          ></i>
+        </a>
       </div>
-    </section>
-    <footer
-      class="container-fluid text-center mt-auto py-3"
-      id="footer"
-    ></footer>
-    <div id="toPrevious" class="position-fixed top-50 start-0 d-none">
-      <a href="" id="previousPage">
-        <i
-          class="fa-sharp fa-solid fa-arrow-left text-secondary"
-          id="left-arrow"
-        ></i>
-      </a>
+      <div id="toNext" class="position-fixed top-50 end-0 d-none">
+        <a href="" id="nextPage">
+          <i
+            class="fa-sharp fa-solid fa-arrow-right text-secondary"
+            id="right-arrow"
+          ></i>
+        </a>
+      </div>
     </div>
-    <div id="toNext" class="position-fixed top-50 end-0 d-none">
-      <a href="" id="nextPage">
-        <i
-          class="fa-sharp fa-solid fa-arrow-right text-secondary"
-          id="right-arrow"
-        ></i>
-      </a>
-    </div>
-    <script src="/public/js/template-renderer.js"></script>
-    <script src="home.js"></script>
   </body>
+  <script src="/public/js/template-renderer.js"></script>
+  <script src="home.js"></script>
 </html>
