@@ -1,4 +1,4 @@
-import { responseHandler } from '../public/js/response-handler';
+// import { responseHandler } from '../public/js/response-handler';
 
 const form = document.querySelector('#form');
 const categoryPostForm = document.querySelector('#form2');
