@@ -33,11 +33,12 @@ async function handleSubmit(e) {
   const data = { email, password };
 
   const result = await Api.post('/api/users/login', true, data);
-
-  sessionStorage.setItem('accessToken', result.tokens.accessToken);
-  sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
-
-  alert(result.message);
-
-  window.location.href = '/';
+  console.log(result);
+  if (!result.message) {
+    return alert(result);
+  } else {
+    sessionStorage.setItem('accessToken', result.tokens.accessToken);
+    sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
+    window.location.href = '/';
+  }
 }
