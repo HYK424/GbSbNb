@@ -7,7 +7,7 @@ export const categoryController = {
     return res.status(201).json(newCategory);
   },
 
-  getAllCategories: async (req, res, next) => {
+  getCategories: async (req, res, next) => {
     const categories = await CategoryService.getCategories();
     return res.status(200).json(categories);
   },

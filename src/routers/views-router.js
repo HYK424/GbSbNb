@@ -16,11 +16,10 @@ viewsRouter.use('/search', serveStatic('search'));
 viewsRouter.use('/mypage', serveStatic('mypage'));
 viewsRouter.use('/mypage/info', serveStatic('mypage_info'));
 viewsRouter.use('/products/:productId', serveStatic('product-detail'));
-
 viewsRouter.use('/admin', serveStatic('adminpage'));
+viewsRouter.use('/admin/add-products', serveStatic('adminPost'));
 viewsRouter.use('/admin/products', serveStatic('admin'));
 viewsRouter.use('/admin/products/:productId', serveStatic('adminPost'));
-viewsRouter.use('/admin/add-products', serveStatic('adminPost'));
 viewsRouter.use('/admin/users', serveStatic('adminUser'));
 viewsRouter.use('/admin/orders', serveStatic('adminOrder'));
 

@@ -6,7 +6,7 @@ import { asyncHandler } from '../../middlewares';
 const adminOrderRouter = Router();
 
 adminOrderRouter.use(authenticator.isLoggedIn, checkRole);
-
+adminOrderRouter.get('/', orderController.getOrders);
 adminOrderRouter.put('/', asyncHandler(orderController.updateOrderStatus));
 adminOrderRouter.delete('/:orderId', asyncHandler(orderController.deleteOrder));
 

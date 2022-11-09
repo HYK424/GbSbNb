@@ -36,8 +36,6 @@ async function handleSubmit(e) {
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
-  if (password !== passwordConfirm) alert('나가');
-
   const data = {
     fullName,
     email,

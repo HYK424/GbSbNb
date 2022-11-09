@@ -5,7 +5,8 @@ const ITEMS_PER_PAGE = 9;
 
 export const productController = {
   createProduct: async (req, res, next) => {
-    const productInfo = { ...req.body, ...req.file };
+    const imageUrl = req.file.path;
+    const productInfo = { ...req.body, imageUrl };
     const newProduct = await ProductService.createProduct(productInfo);
     return res.status(201).json(newProduct);
   },
@@ -60,7 +61,6 @@ export const productController = {
   },
 
   getProductsByAdmin: async (req, res, next) => {
-  
     const categoryName = req.query.q;
     console.log(categoryName);
     const products = await ProductService.getProductsByAdmin(categoryName);

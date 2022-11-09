@@ -41,7 +41,7 @@ class OrderModel {
 
   static async softDelete(orderId, updateInfo) {
     const filter = { _id: orderId };
-    const result = await Order.findOneAndUpdate(filter, updateInfo);
+    const result = await Order.updateOne(filter, updateInfo);
     return result;
   }
 

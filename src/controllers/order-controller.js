@@ -50,7 +50,7 @@ export const orderController = {
       ...(totalPrice && { totalPrice }),
       ...(request && { request }),
     };
-    const result = await OrderService.updateOrder(orderId, updateInfo);
+    await OrderService.updateOrder(orderId, updateInfo);
     return res.sendStatus(200);
   },
 

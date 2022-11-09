@@ -23,6 +23,11 @@ export class ProductModel {
     return product;
   }
 
+  static async findByTitle(title) {
+    const product = await Product.findOne({ title });
+    return product;
+  }
+
   static async findByKeyword(keyword) {
     const products = await Product.find({
       title: {

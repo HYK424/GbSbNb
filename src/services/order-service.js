@@ -32,7 +32,7 @@ class OrderService {
 
   static async updateOrder(orderId, updateInfo) {
     const order = await OrderModel.findById(orderId);
-    if (order.status !== '상품 준비 중') {
+    if (order.status !== 'standby') {
       throw new AppError(
         commonErrors.businessError,
         400,
@@ -107,6 +107,9 @@ class OrderService {
     }
     const updateInfo = { deletedAt: Date.now() };
     const result = await OrderModel.softDelete(orderId, updateInfo);
+    if (!result.acknowledged) {
+      throw new AppError(commonErrors.databaseError, 500);
+    }
     return result;
   }
 
