@@ -23,6 +23,4 @@ adminRouter.put('/allusers/:userId', adminController.forceChangeUserInfo);
 //지정 유저 비밀번호 초기화
 adminRouter.get('/allusers/:userId/password', adminController.resetPassword);
 
-adminRouter.get('/orders', OrderController.getOrders);
-
 export { adminRouter };

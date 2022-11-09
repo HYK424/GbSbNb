@@ -81,7 +81,6 @@ export class ProductModel {
         $unwind: '$orderItems',
       },
     ]);
-    console.log(product);
     return product[0].orders.length;
   }
 
@@ -89,17 +88,13 @@ export class ProductModel {
     const filter = { _id: productId };
     const option = { returnOriginal: false };
 
-    const updatedProduct = await Product.findOneAndUpdate(
-      filter,
-      updatedInfo,
-      option,
-    );
-    return updatedProduct;
+    const result = await Product.updateOne(filter, updatedInfo, option);
+    return result;
   }
 
   static async softDelete(productId, updateInfo) {
     const filter = { _id: productId };
-    const result = await Product.findOneAndUpdate(filter, updateInfo);
+    const result = await Product.updateOne(filter, updateInfo);
     return result;
   }
 

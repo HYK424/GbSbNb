@@ -11,8 +11,12 @@ class OrderService {
     const orders = await OrderModel.findAllByUserId(userId);
     return orders;
   }
+
   static async getOrderById(orderId) {
     const order = await OrderModel.findById(orderId);
+    if (!order) {
+      throw new AppError(commonErrors.deletedData, 400, '');
+    }
     return order;
   }
 
@@ -23,9 +27,6 @@ class OrderService {
 
   static async getOrder(orderId) {
     const order = await OrderModel.findById(orderId);
-    if (!order) {
-      throw new Error('해당하는 주문 정보가 없습니다. 다시 확인해주세요!');
-    }
     return order;
   }
 
@@ -38,11 +39,49 @@ class OrderService {
         '배송이 시작된 상품은 수정/취소할 수 없어요 :(',
       );
     }
-    const updatedOrder = await OrderModel.update({
+    const result = await OrderModel.update({
       orderId,
       updateInfo,
     });
-    return updatedOrder;
+    if (!result.acknowledged) {
+      throw new AppError(
+        commonErrors.databaseError,
+        500,
+        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
+      );
+    }
+    return result;
+  }
+
+  static async cancelOrder(orderId, updateInfo) {
+    const userId = req.currentUserId;
+    const order = await OrderModel.findById(orderId);
+    if (order.userId !== userId) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '해당 주문은 고객님의 주문이 아니에요 :(',
+      );
+    }
+    if (order.status !== '상품 준비 중') {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '배송이 시작된 상품은 취소할 수 없어요 :(',
+      );
+    }
+    const result = await OrderModel.update({
+      orderId,
+      updateInfo,
+    });
+    if (!result.acknowledged) {
+      throw new AppError(
+        commonErrors.databaseError,
+        500,
+        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
+      );
+    }
+    return result;
   }
 
   static async updateOrderStatus(insertData) {
@@ -62,7 +101,7 @@ class OrderService {
     const order = await OrderModel.findById(orderId);
     if (!order) {
       throw new AppError(
-        commonErrors.inputError,
+        commonErrors.deletedData,
         400,
         '해당하는 주문 정보가 없습니다. 다시 확인해주세요!',
       );
@@ -89,6 +128,13 @@ class OrderService {
       );
     }
     const result = await OrderModel.delete(orderId);
+    if (!result.acknowledged) {
+      throw new AppError(
+        commonErrors.databaseError,
+        500,
+        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
+      );
+    }
     return result;
   }
 }

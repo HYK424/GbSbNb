@@ -91,12 +91,10 @@ export const productController = {
 
   softDeleteProduct: async (req, res, next) => {
     const { productId } = req.params;
-    console.log(productId);
-
-    return res.status(200).json({ messege: '인국 테스트' });
-    //const result = await ProductService.softDeleteProduct(productId);
-    //return res.status(200).json(result);
+    await ProductService.softDeleteProduct(productId);
+    return res.sendStatus(200);
   },
+
   deleteProduct: async (req, res, next) => {
     const { productId } = req.params;
     const result = await ProductService.deleteProduct(productId);

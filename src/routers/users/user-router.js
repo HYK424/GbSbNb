@@ -46,10 +46,4 @@ userRouter.delete(
 );
 //////// 계정관련 ////////
 
-//////// 주문관련 ////////
-userRouter.post('/myorder', OrderController.createOrder);
-
-userRouter.get('/myorder', OrderController.getMyOrders);
-
-//////// 주문관련 ////////
 export { userRouter };

@@ -175,6 +175,6 @@ async function addLogoutEvent() {
   }
   logout.addEventListener('click', () => {
     sessionStorage.clear();
-    location.reload();
+    location.href = '/';
   });
 }
