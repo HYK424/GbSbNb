@@ -1,8 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-const accessSecretKey = process.env.ACCESS_KEY;
-const refreshSecretKey = process.env.REFRESH_KEY;
-
 export const jwtModule = {
   generate: (userId, role, secretKey, expire) => {
     return jwt.sign({ userId, role }, secretKey, {
@@ -42,38 +39,4 @@ export const jwtModule = {
   refreshVerify: (token) => {
     return jwtModule.verify(token, process.env.REFRESH_KEY);
   },
-
-  // access: (userId, role) => {
-  //   const payload = { userId, role };
-
-  //   return jwt.sign(payload, accessSecretKey, {
-  //     expiresIn: process.env.ACCESS_EXPIRE,
-  //   });
-  // },
-
-  // accessVerify: (accessToken) => {
-  //   try {
-  //     const decodeToken = jwt.verify(accessToken, accessSecretKey);
-
-  //     return decodeToken;
-  //   } catch (err) {
-  //     return false;
-  //   }
-  // },
-
-  // refresh: (userId, role) => {
-  //   const payload = { userId, role };
-  //   return jwt.sign(payload, refreshSecretKey, {
-  //     expiresIn: process.env.REFRESH_EXPIRE,
-  //   });
-  // },
-
-  // refreshVerify: (refreshToken) => {
-  //   try {
-  //     const decodeToken = jwt.verify(refreshToken, refreshSecretKey);
-  //     return decodeToken;
-  //   } catch (err) {
-  //     return false;
-  //   }
-  // },
 };

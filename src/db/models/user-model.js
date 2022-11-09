@@ -62,7 +62,6 @@ export class UserModel {
   }
 
   async updateRole(insertData) {
-    console.log('롤들어옴');
     const option = { returnOriginal: false };
     let count = 0;
     for (let i = 0; i < insertData.length; i++) {
@@ -72,16 +71,16 @@ export class UserModel {
             ? 'ADMIN_G'
             : 'basic-user',
       };
-      console.log(updateRole);
+
       const user = await User.findOne({ _id: Object.keys(insertData[i]) });
-      console.log(user);
+
       const filter = { _id: Object.keys(insertData[i]) };
       const updatedUser = await User.findOneAndUpdate(
         filter,
         updateRole,
         option,
       );
-      console.log(updatedUser);
+
       count += 1;
     }
     if (count == insertData.length) {

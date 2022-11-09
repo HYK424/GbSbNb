@@ -6,8 +6,7 @@ const Bearer = 'Bearer ';
 
 async function get(endpoint, params = '', extra = false) {
   const apiUrl = `${endpoint}/${params}`;
-  console.log(apiUrl);
-  console.log(extra);
+
   if (!extra) {
     await setToken.tokenCheck();
   }
@@ -48,10 +47,14 @@ async function put(endpoint, params = '', data) {
   return result;
 }
 
-async function del(endpoint, params = '', data = {}) {
+async function del(endpoint, params = '', data) {
   const apiUrl = `${endpoint}/${params}`;
 
-  const res = await fetchModule('DELETE', apiUrl);
+  await setToken.tokenCheck();
+
+  const bodyData = JSON.stringify(data);
+
+  const res = await fetchModule('DELETE', apiUrl, bodyData);
 
   const result = await responseHandler(res);
 

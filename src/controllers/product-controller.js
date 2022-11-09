@@ -13,6 +13,7 @@ export const productController = {
   getProducts: async (req, res, next) => {
     const page = Math.abs(+req.query.page) || 1;
     const categoryName = req.query.q;
+
     if (categoryName) {
       const { totalPage, productCount } =
         await ProductService.getTotalPageByCategory(
@@ -90,8 +91,11 @@ export const productController = {
 
   softDeleteProduct: async (req, res, next) => {
     const { productId } = req.params;
-    const result = await ProductService.softDeleteProduct(productId);
-    return res.status(200).json(result);
+    console.log(productId);
+
+    return res.status(200).json({ messege: '인국 테스트' });
+    //const result = await ProductService.softDeleteProduct(productId);
+    //return res.status(200).json(result);
   },
   deleteProduct: async (req, res, next) => {
     const { productId } = req.params;

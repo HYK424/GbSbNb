@@ -58,6 +58,7 @@ export class ProductModel {
       view: true,
       category: categoryName,
     }).countDocuments();
+    console.log(productCount);
     return productCount;
   }
 

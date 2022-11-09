@@ -3,8 +3,6 @@ import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
-    console.log('컨트롤러');
-
     const { email, password } = req.body;
 
     const result = await userService.login({ email, password });
