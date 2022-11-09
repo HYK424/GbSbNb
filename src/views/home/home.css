@@ -79,3 +79,7 @@ a {
 #product-description {
   height: 50px;
 }
+
+#productCard {
+  width: 340px;
+}

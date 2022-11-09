@@ -14,7 +14,6 @@ const userRouter = Router();
 userRouter.post(
   '/',
   userValidator.createUser,
-  //authenticator.isNotLoggedIn,
   asyncHandler(userController.createUser),
   // asyncHandler(userController.logIn),
 );
@@ -23,15 +22,8 @@ userRouter.post(
 userRouter.post(
   '/login',
   userValidator.login,
-  //authenticator.isNotLoggedIn,
   asyncHandler(userController.logIn),
 );
-
-// // 엑세스 토큰 검증
-// userRouter.use('/access', authenticator.accessVerify);
-
-// // 엑세스 토큰 검증 실패시 리프레시 토큰 검증 및 토큰 재발급
-// userRouter.use('/refresh', authenticator.refreshVerify);
 
 // 로그인 검증 후 id / role 지정
 userRouter.use(authenticator.isLoggedIn);

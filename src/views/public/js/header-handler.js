@@ -2,7 +2,7 @@ export const setToken = {
   tokenCheck: async () => {
     // console.log('//////////////header-handler//////////////');
     const accessHeaders = createHeaders(sessionStorage.getItem('accessToken'));
-
+    // console.log(accessHeaders);
     const oldaccess = sessionStorage.getItem('accessToken');
     const accessRes = await fetch('/api/access', {
       headers: accessHeaders,
@@ -10,10 +10,11 @@ export const setToken = {
 
     const { result } = await accessRes.json();
 
-    //console.log(`result: ${result}`);
+    // console.log(`result: ${result}`);
 
     if (!result) {
-      console.log('리프레시 받아야함');
+      // console.log('리프레시 받아야함');
+      // console.log(sessionStorage.getItem('refreshToken'));
       const refreshHeaders = createHeaders(
         sessionStorage.getItem('refreshToken'),
       );
@@ -30,7 +31,7 @@ export const setToken = {
       if (!refreshRes.ok) {
         sessionStorage.setItem('accessToken', '');
         sessionStorage.setItem('refreshToken', '');
-        alert('다시 로그인해 주시기 바랍니다.');
+        alert('로그인해 주시기 바랍니다.');
         window.location.href = '/login';
       }
 
