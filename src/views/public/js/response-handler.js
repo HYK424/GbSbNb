@@ -3,8 +3,10 @@ export const responseHandler = async (res) => {
 
   if (!res.ok) {
     errorHandler(data);
-    return false;
+    data.err = true;
+    return data;
   }
+
   return data;
 
   // if (!res.ok) {

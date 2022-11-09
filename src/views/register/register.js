@@ -78,7 +78,7 @@ async function handleSubmit(e) {
 
   const result = await Api.post('/api/users', true, data);
 
-  if (!result) {
+  if (result.err) {
     return;
   }
 

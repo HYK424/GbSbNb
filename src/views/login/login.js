@@ -34,7 +34,7 @@ async function handleSubmit(e) {
 
   const result = await Api.post('/api/users/login', true, data);
 
-  if (!result) {
+  if (result.err) {
     return;
   }
 
