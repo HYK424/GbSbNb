@@ -74,35 +74,31 @@ export const userValidator = {
   updateUser: [
     body('fullName')
       .trim()
-      .notEmpty()
       .isLength({ min: 2, max: 20 })
       .withMessage('이름이 너무 길거나 짧습니다.'),
     body('email')
-      .notEmpty()
+      .trim()
       .isLength({ max: 40 })
       .isEmail()
       .withMessage('이메일 형식이 아닙니다.'),
     body('phoneNumber')
-      .notEmpty()
       .isLength({ min: 8, max: 20 })
       .withMessage('전화번호가 올바르지 않습니다.'),
-    body('address.*.postalCode')
+    body('address.postalCode')
       .trim()
-      .notEmpty()
       .isLength({ min: 5, max: 10 })
       .withMessage('우편번호를 확인하세요.'),
-    body('address.*.address1')
+    body('address.address1')
       .trim()
-      .notEmpty()
       .isLength({ min: 8, max: 30 })
       .withMessage('첫번째 주소를 확인하세요.'),
-    body('address.*.address2')
+    body('address.address2')
       .trim()
-      .notEmpty()
       .isLength({ min: 5, max: 30 })
       .withMessage('두번째 주소를 확인하세요.'),
     validatorErrorChecker,
   ],
+
   deleteUser: [
     body('password')
       .trim()

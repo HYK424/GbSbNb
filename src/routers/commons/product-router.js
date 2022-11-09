@@ -24,7 +24,6 @@ productRouter.post(
 productRouter.put(
   '/:productId',
   productImageUpload.single('image'),
-  productValidator.createProduct,
   asyncHandler(productController.updateProduct),
 );
 productRouter.patch(
@@ -36,7 +35,5 @@ productRouter.delete(
   '/:productId',
   asyncHandler(productController.deleteProduct),
 );
-
-// productRouter.put('/:productId/view -> 쿼리문', productController.changeView);
 
 export { productRouter };

@@ -1,6 +1,6 @@
 //로그인 되어있는가 되어있지 않은가??
 
-import { jwtModule } from '../util/jwt';
+import { jwtModule } from '../../util/jwt';
 
 export const authenticator = {
   accessVerify: async (req, res, next) => {
@@ -35,9 +35,6 @@ export const authenticator = {
     }
   },
 
-  // [{유저아이디 , 현재 롤},{유저아이디 , 현재 롤},{유저아이디 , 현재 롤},{유저아이디 , 현재 롤},{유저아이디 , 현재 롤}]
-  // 유저아이디  현재 롤 -> 반대로
-  //             basic -> admin_g
   isLoggedIn: async (req, res, next) => {
     console.log('=isLoggedIn=');
 
@@ -45,8 +42,8 @@ export const authenticator = {
 
     const accessVerify = jwtModule.accessVerify(accessToken);
 
-    req.currentUserId = accessVerify.userId;
-    req.currentUserRole = accessVerify.role;
+    req.userId = accessVerify.userId;
+    req.role = accessVerify.role;
 
     !accessVerify
       ? res.status(419).json({

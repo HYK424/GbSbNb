@@ -29,8 +29,9 @@ export const setToken = {
       // console.log(!refreshRes.ok);
 
       if (!refreshRes.ok) {
-        sessionStorage.setItem('accessToken', '');
-        sessionStorage.setItem('refreshToken', '');
+        // sessionStorage.setItem('accessToken', '');
+        // sessionStorage.setItem('refreshToken', '');
+        sessionStorage.clear();
         alert('로그인해 주시기 바랍니다.');
         window.location.href = '/login';
       }

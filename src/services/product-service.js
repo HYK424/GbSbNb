@@ -139,6 +139,13 @@ class ProductService {
     }
     const updateInfo = product.view ? { view: false } : { view: true };
     const result = await ProductModel.softDelete(productId, updateInfo);
+    if (!result.acknowledged) {
+      throw new AppError(
+        commonErrors,
+        500,
+        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
+      );
+    }
 
     return result;
   }

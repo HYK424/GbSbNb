@@ -1,6 +1,6 @@
-import * as cartDB from "./cart_db.js";
-import * as cartTempDB from "./cart_temp_db.js";
-import * as Api from "/api.js";
+import * as cartDB from './cart_db.js';
+import * as cartTempDB from './cart_temp_db.js';
+import * as Api from '../api.js';
 
 const itemCountAll = document.querySelector('#itemCountAll');
 const itemPriceAll = document.querySelector('#itemPriceAll');
@@ -13,26 +13,31 @@ addAllElements();
 addAllEvents();
 updateSummary();
 
+if (!sessionStorage.getItem('accessToken')) {
+  alert('에러뜸');
+  window.location.href = '/login';
+}
+
 function addAllElements() {
-    insertProductsfromCart();
+  insertProductsfromCart();
 }
 
 function addAllEvents() {
-    itemContainer.addEventListener('click', itemButtonEvent);
-    itemContainer.addEventListener('change', itemInputEvent);
-    allSelectCheckbox.addEventListener('change', toggleAllEvent);
-    partialDeleteLabel.addEventListener('click', toggleDeleteEvent);
+  itemContainer.addEventListener('click', itemButtonEvent);
+  itemContainer.addEventListener('change', itemInputEvent);
+  allSelectCheckbox.addEventListener('change', toggleAllEvent);
+  partialDeleteLabel.addEventListener('click', toggleDeleteEvent);
 }
 
 async function insertProductsfromCart() {
-    const cartItems = cartDB.getItemAll();
-    for (let item of cartItems) {
-        let { productId, quantity } = item;
-        let itemGet = await Api.get("/api/products", productId);
-        let { price, title, imageUrl } = itemGet;
+  const cartItems = cartDB.getItemAll();
+  for (let item of cartItems) {
+    let { productId, quantity } = item;
+    let itemGet = await Api.get('/api/products', productId, true);
+    let { price, title, imageUrl } = itemGet;
 
-        const itemContainer = document.querySelector("#itemContainer");
-        const itemHTML = `<div class="item-div" id="productItem-${productId}">
+    const itemContainer = document.querySelector('#itemContainer');
+    const itemHTML = `<div class="item-div" id="productItem-${productId}">
         <label class="checkbox">
             <input type="checkbox" data-action="checkbox" data-id="${productId}" id="checkbox-${productId}" checked>
         </label>
@@ -57,135 +62,136 @@ async function insertProductsfromCart() {
         <p id="totalPrice-${productId}">${quantity * price}원</p>
     </div>`;
 
-        itemContainer.insertAdjacentHTML("beforeend", itemHTML);
-        cartTempDB.insertItem(productId, quantity, price, true)
-    }
-    updateSummary()
+    itemContainer.insertAdjacentHTML('beforeend', itemHTML);
+    cartTempDB.insertItem(productId, quantity, price, true);
+  }
+  updateSummary();
 }
 
 function itemButtonEvent(e) {
-    let target = e.target;
-    if (target.tagName != 'BUTTON') return;
+  let target = e.target;
+  if (target.tagName != 'BUTTON') return;
 
-    let actionCase = target.dataset.action
-    let productId = target.dataset.id
-    let oldQuantity = 0
+  let actionCase = target.dataset.action;
+  let productId = target.dataset.id;
+  let oldQuantity = 0;
 
-    switch (actionCase) {
-        case 'delete':
-            cartDB.deleteItem(productId);
-            cartTempDB.deleteItem(productId);
-            document.querySelector(`#productItem-${productId}`).remove();
-            // 전체선택 체크박스를 업데이트함
-            if (cartTempDB.isAllChecked) {
-                allSelectCheckbox.checked = true;
-            }
-            break;
+  switch (actionCase) {
+    case 'delete':
+      cartDB.deleteItem(productId);
+      cartTempDB.deleteItem(productId);
+      document.querySelector(`#productItem-${productId}`).remove();
+      // 전체선택 체크박스를 업데이트함
+      if (cartTempDB.isAllChecked) {
+        allSelectCheckbox.checked = true;
+      }
+      break;
 
-        case 'minus':
-            oldQuantity = cartTempDB.getItem(productId).quantity
+    case 'minus':
+      oldQuantity = cartTempDB.getItem(productId).quantity;
 
-            if (oldQuantity <= 1) break;
+      if (oldQuantity <= 1) break;
 
-            cartTempDB.updateItemQuantity(productId, oldQuantity - 1);
+      cartTempDB.updateItemQuantity(productId, oldQuantity - 1);
 
-            document.querySelector(`#quantityInput-${productId}`).value = oldQuantity - 1
+      document.querySelector(`#quantityInput-${productId}`).value =
+        oldQuantity - 1;
 
-            updateItemTotalPrice(productId)
+      updateItemTotalPrice(productId);
 
+      break;
 
-            break;
+    case 'plus':
+      oldQuantity = cartTempDB.getItem(productId).quantity;
 
-        case 'plus':
-            oldQuantity = cartTempDB.getItem(productId).quantity
+      if (oldQuantity >= 99) break;
 
-            if (oldQuantity >= 99) break;
+      cartTempDB.updateItemQuantity(productId, oldQuantity + 1);
+      document.querySelector(`#quantityInput-${productId}`).value =
+        oldQuantity + 1;
 
-            cartTempDB.updateItemQuantity(productId, oldQuantity + 1);
-            document.querySelector(`#quantityInput-${productId}`).value = oldQuantity + 1
+      updateItemTotalPrice(productId);
 
-            updateItemTotalPrice(productId)
+      break;
+  }
 
-            break;
-    }
-
-    updateSummary()
+  updateSummary();
 }
 
 function itemInputEvent(e) {
-    let target = e.target;
-    if (target.tagName != 'INPUT') return;
+  let target = e.target;
+  if (target.tagName != 'INPUT') return;
 
-    let actionCase = target.dataset.action
-    let productId = target.dataset.id
+  let actionCase = target.dataset.action;
+  let productId = target.dataset.id;
 
-    switch (actionCase) {
-        case "checkbox":
-            let isChecked = target.checked
-            cartTempDB.updateItemChecked(productId, isChecked)
-            if (isChecked) {
-                console.log('hellow');
-                console.log(cartTempDB.isAllChecked());
-                if (cartTempDB.isAllChecked()) {
-                    console.log('howdi');
-                    allSelectCheckbox.checked = true;
-                }
-            } else {
-                allSelectCheckbox.checked = false;
-            }
+  switch (actionCase) {
+    case 'checkbox':
+      let isChecked = target.checked;
+      cartTempDB.updateItemChecked(productId, isChecked);
+      if (isChecked) {
+        console.log('hellow');
+        console.log(cartTempDB.isAllChecked());
+        if (cartTempDB.isAllChecked()) {
+          console.log('howdi');
+          allSelectCheckbox.checked = true;
+        }
+      } else {
+        allSelectCheckbox.checked = false;
+      }
 
-            break;
+      break;
 
-        case "quantityInput":
-            let newQuantity = target.value
+    case 'quantityInput':
+      let newQuantity = target.value;
 
-            if (newQuantity < 1 || newQuantity > 99) {
-                return alert("수량은 1~99 사이만 가능합니다.");
-            }
+      if (newQuantity < 1 || newQuantity > 99) {
+        return alert('수량은 1~99 사이만 가능합니다.');
+      }
 
-            cartTempDB.updateItemQuantity(productId, newQuantity)
+      cartTempDB.updateItemQuantity(productId, newQuantity);
 
-            updateItemTotalPrice(productId)
-            break;
-    }
+      updateItemTotalPrice(productId);
+      break;
+  }
 
-    updateSummary()
+  updateSummary();
 }
 
 function toggleAllEvent(e) {
-    const isChecked = e.target.checked;
-    const itemIdArr = cartTempDB.getItemIdAll();
+  const isChecked = e.target.checked;
+  const itemIdArr = cartTempDB.getItemIdAll();
 
-    for (let itemId of itemIdArr) {
-        cartTempDB.updateItemChecked(itemId, isChecked)
-        document.querySelector(`#checkbox-${itemId}`).checked = isChecked
-    }
+  for (let itemId of itemIdArr) {
+    cartTempDB.updateItemChecked(itemId, isChecked);
+    document.querySelector(`#checkbox-${itemId}`).checked = isChecked;
+  }
 
-    updateSummary()
+  updateSummary();
 }
 
 function toggleDeleteEvent(e) {
-    const itemCheckedAll = cartTempDB.getItemChecked();
-    for (let item of itemCheckedAll) {
-        document.querySelector(`#productItem-${item.productId}`).remove();
-        cartTempDB.deleteItem(item.productId)
-    }
+  const itemCheckedAll = cartTempDB.getItemChecked();
+  for (let item of itemCheckedAll) {
+    document.querySelector(`#productItem-${item.productId}`).remove();
+    cartTempDB.deleteItem(item.productId);
+  }
 
-    updateSummary()
+  updateSummary();
 }
 
 function updateSummary() {
-    itemCountAll.innerHTML = cartTempDB.getTotalCount()
-    itemPriceAll.innerHTML = cartTempDB.getTotalPrice()
-    totalPrice.innerHTML = cartTempDB.getTotalPrice() + 3000
+  itemCountAll.innerHTML = cartTempDB.getTotalCount();
+  itemPriceAll.innerHTML = cartTempDB.getTotalPrice();
+  totalPrice.innerHTML = cartTempDB.getTotalPrice() + 3000;
 }
 
 function updateItemTotalPrice(productId) {
-    let itemTotalPriceInput = document.querySelector(`#totalPrice-${productId}`)
-    let item = cartTempDB.getItem(productId)
-    console.log(item)
-    let { quantity, price } = item
-    let totalPrice = quantity * price
+  let itemTotalPriceInput = document.querySelector(`#totalPrice-${productId}`);
+  let item = cartTempDB.getItem(productId);
+  console.log(item);
+  let { quantity, price } = item;
+  let totalPrice = quantity * price;
 
-    itemTotalPriceInput.innerHTML = totalPrice
+  itemTotalPriceInput.innerHTML = totalPrice;
 }

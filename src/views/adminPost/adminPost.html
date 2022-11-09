@@ -9,122 +9,117 @@
   <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="/public/css/public.css" />
-  </head>
+  <link rel="stylesheet" href="/public/css/public.css" />
+</head>
 
 <body>
-  <nav
-      class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
-      id="nav"
-    ></nav>
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-1">
+  <div class="pageWraper">
+    <nav class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top" id="nav"></nav>
+    <div class="container text-center">
+      <div class="row">
+    <div class="col-1"></div>
 
-      </div>
+        <div class="col-10">
+       
+          <div class="adminContainer">
+            <form id="form">
+              <span>상품 등록</span>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">제품명</span>
+                <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default">
+              </div>
 
-      <div class="col-10">
-        <div class="adminContainer">
-          <form id="form">
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-default">제품명</span>
-              <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default">
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">카테고리</label>
+                <select class="form-select" id="inputGroupSelect01">
+
+                </select>
+              </div>
+
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">제조사</span>
+                <input type="text" name="manufacturer" id="manufacturer" class="form-control"
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">가격</span>
+                <input type="number" name="price" id="price" class="form-control" aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default">
+
+              </div>
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroup-sizing-default">설명</span>
+                <input type="text" name="description" id="description" class="form-control"
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+
+              </div>
+
+              <label for="formFile" class="form-label"></label>
+              <div class="flexContainer">
+                <input class="form-control thumbanil" id="formFile" name="image" type="file" id="formFile">
+                <input type="submit" value="등록" class="btnInput">
+              </div>
+            </form>
+
+          </div>
+
+          <div id="hidden">
+            <div id="cContainer" class="category">
+
+              <form id="form2" class="form">
+                <span>카테고리 등록</span>
+                <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
+                <input type="number" class="form-control" id="categoryId" aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default">
+                <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
+                <input type="text" class="form-control" id="categoryName" aria-label="Sizing example input"
+                  aria-describedby="inputGroup-sizing-default">
+                <input class="btnInput" type="submit" value="등록">
+              </form>
+
+
+              <form id="form3" class="form">
+                <span>카테고리 삭제</span>
+                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                  <option selected>삭제할 카테고리</option>
+                  <input class="btnInput" type="submit" value="삭제">
+              </form>
             </div>
 
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="inputGroupSelect01">카테고리</label>
-              <select class="form-select" id="inputGroupSelect01">
 
+            <form id="form4" class="form">
+              <span>카테고리 수정</span>
+              <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                <option selected>수정할 카테고리</option>
               </select>
-            </div>
 
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-default">제조사</span>
-              <input type="text" name="manufacturer" id="manufacturer" class="form-control"
-                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-default">가격</span>
-              <input type="number" name="price" id="price" class="form-control" aria-label="Sizing example input"
+              <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
+              <input type="number" class="form-control" id="selectPutId" aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default">
 
-            </div>
-            <div class="input-group mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-default">설명</span>
-              <input type="text" name="description" id="description" class="form-control"
-                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+              <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
+              <input type="text" class="form-control" id="selectPutName" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-default">
 
-            </div>
+              <input class="btnInput" type="submit" value="수정">
 
-            <label for="formFile" class="form-label"></label>
-            <div class="flexContainer">
-              <input class="form-control thumbanil" id="formFile" name="image" type="file" id="formFile">
-              <input type="submit" value="등록" class="btnInput">
-            </div>
-          </form>
+            </form>
+
+          </div>
+
+          <a class="btn btn-danger ms-5" href="javascript:history.back()">뒤로가기</a>
 
         </div>
-
-<div id="hidden"> 
-        <div id="cContainer" class="category">
-
-          <form id="form2" class="form">
-            <span>카테고리 등록</span>
-            <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
-            <input type="number" class="form-control" id="categoryId" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default">
-            <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
-            <input type="text" class="form-control" id="categoryName" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-default">
-            <input class="btnInput" type="submit" value="등록">
-          </form>
-
- 
-          <form id="form3" class="form">
-          <span>카테고리 삭제</span>
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-              <option selected>삭제할 카테고리</option>
-              <input class="btnInput" type="submit" value="삭제">
-            </form>
-            </div>
-
-
-        <form id="form4" class="form">
-          <span>카테고리 수정</span>
-          <select class="form-select form-select-sm" aria-label=".form-select-sm example" >
-            <option selected>수정할 카테고리</option>
-          </select>
-
-          <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
-          <input type="number" class="form-control" id="selectPutId" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default">
-
-          <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
-          <input type="text" class="form-control" id="selectPutName" aria-label="Sizing example input"
-            aria-describedby="inputGroup-sizing-default">
-
-          <input class="btnInput" type="submit" value="수정">
-
-        </form>
     
+        <div class="col-1"></div>
+      </div>
     </div>
-
-    <a class="btn btn-danger ms-5" href="javascript:history.back()">뒤로가기</a>
-
-    <footer
-    class="container-fluid text-center mt-auto py-3"
-    id="footer"
-  ></footer>
-    
+    <footer class="container-fluid text-center mt-auto py-3" id="footer"></footer>
   </div>
-  <div class="col-1">
-
-  </div>
-  </div>
-
   <!-- <script src="adminPost.js" type="module" defer></script> -->
 </body>
 <script src="/public/js/template-renderer.js"></script>
 <script src="adminPost.js" type="module" defer></script>
+
 </html>

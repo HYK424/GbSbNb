@@ -2,7 +2,7 @@ import { CategoryModel } from '../db';
 import { AppError, commonErrors } from '../middlewares';
 
 class CategoryService {
-  static async addCategory({ name, id }) {
+  static async createCategory({ name, id }) {
     if (await CategoryModel.findByName(name)) {
       throw new AppError(
         commonErrors.resourceDuplicationError,

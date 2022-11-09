@@ -12,4 +12,5 @@ export const commonErrors = {
   resourceDuplicationError: `리소스 중복 에러`,
   remoteStorageError: `클라우드 스토리지 에러`,
   requestValidationError: `Request Validation Error`,
+  deletedData: 'deletedAt 존재 에러',
 };

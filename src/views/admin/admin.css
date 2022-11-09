@@ -1,10 +1,4 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
-
-
+/* 
 .containerHead {
   display: flex;
   justify-content: space-between;
@@ -25,11 +19,11 @@
 
 .formDiv.active {
   display: inline;
-}
+} */
 
 
 /* 메인 */
-.recommend {
+/* .recommend {
   font-size: 22px;
   padding: 40px 0px 20px 20px;
   ;
@@ -40,7 +34,7 @@
   gap: 10px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, minmax(350px, auto));
-}
+} */
 
 
 .navBar li {
