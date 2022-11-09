@@ -58,6 +58,7 @@ export class ProductModel {
       view: true,
       category: categoryName,
     }).countDocuments();
+    console.log(productCount);
     return productCount;
   }
 
@@ -65,14 +66,14 @@ export class ProductModel {
     const product = await Product.aggregate([
       {
         $match: {
-          _id: new ObjectID('636762aecc4d64e36cc46f82'),
+          _id: new ObjectID(productId),
         },
       },
       {
         $lookup: {
           from: 'orders',
           localField: 'orderItems',
-          foreignField: "ObjectId('636762aecc4d64e36cc46f82')",
+          foreignField: `ObjectId(${productId})`,
           as: 'orders',
         },
       },

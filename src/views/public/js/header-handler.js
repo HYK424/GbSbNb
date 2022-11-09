@@ -2,7 +2,7 @@ export const setToken = {
   tokenCheck: async () => {
     // console.log('//////////////header-handler//////////////');
     const accessHeaders = createHeaders(sessionStorage.getItem('accessToken'));
-    console.log(accessHeaders);
+    // console.log(accessHeaders);
     const oldaccess = sessionStorage.getItem('accessToken');
     const accessRes = await fetch('/api/access', {
       headers: accessHeaders,
@@ -10,10 +10,11 @@ export const setToken = {
 
     const { result } = await accessRes.json();
 
-    console.log(`result: ${result}`);
+    // console.log(`result: ${result}`);
 
     if (!result) {
-      console.log('리프레시 받아야함');
+      // console.log('리프레시 받아야함');
+      // console.log(sessionStorage.getItem('refreshToken'));
       const refreshHeaders = createHeaders(
         sessionStorage.getItem('refreshToken'),
       );
@@ -34,14 +35,14 @@ export const setToken = {
         window.location.href = '/login';
       }
 
-      console.log('result');
-      console.log(result);
-      console.log('만료된거 //');
-      console.log(oldaccess);
-      console.log('새로받은거 //');
-      console.log(result.accessToken);
-      console.log('리프레시 //');
-      console.log(result.refreshToken);
+      // console.log('result');
+      // console.log(result);
+      // console.log('만료된거 //');
+      // console.log(oldaccess);
+      // console.log('새로받은거 //');
+      // console.log(result.accessToken);
+      // console.log('리프레시 //');
+      // console.log(result.refreshToken);
 
       sessionStorage.setItem('accessToken', result.accessToken);
       sessionStorage.setItem('refreshToken', result.refreshToken);
