@@ -88,7 +88,7 @@ function getNaveHTML() {
             <a class="nav-link active" aria-current="page" id="logout" class=""
             >로그아웃</a
             ><li class="nav-item">
-            <a class="nav-link active" aria-current="page" id="logout" class=""
+            <a class="nav-link active" aria-current="page" id="logout" class="" href="/mypage"
             >마이페이지</a
             >`
                 : `<li class="nav-item">
