@@ -4,11 +4,12 @@ import { responseHandler } from './public/js/response-handler.js';
 
 const Bearer = 'Bearer ';
 
-async function get(endpoint, params = '') {
+async function get(endpoint, params = '', extra = false) {
   const apiUrl = `${endpoint}/${params}`;
 
-  await setToken.tokenCheck();
-
+  if (!extra) {
+    await setToken.tokenCheck();
+  }
   const res = await fetchModule('GET', apiUrl);
 
   const result = await responseHandler(res);
@@ -46,10 +47,14 @@ async function put(endpoint, params = '', data) {
   return result;
 }
 
-async function del(endpoint, params = '', data = {}) {
+async function del(endpoint, params = '', data) {
   const apiUrl = `${endpoint}/${params}`;
 
-  const res = await fetchModule('DELETE', apiUrl);
+  await setToken.tokenCheck();
+
+  const bodyData = JSON.stringify(data);
+
+  const res = await fetchModule('DELETE', apiUrl, bodyData);
 
   const result = await responseHandler(res);
 

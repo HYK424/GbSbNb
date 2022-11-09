@@ -23,6 +23,9 @@ const router = Router();
 router.use('/access', authenticator.accessVerify);
 router.use('/refresh', authenticator.refreshVerify);
 
+// router.use('/', commonRouter);
+// router.use('/admin', adminRouter);
+
 router.use('/admin', adminRouter);
 router.use('/users', userRouter);
 router.use('/products', productRouter);

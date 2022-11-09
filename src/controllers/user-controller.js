@@ -3,8 +3,6 @@ import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
-    console.log('컨트롤러');
-
     const { email, password } = req.body;
 
     const result = await userService.login({ email, password });
@@ -137,8 +135,8 @@ export const userController = {
 
     const result = await userService.deleteUser(userId, password);
 
-    //const { status, message } = result;
+    const { status, message } = result;
 
-    res.status(200).json({ message: '시험중' });
+    res.status(status).json({ message: message });
   },
 };

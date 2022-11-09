@@ -12,7 +12,6 @@ class UserService {
   }
 
   async login(loginInfo) {
-    console.log('서비스');
     const { email, password } = loginInfo;
 
     const user = await this.userModel.findByEmail(email);
@@ -25,8 +24,6 @@ class UserService {
     if (user['deletedAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
     }
-
-    console.log(user);
 
     const correctPasswordHash = user.password;
 
@@ -182,6 +179,7 @@ class UserService {
 
     const result = await this.userModel.deleteUser(userId);
     console.log(result);
+    return { status: 200, message: '회원탈퇴 되셨습니다. 감사합니다.' };
   }
 }
 

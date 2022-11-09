@@ -38,12 +38,19 @@ class CategoryService {
 
   static async deleteCategory(categoryId) {
     const category = await CategoryModel.findById(categoryId);
-
     if (!category) {
       throw new AppError(
         commonErrors.resourceNotFoundError,
         400,
         '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
+    }
+    const productCount = await CategoryModel.countProducts(categoryId);
+    if (productCount) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '카테고리에 속한 상품이 있어서 삭제할 수 없어요 :(',
       );
     }
 

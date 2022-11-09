@@ -1,7 +1,7 @@
 * {
   font-family: 'Poor Story', cursive, sans-serif;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 700 !important;
 }
 
 #logo {
