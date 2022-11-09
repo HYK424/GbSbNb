@@ -78,11 +78,9 @@ async function handleSubmit(e) {
 
   const result = await Api.post('/api/users', true, data);
 
-  console.log(result);
-  if (!result) return;
-  alert(`정상적으로 회원가입되었습니다.`);
+  alert(result.message);
 
-  location.href = '/login';
+  window.location.href = '/login';
 }
 
 searchAddress.addEventListener('click', handleSearchAddressClick);
