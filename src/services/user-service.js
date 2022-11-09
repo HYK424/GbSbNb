@@ -12,7 +12,6 @@ class UserService {
   }
 
   async login(loginInfo) {
-    console.log('서비스');
     const { email, password } = loginInfo;
 
     const user = await this.userModel.findByEmail(email);
@@ -25,8 +24,6 @@ class UserService {
     if (user['deletedAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
     }
-
-    console.log(user);
 
     const correctPasswordHash = user.password;
 

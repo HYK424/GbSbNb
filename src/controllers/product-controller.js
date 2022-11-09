@@ -13,7 +13,7 @@ export const productController = {
   getProducts: async (req, res, next) => {
     const page = Math.abs(+req.query.page) || 1;
     const categoryName = req.query.q;
-    console.log(categoryName);
+
     if (categoryName) {
       const { totalPage, productCount } =
         await ProductService.getTotalPageByCategory(
