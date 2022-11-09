@@ -9,6 +9,7 @@ setCategory();
 setItemList();
 allEvents();
 
+
 function allEvents() {
   select.addEventListener('change', handleSelect);
 }
@@ -149,8 +150,3 @@ async function changeView(event) {
 //     });
 //   });
 // }
-
-function goPost() {
-  const login = '/admin/post';
-  location.href = login;
-}
