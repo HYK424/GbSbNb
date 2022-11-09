@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { authenticator } from '../../middlewares/authentication';
+
 import { cartController } from '../../controllers';
-import { asyncHandler } from '../../middlewares';
+import { authenticator, asyncHandler } from '../../middlewares';
 
 const cartRouter = Router();
 

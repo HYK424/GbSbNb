@@ -16,13 +16,19 @@ class UserService {
 
     const user = await this.userModel.findByEmail(email);
     if (!user) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
         '해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
     if (user['deletedAt']) {
-      throw new Error('회원 탈퇴한 계정입니다.');
+      throw new AppError(
+        commonErrors.deletedData,
+        400,
+        '회원 탈퇴한 계정입니다.',
+      );
     }
 
     const correctPasswordHash = user.password;
@@ -55,42 +61,39 @@ class UserService {
   }
 
   async getMyInfo(userId) {
-    try {
-      const userInfo = await this.userModel.findById(userId);
+    const userInfo = await this.userModel.findById(userId);
 
-      const userData = {
-        fullName: userInfo.fullName,
-        email: userInfo.email,
-        phoneNumber: userInfo.phoneNumber,
-        address: userInfo.address,
-        role: userInfo.role,
-        createdAt: userInfo.createdAt,
-      };
+    const userData = {
+      fullName: userInfo.fullName,
+      email: userInfo.email,
+      phoneNumber: userInfo.phoneNumber,
+      address: userInfo.address,
+      role: userInfo.role,
+      createdAt: userInfo.createdAt,
+    };
 
-      return {
-        status: 200,
-        message: '유저 정보 조회 성공',
-        userInfo: userData,
-      };
-    } catch (err) {
-      console.log(err);
-      console.log('잘못된 userId');
-      return {
-        status: 400,
-        message: '유저 정보를 조회할 수 없습니다. 고객센터에 문의해주십시오.',
-        userInfo: null,
-      };
+    if (!userData) {
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
+        '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
     }
+
+    return {
+      status: 200,
+      message: '유저 정보 조회 성공',
+      userInfo: userData,
+    };
   }
 
   async createUser(userInfo) {
     const { email, fullName, password, address, phoneNumber } = userInfo;
 
     const user = await this.userModel.findByEmail(email);
+
     if (user) {
-      throw new Error(
-        '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.',
-      );
+      throw new AppError(commonErrors.inputError, 400, '중복된 이메일 입니다.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -109,14 +112,14 @@ class UserService {
   }
 
   async updateUser(userId, toUpdate) {
-    console.log('서비스 실행');
-
     const user = await this.userModel.findById(userId);
 
-    console.log(user);
-
     if (!user) {
-      throw new Error('가입 내역이 없습니다. 다시 한 번 확인해 주세요.');
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '계정 정보를 변경할 수 없습니다.',
+      );
     }
 
     const result = await this.userModel.update({
@@ -125,7 +128,11 @@ class UserService {
     });
 
     if (!result) {
-      return { status: 400, message: '정보변경에 실패했습니다.' };
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '정보 변경에 실패하였습니다.',
+      );
     }
 
     return { status: 200, message: '정보변경에 성공하였습니다.' };
@@ -135,16 +142,23 @@ class UserService {
     const user = await this.userModel.findById(userId);
 
     if (!user) {
-      throw new Error('유저 정보 조회 에러. 관리자에게 문의하세요.');
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '해당 유저가 존재하지 않습니다.',
+      );
     }
 
     const currentPassword = user.password;
 
     const isPasswordCorrect = await bcrypt.compare(password, currentPassword);
-    // console.log(`isPasswordCorrect : ${isPasswordCorrect}`);
 
     if (!isPasswordCorrect) {
-      return { status: 400, check: '비밀번호가 옳지 않습니다.' };
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
     }
 
     const hashedChangePassword = await bcrypt.hash(changedPassword, 10);
@@ -155,7 +169,11 @@ class UserService {
     });
 
     if (!result) {
-      return { status: 400, check: '비밀번호 변경에 실패했습니다.' };
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '비밀번호 변경에 실패했습니다.',
+      );
     }
 
     return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
@@ -165,20 +183,31 @@ class UserService {
     const user = await this.userModel.findById(userId);
 
     if (!user) {
-      throw new Error('유저 정보 조회 에러. 관리자에게 문의하세요.');
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '삭제할 유저가 존재하지 않습니다.',
+      );
     }
 
     const currentPassword = user.password;
 
     const isPasswordCorrect = await bcrypt.compare(password, currentPassword);
-    // console.log(`isPasswordCorrect : ${isPasswordCorrect}`);
 
     if (!isPasswordCorrect) {
       return { status: 400, check: '비밀번호가 옳지 않습니다.' };
     }
 
     const result = await this.userModel.deleteUser(userId);
-    console.log(result);
+
+    if (!result) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
+    }
+
     return { status: 200, message: '회원탈퇴 되셨습니다. 감사합니다.' };
   }
 }

@@ -2,10 +2,7 @@ import { Router } from 'express';
 import { OrderController } from '../../controllers/order-controller';
 // 폴더에서 import하면, 자동으로 폴더의 index.js에서 가져옴
 import { userController } from '../../controllers/user-controller';
-import { authenticator } from '../../middlewares/authentication';
-import { userValidator } from '../../middlewares/validation/index';
-
-import { asyncHandler } from '../../middlewares';
+import { authenticator, userValidator, asyncHandler } from '../../middlewares';
 
 const userRouter = Router();
 

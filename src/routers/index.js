@@ -1,12 +1,7 @@
 import { Router } from 'express';
 
-// export * from './user-router';
-// export * from './product-router';
-// export * from './category-router';
-//export * from './admin-router';
-
 import { adminRouter } from './admins';
-import { userRouter } from './users/user-router';
+import { userRouter } from './users';
 import {
   cartRouter,
   categoryRouter,
@@ -14,9 +9,9 @@ import {
   orderRouter,
 } from './commons';
 
-import { authenticator } from '../middlewares/authentication';
-
 import { viewsRouter } from './views-router';
+
+import { authenticator } from '../middlewares';
 
 const router = Router();
 
