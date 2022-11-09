@@ -1,6 +1,8 @@
 import * as Api from '../api.js';
 
-if (sessionStorage.getItem('accessToken')) {
+const accessToken = sessionStorage.getItem('accessToken');
+
+if (accessToken) {
   alert('이미 로그인하셨어요 :) 홈으로 보내드릴게요!');
   location.href = '/';
 }

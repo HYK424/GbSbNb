@@ -7,44 +7,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="/public/css/public.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 
 <body>
     <!-- 헤더 -->
-    <header>
-        <div class="containerHead">
-            <div class="containerBrand">
-                <a href=""></a>
-                <span>15팀</span>
-            </div>
-            <nav class="containerNavbar">
-                <ul class="navBar">
-                    <li><button onclick="">로그아웃</button></li>
-                    <!-- <li><button onclick=""></button></li> -->
-                    <!-- <li><button class="search">검색</button></li> -->
-                </ul>
+    <div class="pageWraper">
+        <nav class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top" id="nav"></nav>
+
+        <!-- 카테고리 조회 -->
+        <div>
+            <form id="form">
+                <select name="categoryId" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                    id="select">
+                    <option value="all" selected>전체</option>
+                </select>
+            </form>
         </div>
-    </header>
-    <!-- 카테고리 조회 -->
-    <div>
-        <form id="form">
-            <select name="categoryId" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                id="select">
-                <option value="all" selected>전체</option>
-            </select>
-        </form>
-    </div>
-    <!-- 상품 목록 리스트 -->
-    <div class="itemList">
+        <!-- 상품 목록 리스트 -->
+        <div class="itemList">
+        </div>
 
+        <div class="addContainer">
+            <button onclick="goPost()" type="button" class="btn btn-outline-secondary add">추가</button>
+        </div>
+    
+        <footer class="container-fluid text-center mt-auto py-3" id="footer"></footer>
     </div>
-
-<div class="addContainer">
-    <button onclick="goPost()" type="button" class="btn btn-outline-secondary add">추가</button>
-</div>
 </body>
 <script src="admin.js"> </script>
+<script src="/public/js/template-renderer.js"></script>
 
 </html>

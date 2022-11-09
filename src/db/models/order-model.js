@@ -15,7 +15,7 @@ class OrderModel {
     return order;
   }
 
-  static async findAllByUserId(userId) {
+  static async findAllByUser(userId) {
     const orders = await Order.find({ userId, deletedAt: null });
     return orders;
   }
@@ -29,12 +29,8 @@ class OrderModel {
     const filter = { _id: orderId };
     const option = { returnOriginal: false };
 
-    const updatedOrder = await Order.findOneAndUpdate(
-      filter,
-      updateInfo,
-      option,
-    );
-    return updatedOrder;
+    const result = await Order.updateOne(filter, updateInfo, option);
+    return result;
   }
 
   static async updateStatus(insertData) {

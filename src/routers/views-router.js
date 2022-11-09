@@ -14,13 +14,14 @@ viewsRouter.use('/cart', serveStatic('cart'));
 viewsRouter.use('/search', serveStatic('search'));
 viewsRouter.use('/mypage', serveStatic('mypage'));
 viewsRouter.use('/mypage/info', serveStatic('mypage_info'));
-viewsRouter.use('/admin', serveStatic('admin'));
 viewsRouter.use('/products/:productId', serveStatic('product-detail'));
-viewsRouter.use('/admin/post', serveStatic('adminPost'));
-viewsRouter.use('/api/users/login', serveStatic('home'));
+
+viewsRouter.use('/admin', serveStatic('adminpage'));
+viewsRouter.use('/admin/products', serveStatic('admin'));
 viewsRouter.use('/admin/products/:productId', serveStatic('adminPost'));
-viewsRouter.use('/admin/allusers', serveStatic('adminUser'));
-viewsRouter.use('/admin/allusers/:_id', serveStatic('adminUserGet'));
+viewsRouter.use('/admin/add-products', serveStatic('adminPost'));
+viewsRouter.use('/admin/users', serveStatic('adminUser'));
+viewsRouter.use('/admin/orders', serveStatic('adminOrder'));
 
 // 존재하지 않는 페이지에 접근하는 경우 404 페이지를 렌더링
 viewsRouter.use(serveStatic('404'));

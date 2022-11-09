@@ -1,33 +1,33 @@
 import { AppError, commonErrors } from '../middlewares';
 import { OrderService } from '../services';
 
-class OrderController {
-  static async createOrder(req, res, next) {
+export const orderController = {
+  createOrder: async (req, res, next) => {
     console.log(req.body);
     const orderInfo = { ...req.body };
     const newOrder = await OrderService.createOrder(orderInfo);
 
     return res.status(201).json(newOrder);
-  }
+  },
 
-  static async getOrders(req, res, next) {
+  getOrders: async (req, res, next) => {
     const orders = await OrderService.getOrders();
     return res.status(200).json(orders);
-  }
-
-  static async getOrderById(req, res, next) {
+  },
+  // 이건 비회원을 위한 API임
+  getOrderById: async (req, res, next) => {
     const { orderId } = req.body;
     const order = await OrderService.getOrderById(orderId);
     res.status(200).json(order);
-  }
+  },
 
-  static async getMyOrders(req, res, next) {
+  getMyOrders: async (req, res, next) => {
     const userId = req.currentUserId;
     const orders = await OrderService.getMyOrders(userId);
     return res.status(200).json(orders);
-  }
+  },
 
-  static async getOrder(req, res, next) {
+  getOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const { currentUserId, currentUserRole } = req;
     const order = await OrderService.getOrder(orderId);
@@ -39,9 +39,9 @@ class OrderController {
       );
     }
     return res.status(200).json(order);
-  }
+  },
 
-  static async updateOrder(req, res, next) {
+  updateOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const { orderItems, totalPrice, address, request } = req.body;
     const updateInfo = {
@@ -52,29 +52,34 @@ class OrderController {
     };
     const result = await OrderService.updateOrder(orderId, updateInfo);
     return res.sendStatus(200);
-  }
+  },
 
-  static async updateOrderStatus(req, res, next) {
+  cancelOrder: async (req, res, next) => {
+    const { orderId } = req.params;
+    const updateInfo = { status: 'canceled' };
+    const result = await OrderService.updateOrder(orderId, updateInfo);
+    return res.send(200).json('주문이 정상적으로 취소되었습니다 :)');
+  },
+
+  updateOrderStatus: async (req, res, next) => {
     const insertData = req.body.checkedArr;
 
     const result = await userManagement.updateUserRole(insertData);
 
     res.status(result.status).json(true);
-  }
+  },
 
-  static async deleteMyOrder(req, res, next) {
+  deleteMyOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const result = await OrderService.deleteMyOrder(orderId);
 
     res.status(200).json(result);
-  }
+  },
 
-  static async deleteOrder(req, res, next) {
+  deleteOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const result = await OrderService.deleteOrder(orderId);
 
     res.status(200).json(result);
-  }
-}
-
-export { OrderController };
+  },
+};

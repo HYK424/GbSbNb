@@ -31,11 +31,9 @@ productRouter.patch(
   asyncHandler(productController.softDeleteProduct),
 );
 
-// productRouter.delete(
-//   '/:productId',
-//   asyncHandler(productController.deleteProduct),
-// );
-
-// productRouter.put('/:productId/view -> 쿼리문', productController.changeView);
+productRouter.delete(
+  '/:productId',
+  asyncHandler(productController.deleteProduct),
+);
 
 export { productRouter };

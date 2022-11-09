@@ -13,11 +13,6 @@ addAllElements();
 addAllEvents();
 updateSummary();
 
-if (!sessionStorage.getItem('accessToken')) {
-  alert('에러뜸');
-  window.location.href = '/login';
-}
-
 function addAllElements() {
   insertProductsfromCart();
 }
