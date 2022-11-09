@@ -57,16 +57,21 @@ export const orderController = {
   cancelOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const updateInfo = { status: 'canceled' };
-    const result = await OrderService.updateOrder(orderId, updateInfo);
+    const result = await OrderService.cancelOrder(orderId, updateInfo);
     return res.send(200).json('주문이 정상적으로 취소되었습니다 :)');
   },
 
   updateOrderStatus: async (req, res, next) => {
-    const insertData = req.body.checkedArr;
-
-    const result = await userManagement.updateUserRole(insertData);
-
-    res.status(result.status).json(true);
+    const { orderIds, status } = req.body;
+    if (['delivery', 'completed'].indexOf(status) === -1) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '올바른 배송 상태를 지정하여 다시 요청해주세요 :(',
+      );
+    }
+    const result = await OrderService.updateOrderStatus(orderIds, status);
+    res.sendStatus(200);
   },
 
   deleteMyOrder: async (req, res, next) => {

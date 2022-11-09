@@ -1,13 +1,13 @@
-// import { Router } from 'express';
-// import { OrderController } from '../../controllers';
-// import { authenticator, checkRole } from '../../middlewares';
+import { Router } from 'express';
+import { orderController } from '../../controllers';
+import { authenticator, checkRole } from '../../middlewares';
+import { asyncHandler } from '../../middlewares';
 
-// const adminOrderRouter = Router();
+const adminOrderRouter = Router();
 
-// adminOrderRouter.use(authenticator.isLoggedIn, checkRole);
+adminOrderRouter.use(authenticator.isLoggedIn, checkRole);
 
-// adminOrderRouter.get('/', OrderController.getOrders);
-// adminOrderRouter.put('/', OrderController.updateOrderStatus);
-// adminOrderRouter.delete('/:orderId', OrderController.deleteOrder);
+adminOrderRouter.put('/', asyncHandler(orderController.updateOrderStatus));
+adminOrderRouter.delete('/:orderId', asyncHandler(orderController.deleteOrder));
 
-// export { adminOrderRouter };
+export { adminOrderRouter };

@@ -84,17 +84,9 @@ class OrderService {
     return result;
   }
 
-  static async updateOrderStatus(insertData) {
-    const data = await OrderModel.updateStatus(insertData);
-
-    if (!data) {
-      throw new AppError(
-        commonErrors.inputError,
-        400,
-        '배송 상태 변경에 실패했습니다. 동일한 상태의 주문에 대해서만 상태 변경 요청을 해주세요!',
-      );
-    }
-    return true;
+  static async updateOrderStatus(orderIds, status) {
+    const result = await OrderModel.updateStatus(orderIds, { status });
+    return result;
   }
 
   static async deleteMyOrder(orderId) {

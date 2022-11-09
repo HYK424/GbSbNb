@@ -1,5 +1,3 @@
-import { validateEmail, validateTel } from '/useful-functions.js';
-
 import * as Api from '../api.js';
 
 // 요소(element), input 혹은 상수
@@ -38,36 +36,13 @@ async function handleSubmit(e) {
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
-  // // 잘 입력했는지 확인
-  // const isFullNameValid = fullName.length >= 2;
-  // const isEmailValid = validateEmail(email);
-  // const isTelValid = validateTel(phoneNumber);
-  // const isPasswordValid = password.length >= 4;
-  const isPasswordSame = password === passwordConfirm;
+  if (password !== passwordConfirm) alert('나가');
 
-  // if (!isFullNameValid || !isPasswordValid) {
-  //   return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
-  // }
-
-  // if (!isEmailValid) {
-  //   return alert('이메일 형식이 맞지 않습니다.');
-  // }
-
-  // if (!isTelValid) {
-  //   return alert('전화번호 형식이 맞지 않습니다.');
-  // }
-
-  if (!isPasswordSame) {
-    return alert('비밀번호가 일치하지 않습니다.');
-  }
-
-  // 회원가입 api 요청
-  // try {
-  console.log(postalCode);
   const data = {
     fullName,
     email,
     password,
+    passwordConfirm,
     phoneNumber,
     address: {
       postalCode,
@@ -81,10 +56,11 @@ async function handleSubmit(e) {
   if (result.err) {
     return;
   }
-
+  sessionStorage.setItem('accessToken', result.tokens.accessToken);
+  sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
   alert(result.message);
 
-  window.location.href = '/login';
+  window.location.href = '/';
 }
 
 searchAddress.addEventListener('click', handleSearchAddressClick);
