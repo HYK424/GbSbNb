@@ -9,9 +9,9 @@
   font-weight: 700;
 }
 
-html,body {
+/* html,body {
   height: 100%;
-}
+} */
 
 #search {
   width: 250px;
@@ -52,20 +52,16 @@ html,body {
 }
 
 .pageWraper{
- 
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 footer{
-
   min-width: 100vh;
   height: 100px;
-  position: relative;
-  bottom: 0;
-  
-  
+  /* position: relative;
+  bottom: 0; */
 background-color: #D1D4D7;
 }
 
