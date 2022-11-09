@@ -32,14 +32,15 @@ async function getOrderList() {
             <td width="350rem">${Object.values(user.address).join(' ')}</td>
             <td width="80rem">${user.orderItems.length} 개</td>
            
-            <td width="120rem" >${user.status
-            } <input type="checkbox" name="status"
+            <td width="120rem" class="selebtn" data-id> <label for="${user._id}">${user.status
+            }</label> <input type="checkbox" name="status"
              value="${user.role}" id="${user._id}"></td>
             </tr>
             `,
         );
     });
 }
+
 
 function getstatus() {
     const checked = document.querySelectorAll('input[name="status"]:checked');

@@ -58,6 +58,9 @@
 }
 
 footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   min-width: 100vh;
   height: 100px;
 background-color: #D1D4D7;
