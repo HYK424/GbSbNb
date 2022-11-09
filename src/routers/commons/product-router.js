@@ -27,6 +27,11 @@ productRouter.put(
   productValidator.createProduct,
   asyncHandler(productController.updateProduct),
 );
+productRouter.patch(
+  '/:productId',
+  asyncHandler(productController.softDeleteProduct),
+);
+
 productRouter.delete(
   '/:productId',
   asyncHandler(productController.deleteProduct),

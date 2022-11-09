@@ -19,6 +19,25 @@ export class CategoryModel {
     return category;
   }
 
+  static async countProducts(categoryId) {
+    const category = await Category.aggregate([
+      {
+        $match: {
+          id: categoryId,
+        },
+      },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'name',
+          foreignField: 'category',
+          as: 'products',
+        },
+      },
+    ]);
+    return category[0].products.length;
+  }
+
   static async findByName(name) {
     const category = await Category.findOne({ name });
     return category;
@@ -37,7 +56,7 @@ export class CategoryModel {
   }
 
   static async delete(categoryId) {
-    const filter = { _id: categoryId };
+    const filter = { id: categoryId };
     const result = await Category.findOneAndDelete(filter);
     return result;
   }

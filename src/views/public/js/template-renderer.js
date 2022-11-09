@@ -1,3 +1,11 @@
+let isAdmin = (isLoggedIn = false);
+if (sessionStorage.getItem('accessToken')) {
+  isLoggedIn = true;
+  isAdmin =
+    atob(sessionStorage.getItem('accessToken')?.split('.')[1])?.role !==
+    'basic-user';
+}
+
 const hostTitle = document.querySelector('title');
 const favicon = document.createElement('link');
 const nav = document.getElementById('nav');
@@ -45,10 +53,6 @@ function renderNav() {
 }
 
 function getNaveHTML() {
-  const role = sessionStorage.getItem('role');
-  const isLoggedIn = sessionStorage.getItem('accessToken');
-
-  const isAdmin = role === 'ADMIN' || role === 'admin_G';
   return `<div class="d-flex">
   <a class="navbar-brand me-5" href="/" id="logo">개발세발네발🐶</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,7 +83,7 @@ function getNaveHTML() {
             ${
               isLoggedIn
                 ? `<li class="nav-item">
-            <a class="nav-link active" aria-current="page" id="logout"
+            <a class="nav-link active ms-5" aria-current="page" id="logout" class=""
             >로그아웃</a
             >`
                 : `<li class="nav-item">

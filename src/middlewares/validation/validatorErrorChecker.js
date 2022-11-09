@@ -2,9 +2,9 @@ import { validationResult } from 'express-validator';
 
 import { AppError, commonErrors } from '../../middlewares';
 
-exports.validatorErrorChecker = (req, res, next) => {
+export const validatorErrorChecker = (req, res, next) => {
   const checkError = validationResult(req);
-  console.log(`에러가 없는가? : ${checkError.isEmpty()}`);
+  // console.log(`에러가 없는가? : ${checkError.isEmpty()}`);
   if (!checkError.isEmpty()) {
     console.log(checkError);
     let sumErr = [];

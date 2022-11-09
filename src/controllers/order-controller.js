@@ -3,16 +3,10 @@ import { OrderService } from '../services';
 
 class OrderController {
   static async createOrder(req, res, next) {
-    const userId = req.currentUserId;
-    const { orderItems, totalPrice, address, request } = req.body;
+    const orderInfo = { ...req.body };
 
-    const newOrder = await OrderService.createOrder({
-      userId,
-      orderItems,
-      totalPrice,
-      address,
-      request,
-    });
+    console.log(orderInfo);
+    const newOrder = await OrderService.createOrder(orderInfo);
 
     return res.status(201).json(newOrder);
   }

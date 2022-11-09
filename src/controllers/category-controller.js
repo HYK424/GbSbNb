@@ -13,10 +13,10 @@ export const categoryController = {
   },
 
   updateCategory: async (req, res, next) => {
-    const { id } = req.body;
+    const { categoryId } = req.params;
     const updateInfo = { ...req.body };
     const updatedCategory = await CategoryService.updateCategory(
-      id,
+      categoryId,
       updateInfo,
     );
     return res.status(200).json(updatedCategory);

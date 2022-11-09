@@ -142,6 +142,29 @@ class ProductService {
 
     return result;
   }
+
+  static async deleteProduct(productId) {
+    const product = await ProductModel.findById(productId);
+
+    if (!product) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '해당 제품이 존재하지 않아요. 다시 한 번 확인해 주세요',
+      );
+    }
+    const orderCount = await ProductModel.countOrders(productId);
+    console.log(orderCount);
+    if (orderCount) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '해당 상품의 구매 내역이 존재해요. 판매를 중지하려면 비공개 처리를 해주세요 :(',
+      );
+    }
+    const result = await ProductModel.delete(productId);
+    return result;
+  }
 }
 
 export { ProductService };

@@ -1,185 +1,88 @@
-// api 로 GET 요청 (/endpoint/params 형태로 요청함)
-
 import { setToken } from './public/js/header-handler.js';
+
+import { responseHandler } from './public/js/response-handler.js';
 
 const Bearer = 'Bearer ';
 
-async function get(endpoint, params = '') {
+async function get(endpoint, params = '', extra = false) {
   const apiUrl = `${endpoint}/${params}`;
-  console.log(`%cGET 요청: ${apiUrl} `, 'color: #a25cd1;');
 
-  await setToken.tokenCheck();
-
-  const res = await fetch(apiUrl, {
-    headers: {
-      Authorization: getAccess(Bearer),
-    },
-  });
-
-  // 응답 코드가 4XX 계열일 때 (400, 403 등)
-  if (res.status === 419) {
-    const getMessage = await res.json();
-
-    alert(getMessage.message);
-    console.log('419찾음');
-    // window.location.href = '/login';
+  if (!extra) {
+    await setToken.tokenCheck();
   }
+  const res = await fetchModule('GET', apiUrl);
 
-  if (!res.ok) {
-    const errorContent = await res.json();
-    const { reason } = errorContent;
-
-    throw new Error(reason);
-  }
-
-  const result = await res.json();
+  const result = await responseHandler(res);
 
   return result;
 }
 
-// api 로 POST 요청 (/endpoint 로, JSON 데이터 형태로 요청함)
-async function post(endpoint, data) {
+async function post(endpoint, extra, data) {
   const apiUrl = endpoint;
-  // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
-  // 예시: {name: "Kim"} => {"name": "Kim"}
+
   const bodyData = JSON.stringify(data);
-  console.log(`%cPOST 요청: ${apiUrl}`, 'color: #296aba;');
-  console.log(`%cPOST 요청 데이터: ${bodyData}`, 'color: #296aba;');
 
-  await setToken.tokenCheck();
-
-  const res = await fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: getAccess(Bearer),
-    },
-    body: bodyData,
-  });
-
-  if (res.status === 202) {
-    const result = await res.json();
-    return result;
+  if (!extra) {
+    await setToken.tokenCheck();
   }
 
-  // console.log(res);
+  const res = await fetchModule('POST', apiUrl, bodyData);
 
-  // const result = await res.json();
-
-  // console.log(result.err);
-
-  if (!res.ok) {
-    // 응답 코드가 4XX 계열일 때 (400, 403 등)
-    // fetch(endpoint).then(res => res.json())
-    // .then(funcData => console.log(`이것이 바로 우리가 추출하고 싶어하는 value : ${funcData}`)
-
-    const errorContent = await res.json();
-    console.log(errorContent);
-    const errs = errorContent.split('/');
-
-    for (let i = 0; i < errs.length; i++) {
-      alert(errs[i]);
-    }
-
-    //throw new Error(reason);
-  }
+  const result = await responseHandler(res);
 
   return result;
 }
 
-// api 로 PUT 요청 (/endpoint/params 로, JSON 데이터 형태로 요청함)
 async function put(endpoint, params = '', data) {
   const apiUrl = `${endpoint}/${params}`;
 
-  // JSON.stringify 함수: Javascript 객체를 JSON 형태로 변환함.
-  // 예시: {name: "Kim"} => {"name": "Kim"}
+  await setToken.tokenCheck();
+
+  const bodyData = JSON.stringify(data);
+
+  const res = await fetchModule('PUT', apiUrl, bodyData);
+
+  const result = await responseHandler(res);
+
+  return result;
+}
+
+async function del(endpoint, params = '', data) {
+  const apiUrl = `${endpoint}/${params}`;
 
   await setToken.tokenCheck();
 
   const bodyData = JSON.stringify(data);
-  console.log(`%cPUT 요청: ${apiUrl}`, 'color: #059c4b;');
-  console.log(`%cPUT 요청 데이터: ${bodyData}`, 'color: #059c4b;');
-  console.log(bodyData);
-  const res = await fetch(apiUrl, {
-    method: 'PUT',
+
+  const res = await fetchModule('DELETE', apiUrl, bodyData);
+
+  const result = await responseHandler(res);
+
+  return result;
+}
+
+async function fetchModule(reqMethod, apiUrl, bodyData = null) {
+  let fetchData = {
+    method: reqMethod,
     headers: {
       'Content-Type': 'application/json',
       Authorization: getAccess(Bearer),
     },
-    body: bodyData,
-  });
+  };
 
-  // 응답 코드가 4XX 계열일 때 (400, 403 등)
-  if (!res.ok) {
-    const errorContent = await res.json();
-    const { reason } = errorContent;
-
-    throw new Error(reason);
+  if (bodyData != null) {
+    fetchData.body = bodyData;
   }
 
-  const result = await res.json();
-
-  console.log(result);
-
-  return result;
+  return await fetch(apiUrl, fetchData);
 }
-
-// 아래 함수명에 관해, delete 단어는 자바스크립트의 reserved 단어이기에,
-// 여기서는 우선 delete 대신 del로 쓰고 아래 export 시에 delete로 alias 함.
-async function del(endpoint, params = '', data = {}) {
-  const tokenRes = tokenCheck();
-  if (tokenCheck.refreshToken || tokenCheck.accessToken) {
-    sessionStorage.setItem('accesstoken', tokenCheck.accessToken);
-  }
-  const apiUrl = `${endpoint}/${params}`;
-
-  const res = await fetch(apiUrl, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-    },
-  });
-
-  // 함수(res){
-  //   if(res.status()=== 419){
-
-  //   }
-  //   if(500){
-
-  //   }
-  // }
-
-  // 응답 코드가 4XX 계열일 때 (400, 403 등)
-  if (!res.ok) {
-    const errorContent = await res.json();
-    const { reason } = errorContent;
-
-    throw new Error(reason);
-  }
-
-  const result = await res.json();
-
-  return result;
-}
-
-const tokenCheck = async () => {
-  const res = await fetch(apiUrl, {
-    headers: {
-      Authorization: `Bearer ${sessionStorage.getItem(
-        'accessToken',
-      )} ${sessionStorage.getItem('refreshToken')}`,
-    },
-  });
-};
 
 const getAccess = (Bearer) => {
   if (sessionStorage.getItem('accessToken')) {
     const auth = Bearer + String(sessionStorage.getItem('accessToken'));
-    console.log(auth);
+
     return auth;
   }
 };
 
-// 아래처럼 export하면, import * as Api 로 할 시 Api.get, Api.post 등으로 쓸 수 있음.
 export { get, post, put, del as delete };
