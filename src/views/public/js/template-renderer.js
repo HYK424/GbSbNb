@@ -1,12 +1,11 @@
-let isAdmin = (isLoggedIn = false);
-if (
-  sessionStorage.getItem('accessToken') &&
-  sessionStorage.getItem('accessToken') !== 'undefined'
-) {
+let isAdmin = false;
+let isLoggedIn = false;
+if (sessionStorage.getItem('accessToken')) {
   isLoggedIn = true;
-  isAdmin =
-    atob(sessionStorage.getItem('accessToken')?.split('.')[1])?.role !==
-    'basic-user';
+  const decode = atob(sessionStorage.getItem('accessToken')?.split('.')[1]);
+  const payload = JSON.parse(decode);
+  const role = payload.role;
+  isAdmin = role !== 'basic-user';
 }
 
 const hostTitle = document.querySelector('title');
