@@ -20,6 +20,7 @@ viewsRouter.use('/api/users/login', serveStatic('home'));
 viewsRouter.use('/admin/products/:productId', serveStatic('adminPost'));
 viewsRouter.use('/admin/allusers', serveStatic('adminUser'));
 viewsRouter.use('/admin/allusers/:_id', serveStatic('adminUserGet'));
+viewsRouter.use('/admin/order', serveStatic('adminOrder'));
 
 // 존재하지 않는 페이지에 접근하는 경우 404 페이지를 렌더링
 viewsRouter.use(serveStatic('404'));

@@ -16,7 +16,12 @@ function allEvents() {
 
 async function setCategory() {
   //카테고리 가져오기
-  const setCategory = await (await fetch('/api/categories')).json();
+  const setCategory = await (await fetch('/api/categories',
+  {headers:{
+'Cache-Control': 'no-cache, no-store, must-revalidate',
+Expires:0,
+  },
+})).json();
   //카테고리에 option 추가
   itemCategory.insertAdjacentHTML('beforeend', setCategory.map((item) => {
     return `
@@ -54,7 +59,11 @@ function productsTemplate(obj) {
 }
 
 async function setItemList() {
-  const obj = (await (await fetch('/api/products/admin')).json()).products;
+  const obj = (await (await fetch('/api/products/admin',{headers:{
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    Expires:0,
+      },
+    })).json()).products;
   //최초 1회 전체 상품 노출
   productsTemplate(obj)
 }
@@ -63,10 +72,18 @@ async function handleSelect(event) {
   event.preventDefault();
   const selectItem = document.getElementById('select').options[select.selectedIndex].value;
   if (selectItem == 'all') {
-    const obj = (await (await fetch('/api/products/admin')).json()).products;
+    const obj = (await (await fetch('/api/products/admin',{headers:{
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      Expires:0,
+        },
+      })).json()).products;
     productsTemplate(obj)
   } else {
-    const obj = (await (await fetch(`/api/products/admin?q=${selectItem}`)).json()).products;
+    const obj = (await (await fetch(`/api/products/admin?q=${selectItem}`,{headers:{
+      'Cache-Control': 'no-cache, no-store, must-revalidate',
+      Expires:0,
+        },
+      })).json()).products;
     productsTemplate(obj)
   }
 }
