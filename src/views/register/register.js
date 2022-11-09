@@ -68,6 +68,7 @@ async function handleSubmit(e) {
     fullName,
     email,
     password,
+    passwordConfirm,
     phoneNumber,
     address: {
       postalCode,

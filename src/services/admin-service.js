@@ -2,6 +2,8 @@ import { userModel, productModel, orderModel } from '../db';
 import bcrypt from 'bcrypt';
 import { AppError } from '../middlewares';
 
+import { sendMail } from '../util/send-mail';
+
 class AdminService {
   constructor(requestModel) {
     if (requestModel === 'userModel') {
@@ -27,7 +29,7 @@ class AdminService {
 
   async resetPassword(resetUserId, randomStr) {
     const user = await this.userModel.findById(resetUserId);
-
+    console.log(user);
     if (!user) {
       throw new Error('유저 정보 조회 에러. DB 관리자에게 문의하세요.');
     }
@@ -46,6 +48,8 @@ class AdminService {
         '비밀번호 초기화에 실패했습니다.',
       );
     }
+
+    sendMail.password(user.email, randomStr);
 
     return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
   }
