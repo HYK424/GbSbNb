@@ -34,14 +34,14 @@ async function handleSubmit(e) {
 
   const result = await Api.post('/api/users/login', true, data);
 
-  if (result) {
-    sessionStorage.setItem('accessToken', result.tokens.accessToken);
-    sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
-
-    console.log('안건너뜀');
-    alert(result.message);
-
-    window.location.href = '/';
+  if (!result) {
+    return;
   }
-  console.log('건너뜀');
+
+  sessionStorage.setItem('accessToken', result.tokens.accessToken);
+  sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
+
+  alert(result.message);
+
+  window.location.href = '/';
 }

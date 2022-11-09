@@ -78,6 +78,10 @@ async function handleSubmit(e) {
 
   const result = await Api.post('/api/users', true, data);
 
+  if (!result) {
+    return;
+  }
+
   alert(result.message);
 
   window.location.href = '/login';
