@@ -78,13 +78,13 @@ async function handleSubmit(e) {
 
   const result = await Api.post('/api/users', true, data);
 
-  if (!result.message) {
-    return alert(result);
-  } else {
-    sessionStorage.setItem('accessToken', result.tokens.accessToken);
-    sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
-    window.location.href = '/';
+  if (result.err) {
+    return;
   }
+
+  alert(result.message);
+
+  window.location.href = '/login';
 }
 
 searchAddress.addEventListener('click', handleSearchAddressClick);

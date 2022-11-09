@@ -4,7 +4,7 @@ import { AppError, commonErrors } from '../../middlewares';
 
 export const validatorErrorChecker = (req, res, next) => {
   const checkError = validationResult(req);
-  // console.log(`에러가 없는가? : ${checkError.isEmpty()}`);
+  console.log(`에러가 없는가? : ${checkError.isEmpty()}`);
   if (!checkError.isEmpty()) {
     console.log(checkError);
     let sumErr = [];
@@ -13,6 +13,7 @@ export const validatorErrorChecker = (req, res, next) => {
     });
     throw new AppError(commonErrors.inputError, 400, sumErr.join('/'));
     //return res.status(419).json({ errors: errors.array() });
+  } else {
+    next();
   }
-  next();
 };
