@@ -1,16 +1,7 @@
-import {
-  userManagement,
-  productManagement,
-  orderManagement,
-  userService,
-} from '../services';
-
-import is from '@sindresorhus/is';
+import { userManagement, userService } from '../services';
 
 export const adminController = {
-  // 사용자 목록을 받음.
   getAllUsers: async (req, res) => {
-    console.log('어드민 컨트롤러 접속');
     const result = await userManagement.getUsers();
 
     const { status, message, users } = result;
@@ -18,7 +9,6 @@ export const adminController = {
     res.status(status).json({ message: message, users: users });
   },
 
-  // 사용자 목록을 받음.
   async getUserInfo(req, res) {
     const serchUserId = req.params.userId;
 
@@ -30,41 +20,25 @@ export const adminController = {
   },
 
   async forceChangeUserInfo(req, res) {
-    try {
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요',
-        );
-      }
+    const forceChangeUserId = req.params.userId;
 
-      const forceChangeUserId = req.params.userId;
+    const { fullName, email, address, phoneNumber } = req.body;
 
-      const {
-        fullName,
-        email,
-        address,
-        phoneNumber,
-        // role,
-      } = req.body;
+    const forceChangeInfo = {
+      ...(fullName && { fullName }),
+      ...(email && { email }),
+      ...(address && { address }),
+      ...(phoneNumber && { phoneNumber }),
+    };
 
-      const forceChangeInfo = {
-        ...(fullName && { fullName }),
-        ...(email && { email }),
-        ...(address && { address }),
-        ...(phoneNumber && { phoneNumber }),
-        // ...(role && { role }),
-      };
+    const result = await userService.updateUser(
+      forceChangeUserId,
+      forceChangeInfo,
+    );
 
-      const result = await userService.updateUser(
-        forceChangeUserId,
-        forceChangeInfo,
-      );
+    const { status, message } = result;
 
-      const { status, message } = result;
-      res.status(status).json({ message: message });
-    } catch (error) {
-      next(error);
-    }
+    res.status(status).json({ message: message });
   },
 
   async resetPassword(req, res) {
@@ -80,11 +54,12 @@ export const adminController = {
   },
 
   updateUserRole: async (req, res) => {
-    if (req.currentUserRole != 'ADMIN') {
+    if (req.role != 'ADMIN') {
       res
         .status(400)
         .json({ message: '해당 기능의 접근 권한이 존재하지 않습니다.' });
     }
+
     const insertData = req.body.checkedArr;
 
     const result = await userManagement.updateUserRole(insertData);

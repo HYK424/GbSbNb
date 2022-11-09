@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { adminRouter } from './admins';
+
 import { userRouter } from './users';
 import {
   cartRouter,
@@ -22,6 +23,7 @@ router.use('/refresh', authenticator.refreshVerify);
 // router.use('/admin', adminRouter);
 
 router.use('/admin', adminRouter);
+
 router.use('/users', userRouter);
 router.use('/products', productRouter);
 router.use('/cart', cartRouter);
