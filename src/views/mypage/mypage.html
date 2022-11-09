@@ -16,7 +16,7 @@
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="mypage.css" />
     <link rel="stylesheet" href="/public/css/public.css" />
   </head>
 
@@ -26,38 +26,22 @@
       id="nav"
     ></nav>
 
-    <!-- 메인2 상품들 -->
-    <section class="">
-      <h4 id="resultNotification" class="text-start mb-4 mt-5 text-center"></h4>
-      <div class="container w-100 mt-5">
+    <section class="container w-100 mt-5">
         <div
           class="container-fluid d-flex text-center justify-content-center ps-5"
         >
-          <div class="row d-flex" id="productContainer"></div>
+          <div class="row d-flex" id="menuContainer">
+            <div class="w-25">정보 관리</div>
+            <div class="w-25">배송 조회</div>
+            <div class="w-25"></div>
+          </div>
         </div>
       </div>
-    </section>
     <footer
       class="container-fluid text-center mt-auto py-3"
       id="footer"
     ></footer>
-    <div id="toPrevious" class="position-fixed top-50 start-0 d-none">
-      <a href="" id="previousPage">
-        <i
-          class="fa-sharp fa-solid fa-arrow-left text-secondary"
-          id="left-arrow"
-        ></i>
-      </a>
-    </div>
-    <div id="toNext" class="position-fixed top-50 end-0 d-none">
-      <a href="" id="nextPage">
-        <i
-          class="fa-sharp fa-solid fa-arrow-right text-secondary"
-          id="right-arrow"
-        ></i>
-      </a>
-    </div>
     <script src="/public/js/template-renderer.js"></script>
-    <script src="home.js"></script>
+    <script src="mypage.js"></script>
   </body>
 </html>

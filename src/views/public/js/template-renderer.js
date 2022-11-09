@@ -1,5 +1,8 @@
 let isAdmin = (isLoggedIn = false);
-if (sessionStorage.getItem('accessToken')) {
+if (
+  sessionStorage.getItem('accessToken') &&
+  sessionStorage.getItem('accessToken') !== 'undefined'
+) {
   isLoggedIn = true;
   isAdmin =
     atob(sessionStorage.getItem('accessToken')?.split('.')[1])?.role !==
@@ -83,8 +86,11 @@ function getNaveHTML() {
             ${
               isLoggedIn
                 ? `<li class="nav-item">
-            <a class="nav-link active ms-5" aria-current="page" id="logout" class=""
+            <a class="nav-link active" aria-current="page" id="logout" class=""
             >로그아웃</a
+            ><li class="nav-item">
+            <a class="nav-link active" aria-current="page" id="logout" class=""
+            >마이페이지</a
             >`
                 : `<li class="nav-item">
             <a class="nav-link active ms-2" aria-current="page" href="/login"
@@ -99,7 +105,7 @@ function getNaveHTML() {
             }
             <li class="nav-item">
             <a
-            class="nav-link active position-relative ms-2"
+            class="nav-link active position-relative"
             aria-current="page"
             href="/cart"
             id="cartNotification"

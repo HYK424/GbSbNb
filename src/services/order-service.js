@@ -31,7 +31,7 @@ class OrderService {
 
   static async updateOrder(orderId, updateInfo) {
     const order = await OrderModel.findById(orderId);
-    if (order.status !== '배송 준비 중') {
+    if (order.status !== '상품 준비 중') {
       throw new AppError(
         commonErrors.businessError,
         400,
@@ -61,13 +61,18 @@ class OrderService {
   static async deleteMyOrder(orderId) {
     const order = await OrderModel.findById(orderId);
     if (!order) {
-      if (!order) {
-        throw new AppError(
-          commonErrors.inputError,
-          400,
-          '해당하는 주문 정보가 없습니다. 다시 확인해주세요!',
-        );
-      }
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '해당하는 주문 정보가 없습니다. 다시 확인해주세요!',
+      );
+    }
+    if (order.deletedAt) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '이미 취소된 주문이에요! 다시 주문을 진행해 주세요.',
+      );
     }
     const updateInfo = { deletedAt: Date.now() };
     const result = await OrderModel.softDelete(orderId, updateInfo);

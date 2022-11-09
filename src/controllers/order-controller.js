@@ -3,9 +3,8 @@ import { OrderService } from '../services';
 
 class OrderController {
   static async createOrder(req, res, next) {
+    console.log(req.body);
     const orderInfo = { ...req.body };
-
-    console.log(orderInfo);
     const newOrder = await OrderService.createOrder(orderInfo);
 
     return res.status(201).json(newOrder);
@@ -24,7 +23,7 @@ class OrderController {
 
   static async getMyOrders(req, res, next) {
     const userId = req.currentUserId;
-    const orders = await OrderService.getMyOrder(userId);
+    const orders = await OrderService.getMyOrders(userId);
     return res.status(200).json(orders);
   }
 
@@ -69,14 +68,13 @@ class OrderController {
     res.status(result.status).json(true);
   }
 
-  // 이건 소프트 딜리트임
   static async deleteMyOrder(req, res, next) {
     const { orderId } = req.params;
     const result = await OrderService.deleteMyOrder(orderId);
 
     res.status(200).json(result);
   }
-  // 이건 진짜 딜리트임
+
   static async deleteOrder(req, res, next) {
     const { orderId } = req.params;
     const result = await OrderService.deleteOrder(orderId);

@@ -77,6 +77,9 @@ export class ProductModel {
           as: 'orders',
         },
       },
+      {
+        $unwind: '$orderItems',
+      },
     ]);
     console.log(product);
     return product[0].orders.length;
@@ -102,7 +105,7 @@ export class ProductModel {
 
   static async delete(productId) {
     const filter = { _id: productId };
-    const result = await Product.findOneAndRemove(filter);
+    const result = await Product.deleteOne(filter);
     console.log(result);
     return result;
   }

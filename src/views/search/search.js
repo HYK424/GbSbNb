@@ -17,8 +17,8 @@ async function renderProducts() {
     resultNotification.innerHTML = `해당 상품명에 해당하는 검색 결과가 없어요 😅`;
   } else {
     resultNotification.innerHTML = `총 ${productsCount}건의 검색 결과가 존재합니다 😊`;
+    products.forEach(renderProduct);
   }
-  products.forEach(renderProduct);
 }
 
 function renderProduct(product) {

@@ -12,6 +12,7 @@ viewsRouter.use('/register', serveStatic('register'));
 viewsRouter.use('/login', serveStatic('login'));
 viewsRouter.use('/cart', serveStatic('cart'));
 viewsRouter.use('/search', serveStatic('search'));
+viewsRouter.use('/mypage', serveStatic('mypage'));
 viewsRouter.use('/mypage/info', serveStatic('mypage_info'));
 viewsRouter.use('/admin', serveStatic('admin'));
 viewsRouter.use('/products/:productId', serveStatic('product-detail'));
