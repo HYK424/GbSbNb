@@ -1,4 +1,4 @@
-// import * as Api from '/api.js';
+import * as Api from '/api.js';
 
 const itemList = document.querySelector('.itemList');
 const itemCategory = document.querySelector('.form-select-sm');
@@ -59,32 +59,43 @@ function productsTemplate(obj) {
 }
 
 async function setItemList() {
-  const obj = (await (await fetch('/api/products/admin',{headers:{
-    'Cache-Control': 'no-cache, no-store, must-revalidate',
-    Expires:0,
-      },
-    })).json()).products;
+  // const obj=await((await Api.get('/api/products/admin',false)).json()).products;
+  const obj = await Api.get('/api/products/admin');
+  // const obj = (await (await fetch('/api/products/admin',{headers:{
+  //   'Cache-Control': 'no-cache, no-store, must-revalidate',
+  //   Expires:0,
+  //     },
+  //   })).json()).products;
+  
   //최초 1회 전체 상품 노출
-  productsTemplate(obj)
+  if(obj.err){
+    alert('에러가 있습니다');
+    return;
+  }
+ 
+  productsTemplate(obj.products)
 }
 
 async function handleSelect(event) {
   event.preventDefault();
   const selectItem = document.getElementById('select').options[select.selectedIndex].value;
   if (selectItem == 'all') {
-    const obj = (await (await fetch('/api/products/admin',{headers:{
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      Expires:0,
-        },
-      })).json()).products;
-    productsTemplate(obj)
+    const obj = await Api.get('/api/products/admin');
+    // const obj = (await (await fetch('/api/products/admin',{headers:{
+    //   'Cache-Control': 'no-cache, no-store, must-revalidate',
+    //   Expires:0,
+    //     },
+    //   })).json()).products;
+    productsTemplate(obj.products)
   } else {
-    const obj = (await (await fetch(`/api/products/admin?q=${selectItem}`,{headers:{
-      'Cache-Control': 'no-cache, no-store, must-revalidate',
-      Expires:0,
-        },
-      })).json()).products;
-    productsTemplate(obj)
+    const link=`admin?q=${selectItem}`;
+    const obj = await Api.get(`/api/products`, link);
+    // const obj = (await (await fetch(`/api/products/admin?q=${selectItem}`,{headers:{
+    //   'Cache-Control': 'no-cache, no-store, must-revalidate',
+    //   Expires:0,
+    //     },
+    //   })).json())
+    productsTemplate(obj.products)
   }
 }
 
