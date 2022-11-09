@@ -6,13 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="adminPost.css">
+  <title>Document</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
-  <title>Document</title>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -31,22 +27,11 @@
             </div>
 
             <div class="input-group mb-3">
-              <span class="input-group-text" id="inputGroup-sizing-default">카테고리</span>
-              <input type="text" name="categoryId" id="category" class="form-control" aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default">
-            </div>
-
-<!-- ---------------------------------------------- -->
-            <div class="input-group mb-3">
               <label class="input-group-text" for="inputGroupSelect01">카테고리</label>
-              <select class="form-select category" id="inputGroupSelect01">
-               
-                
+              <select class="form-select" id="inputGroupSelect01">
+
               </select>
             </div>
-            <!-- ---------------------------------------------- -->
-
-
 
             <div class="input-group mb-3">
               <span class="input-group-text" id="inputGroup-sizing-default">제조사</span>
@@ -67,35 +52,60 @@
             </div>
 
             <label for="formFile" class="form-label"></label>
-            <div id="ccontainer">
+            <div class="flexContainer">
               <input class="form-control thumbanil" id="formFile" name="image" type="file" id="formFile">
-              <input id="btnInput" type="submit" value="등록">
+              <input type="submit" value="등록" class="btnInput">
             </div>
           </form>
 
         </div>
 
-        <form id="form2">
-          <div id="ccontainer" class="category">
+<div id="hidden"> 
+        <div id="cContainer" class="category">
 
-
+          <form id="form2" class="form">
+            <span>카테고리 등록</span>
             <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
             <input type="number" class="form-control" id="categoryId" aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default">
             <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
             <input type="text" class="form-control" id="categoryName" aria-label="Sizing example input"
               aria-describedby="inputGroup-sizing-default">
-            <input id="btnInput" type="submit" value="등록">
+            <input class="btnInput" type="submit" value="등록">
+          </form>
+
+ 
+          <form id="form3" class="form">
+          <span>카테고리 삭제</span>
+            <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+              <option selected>삭제할 카테고리</option>
+              <input class="btnInput" type="submit" value="삭제">
+            </form>
+            </div>
 
 
+        <form id="form4" class="form">
+          <span>카테고리 수정</span>
+          <select class="form-select form-select-sm" aria-label=".form-select-sm example" >
+            <option selected>수정할 카테고리</option>
+          </select>
 
-          </div>
+          <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
+          <input type="number" class="form-control" id="selectPutId" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+
+          <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
+          <input type="text" class="form-control" id="selectPutName" aria-label="Sizing example input"
+            aria-describedby="inputGroup-sizing-default">
+
+          <input class="btnInput" type="submit" value="수정">
+
         </form>
-
-
+      </div>
         <a class="btn btn-danger ms-5" href="javascript:history.back()">뒤로가기</a>
 
       </div>
+
     </div>
     <div class="col-2">
 

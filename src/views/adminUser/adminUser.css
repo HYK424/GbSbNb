@@ -1,0 +1,42 @@
+thead>tr,
+tbody>tr{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+thead>tr>*,
+tbody>tr>*{
+    flex-grow: 1;
+}
+
+th,
+td{
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+#roleBtn{
+    margin-left: auto;
+}
+
+ms-5{
+    margin-right: auto;
+}
+
+
+.pageWraper{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .container{
+  flex: 1;
+  }
+  
+  footer{
+    height: 100px;
+  background-color: #D1D4D7;
+  }

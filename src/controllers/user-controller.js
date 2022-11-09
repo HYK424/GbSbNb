@@ -3,46 +3,46 @@ import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
-    console.log('로그인 컨트롤러');
-    try {
-      // if (is.emptyObject(req.body)) {
-      //   throw new Error(
-      //     'headers의 Content-Type을 application/json으로 설정해주세요',
-      //   );
-      // }
+    console.log('컨트롤러');
 
-      const { email, password } = req.body;
+    const { email, password } = req.body;
 
-      const result = await userService.login({ email, password });
+    const result = await userService.login({ email, password });
 
-      const { status, token, role } = result;
+    const { status, role, userName, accessToken, refreshToken } = result;
 
-      let { message } = result;
+    let { message } = result;
 
-      if (req.newUserMessage) {
-        message = req.newUserMessage;
-      }
-
-      let data = { message: message, token: token };
-
-      console.log(role);
-
-      if (role === 'ADMIN' || role === 'ADMIN_G') {
-        data.role = role;
-      }
-
-      res.status(status).json(data);
-    } catch (error) {
-      next(error);
+    if (req.newUserMessage) {
+      message = req.newUserMessage;
     }
+
+    let data = {
+      message: message,
+      tokens: { accessToken: accessToken, refreshToken: refreshToken },
+      role: role,
+      userName: userName,
+    };
+
+    if (role === 'ADMIN' || role === 'ADMIN_G') {
+      data.role = role;
+    }
+
+    res.status(status).json(data);
   },
 
   getMyInfo: async (req, res) => {
     const userId = req.currentUserId;
 
-    const result = await userService.getMyInfo(userId);
+    console.log(userId);
 
-    const { status, message, userInfo } = result;
+    const data = await userService.getMyInfo(userId);
+
+    const { status, message, userInfo } = data;
+
+    console.log(data);
+
+    console.log('반환시작');
 
     res.status(status).json({ message: message, userInfo: userInfo });
   },
@@ -89,20 +89,16 @@ export const userController = {
 
       const userId = req.currentUserId;
 
-      const {
-        fullName,
-        email,
-        address,
-        phoneNumber,
-        // role,
-      } = req.body;
+      console.log(userId);
+
+      const { fullName, email, address, phoneNumber, role } = req.body;
 
       const toUpdate = {
         ...(fullName && { fullName }),
         ...(email && { email }),
         ...(address && { address }),
         ...(phoneNumber && { phoneNumber }),
-        // ...(role && { role }),
+        ...(role && { role }),
       };
 
       const updatedUserInfo = await userService.updateUser(userId, toUpdate);
@@ -114,7 +110,7 @@ export const userController = {
   },
 
   changePassword: async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.currentUserId;
     const password = req.body.password;
     const changedPassword = req.body.changedPassword;
     // console.log(`\nuserId : ${userId}\n`);
@@ -141,8 +137,8 @@ export const userController = {
 
     const result = await userService.deleteUser(userId, password);
 
-    //const { status, message } = result;
+    const { status, message } = result;
 
-    res.status(200).json({ message: '시험중' });
+    res.status(status).json({ message: message });
   },
 };

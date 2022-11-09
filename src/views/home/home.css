@@ -75,3 +75,11 @@ a {
   text-decoration: none;
   color: black;
 }
+
+#product-description {
+  height: 50px;
+}
+
+#productCard {
+  width: 340px;
+}

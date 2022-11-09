@@ -14,24 +14,33 @@ export class CategoryModel {
     return categories;
   }
 
-  static async findCategory(categoryId) {
+  static async findById(categoryId) {
     const category = await Category.findOne({ id: categoryId });
     return category;
   }
 
-  static async findByPage(categoryId) {
-    const products = await Category.findOne({ id: categoryId }).populate(
-      'products',
-    );
-    return products;
+  static async countProducts(categoryId) {
+    const category = await Category.aggregate([
+      {
+        $match: {
+          id: categoryId,
+        },
+      },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'name',
+          foreignField: 'category',
+          as: 'products',
+        },
+      },
+    ]);
+    return category[0].products.length;
   }
 
-  static async countAll(categoryId) {
-    const category = await Category.findOne({
-      id: categoryId,
-    });
-    const productCount = category.products.length;
-    return productCount;
+  static async findByName(name) {
+    const category = await Category.findOne({ name });
+    return category;
   }
 
   static async update(categoryId, updateInfo) {
@@ -40,9 +49,15 @@ export class CategoryModel {
 
     const updatedCategory = await Category.findOneAndUpdate(
       filter,
-      { id, name },
+      updateInfo,
       option,
     );
     return updatedCategory;
+  }
+
+  static async delete(categoryId) {
+    const filter = { id: categoryId };
+    const result = await Category.findOneAndDelete(filter);
+    return result;
   }
 }

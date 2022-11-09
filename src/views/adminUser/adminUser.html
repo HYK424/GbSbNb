@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="adminUser.css">
+    <link rel="stylesheet" href="/public/css/public.css" />
+</head>
+
+<body>
+    <div class="pageWraper">
+    <nav
+    class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
+    id="nav"
+  ></nav>
+
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-0.2">
+
+            </div>
+            <div class="col-11.6" id="usersConainer">
+
+                <table class="table table-hover table-bordered" style="table-layout: fixed">
+
+                    <thead>
+                        <tr>
+                            <th scope="col" width="200rem">이메일</th>
+                            <th scope="col" width="100rem">이름</th>
+                            <th scope="col" width="150rem">전화번호</th>
+                            <th scope="col" width="350rem">주소</th>
+                            <th scope="col" width="80rem">권한</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userList">
+                        <tr>
+                            <th onclick="location.href='/login'" width="200rem" scope="row">asdf1234@naver.com</th>
+                            <td onclick="location.href='/login'" width="100rem">김찰스
+                            </td>
+                            <td onclick="location.href='/login'" width="150rem">
+                                010-1232-3212</td>
+                            <td onclick="location.href='/login'" width="350rem">
+                                123-203 서울특별시 00구 00동 00아파트 000동 4034호</td>
+                            <td width="80rem">
+                                일반회원 <input type="checkbox"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="display: flex;">
+                
+                <div class="col-0.2">
+                    <a class="btn btn-danger ms-5" href="javascript:history.back()">뒤로가기</a>
+                </div>
+                <button type="button" id="roleBtn" class="btn btn-danger">권한 변경</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <footer
+      class="container-fluid text-center mt-auto py-3"
+      id="footer"
+    ></footer>
+    <!-- <div id="toPrevious" class="position-fixed top-50 start-0">
+      <a href="">
+        <i
+          class="fa-sharp fa-solid fa-arrow-left text-secondary"
+          id="left-arrow"
+        ></i>
+      </a>
+    </div>
+    <div id="toNext" class="position-fixed top-50 end-0">
+      <a href="">
+        <i
+          class="fa-sharp fa-solid fa-arrow-right text-secondary"
+          id="right-arrow"
+        ></i>
+      </a>
+    </div> -->
+</div>
+</body>
+<script src="adminUser.js" type="module" defer></script>
+<script src="/public/js/template-renderer.js"></script>
+</html>

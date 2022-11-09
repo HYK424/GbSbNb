@@ -1,19 +1,20 @@
 import { userModel } from '../db';
 
+import { AppError, commonErrors } from '../middlewares';
+
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+
 import { jwtModule } from '../util/jwt';
 
 class UserService {
   constructor(userModel) {
     this.userModel = userModel;
   }
-  // 로그인
+
   async login(loginInfo) {
-    console.log('로그인 서비스');
+    console.log('서비스');
     const { email, password } = loginInfo;
 
-    // 우선 해당 이메일의 사용자 정보가  db에 존재하는지 확인
     const user = await this.userModel.findByEmail(email);
     if (!user) {
       throw new Error(
@@ -21,11 +22,11 @@ class UserService {
       );
     }
 
-    console.log(user); //이렇게 받는 것은 안전한가??
-
     if (user['deletedAt']) {
       throw new Error('회원 탈퇴한 계정입니다.');
     }
+
+    console.log(user);
 
     const correctPasswordHash = user.password;
 
@@ -35,37 +36,24 @@ class UserService {
     );
 
     if (!isPasswordCorrect) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.inputError,
+        400,
         '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
-    const accessToken = jwtModule.access(user._id, user.role);
+    const accessToken = jwtModule.generateAccess(user._id, user.role);
 
-    const refreshToken = jwtModule.refresh();
-
-    console.log(`accessToken : ${accessToken}`);
-
-    console.log(`refreshToken : ${refreshToken}`);
-
-    // const secretKey = process.env.JWT_SECRET_KEY || 'secret-key';
-
-    // const token = jwt.sign(
-    //   {
-    //     userId: user._id,
-    //     role: user.role,
-    //   },
-    //   secretKey,
-    //   {
-    //     expiresIn: process.env.ACCESS_EXPIRE,
-    //   },
-    // );
+    const refreshToken = jwtModule.generateRefresh(user._id, user.role);
 
     return {
       status: 200,
-      message: '로그인에 성공하셨습니다.',
+      message: '정상적으로 로그인되었습니다.',
+      userName: user.fullName,
       role: user.role,
       accessToken,
+      refreshToken,
     };
   }
 
@@ -73,10 +61,19 @@ class UserService {
     try {
       const userInfo = await this.userModel.findById(userId);
 
+      const userData = {
+        fullName: userInfo.fullName,
+        email: userInfo.email,
+        phoneNumber: userInfo.phoneNumber,
+        address: userInfo.address,
+        role: userInfo.role,
+        createdAt: userInfo.createdAt,
+      };
+
       return {
         status: 200,
         message: '유저 정보 조회 성공',
-        userInfo: userInfo,
+        userInfo: userData,
       };
     } catch (err) {
       console.log(err);
@@ -185,6 +182,7 @@ class UserService {
 
     const result = await this.userModel.deleteUser(userId);
     console.log(result);
+    return { status: 200, message: '회원탈퇴 되셨습니다. 감사합니다.' };
   }
 }
 
