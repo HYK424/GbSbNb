@@ -1,0 +1,32 @@
+thead>tr,
+tbody>tr{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+thead>tr>*,
+tbody>tr>*{
+    flex-grow: 1;
+}
+
+th,
+td{
+    text-overflow:ellipsis;
+    overflow:hidden;
+    white-space:nowrap;
+}
+
+.moveBtn{
+    margin-left: auto;
+}
+
+
+ms-5{
+    margin-right: auto;
+}
+
+  .container{
+  flex: 1;
+  }
+  
