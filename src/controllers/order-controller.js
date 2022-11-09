@@ -57,12 +57,6 @@ class OrderController {
   static async updateOrderStatus(req, res, next) {
     const insertData = req.body.checkedArr;
 
-    console.log(insertData);
-    console.log(insertData[0]);
-    console.log(Object.keys(insertData[0]));
-    console.log(Object.values(insertData[0]));
-    console.log(Object.values(insertData[0]).join() === 'basic-user');
-
     const result = await userManagement.updateUserRole(insertData);
 
     res.status(result.status).json(true);

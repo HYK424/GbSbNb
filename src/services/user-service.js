@@ -1,10 +1,9 @@
-import { userModel } from '../db';
-
-import { AppError, commonErrors } from '../middlewares';
-
 import bcrypt from 'bcrypt';
 
-import { jwtModule } from '../util/jwt';
+import { userModel } from '../db';
+import { jwtModule } from '../util';
+import { checkRole } from '../middlewares';
+import { AppError, commonErrors } from '../middlewares';
 
 class UserService {
   constructor(userModel) {
@@ -168,6 +167,8 @@ class UserService {
       changedPassword: hashedChangePassword,
     });
 
+    console.log(result);
+
     if (!result) {
       throw new AppError(
         commonErrors.databaseError,
@@ -187,6 +188,14 @@ class UserService {
         commonErrors.databaseError,
         400,
         '삭제할 유저가 존재하지 않습니다.',
+      );
+    }
+
+    if (user.deletedAt) {
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '이미 삭제된 유저 입니다.',
       );
     }
 

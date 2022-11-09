@@ -1,7 +1,6 @@
 import * as Api from '../api.js';
-import { validateEmail } from '/useful-functions.js';
 
-if (sessionStorage.getItem('accessToken') !== 'undefined') {
+if (sessionStorage.getItem('accessToken')) {
   alert('이미 로그인하셨어요 :) 홈으로 보내드릴게요!');
   location.href = '/';
 }
