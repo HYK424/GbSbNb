@@ -25,18 +25,7 @@ ms-5{
     margin-right: auto;
 }
 
-
-.pageWraper{
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  
   .container{
   flex: 1;
   }
   
-  footer{
-    height: 100px;
-  background-color: #D1D4D7;
-  }
