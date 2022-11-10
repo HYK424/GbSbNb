@@ -48,16 +48,14 @@ async function put(endpoint, params = '', data) {
   return result;
 }
 
-async function del(endpoint, params = '', extra = false, data) {
+async function del(endpoint, params = '', extra = false) {
   const apiUrl = `${endpoint}/${params}`;
 
   if (!extra) {
     await setToken.tokenCheck();
   }
 
-  // const bodyData = JSON.stringify(data);
-
-  const res = await fetchModule('DELETE', apiUrl, bodyData);
+  const res = await fetchModule('DELETE', apiUrl);
 
   const result = await responseHandler(res);
 

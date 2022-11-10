@@ -21,11 +21,15 @@ async function checkOrder(e) {
   const phoneNumber = phoneNumberInput.value;
 
   const data = {
-    orderCode,
+    orderId: orderCode,
     phoneNumber,
   };
 
-  const result = await Api.post('/api/orders/orderlookup', true, data);
+  const result = await Api.post(
+    `/api/orders/orderlookup${orderId}`,
+    true,
+    data,
+  );
 
   console.log(result);
   if (result.err) {
@@ -116,8 +120,6 @@ function makeModal(data) {
   //}
   cancelBtn.addEventListener('click', cancelOrder);
 }
-
-cancelBtn.addEventListener('click', cancelOrder);
 
 async function cancelOrder() {
   const orderCancel = confirm('정말 취소하시겠습니까???');
