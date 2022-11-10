@@ -20,17 +20,17 @@ function allEvents() {
 // compbtn.addEventListener('click', handleComplete);
 //유저 리스트 만들기
 async function getOrderList() {
-  
+
   const orders = await Api.get('/api/admin/orders');
 
   console.log(orders);
 
 
-  const orderTemplate= orders.map((user)=>{
+  const orderTemplate = orders.map((user) => {
     return `
     <tr id="${user.receiver}">
     <th width="80rem" scope="row">${user.userId == '비회원' ? user.userId : '회원'
-}</th>           
+      }</th>           
     <td width="100rem">${user.receiver}</td>
     <td width="150rem">${user.phoneNumber}</td>
     <td width="350rem">${Object.values(user.address).join(' ')}</td>
@@ -40,10 +40,10 @@ async function getOrderList() {
      value="${user.role}" id="${user._id}"></td>
     </tr>
     `
-      }).join('');
-    
-      orderList.insertAdjacentHTML('beforeend',orderTemplate);
-   
+  }).join('');
+
+  orderList.insertAdjacentHTML('beforeend', orderTemplate);
+
 }
 
 function getstatus() {
