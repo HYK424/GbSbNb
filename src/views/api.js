@@ -55,7 +55,7 @@ async function del(endpoint, params = '', extra = false, data) {
     await setToken.tokenCheck();
   }
 
-  const bodyData = JSON.stringify(data);
+  // const bodyData = JSON.stringify(data);
 
   const res = await fetchModule('DELETE', apiUrl, bodyData);
 

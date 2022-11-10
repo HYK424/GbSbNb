@@ -65,7 +65,7 @@ function formData() {
   data.append('price', price);
   data.append('description', description);
   data.append('image', image);
-  console.log(data);
+
   return data;
 }
 
