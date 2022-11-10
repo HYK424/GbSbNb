@@ -3,7 +3,20 @@ import { orderController } from '../../controllers';
 import { authenticator } from '../../middlewares';
 import { asyncHandler } from '../../middlewares';
 
+import { orderValidator } from '../../middlewares';
+
 const orderRouter = Router();
+
+//지워도 됨
+orderRouter.post(
+  '/orderlookup',
+  orderValidator.unknownUser,
+  asyncHandler(orderController.unknownUserOrder),
+);
+orderRouter.delete(
+  '/unknownCancel',
+  asyncHandler(orderController.unknownUserOrderCancel),
+);
 
 orderRouter.post('/', asyncHandler(orderController.createOrder));
 // orderRouter.get('/orderId', asyncHandler(OrderController.getOrderById));

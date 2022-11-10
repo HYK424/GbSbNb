@@ -23,6 +23,8 @@ viewsRouter.use('/admin/add-products', serveStatic('adminPost'));
 viewsRouter.use('/admin/users', serveStatic('adminUser'));
 viewsRouter.use('/admin/orders', serveStatic('adminOrder'));
 
+viewsRouter.use('/orderLookup', serveStatic('orderLookup'));
+
 // 존재하지 않는 페이지에 접근하는 경우 404 페이지를 렌더링
 viewsRouter.use(serveStatic('404'));
 

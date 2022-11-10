@@ -2,7 +2,7 @@ import { userModel, productModel, orderModel } from '../db';
 import bcrypt from 'bcrypt';
 import { AppError } from '../middlewares';
 
-import { sendMail } from '../util/send-mail';
+import { sendMail } from '../util/mailsys/send-mail';
 
 class AdminService {
   constructor(requestModel) {
@@ -49,7 +49,9 @@ class AdminService {
       );
     }
 
-    sendMail.password(user.email, randomStr);
+    const mailData = await sendMail.test();
+    console.log('서비스쪽임');
+    console.log(mailData);
 
     return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
   }

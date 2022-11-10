@@ -34,6 +34,7 @@ export const setToken = {
         sessionStorage.clear();
         alert('로그인해 주시기 바랍니다.');
         window.location.href = '/login';
+        return;
       }
 
       // console.log('result');
