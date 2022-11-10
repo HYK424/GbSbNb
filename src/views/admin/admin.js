@@ -9,7 +9,6 @@ setCategory();
 setItemList();
 allEvents();
 
-
 function allEvents() {
   select.addEventListener('change', handleSelect);
 }
