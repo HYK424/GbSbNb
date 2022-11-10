@@ -1,45 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="admin.css" />
     <link rel="stylesheet" href="/public/css/public.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-</head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
 
-<body>
+  <body>
     <!-- 헤더 -->
     <div class="pageWraper">
-        <nav class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top" id="nav"></nav>
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
+        id="nav"
+      ></nav>
 
-        <!-- 카테고리 조회 -->
-        <div>
-            <form id="form">
-                <select name="categoryId" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                    id="select">
-                    <option value="all" selected>전체</option>
-                </select>
-            </form>
-        </div>
-        <!-- 상품 목록 리스트 -->
-        <div class="itemList">
-        </div>
+      <!-- 카테고리 조회 -->
+      <div>
+        <form id="form">
+          <select
+            name="categoryId"
+            class="form-select form-select-sm"
+            aria-label=".form-select-sm example"
+            id="select"
+          >
+            <option value="all" selected>전체</option>
+          </select>
+        </form>
+      </div>
+      <!-- 상품 목록 리스트 -->
+      <div class="itemList"></div>
 
-        <div class="addContainer">
-            <button type="button" class="btn btn-outline-secondary add"
-                onclick="location.href='/admin/post'">추가</button>
+      <div class="addContainer">
+        <button
+          type="button"
+          class="btn btn-outline-secondary add"
+          onclick="location.href='/admin/post'"
+        >
+          추가
+        </button>
+      </div>
 
-        </div>
-
-        <footer class="container-fluid text-center mt-auto py-3" id="footer"></footer>
+      <footer
+        class="container-fluid text-center mt-auto py-3"
+        id="footer"
+      ></footer>
     </div>
-</body>
-<script src="admin.js" type="module" defer> </script>
-<script src="/public/js/template-renderer.js"></script>
-
+  </body>
+  <script src="admin.js" type="module" defer></script>
+  <script src="/public/js/template-renderer.js"></script>
 </html>

@@ -41,12 +41,16 @@ async function getOrderList() {
     }).join('');
 
     orderList.insertAdjacentHTML('beforeend', orderTemplate);
-    document.querySelectorAll('tr > button')
-    
 
+    const vtn = document.querySelectorAll('tr > button');
+    for (const btn of vtn) {
+      btn.addEventListener('click', changeStatus);
+    }
+    
 }
 
 
+function changeView
 
 
 

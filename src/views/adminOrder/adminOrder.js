@@ -1,5 +1,5 @@
 // import { check } from 'express-validator';
-import * as Api from '../api.js';
+import * as Api from '/api.js';
 
 const orderList = document.getElementById('orderList');
 const delevbtn = document.getElementById('deleveryBtn');
@@ -17,7 +17,9 @@ function allEvents() {
 // compbtn.addEventListener('click', handleComplete);
 //유저 리스트 만들기
 async function getOrderList() {
+  
   const orders = await Api.get('/api/admin/orders');
+
   console.log(orders);
 
 

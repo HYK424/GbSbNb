@@ -65,13 +65,11 @@ function productsTemplate(obj) {
 `;
     })
     .join('');
-    const vtn = document.querySelectorAll('.vtn');
-    for (const btn of vtn) {
-      btn.addEventListener('click', changeView);
-    }
+  const vtn = document.querySelectorAll('.vtn');
+  for (const btn of vtn) {
+    btn.addEventListener('click', changeView);
+  }
 }
-
-
 
 async function setItemList() {
   // const obj=await((await Api.get('/api/products/admin',false)).json()).products;
