@@ -5,7 +5,7 @@ import { validateEmail } from '/useful-functions.js';
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
-const telInput = document.querySelector('#telInput');
+const telInput = document.querySelector('#phoneNumberInput');
 const addressZipInput = document.querySelector('#addressZipInput');
 const addressBasicInput = document.querySelector('#addressBasicInput');
 const addressOptionInput = document.querySelector('#addressOptionInput');
@@ -86,56 +86,29 @@ async function handleEdit(e) {
 
 async function handleSubmit(e) {
   e.preventDefault();
-  //BE에 보낼 JSON 만들기
-  const formDataArr = document.querySelectorAll('label');
-  let userDataJson = {};
-
-  for (let item of formDataArr) {
-    let parantKey = item.getAttribute('name');
-    let itemChildArr = item.querySelectorAll('input');
-
-    if (itemChildArr.length == 1) {
-      userDataJson[parantKey] = itemChildArr[0].value;
-    } else {
-      let childDataJson = {};
-      for (let childItem of itemChildArr) {
-        let childKey = childItem.getAttribute('name');
-        childDataJson[childKey] = childItem.value;
-      }
-      userDataJson[parantKey] = childDataJson;
-    }
-  }
-
-  console.log(userDataJson);
-
   // 입력 완료시
   const fullName = fullNameInput.value;
   const email = emailInput.value;
+  const phoneNumber = telInput.value;
+  const postalCode = addressZipInput.value;
+  const address1 = addressBasicInput.value;
+  const address2 = addressOptionInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
-  // 잘 입력했는지 확인
-  const isFullNameValid = fullName.length >= 2;
-  const isEmailValid = validateEmail(email);
-  const isPasswordValid = password.length >= 4;
-  const isPasswordSame = password === passwordConfirm;
-
-  if (!isFullNameValid || !isPasswordValid) {
-    return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
-  }
-
-  if (!isEmailValid) {
-    return alert('이메일 형식이 맞지 않습니다.');
-  }
-
-  if (!isPasswordSame) {
-    return alert('비밀번호가 일치하지 않습니다.');
-  }
-
-  // 회원 정보 수정 api 요청
+  const data = {
+    fullName,
+    email,
+    password,
+    passwordConfirm,
+    phoneNumber,
+    address: {
+      postalCode,
+      address1,
+      address2,
+    },
+  };
   try {
-    const data = { fullName, email, password };
-
     const result = await Api.post('/api/users', true, data);
 
     if (result.err) {

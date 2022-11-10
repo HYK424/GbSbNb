@@ -86,12 +86,12 @@
 
 
                             <div class="row">
-                                
+
                                 <div class="col">
 
                                     <div class="col-sm">
                                         <input type="tel" class="form-control able-when-edit" name="postalCode"
-                                            id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"
+                                            id="addressZipInput" type="tel" placeholder="우편 변호" autocomplete="on"
                                             disabled>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
 
                                     <div class="mb-2">
                                         <input type="text" class="form-control able-when-edit" name="address1"
-                                            id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"
+                                            id="addressBasicInput" type="text" placeholder="기본 주소" autocomplete="on"
                                             disabled>
                                     </div>
                                 </div>
@@ -109,15 +109,11 @@
 
                                     <div class="col">
                                         <input type="text" class="form-control able-when-edit" name="address2"
-                                            id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"
+                                            id="addressOptionInput" type="text" placeholder="상세 주소" autocomplete="on"
                                             disabled>
                                     </div>
-                                    <label
-                    class="label btn btn-primary"
-                    for="adressInput"
-                    id="searchAddress"
-                    >주소 찾기</label
-                  >
+                                    <label class="label btn btn-primary" for="adressInput" id="searchAddress">주소
+                                        찾기</label>
                                 </div>
 
                             </div>
@@ -151,17 +147,17 @@
 
                             <div class="btnContainer">
                                 <div class="bbtnContainer">
-                                <button type="button" class="btn btn-info" id="editButton">내 정보 수정하기</button>
-                                <button type="button" class="btn btn-info" id="submitButton">수정 완료</button>
-                                <button type="button" class="btn btn-info" id="deleteButton">회원 탈퇴하기</button>
-                            </div>
+                                    <button type="button" class="btn btn-info" id="editButton">내 정보 수정하기</button>
+                                    <button type="button" class="btn btn-info" id="submitButton">수정 완료</button>
+                                    <button type="button" class="btn btn-info" id="deleteButton">회원 탈퇴하기</button>
+                                </div>
                             </div>
 
 
                     </div>
-                    
+
                     </form>
-                    
+
                 </div>
 
 
@@ -235,6 +231,7 @@
         </form>
     </div> </div>
  -->
+
 </body>
 <script src="/public/js/template-renderer.js"></script>
 
