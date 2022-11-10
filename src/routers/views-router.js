@@ -39,4 +39,4 @@ function serveStatic(resource) {
   return express.static(resourcePath, option);
 }
 
-export { viewsRouter };
+export { viewsRouter, serveStatic };
