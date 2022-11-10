@@ -7,6 +7,7 @@ const select = document.getElementById('select');
 
 setCategory();
 setItemList();
+
 allEvents();
 
 function allEvents() {
@@ -64,11 +65,13 @@ function productsTemplate(obj) {
 `;
     })
     .join('');
-  const vtn = document.querySelectorAll('.vtn');
-  for (const btn of vtn) {
-    btn.addEventListener('click', changeView);
-  }
+    const vtn = document.querySelectorAll('.vtn');
+    for (const btn of vtn) {
+      btn.addEventListener('click', changeView);
+    }
 }
+
+
 
 async function setItemList() {
   // const obj=await((await Api.get('/api/products/admin',false)).json()).products;
@@ -84,6 +87,8 @@ async function setItemList() {
     alert('에러가 있습니다');
     return;
   }
+  console.log(obj);
+  console.log(obj.products);
 
   productsTemplate(obj.products);
 }
