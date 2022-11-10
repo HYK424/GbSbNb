@@ -51,7 +51,7 @@ export const orderController = {
       ...(request && { request }),
     };
     await OrderService.updateOrder(orderId, updateInfo);
-    return res.sendStatus(200);
+    return res.status(200).json('ok');
   },
 
   cancelOrder: async (req, res, next) => {
@@ -71,7 +71,7 @@ export const orderController = {
       );
     }
     const result = await OrderService.updateOrderStatus(orderIds, status);
-    res.sendStatus(200);
+    res.status(200).json('ok');
   },
 
   deleteMyOrder: async (req, res, next) => {

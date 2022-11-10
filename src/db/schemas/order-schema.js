@@ -20,8 +20,8 @@ const OrderSchema = new Schema(
     ],
     status: {
       type: String,
-      default: 'standby',
-      // enum: ['standby', 'delivery', 'completed', 'canceled'],
+      default: '상품 준비 중',
+      enum: ['상품 준비 중', '배송 중', '배송 완료', '주문 취소'],
     },
     address: {
       type: new Schema(
