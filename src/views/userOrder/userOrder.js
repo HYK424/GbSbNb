@@ -6,12 +6,7 @@ const orderList = document.getElementById('orderList');
 // const compbtn = document.getElementById('completeBtn');
 
 getOrderList();
-allEvents();
 
-function allEvents() {
-    delevbtn.addEventListener('click', handleDelevery);
-    compbtn.addEventListener('click', handleComplete);
-}
 
 // delevbtn.addEventListener('click', handleDelevery);
 // compbtn.addEventListener('click', handleComplete);
@@ -21,15 +16,15 @@ async function getOrderList() {
     console.log(orders);
 
     function cancelBtn(user) {
-        return `<btn id='${user.Id}' name='cancel' >주문 취소</btn>`
+        return `<button id='${user.Id}' name='cancel' >주문 취소</button>`
     }
     function deleteBtn(user) {
-        return `<btn id='${user.Id}' name='delete'>주문 삭제</btn>`
+        return `<button id='${user.Id}' name='delete'>주문 삭제</button>`
     }
 
     const orderTemplate = orders.map((user) => {
         return `
-    <tr id="${user.userId}">
+    <tr id="${user.userId}"  onclick="location.href='/api/orders/${user.userId}'">
             <th width="100rem" scope="row">${user.createdAt}</th>           
             <td width="250rem">${user.orderItems}</td>
             <td width="120rem">${user.status}</td>
@@ -44,54 +39,20 @@ async function getOrderList() {
 
     const vtn = document.querySelectorAll('tr > button');
     for (const btn of vtn) {
-      btn.addEventListener('click', changeStatus);
+        btn.addEventListener('click', changeStatus);
     }
-    
 }
 
 
-function changeView
+async function changeStatus(e) {
+    e.preventDefault();
 
-
-
-function getstatus() {
-    const checked = document.querySelectorAll('input[name="status"]:checked');
-    const checkedArr = [];
-
-    checked.forEach((e) => {
-        const { id } = e;
-        console.log(id);
-        checkedArr.push(id);
-    });
-    console.log(checkedArr);
-    return checkedArr;
-}
-
-async function handleDelevery() {
-    const result = await Api.put('/api/admin/orders', '', {
-        orderIds: getstatus(),
-        status: 'delivery',
-    });
-    console.log(result);
-    console.log(getstatus());
-    if (!result) {
-        alert('배송 정보 갱신 실패');
+    if (e.target.name == 'delete') {
+        await Api.del('/api/orders', e.target.id, false,)
+            .then(location.reload());
     } else {
-        alert('배송 정보 갱신 성공');
-        location.reload();
+        await Api.get(`/api/orders/${e.target.id}`, 'cancel', false,)
+            .then(location.reload());
     }
 }
 
-async function handleComplete() {
-    const result = await Api.put('/api/admin/orders', '', {
-        orderIds: getstatus(),
-        status: 'completed',
-    });
-    console.log(result);
-    if (!result) {
-        alert('배송 정보 갱신 실패');
-    } else {
-        alert('배송 정보 갱신 성공');
-        location.reload();
-    }
-}

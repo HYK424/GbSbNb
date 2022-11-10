@@ -50,13 +50,11 @@ function productsTemplate(obj) {
         <li><span>가격: <strong>${products.price}</strong> 원</span> </li>
         <li>수정 날짜: ${products.createdAt}</li>
         </a>
-        <button type="button" class="btn ${
-          products.view ? 'btn-outline-primary' : 'btn-outline-secondary'
+        <button type="button" class="btn ${products.view ? 'btn-outline-primary' : 'btn-outline-secondary'
         } vtn" id="${products._id}">
         ${products.view ? '공개' : '비공개'} </button>
        
-        <a href="/admin/products/${
-          products._id
+        <a href="/admin/products/${products._id
         }"><button class="btn btn-outline-danger" id="itemUpdate${i}">수정</button>
         </a>
         <button class="btn btn-outline-light" id="itemMain${i}">대표 상품 등록</button>
@@ -124,18 +122,20 @@ async function changeView(event) {
   if (btn.classList[1] == 'btn-outline-primary') {
     btn.classList.replace('btn-outline-primary', 'btn-outline-secondary');
     btn.innerText = '비공개';
+    
+    putView(viewId, '비공개')
 
-    // putView(viewId,false);
   } else {
     btn.classList.replace('btn-outline-secondary', 'btn-outline-primary');
     btn.innerText = '공개';
-    // putView(viewId,true);
+
+    putView(viewId, '공개')
   }
 }
 
-// async function putView(viewId,view){
-//   const viewResult = await Api.put(`/api/admin/products/${viewId}/view?view=${view}`);
-// }
+async function putView(viewId) {
+  await Api.patch(`/api/admin/products/${viewId}`, data);
+}
 
 //삭제 기능 막아놓음/ PUT으로 보냄
 // <button class="btn btn-outline-danger" id="itemDelete${i}">삭제</button>

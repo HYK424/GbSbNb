@@ -8,7 +8,7 @@ class OrderService {
   }
 
   static async getMyOrders(userId) {
-    const orders = await OrderModel.findAllByUserId(userId);
+    const orders = await OrderModel.findAllByUser(userId);
     return orders;
   }
 
