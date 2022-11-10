@@ -71,8 +71,6 @@ function productsTemplate(obj) {
     }
 }
 
-
-
 async function setItemList() {
   // const obj=await((await Api.get('/api/products/admin',false)).json()).products;
   const obj = await Api.get('/api/admin/products');
