@@ -11,9 +11,6 @@ async function get(endpoint, params = '', extra = false) {
     await setToken.tokenCheck();
   }
   let bodyData = null;
-  if (data) {
-    bodyData = JSON.stringify(data);
-  }
 
   const res = await fetchModule('GET', apiUrl, bodyData);
 
