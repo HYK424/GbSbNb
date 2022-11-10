@@ -1,7 +1,5 @@
 import { userManagement, userService } from '../services';
 
-// import * as NM from 'nodemailer';
-
 export const adminController = {
   getAllUsers: async (req, res) => {
     const result = await userManagement.getUsers();
@@ -49,11 +47,6 @@ export const adminController = {
     const randomStr = Math.random().toString(36).substring(2, 12);
 
     const result = await userManagement.resetPassword(resetUserId, randomStr);
-
-    // const whoSend = {
-    //   "user" : "dhdlsrnr1232@gmail.com",
-    //   "pass" : ""
-    // }
 
     const { status, check } = result;
 

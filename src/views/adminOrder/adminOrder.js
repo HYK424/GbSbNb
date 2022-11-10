@@ -1,5 +1,5 @@
 // import { check } from 'express-validator';
-import * as Api from '/api.js';
+import * as Api from '../api.js';
 
 const orderList = document.getElementById('orderList');
 const delevbtn = document.getElementById('deleveryBtn');
