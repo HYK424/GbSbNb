@@ -3,7 +3,6 @@ import { OrderService } from '../services';
 
 export const orderController = {
   createOrder: async (req, res, next) => {
-    console.log(req.body);
     const orderInfo = { ...req.body };
     const newOrder = await OrderService.createOrder(orderInfo);
 
@@ -22,7 +21,8 @@ export const orderController = {
   },
 
   getMyOrders: async (req, res, next) => {
-    const userId = req.currentUserId;
+    const { userId } = req;
+    console.log(userId);
     const orders = await OrderService.getMyOrders(userId);
     return res.status(200).json(orders);
   },
