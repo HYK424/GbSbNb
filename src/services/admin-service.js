@@ -1,6 +1,6 @@
-import { userModel, productModel, orderModel } from '../db';
+import { userModel, orderModel } from '../db';
 import bcrypt from 'bcrypt';
-import { AppError } from '../middlewares';
+import { AppError, commonErrors } from '../middlewares';
 
 import { sendMail } from '../util/mailsys/send-mail';
 
@@ -49,7 +49,10 @@ class AdminService {
       );
     }
 
-    const mailData = await sendMail.test();
+    const mailData = await sendMail.password(
+      'dhdlsrnr1232@gmail.com',
+      randomStr,
+    );
     console.log('서비스쪽임');
     console.log(mailData);
 

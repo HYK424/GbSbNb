@@ -5,9 +5,6 @@ const orderList = document.getElementById('orderList');
 const delevbtn = document.getElementById('deleveryBtn');
 const compbtn = document.getElementById('completeBtn');
 
-
-
-
 getOrderList();
 allEvents();
 
@@ -20,30 +17,32 @@ function allEvents() {
 // compbtn.addEventListener('click', handleComplete);
 //유저 리스트 만들기
 async function getOrderList() {
-  
   const orders = await Api.get('/api/admin/orders');
 
   console.log(orders);
 
-
-  const orderTemplate= orders.map((user)=>{
-    return `
+  const orderTemplate = orders
+    .map((user) => {
+      return `
     <tr id="${user.receiver}">
-    <th width="80rem" scope="row">${user.userId == '비회원' ? user.userId : '회원'
-}</th>           
+    <th width="80rem" scope="row">${
+      user.userId == '비회원' ? user.userId : '회원'
+    }</th>           
     <td width="100rem">${user.receiver}</td>
     <td width="150rem">${user.phoneNumber}</td>
     <td width="350rem">${Object.values(user.address).join(' ')}</td>
     <td width="80rem">${user.orderItems.length} 개</td>
    
-    <td width="120rem" class="selebtn" data-id>${user.status}</label> <input type="checkbox" name="status"
+    <td width="120rem" class="selebtn" data-id>${
+      user.status
+    }</label> <input type="checkbox" name="status"
      value="${user.role}" id="${user._id}"></td>
     </tr>
-    `
-      }).join('');
-    
-      orderList.insertAdjacentHTML('beforeend',orderTemplate);
-   
+    `;
+    })
+    .join('');
+
+  orderList.insertAdjacentHTML('beforeend', orderTemplate);
 }
 
 function getstatus() {

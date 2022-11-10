@@ -13,6 +13,7 @@ import {
   categoryRouter,
   productRouter,
   orderRouter,
+  noticeRouter,
 } from './commons';
 
 import { viewsRouter } from './views-router';
@@ -35,5 +36,7 @@ router.use('/products', productRouter);
 router.use('/cart', cartRouter);
 router.use('/categories', categoryRouter);
 router.use('/orders', orderRouter);
+
+router.use('/notice', noticeRouter);
 
 export { router, viewsRouter };

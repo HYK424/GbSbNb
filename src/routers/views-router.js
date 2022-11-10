@@ -26,6 +26,10 @@ viewsRouter.use('/admin/orders', serveStatic('adminOrder'));
 
 viewsRouter.use('/orderLookup', serveStatic('orderLookup'));
 
+viewsRouter.use('/notice', serveStatic('notice'));
+
+viewsRouter.use('/admin/noticeWrite', serveStatic('noticeWrite'));
+
 // 존재하지 않는 페이지에 접근하는 경우 404 페이지를 렌더링
 
 // views 폴더의 최상단 파일인 rabbit.png, api.js 등을 쓸 수 있게 함

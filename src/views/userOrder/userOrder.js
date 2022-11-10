@@ -15,21 +15,20 @@ async function getOrderList() {
     const orders = await Api.get('/api/orders');
     console.log(orders);
 
-    function cancelBtn(user) {
-        return `<button id='${user.Id}' name='cancel' >주문 취소</button>`
+    function cancelBtn(order) {
+        return `<button id='${order.Id}' name='cancel' >주문 취소</button>`
     }
-    function deleteBtn(user) {
-        return `<button id='${user.Id}' name='delete'>주문 삭제</button>`
+    function deleteBtn(order) {
+        return `<button id='${order.Id}' name='delete'>주문 삭제</button>`
     }
 
-    const orderTemplate = orders.map((user) => {
+    const orderTemplate = orders.map((order) => {
         return `
-    <tr id="${user.userId}"  onclick="location.href='/api/orders/${user._id}'">
-            <th width="100rem" scope="row">${user.createdAt}</th>           
-            <td width="250rem">${user.orderItems}</td>
-            <td width="120rem">${user.status}</td>
+    <tr id="${order.userId}" >
+            <th width="100rem" scope="row">${order.createdAt}</th>
+            <td width="120rem">${order.status}</td>
           <td width="120rem">
-          ${user.status = '상품 준비 중' ? cancelBtn(user) : (user.status = '배송 완료' ? deleteBtn(user) : user.status)}
+          ${order.status = '상품 준비 중' ? cancelBtn(order) : (order.status = '배송 완료' ? deleteBtn(order) : order.status)}
           </td>
             </tr>
     `
@@ -46,7 +45,6 @@ async function getOrderList() {
 
 async function changeStatus(e) {
     e.preventDefault();
-
     if (e.target.name == 'delete') {
         await Api.del('/api/orders', e.target.id, false,)
             .then(location.reload());
