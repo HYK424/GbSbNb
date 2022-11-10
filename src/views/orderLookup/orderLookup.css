@@ -45,3 +45,12 @@
   border: 3px solid #000000;
   border-radius: 10px;
 }
+
+label {
+  font-size: 48px;
+}
+
+input {
+  font-size: 32px;
+  width: 480px;
+}

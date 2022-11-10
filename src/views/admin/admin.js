@@ -125,6 +125,8 @@ async function changeView(event) {
     btn.classList.replace('btn-outline-primary', 'btn-outline-secondary');
     btn.innerText = '비공개';
 
+    putView(viewId, '비공개');
+
     putView(viewId, false);
   } else {
     btn.classList.replace('btn-outline-secondary', 'btn-outline-primary');

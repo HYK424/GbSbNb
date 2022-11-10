@@ -8,14 +8,18 @@ class OrderService {
   }
 
   static async getMyOrders(userId) {
-    const orders = await OrderModel.findAllByUserId(userId);
+    const orders = await OrderModel.findAllByUser(userId);
     return orders;
   }
 
   static async getOrderById(orderId) {
     const order = await OrderModel.findById(orderId);
-    if (!order) {
-      throw new AppError(commonErrors.deletedData, 400, '');
+    if (order.deletedAt) {
+      throw new AppError(
+        commonErrors.deletedData,
+        400,
+        '주문 정보를 찾을 수 없습니다!',
+      );
     }
     return order;
   }
@@ -32,7 +36,7 @@ class OrderService {
 
   static async updateOrder(orderId, updateInfo) {
     const order = await OrderModel.findById(orderId);
-    if (order.status !== 'standby') {
+    if (order.status !== '상품 준비 중') {
       throw new AppError(
         commonErrors.businessError,
         400,
@@ -54,7 +58,7 @@ class OrderService {
   }
 
   static async cancelOrder(orderId, updateInfo) {
-    const userId = req.currentUserId;
+    const { userId } = req;
     const order = await OrderModel.findById(orderId);
     if (order.userId !== userId) {
       throw new AppError(

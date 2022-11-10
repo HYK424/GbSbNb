@@ -3,7 +3,6 @@ import { OrderService } from '../services';
 
 export const orderController = {
   createOrder: async (req, res, next) => {
-    console.log(req.body);
     const orderInfo = { ...req.body };
     const newOrder = await OrderService.createOrder(orderInfo);
 
@@ -22,16 +21,17 @@ export const orderController = {
   },
 
   getMyOrders: async (req, res, next) => {
-    const userId = req.currentUserId;
+    const { userId } = req;
+    console.log(userId);
     const orders = await OrderService.getMyOrders(userId);
     return res.status(200).json(orders);
   },
 
   getOrder: async (req, res, next) => {
     const { orderId } = req.params;
-    const { currentUserId, currentUserRole } = req;
+    const { userId, role } = req;
     const order = await OrderService.getOrder(orderId);
-    if (currentUserId !== order.userId && currentUserRole === 'basic-user') {
+    if (currentUserId !== order.userId && role === 'basic-user') {
       throw new AppError(
         commonErrors.authorizationError,
         403,
@@ -51,7 +51,7 @@ export const orderController = {
       ...(request && { request }),
     };
     await OrderService.updateOrder(orderId, updateInfo);
-    return res.status(200).json('ok');
+    return res.status(200).json('주문 정보가 정상적으로 수정되었습니다 😊');
   },
 
   cancelOrder: async (req, res, next) => {
@@ -63,15 +63,15 @@ export const orderController = {
 
   updateOrderStatus: async (req, res, next) => {
     const { orderIds, status } = req.body;
-    if (['delivery', 'completed'].indexOf(status) === -1) {
+    if (['배송 중', '배송 완료'].indexOf(status) === -1) {
       throw new AppError(
         commonErrors.businessError,
         400,
         '올바른 배송 상태를 지정하여 다시 요청해주세요 :(',
       );
     }
-    const result = await OrderService.updateOrderStatus(orderIds, status);
-    res.status(200).json('ok');
+    await OrderService.updateOrderStatus(orderIds, status);
+    res.status(200).json('배송 상태가 정상적으로 수정되었습니다 😊');
   },
 
   deleteMyOrder: async (req, res, next) => {

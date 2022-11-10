@@ -50,7 +50,6 @@ export const setToken = {
       sessionStorage.setItem('refreshToken', result.refreshToken);
     }
     console.log('//////////////header-handler//////////////');
-    return;
   },
 };
 

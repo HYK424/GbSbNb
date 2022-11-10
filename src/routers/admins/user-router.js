@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { adminController } from '../../controllers/admin-controller';
-import { OrderController } from '../../controllers/order-controller';
 import { authenticator } from '../../middlewares';
 import { checkRole } from '../../middlewares';
 

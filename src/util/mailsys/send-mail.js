@@ -15,18 +15,18 @@ export const sendMail = {
     return getMailForm;
   },
 
-  // password: async (userEmail, resetedPassword) => {
-  //   mailValue.to = 'dhdlsrnr1232@gmail.com ';
-  //   mailValue.subject = `개발세발네발 비밀번호 리셋 메일입니다.`;
-  //   mailValue.html = `개발세발네발 발송!!\n<strong>리셋</strong> 된 비밀번호는 ${resetedPassword}입니다.`;
-  //   transport.sendMail(mailValue, (err, info) => {
-  //     if (err) {
-  //       console.log(err);
-  //     } else {
-  //       console.log(`Email 발송 : ${info.response}`);
-  //     }
-  //   });
-  // },
+  password: async (userEmail, resetedPassword) => {
+    mailValue.to = userEmail;
+    mailValue.subject = `개발세발네발 비밀번호 리셋 메일입니다.`;
+    mailValue.html = `개발세발네발 발송!!\n<strong>리셋</strong> 된 비밀번호는 ${resetedPassword}입니다.`;
+    transport.sendMail(mailValue, (err, info) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(`Email 발송 : ${info.response}`);
+      }
+    });
+  },
 };
 
 const transport = nodemailer.createTransport({

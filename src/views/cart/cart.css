@@ -19,3 +19,16 @@
 title-container {
   text-overflow: ellipsis;
 }
+
+#summary {
+  border: 2px solid gray;
+  border-radius: 30px;
+}
+
+dt {
+  font-size: 32px;
+}
+
+dd {
+  font-size: 28px;
+}
