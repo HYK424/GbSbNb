@@ -36,34 +36,6 @@ async function insertProductsfromCart() {
         let itemGet = await Api.get('/api/products', productId, true);
         let { price, title, imageUrl } = itemGet;
 
-        <<
-        << << < HEAD
-        const itemContainer = document.querySelector('#itemContainer');
-        const itemHTML = `<div class="item-div" id="productItem-${productId}">
-        <label class="checkbox">
-            <input type="checkbox" data-action="checkbox" data-id="${productId}" id="checkbox-${productId}" checked>
-        </label>
-        <button class="delete-button" data-action="delete" data-id="${productId}" id="delete-${productId}">
-            지우기
-        </button>
-        <img
-            id="image-${productId}"
-            src="${imageUrl}"
-            alt="product-image"
-        />
-        <p id="title-${productId}">${title}</p>
-        <p id="unitPrice-${productId}">${price}</p>
-        <p>원</p>
-        <button class="button" data-action="minus" data-id="${productId}" id="minus-${productId}">
-            -
-        </button>
-        <input class="input" data-action="quantityInput" data-id="${productId}" id="quantityInput-${productId}" type="number" min="1" max="99" value="${quantity}"/>
-        <button class="button" data-action="plus" data-id="${productId}" id="plus-${productId}">
-            +
-        </button>
-        <p id="totalPrice-${productId}">${quantity * price}원</p>
-    </div>`; ===
-        === =
         const itemContainer = document.querySelector('#itemContainer');
         const itemHTML = `<div class="d-flex item-container m-3" id="productItem-${productId}">
                     <label class="checkbox">
@@ -125,8 +97,7 @@ async function insertProductsfromCart() {
                     
                       지우기
                     </button>
-                  </div>`; >>>
-        >>> > 9 b2c14a753c6a1c54aedd8f98534e9e5cdcc0b94
+                  </div>`;
 
         itemContainer.insertAdjacentHTML('beforeend', itemHTML);
         cartTempDB.insertItem(productId, quantity, price, true);
