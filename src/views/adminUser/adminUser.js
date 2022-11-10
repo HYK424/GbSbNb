@@ -11,22 +11,22 @@ rolebtn.addEventListener('click', handleUserRole);
 async function getUserList() {
   const users = (await Api.get('/api/admin/allusers')).users;
 
-  users.forEach((user) => {
-    userList.insertAdjacentHTML(
-      'beforeend',
-      `
-            <tr>
-            <th width="200rem"scope="row">${user.email}</th>           
-            <td width="100rem">${user.fullName}</td>
-            <td width="150rem">${user.phoneNumber}</td>
-            <td width="350rem">${Object.values(user.address).join(' ')}</td>
-            <td width="80rem" > <label for="${user._id}">${user.role
-      } </label><input type="checkbox" name="role" value="${user.role}" id="${user._id
-      }"></td>
-            </tr>
-            `,
-    );
-  });
+ const usersTemplate= users.map((user)=>{
+return `
+<tr>
+<th width="200rem"scope="row">${user.email}</th>           
+<td width="100rem">${user.fullName}</td>
+<td width="150rem">${user.phoneNumber}</td>
+<td width="350rem">${Object.values(user.address).join(' ')}</td>
+<td width="80rem" > <label for="${user._id}">${user.role
+} </label><input type="checkbox" name="role" value="${user.role}" id="${user._id
+}"></td>
+</tr>
+`
+  }).join('');
+
+  userList.insertAdjacentHTML('beforeend',usersTemplate);
+
 }
 
 function getId() {

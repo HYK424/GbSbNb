@@ -135,7 +135,11 @@ async function handleSubmit(e) {
   try {
     const data = { fullName, email, password };
 
-    await Api.post('/api/users', data);
+    const result = await Api.post('/api/users', true, data);
+
+    if (result.err) {
+      return;
+    }
 
     alert(`정상적으로 수정되었습니다.`);
 

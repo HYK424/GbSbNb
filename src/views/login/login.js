@@ -1,12 +1,9 @@
 import * as Api from '../api.js';
-
 const accessToken = sessionStorage.getItem('accessToken');
-
 if (accessToken) {
   alert('이미 로그인하셨어요 :) 홈으로 보내드릴게요!');
   location.href = '/';
 }
-
 // 요소(element), input 혹은 상수
 const emailInput = document.querySelector('#emailInput');
 const passwordInput = document.querySelector('#passwordInput');
@@ -33,11 +30,10 @@ async function handleSubmit(e) {
   const data = { email, password };
 
   const result = await Api.post('/api/users/login', true, data);
-
+  console.log(result);
   if (result.err) {
     return;
   }
-
   sessionStorage.setItem('accessToken', result.tokens.accessToken);
   sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
 

@@ -36,6 +36,8 @@ async function insertProductsfromCart() {
         let itemGet = await Api.get('/api/products', productId, true);
         let { price, title, imageUrl } = itemGet;
 
+        <<
+        << << < HEAD
         const itemContainer = document.querySelector('#itemContainer');
         const itemHTML = `<div class="item-div" id="productItem-${productId}">
         <label class="checkbox">
@@ -60,7 +62,71 @@ async function insertProductsfromCart() {
             +
         </button>
         <p id="totalPrice-${productId}">${quantity * price}원</p>
-    </div>`;
+    </div>`; ===
+        === =
+        const itemContainer = document.querySelector('#itemContainer');
+        const itemHTML = `<div class="d-flex item-container m-3" id="productItem-${productId}">
+                    <label class="checkbox">
+                      <input
+                        type="checkbox"
+                        data-action="checkbox"
+                        data-id="${productId}"
+                        id="checkbox-${productId}"
+                        checked
+                      />
+                    </label>
+                    <img
+                      id="image-${productId}"
+                      src="${imageUrl}"
+                      alt="product-image"
+                      class="image"
+                    />
+                    <p id="title-${productId}" class='title-container'>${title}</p>
+                    <p id="unitPrice-${productId}">${price.toLocaleString(
+      'ko-KR',
+    )}원</p>
+                    <div>
+                    <button
+                      class="button"
+                      data-action="minus"
+                      data-id="${productId}"
+                      id="minus-${productId}"
+                    >
+                      -
+                    </button>
+                    <input
+                      class="input"
+                      data-action="quantityInput"
+                      data-id="${productId}"
+                      id="quantityInput-${productId}"
+                      type="number"
+                      min="1"
+                      max="99"
+                      value="${quantity}"
+                    />
+                    <button
+                      class="button"
+                      data-action="plus"
+                      data-id="${productId}"
+                      id="plus-${productId}"
+                    >
+                      +
+                    </button>
+                    </div>
+                    <p id="totalPrice-${productId}">${(
+      quantity * price
+    ).toLocaleString('ko-KR')}원</p>
+                    <button
+                      class="delete-button"
+                      data-action="delete"
+                      data-id="${productId}"
+                      id="delete-${productId}"
+                    >
+                    
+                      지우기
+                    </button>
+                  </div>`; >>>
+        >>> > 9 b2c14a753c6a1c54aedd8f98534e9e5cdcc0b94
 
         itemContainer.insertAdjacentHTML('beforeend', itemHTML);
         cartTempDB.insertItem(productId, quantity, price, true);
@@ -179,9 +245,11 @@ function toggleDeleteEvent(e) {
 }
 
 function updateSummary() {
-    itemCountAll.innerHTML = cartTempDB.getTotalCount();
-    itemPriceAll.innerHTML = cartTempDB.getTotalPrice();
-    totalPrice.innerHTML = cartTempDB.getTotalPrice() + 3000;
+    itemCountAll.innerHTML = cartTempDB.getTotalCount().toLocaleString('ko-KR');
+    itemPriceAll.innerHTML = cartTempDB.getTotalPrice().toLocaleString('ko-KR');
+    totalPrice.innerHTML = (cartTempDB.getTotalPrice() + 3000).toLocaleString(
+        'ko-KR',
+    );
 }
 
 function updateItemTotalPrice(productId) {
@@ -190,7 +258,8 @@ function updateItemTotalPrice(productId) {
     let { quantity, price } = item;
     let totalPrice = quantity * price;
 
-    itemTotalPriceInput.innerHTML = totalPrice;
+
+    itemTotalPriceInput.innerHTML = Number(totalPrice).toLocaleString('ko-KR');
 }
 
 function submitOrderEvent(e) {

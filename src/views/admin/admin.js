@@ -7,6 +7,7 @@ const select = document.getElementById('select');
 
 setCategory();
 setItemList();
+
 allEvents();
 
 function allEvents() {
@@ -72,7 +73,7 @@ function productsTemplate(obj) {
 
 async function setItemList() {
   // const obj=await((await Api.get('/api/products/admin',false)).json()).products;
-  const obj = await Api.get('/api/products/admin');
+  const obj = await Api.get('/api/admin/products');
   // const obj = (await (await fetch('/api/products/admin',{headers:{
   //   'Cache-Control': 'no-cache, no-store, must-revalidate',
   //   Expires:0,
@@ -84,6 +85,8 @@ async function setItemList() {
     alert('에러가 있습니다');
     return;
   }
+  console.log(obj);
+  console.log(obj.products);
 
   productsTemplate(obj.products);
 }
@@ -93,7 +96,7 @@ async function handleSelect(event) {
   const selectItem =
     document.getElementById('select').options[select.selectedIndex].value;
   if (selectItem == 'all') {
-    const obj = await Api.get('/api/products/admin');
+    const obj = await Api.get('/api/admin/products');
     // const obj = (await (await fetch('/api/products/admin',{headers:{
     //   'Cache-Control': 'no-cache, no-store, must-revalidate',
     //   Expires:0,
@@ -101,8 +104,8 @@ async function handleSelect(event) {
     //   })).json()).products;
     productsTemplate(obj.products);
   } else {
-    const link = `admin?q=${selectItem}`;
-    const obj = await Api.get(`/api/products`, link);
+    const link = `products?q=${selectItem}`;
+    const obj = await Api.get(`/api/admin`, link);
     // const obj = (await (await fetch(`/api/products/admin?q=${selectItem}`,{headers:{
     //   'Cache-Control': 'no-cache, no-store, must-revalidate',
     //   Expires:0,

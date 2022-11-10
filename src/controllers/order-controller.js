@@ -87,4 +87,37 @@ export const orderController = {
 
     res.status(200).json(result);
   },
+
+  unknownUserOrder: async (req, res) => {
+    console.log(req.body);
+    const { orderCode, phoneNumber } = req.body;
+    console.log(orderCode);
+    console.log(phoneNumber);
+    const status = 200;
+    const message = '데이터 조회 성공';
+    const data = {
+      orderItems: [
+        { productId: '제품1', quantity: 123 },
+        { productId: '제품2', quantity: 456 },
+        { productId: '제품3', quantity: 789 },
+      ],
+      status: 'standby',
+      address: {
+        postalCode: 123,
+        address1: '너거집 주소1',
+        address2: '너거집 주소2',
+      },
+      request: '배송요청사항',
+    };
+    res.status(status).json({ message: message, data: data });
+  },
+
+  unknownUserOrderCancel: async (req, res) => {
+    console.log(req.body);
+    const { orderCode } = req.body;
+    console.log(orderCode);
+    const status = 200;
+    const message = '주문 취소 성공';
+    res.status(status).json({ message: message });
+  },
 };
