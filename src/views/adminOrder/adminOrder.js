@@ -5,8 +5,6 @@ const orderList = document.getElementById('orderList');
 const delevbtn = document.getElementById('deleveryBtn');
 const compbtn = document.getElementById('completeBtn');
 
-console.log(1);
-
 getOrderList();
 allEvents();
 
@@ -21,7 +19,7 @@ function allEvents() {
 async function getOrderList() {
   
   const orders = await Api.get('/api/admin/orders');
-console.log(1);
+
   console.log(orders);
 
 
