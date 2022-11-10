@@ -1,9 +1,9 @@
 import { userModel, productModel, orderModel } from '../db';
 import bcrypt from 'bcrypt';
+import { AppError } from '../middlewares';
 
 class AdminService {
   constructor(requestModel) {
-    console.log(requestModel);
     if (requestModel === 'userModel') {
       this.userModel = userModel;
     }
@@ -14,8 +14,7 @@ class AdminService {
 
   async getUsers() {
     const users = await this.userModel.findAll();
-    console.log('유저');
-    console.log(users);
+
     if (users) {
       return {
         status: 200,
@@ -34,43 +33,30 @@ class AdminService {
     }
 
     const hashedRandomStr = await bcrypt.hash(randomStr, 10);
-    try {
-      await this.userModel.changePassword({
-        userId: resetUserId,
-        changedPassword: hashedRandomStr,
-      });
-      return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
-    } catch (err) {
-      console.log(err);
-      console.log(err.name);
-      if (err.name === 'CastError') {
-        return {
-          status: 400,
-          check: '비밀번호 변경에 실패했습니다.',
-          message: '유저 ID에 문제가 있습니다.',
-        };
-      }
+
+    const result = await this.userModel.changePassword({
+      userId: resetUserId,
+      changedPassword: hashedRandomStr,
+    });
+
+    if (!result) {
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '비밀번호 초기화에 실패했습니다.',
+      );
     }
+
+    return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
   }
 
   async getOrder(state) {
-    console.log('서비스');
-
-    // if (state === undefined) state = 'null';
-
-    console.log(`state : ${state}`);
-
     const data = await this.orderModel.findOrder(state);
-
-    console.log(data);
   }
 
   async updateUserRole(insertData) {
-    console.log('서비스');
-
     const data = await this.userModel.updateRole(insertData);
 
-    console.log(data);
     if (data) {
       return { status: 200 };
     }
@@ -78,7 +64,7 @@ class AdminService {
 }
 
 const userManagement = new AdminService('userModel');
-const productManagement = new AdminService('productModel');
+
 const orderManagement = new AdminService('orderModel');
 
-export { userManagement, productManagement, orderManagement };
+export { userManagement, orderManagement };

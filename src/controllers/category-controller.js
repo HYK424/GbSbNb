@@ -3,11 +3,11 @@ import { CategoryService } from '../services';
 export const categoryController = {
   createCategory: async (req, res, next) => {
     const categoryInfo = { ...req.body };
-    const newCategory = await CategoryService.addCategory(categoryInfo);
+    const newCategory = await CategoryService.createCategory(categoryInfo);
     return res.status(201).json(newCategory);
   },
 
-  getAllCategories: async (req, res, next) => {
+  getCategories: async (req, res, next) => {
     const categories = await CategoryService.getCategories();
     return res.status(200).json(categories);
   },

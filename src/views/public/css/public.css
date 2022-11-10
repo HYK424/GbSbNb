@@ -3,7 +3,9 @@
   font-size: 18px;
   font-weight: 700 !important;
 }
-
+#nav {
+  height: 100% !important;
+}
 #logo {
   font-size: 32px;
   font-weight: 700;
@@ -51,19 +53,17 @@
   cursor: pointer;
 }
 
-.pageWraper{
+.pageWraper {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
-footer{
+footer {
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 100vh;
   height: 100px;
-background-color: #D1D4D7;
+  background-color: #d1d4d7;
 }
-
-

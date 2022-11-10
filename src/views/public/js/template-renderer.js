@@ -1,9 +1,11 @@
-let isAdmin = (isLoggedIn = false);
+let isAdmin = false;
+let isLoggedIn = false;
 if (sessionStorage.getItem('accessToken')) {
   isLoggedIn = true;
-  isAdmin =
-    atob(sessionStorage.getItem('accessToken')?.split('.')[1])?.role !==
-    'basic-user';
+  const decode = atob(sessionStorage.getItem('accessToken')?.split('.')[1]);
+  const payload = JSON.parse(decode);
+  const role = payload.role;
+  isAdmin = role !== 'basic-user';
 }
 
 const hostTitle = document.querySelector('title');
@@ -83,8 +85,11 @@ function getNaveHTML() {
             ${
               isLoggedIn
                 ? `<li class="nav-item">
-            <a class="nav-link active ms-5" aria-current="page" id="logout" class=""
+            <a class="nav-link active" aria-current="page" id="logout" class=""
             >로그아웃</a
+            ><li class="nav-item">
+            <a class="nav-link active" aria-current="page" id="logout" class="" href="/mypage"
+            >마이페이지</a
             >`
                 : `<li class="nav-item">
             <a class="nav-link active ms-2" aria-current="page" href="/login"
@@ -99,7 +104,7 @@ function getNaveHTML() {
             }
             <li class="nav-item">
             <a
-            class="nav-link active position-relative ms-2"
+            class="nav-link active position-relative"
             aria-current="page"
             href="/cart"
             id="cartNotification"
@@ -169,6 +174,6 @@ async function addLogoutEvent() {
   }
   logout.addEventListener('click', () => {
     sessionStorage.clear();
-    location.reload();
+    location.href = '/';
   });
 }

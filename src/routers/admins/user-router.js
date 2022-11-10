@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { adminController } from '../../controllers/admin-controller';
 import { OrderController } from '../../controllers/order-controller';
-import { authenticator } from '../../middlewares/authentication';
-import { checkRole } from '../../middlewares/authorization';
+import { authenticator } from '../../middlewares';
+import { checkRole } from '../../middlewares';
 
 const adminRouter = Router();
 
@@ -22,7 +22,5 @@ adminRouter.put('/allusers/:userId', adminController.forceChangeUserInfo);
 
 //지정 유저 비밀번호 초기화
 adminRouter.get('/allusers/:userId/password', adminController.resetPassword);
-
-adminRouter.get('/orders', OrderController.getOrders);
 
 export { adminRouter };

@@ -23,6 +23,11 @@ export class ProductModel {
     return product;
   }
 
+  static async findByTitle(title) {
+    const product = await Product.findOne({ title });
+    return product;
+  }
+
   static async findByKeyword(keyword) {
     const products = await Product.find({
       title: {
@@ -77,8 +82,10 @@ export class ProductModel {
           as: 'orders',
         },
       },
+      {
+        $unwind: '$orderItems',
+      },
     ]);
-    console.log(product);
     return product[0].orders.length;
   }
 
@@ -86,23 +93,19 @@ export class ProductModel {
     const filter = { _id: productId };
     const option = { returnOriginal: false };
 
-    const updatedProduct = await Product.findOneAndUpdate(
-      filter,
-      updatedInfo,
-      option,
-    );
-    return updatedProduct;
+    const result = await Product.updateOne(filter, updatedInfo, option);
+    return result;
   }
 
   static async softDelete(productId, updateInfo) {
     const filter = { _id: productId };
-    const result = await Product.findOneAndUpdate(filter, updateInfo);
+    const result = await Product.updateOne(filter, updateInfo);
     return result;
   }
 
   static async delete(productId) {
     const filter = { _id: productId };
-    const result = await Product.findOneAndRemove(filter);
+    const result = await Product.deleteOne(filter);
     console.log(result);
     return result;
   }

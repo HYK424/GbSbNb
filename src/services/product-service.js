@@ -3,24 +3,14 @@ import { AppError, commonErrors } from '../middlewares';
 
 class ProductService {
   static async createProduct(productInfo) {
-    const {
-      title,
-      category,
-      price,
-      description,
-      manufacturer,
-      path: imageUrl,
-    } = productInfo;
-
-    const newProduct = await ProductModel.create({
-      title,
-      category,
-      price,
-      description,
-      imageUrl,
-      manufacturer,
-    });
-
+    if (await ProductModel.findByTitle(productInfo.title)) {
+      throw new AppError(
+        commonErrors.resourceDuplicationError,
+        400,
+        '이미 존재하는 제품명이에요. 기존 제품을 수정해주세요!',
+      );
+    }
+    const newProduct = await ProductModel.create(productInfo);
     return newProduct;
   }
 
@@ -89,7 +79,7 @@ class ProductService {
       throw new AppError(
         commonErrors.resourceNotFoundError,
         400,
-        '존재하지 않는 상품입니다. URL을 확인해주세요.',
+        '존재하지 않는 상품입니다. URL을 확인해주세요!',
       );
     }
     return product;
@@ -139,6 +129,13 @@ class ProductService {
     }
     const updateInfo = product.view ? { view: false } : { view: true };
     const result = await ProductModel.softDelete(productId, updateInfo);
+    if (!result.acknowledged) {
+      throw new AppError(
+        commonErrors,
+        500,
+        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
+      );
+    }
 
     return result;
   }
