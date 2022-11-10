@@ -34,11 +34,7 @@ export const userValidator = {
       .notEmpty()
       .isLength({ min: 8, max: 50 })
       .withMessage('기본주소가 올바르지 않습니다.'),
-    body('address.address2')
-      .trim()
-      .notEmpty()
-      .isLength({ min: 0, max: 50 })
-      .withMessage('상세주소가 올바르지 않습니다.'),
+
     validatorErrorChecker,
   ],
 
@@ -92,10 +88,7 @@ export const userValidator = {
       .trim()
       .isLength({ min: 8, max: 30 })
       .withMessage('첫번째 주소를 확인하세요.'),
-    body('address.address2')
-      .trim()
-      .isLength({ min: 5, max: 30 })
-      .withMessage('두번째 주소를 확인하세요.'),
+
     validatorErrorChecker,
   ],
 

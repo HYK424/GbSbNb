@@ -16,7 +16,7 @@
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="mypage.css" />
+    <link rel="stylesheet" href="adminpage.css" />
     <link rel="stylesheet" href="/public/css/public.css" />
   </head>
 
@@ -25,31 +25,41 @@
       class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
       id="nav"
     ></nav>
-
-    <section class="container w-100 mt-5">
-      <div
-        class="container-fluid d-flex text-center justify-content-center ps-5"
-      >
-        <div class="row" id="menuContainer">
-          <div class="d-flex flex-row">
-            <a href="/mypage/info">
-              <div class="box btn btn-secondary" id="">내 정보 관리</div></a
-            >
-            <a href="/mypage/order"
-              ><div class="box btn btn-secondary mx-5" id="">배송 조회</div></a
-            >
-            <a href="/cart"
-              ><div class="box btn btn-secondary" id="">장바구니</div></a
-            >
+    <div class="container">
+      <div class="container-fluid mt-5">
+        <div class="row mt-5">
+          <div class="col-6 d-flex justify-content-center">
+            <a href="/admin/products">
+              <div class="box btn btn-secondary" id="">상품 조회</div>
+            </a>
+          </div>
+          <div class="col-6 d-flex justify-content-center">
+            <a href="/admin/add-products">
+              <div class="box btn btn-secondary" id="">
+                상품/카테고리<br />관리
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="row mt-5">
+          <div class="col-6 d-flex justify-content-center">
+            <a href="/admin/users">
+              <div class="box btn btn-secondary" id="">회원 관리</div>
+            </a>
+          </div>
+          <div class="col-6 d-flex justify-content-center">
+            <a href="/admin/orders">
+              <div class="box btn btn-secondary" id="">주문/배송<br />관리</div>
+            </a>
           </div>
         </div>
       </div>
-    </section>
+    </div>
     <footer
       class="container-fluid text-center mt-auto py-3"
       id="footer"
     ></footer>
     <script src="/public/js/template-renderer.js"></script>
-    <script type="module" src="mypage.js" defer></script>
+    <script src="adminpage.js"></script>
   </body>
 </html>

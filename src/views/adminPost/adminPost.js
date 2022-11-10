@@ -68,7 +68,6 @@ function formData() {
   data.append('image', image);
   return data;
 }
-
 //빈 input에 채우기
 async function innerPutForm() {
   const data = await (await fetch(`/api/products/${getProductId()}`)).json();
@@ -84,7 +83,6 @@ async function innerPutForm() {
   );
   // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
-
 async function innerCategoryPostForm(event) {
   event.preventDefault();
   categoryPutIdIn.value = select[2].options[select[2].selectedIndex].id;
@@ -92,7 +90,6 @@ async function innerCategoryPostForm(event) {
 
   console.log(select[2].options[select[2].selectedIndex].id);
 }
-
 //리셋
 const reset = {
   form: () => {
@@ -121,7 +118,7 @@ async function handleGetCategories() {
       return `
       <option value="${category.name}" id="${category.id}">${category.name}</option>
       `;
-    });
+    }).join('');
     select.forEach((item) => {
       item.insertAdjacentHTML('beforeend', categoryTempleate);
     });
@@ -136,7 +133,7 @@ async function adminPut(event) {
     await fetch(`/api/products/${getProductId()}`, {
       method: 'PUT',
       body: formData(),
-    }).then(reset.form());
+    }).then(location.href = '/admin');
   } catch (error) {
     console.log(error);
   }
@@ -162,21 +159,9 @@ async function categoryPost(event) {
   const categoryid = categoryIdIn.value;
   const categoryname = categoryNameIn.value;
 
-  try {
-    await fetch('/api/categories', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id: categoryid,
-        name: categoryname,
-      }),
-    }).then(reset.PostForm())
-    .then(()=>{location.reload()});
-  } catch (error) {
-    console.log(error);
-  }
+  await Api.post('/api/categories', false, { id: categoryid, name: categoryname })
+    .then(reset.PostForm())
+    .then(location.reload);
 }
 
 async function categoryDelete(event) {
@@ -189,10 +174,6 @@ async function categoryDelete(event) {
   let isConfirmed = false;
 
   const result = await Api.get('/api', `products?q=${Category.value}`, false);
-
-  console.log(result);
-
-  console.log(result.products.length);
 
   if (result.products.length != 0) {
     isConfirmed = confirm(
@@ -270,24 +251,14 @@ async function categoryDelete(event) {
 
 async function categoryPut(event) {
   event.preventDefault();
-  try {
-    const selectPutId = categoryPutIdIn.value;
-    const selectPutName = categoryPutNameIn.value;
-    const categoryId = select[2].options[select[2].selectedIndex].id;
 
-    await fetch(`/api/categories/${categoryId}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
+  const selectPutId = categoryPutIdIn.value;
+  const selectPutName = categoryPutNameIn.value;
+  const categoryId = select[2].options[select[2].selectedIndex].id;
 
-      }
-      ,
-      body: JSON.stringify({
-        id: selectPutId,
-        name: selectPutName,
-      }),
-    }).then(reset.PutForm());
-  } catch (error) {
-    console.log(error);
-  }
+  await Api.put(`/api/categories/`, categoryId, {
+    id: selectPutId,
+    name: selectPutName,
+  }).then(reset.PutForm());
+
 }

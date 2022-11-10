@@ -2,7 +2,7 @@ import * as Api from '../api.js';
 
 const accessToken = sessionStorage.getItem('accessToken');
 
-if (accessToken && sessionStorage.getItem('accessToken') !== 'undefined') {
+if (accessToken) {
   alert('이미 로그인하셨어요 :) 홈으로 보내드릴게요!');
   location.href = '/';
 }
@@ -33,12 +33,15 @@ async function handleSubmit(e) {
   const data = { email, password };
 
   const result = await Api.post('/api/users/login', true, data);
-  console.log(result);
-  if (!result.message) {
-    return alert(result);
-  } else {
-    sessionStorage.setItem('accessToken', result.tokens.accessToken);
-    sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
-    window.location.href = '/';
+
+  if (result.err) {
+    return;
   }
+
+  sessionStorage.setItem('accessToken', result.tokens.accessToken);
+  sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
+
+  alert(result.message);
+
+  window.location.href = '/';
 }

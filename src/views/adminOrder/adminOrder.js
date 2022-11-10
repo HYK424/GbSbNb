@@ -1,69 +1,86 @@
 // import { check } from 'express-validator';
 import * as Api from '/api.js';
 
-const orderList = document.querySelector('#orderList');
-
-const shipbtn = document.querySelector('#shippingBtn');
-const compbtn = document.querySelector('#completeBtn');
+const orderList = document.getElementById('orderList');
+const delevbtn = document.getElementById('deleveryBtn');
+const compbtn = document.getElementById('completeBtn');
 
 getOrderList();
-rolebtn.addEventListener('click', handleUserRole);
+allEvents();
+
+function allEvents() {
+  delevbtn.addEventListener('click', handleDelevery);
+  compbtn.addEventListener('click', handleComplete);
+}
+
+// delevbtn.addEventListener('click', handleDelevery);
+// compbtn.addEventListener('click', handleComplete);
 //유저 리스트 만들기
 async function getOrderList() {
-  const orders = (await Api.get('/api/admin/allusers')).users;
+  const orders = await Api.get('/api/admin/orders');
+  console.log(orders);
 
-  users.forEach((user) => {
-    userList.insertAdjacentHTML(
+  orders.forEach((user) => {
+    orderList.insertAdjacentHTML(
       'beforeend',
       `
             <tr>
-            <th onclick="location.href='/admin/allusers/${
+            <th width="80rem" scope="row">${
+              user.userId == '비회원' ? user.userId : '회원'
+            }</th>           
+            <td width="100rem">${user.receiver}</td>
+            <td width="150rem">${user.phoneNumber}</td>
+            <td width="350rem">${Object.values(user.address).join(' ')}</td>
+            <td width="80rem">${user.orderItems.length} 개</td>
+           
+            <td width="120rem" class="selebtn" data-id> <label for="${
               user._id
-            }'" width="200rem"scope="row">${user.email}</th>           
-            <td onclick="location.href='/admin/allusers/${
-              user._id
-            }'" width="100rem">${user.fullName}</td>
-            <td onclick="location.href='/admin/allusers/${
-              user._id
-            }'" width="150rem">${user.phoneNumber}</td>
-            <td onclick="location.href='/admin/allusers/${
-              user._id
-            }'" width="350rem">${Object.values(user.address).join(' ')}</td>
-            <td width="80rem" >${
-              user.role
-            } <input type="checkbox" name="role" value="${user.role}" id="${
-        user._id
-      }"></td>
+            }">${user.status}</label> <input type="checkbox" name="status"
+             value="${user.role}" id="${user._id}"></td>
             </tr>
             `,
     );
   });
 }
 
-function getId() {
-  const checked = document.querySelectorAll('input[name="role"]:checked');
+function getstatus() {
+  const checked = document.querySelectorAll('input[name="status"]:checked');
   const checkedArr = [];
 
   checked.forEach((e) => {
-    const { id, value } = e;
+    const { id } = e;
     console.log(id);
-    console.log(value);
-    const data = {};
-    data[id] = value;
-    // data.id = e.id;
-    // data.role = e.value;
-    checkedArr.push(data);
+    checkedArr.push(id);
   });
-  return { checkedArr: checkedArr };
+  console.log(checkedArr);
+  return checkedArr;
 }
 
-async function handleUserRole() {
-  const result = await Api.put('/api/admin/allusers', '', getId());
+async function handleDelevery() {
+  const result = await Api.put('/api/admin/orders', '', {
+    orderIds: getstatus(),
+    status: 'delivery',
+  });
+  console.log(result);
+  console.log(getstatus());
+  if (!result) {
+    alert('배송 정보 갱신 실패');
+  } else {
+    alert('배송 정보 갱신 성공');
+    location.reload();
+  }
+}
+
+async function handleComplete() {
+  const result = await Api.put('/api/admin/orders', '', {
+    orderIds: getstatus(),
+    status: 'completed',
+  });
   console.log(result);
   if (!result) {
-    alert('유저 정보 갱신 실패');
+    alert('배송 정보 갱신 실패');
   } else {
-    alert('유저 정보 갱신 성공');
+    alert('배송 정보 갱신 성공');
     location.reload();
   }
 }

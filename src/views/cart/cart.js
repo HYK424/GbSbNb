@@ -8,15 +8,11 @@ const totalPrice = document.querySelector('#totalPrice');
 const itemContainer = document.querySelector('#itemContainer');
 const allSelectCheckbox = document.querySelector('#allSelectCheckbox');
 const partialDeleteLabel = document.querySelector('#partialDeleteLabel');
+const submitButton = document.querySelector('#submitButton');
 
 addAllElements();
 addAllEvents();
 updateSummary();
-
-// if (!sessionStorage.getItem('accessToken')) {
-//   alert('에러뜸');
-//   window.location.href = '/login';
-// }
 
 function addAllElements() {
   insertProductsfromCart();
@@ -27,13 +23,17 @@ function addAllEvents() {
   itemContainer.addEventListener('change', itemInputEvent);
   allSelectCheckbox.addEventListener('change', toggleAllEvent);
   partialDeleteLabel.addEventListener('click', toggleDeleteEvent);
+  submitButton.addEventListener('click', submitOrderEvent);
 }
 
 async function insertProductsfromCart() {
   const cartItems = cartDB.getItemAll();
+
+  if (!cartItems) return;
+
   for (let item of cartItems) {
     let { productId, quantity } = item;
-    let itemGet = await Api.get('/api/products', productId, true);
+    let itemGet = await Api.get('/api/products', productId);
     let { price, title, imageUrl } = itemGet;
 
     const itemContainer = document.querySelector('#itemContainer');
@@ -130,10 +130,7 @@ function itemInputEvent(e) {
       let isChecked = target.checked;
       cartTempDB.updateItemChecked(productId, isChecked);
       if (isChecked) {
-        console.log('hellow');
-        console.log(cartTempDB.isAllChecked());
         if (cartTempDB.isAllChecked()) {
-          console.log('howdi');
           allSelectCheckbox.checked = true;
         }
       } else {
@@ -175,6 +172,7 @@ function toggleDeleteEvent(e) {
   for (let item of itemCheckedAll) {
     document.querySelector(`#productItem-${item.productId}`).remove();
     cartTempDB.deleteItem(item.productId);
+    cartDB.deleteItem(item.productId);
   }
 
   updateSummary();
@@ -189,9 +187,28 @@ function updateSummary() {
 function updateItemTotalPrice(productId) {
   let itemTotalPriceInput = document.querySelector(`#totalPrice-${productId}`);
   let item = cartTempDB.getItem(productId);
-  console.log(item);
   let { quantity, price } = item;
   let totalPrice = quantity * price;
 
   itemTotalPriceInput.innerHTML = totalPrice;
+}
+
+function submitOrderEvent(e) {
+  let orderResult = {
+    orderItems: cartTempDB.getItemChecked().map((item) => {
+      let { productId, title, quantity } = item;
+      return { productId, title, quantity };
+    }),
+    totalPrice: cartTempDB.getTotalPrice(),
+  };
+  localStorage.setItem('order', JSON.stringify(orderResult));
+
+  for (let item of cartTempDB.getItemChecked()) {
+    let { productId } = item;
+    cartDB.deleteItem(productId);
+  }
+  // const orderFake = {
+  //     orderItems: [{ title: '123', quantity: '123' }],
+  //     totalPrice: '123',
+  // }
 }
