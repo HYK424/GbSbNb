@@ -10,8 +10,6 @@ async function get(endpoint, params = '', extra = false) {
   if (!extra) {
     await setToken.tokenCheck();
   }
-  let bodyData = null;
-
   const res = await fetchModule('GET', apiUrl, bodyData);
 
   const result = await responseHandler(res);

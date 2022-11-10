@@ -19,12 +19,13 @@ const categoryPutNameIn = categoryPutForm.querySelector('#selectPutName');
 const categoryPutIdIn = categoryPutForm.querySelector('#selectPutId');
 
 let file;
+let imageUrl;
 const select = document.querySelectorAll('.form-select');
 
 thumbnailIn.addEventListener('change', handleFiles, false);
-function handleFiles() {
+async function handleFiles() {
   file = this.files[0];
-  fetch('/api/');
+  imageUrl = await (await fetch('/api/products/upload-image')).json();
 }
 
 handleGetCategories();
@@ -54,11 +55,10 @@ function formData() {
   const manufacturer = manufactureIn.value;
   const price = priceIn.value;
   const description = descriptionIn.value;
-  const image = file;
   const category = select[0].options[select[0].selectedIndex].value;
 
   const data = new FormData();
-  // data.enctype = 'multipart/form-data';
+  data.enctype = 'multipart/form-data';
   data.append('title', title);
   data.append('category', category);
   data.append('manufacturer', manufacturer);
@@ -109,7 +109,7 @@ function getProductId() {
   return window.location.pathname.split('/')[3];
 }
 
-//카테고리들 가져오면서 원래 있던 옵션에 카테고리들 추가
+// 카테고리들 가져오면서 원래 있던 옵션에 카테고리들 추가  포스트로 다시 시도해보기
 async function handleGetCategories() {
   const categories = await (await fetch('/api/categories')).json();
 
@@ -191,13 +191,13 @@ async function categoryDelete(event) {
   //   console.log(error);
   // }
   // if (isConfirmed) {
-  try {
-    await fetch(`/api/admin/categories/${Category.id}`, {
-      method: 'DELETE',
-    });
-  } catch (error) {
-    console.log(error);
+  const result = await (
+    await Api.delete('/api/admin/categories', Category.id, false)
+  ).json();
+  if (result.err) {
+    return;
   }
+  alert('성공적으로 삭제되었습니다 :)');
 }
 
 async function categoryPut(event) {

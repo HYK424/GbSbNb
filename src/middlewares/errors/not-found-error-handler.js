@@ -1,7 +1,9 @@
 import { AppError } from './app-error-handler';
+import { viewsRouter } from '../../routers';
 import { serveStatic } from '../../routers/views-router';
 
 export const notFoundErrorHandler = (req, res, next) => {
+  // viewsRouter.use(serveStatic('404'));
   next(
     new AppError(
       `Resource Not Found Error`,
