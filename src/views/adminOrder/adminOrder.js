@@ -18,9 +18,8 @@ function allEvents() {
 //유저 리스트 만들기
 async function getOrderList() {
   const orders = await Api.get('/api/admin/orders');
-  console.log(11111);
+
   console.log(orders);
-  console.log(222222);
 
   const orderTemplate = orders
     .map((user) => {

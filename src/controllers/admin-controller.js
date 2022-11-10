@@ -1,4 +1,4 @@
-import { userManagement, userService } from '../services';
+import { userManagement, userService, NoticeService } from '../services';
 
 export const adminController = {
   getAllUsers: async (req, res) => {

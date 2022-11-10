@@ -27,8 +27,9 @@ async function post(endpoint, extra, data) {
   if (!extra) {
     await setToken.tokenCheck();
   }
-
+  console.log(bodyData);
   const res = await fetchModule('POST', apiUrl, bodyData);
+  console.log(res);
 
   const result = await responseHandler(res);
 

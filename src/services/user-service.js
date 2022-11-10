@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 
 import { userModel } from '../db';
 import { jwtModule } from '../util';
-import { checkRole } from '../middlewares';
+
 import { AppError, commonErrors } from '../middlewares';
 
 class UserService {
