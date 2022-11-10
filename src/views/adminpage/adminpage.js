@@ -1,4 +1,4 @@
-let isAdmin = false;
+isAdmin = false;
 if (sessionStorage.getItem('accessToken')) {
   const decode = atob(sessionStorage.getItem('accessToken')?.split('.')[1]);
   const payload = JSON.parse(decode);

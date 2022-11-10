@@ -1,6 +1,4 @@
-
 import * as Api from '/api.js';
-
 
 const form = document.querySelector('#form');
 const categoryPostForm = document.querySelector('#form2');
@@ -26,6 +24,7 @@ const select = document.querySelectorAll('.form-select');
 thumbnailIn.addEventListener('change', handleFiles, false);
 function handleFiles() {
   file = this.files[0];
+  fetch('/api/');
 }
 
 handleGetCategories();
@@ -59,13 +58,14 @@ function formData() {
   const category = select[0].options[select[0].selectedIndex].value;
 
   const data = new FormData();
-  data.enctype = 'multipart/form-data';
+  // data.enctype = 'multipart/form-data';
   data.append('title', title);
   data.append('category', category);
   data.append('manufacturer', manufacturer);
   data.append('price', price);
   data.append('description', description);
   data.append('image', image);
+  console.log(data);
   return data;
 }
 
@@ -115,11 +115,13 @@ async function handleGetCategories() {
 
   async function updateOptions(categories) {
     // 카테고리 옵션 추가
-    const categoryTempleate = categories.map((category) => {
-      return `
+    const categoryTempleate = categories
+      .map((category) => {
+        return `
       <option value="${category.name}" id="${category.id}">${category.name}</option>
       `;
-    }).join('');
+      })
+      .join('');
     select.forEach((item) => {
       item.insertAdjacentHTML('beforeend', categoryTempleate);
     });
@@ -131,10 +133,14 @@ async function adminPut(event) {
   event.preventDefault();
   //productsId에 해당하는 상품 상세 정보 가져와서 조작
   try {
-    await fetch(`/api/admin/products/${getProductId()}`, {
+    console.log(formData());
+    const result = await fetch(`/api/admin/products/${getProductId()}`, {
       method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+      },
       body: formData(),
-    })
+    });
   } catch (error) {
     console.log(error);
   }
@@ -160,7 +166,10 @@ async function categoryPost(event) {
   const categoryid = categoryIdIn.value;
   const categoryname = categoryNameIn.value;
 
-  await Api.post('/api/admin/categories', false, { id: categoryid, name: categoryname })
+  await Api.post('/api/admin/categories', false, {
+    id: categoryid,
+    name: categoryname,
+  })
     .then(reset.PostForm())
     .then(location.reload);
 }
@@ -182,13 +191,13 @@ async function categoryDelete(event) {
   //   console.log(error);
   // }
   // if (isConfirmed) {
-    try {
-      await fetch(`/api/admin/categories/${Category.id}`, {
-        method: 'DELETE',
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  try {
+    await fetch(`/api/admin/categories/${Category.id}`, {
+      method: 'DELETE',
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function categoryPut(event) {
@@ -202,5 +211,4 @@ async function categoryPut(event) {
     id: selectPutId,
     name: selectPutName,
   }).then(reset.PutForm());
-
 }
