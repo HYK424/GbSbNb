@@ -12,7 +12,7 @@ class OrderService {
     return orders;
   }
 
-  static async getOrderById(orderId) {
+  static async getOrderByUnknown(orderId, phoneNumber) {
     const order = await OrderModel.findById(orderId);
     if (order.deletedAt) {
       throw new AppError(
@@ -56,7 +56,20 @@ class OrderService {
     }
     return result;
   }
-
+  static async cancleUnknownOrder(orderId) {
+    const result = await OrderModel.update({
+      orderId,
+      updateInfo,
+    });
+    if (!result.acknowledged) {
+      throw new AppError(
+        commonErrors.databaseError,
+        500,
+        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
+      );
+    }
+    return result;
+  }
   static async cancelOrder(orderId, updateInfo) {
     const { userId } = req;
     const order = await OrderModel.findById(orderId);

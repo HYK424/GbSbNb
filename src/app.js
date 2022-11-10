@@ -23,7 +23,7 @@ app.use(viewsRouter);
 
 app.use('/api', router);
 
-app.use(notFoundErrorHandler);
+app.get(notFoundErrorHandler);
 app.use(errorHandler);
 app.use(appErrorHandler);
 

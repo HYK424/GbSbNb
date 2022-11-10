@@ -34,9 +34,12 @@ async function renderProducts() {
       data = await (await fetch(`/api/products`)).json();
     }
     console.log(data);
-    if (data === '해당 조건을 만족하는 상품이 없습니다 :(') {
+    if (data.message === '해당 조건을 만족하는 상품이 없습니다 :(') {
       const notification = document.getElementById('resultNotification');
       notification.innerHTML = '해당 카테고리에는 아직 상품이 없어요 😅';
+    } else if (data.message === '올바른 페이지를 입력하세요.') {
+      alert('올바른 페이지를 입력해주세요!');
+      location.href = '/';
     }
     const {
       products,

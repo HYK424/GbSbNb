@@ -1,11 +1,17 @@
 import { Router } from 'express';
 import { productController } from '../../controllers';
+import { productImageUpload } from '../../util';
 
 import { asyncHandler } from '../../middlewares';
 
 const productRouter = Router();
 
 productRouter.get('/', asyncHandler(productController.getProducts));
+productRouter.post(
+  '/upload-image',
+  productImageUpload.single('image'),
+  asyncHandler(productController.setImageUrl),
+);
 
 productRouter.get(
   '/search',

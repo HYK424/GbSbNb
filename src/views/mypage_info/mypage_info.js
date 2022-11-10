@@ -5,7 +5,7 @@ import { validateEmail } from '/useful-functions.js';
 // 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
-const telInput = document.querySelector('#telInput');
+const telInput = document.querySelector('#phoneNumberInput');
 const addressZipInput = document.querySelector('#addressZipInput');
 const addressBasicInput = document.querySelector('#addressBasicInput');
 const addressOptionInput = document.querySelector('#addressOptionInput');
@@ -14,13 +14,12 @@ const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const submitButton = document.querySelector('#submitButton');
 const editButton = document.querySelector('#editButton');
 const deleteButton = document.querySelector('#deleteButton');
+const searchAddress = document.querySelector('#searchAddress');
 
 main();
 
 function main() {
-  // addAllElements();
   addAllEvents();
-  // checkLoginState();
   insertUserInfo();
 }
 
@@ -42,30 +41,16 @@ function checkLoginState() {
   }
 }
 
-//최초 실행시 유저의 정보를 불러옴
 async function insertUserInfo() {
-  //await setToken.tokenCheck();
-  const get = await Api.get('/api/users/myinfo');
-
-  let userInfo = get.userInfo;
-
-  let notGetArr = new Array('password', 'role', 'createdAt', 'updatedAt');
-
-  for (let key in userInfo) {
-    if (key[0] == '_' || notGetArr.includes(key)) {
-      continue;
-    }
-    if (typeof userInfo[key] == 'object') {
-      for (let key2 in userInfo[key]) {
-        document.querySelector(`#${key2}Input`).value = userInfo[key][key2];
-      }
-    } else {
-      document.querySelector(`#${key}Input`).value = userInfo[key];
-    }
-  }
+  const result = await Api.get('/api/users/myinfo');
+  console.log(result.userInfo);
+  fullNameInput.value = result.userInfo.fullName;
+  telInput.value = result.userInfo.phoneNumber;
+  emailInput.value = result.userInfo.email;
+  addressZipInput.value = result.userInfo.address.postalCode;
+  addressBasicInput.value = result.userInfo.address.address1;
+  addressOptionInput.value = result.userInfo.address.address2;
 }
-
-// 정보 수정 진행 시작
 async function handleEdit(e) {
   e.preventDefault();
 
@@ -85,57 +70,30 @@ async function handleEdit(e) {
 
 async function handleSubmit(e) {
   e.preventDefault();
-  //BE에 보낼 JSON 만들기
-  const formDataArr = document.querySelectorAll('label');
-  let userDataJson = {};
-
-  for (let item of formDataArr) {
-    let parantKey = item.getAttribute('name');
-    let itemChildArr = item.querySelectorAll('input');
-
-    if (itemChildArr.length == 1) {
-      userDataJson[parantKey] = itemChildArr[0].value;
-    } else {
-      let childDataJson = {};
-      for (let childItem of itemChildArr) {
-        let childKey = childItem.getAttribute('name');
-        childDataJson[childKey] = childItem.value;
-      }
-      userDataJson[parantKey] = childDataJson;
-    }
-  }
-
-  console.log(userDataJson);
-
   // 입력 완료시
   const fullName = fullNameInput.value;
   const email = emailInput.value;
+  const phoneNumber = telInput.value;
+  const postalCode = addressZipInput.value;
+  const address1 = addressBasicInput.value;
+  const address2 = addressOptionInput.value;
   const password = passwordInput.value;
   const passwordConfirm = passwordConfirmInput.value;
 
-  // 잘 입력했는지 확인
-  const isFullNameValid = fullName.length >= 2;
-  const isEmailValid = validateEmail(email);
-  const isPasswordValid = password.length >= 4;
-  const isPasswordSame = password === passwordConfirm;
-
-  if (!isFullNameValid || !isPasswordValid) {
-    return alert('이름은 2글자 이상, 비밀번호는 4글자 이상이어야 합니다.');
-  }
-
-  if (!isEmailValid) {
-    return alert('이메일 형식이 맞지 않습니다.');
-  }
-
-  if (!isPasswordSame) {
-    return alert('비밀번호가 일치하지 않습니다.');
-  }
-
-  // 회원 정보 수정 api 요청
+  const data = {
+    fullName,
+    email,
+    password,
+    passwordConfirm,
+    phoneNumber,
+    address: {
+      postalCode,
+      address1,
+      address2,
+    },
+  };
   try {
-    const data = { fullName, email, password };
-
-    const result = await Api.post('/api/users', true, data);
+    const result = await Api.put('/api/users/myinfo', '', data);
 
     if (result.err) {
       return;
@@ -201,39 +159,38 @@ function handleDelete(e) {
     });
 }
 
-//마이페이지에서 주소 나타나게 하기
-// searchAddress.addEventListener('click', handleSearchAddressClick);
+searchAddress.addEventListener('click', handleSearchAddressClick);
 
-// function handleSearchAddressClick(e) {
-//   new daum.Postcode({
-//     oncomplete: function (data) {
-//       let addr = '';
-//       let extraAddr = '';
+function handleSearchAddressClick(e) {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let addr = '';
+      let extraAddr = '';
 
-//       if (data.userSelectedType === 'R') {
-//         addr = data.roadAddress;
-//       } else {
-//         addr = data.jibunAddress;
-//       }
+      if (data.userSelectedType === 'R') {
+        addr = data.roadAddress;
+      } else {
+        addr = data.jibunAddress;
+      }
 
-//       if (data.userSelectedType === 'R') {
-//         if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-//           extraAddr += data.bname;
-//         }
-//         if (data.buildingName !== '' && data.apartment === 'Y') {
-//           extraAddr +=
-//             extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
-//         }
-//         if (extraAddr !== '') {
-//           extraAddr = ' (' + extraAddr + ')';
-//         }
-//       } else {
-//       }
+      if (data.userSelectedType === 'R') {
+        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+          extraAddr += data.bname;
+        }
+        if (data.buildingName !== '' && data.apartment === 'Y') {
+          extraAddr +=
+            extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+        }
+        if (extraAddr !== '') {
+          extraAddr = ' (' + extraAddr + ')';
+        }
+      } else {
+      }
 
-//       addressZipInput.value = data.zonecode;
-//       addressBasicInput.value = ${addr} ${extraAddr};
-//       addressOptionInput.placeholder = '상세 주소를 입력해 주세요.';
-//       addressOptionInput.focus();
-//     },
-//   }).open();
-// }
+      addressZipInput.value = data.zonecode;
+      addressBasicInput.value = `${addr} ${extraAddr}`;
+      addressOptionInput.placeholder = '상세 주소를 입력해 주세요.';
+      addressOptionInput.focus();
+    },
+  }).open();
+}

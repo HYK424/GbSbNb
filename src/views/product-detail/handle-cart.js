@@ -47,6 +47,7 @@ async function handleCartBtnClick() {
   }
   localStorage.setItem('cart', updatedCartItems);
   updateCartNotification(cartItems.length);
+  alert('장바구니에 상품가 업데이트 되었어요!');
 }
 
 function updateCartNotification(cartItemsTotalCount) {
