@@ -19,9 +19,7 @@ const searchAddress = document.querySelector('#searchAddress');
 main();
 
 function main() {
-  // addAllElements();
   addAllEvents();
-  // checkLoginState();
   insertUserInfo();
 }
 
@@ -43,30 +41,16 @@ function checkLoginState() {
   }
 }
 
-//최초 실행시 유저의 정보를 불러옴
 async function insertUserInfo() {
-  //await setToken.tokenCheck();
-  const get = await Api.get('/api/users/myinfo');
-
-  let userInfo = get.userInfo;
-
-  let notGetArr = new Array('password', 'role', 'createdAt', 'updatedAt');
-
-  for (let key in userInfo) {
-    if (key[0] == '_' || notGetArr.includes(key)) {
-      continue;
-    }
-    if (typeof userInfo[key] == 'object') {
-      for (let key2 in userInfo[key]) {
-        document.querySelector(`#${key2}Input`).value = userInfo[key][key2];
-      }
-    } else {
-      document.querySelector(`#${key}Input`).value = userInfo[key];
-    }
-  }
+  const result = await Api.get('/api/users/myinfo');
+  console.log(result.userInfo);
+  fullNameInput.value = result.userInfo.fullName;
+  telInput.value = result.userInfo.phoneNumber;
+  emailInput.value = result.userInfo.email;
+  addressZipInput.value = result.userInfo.address.postalCode;
+  addressBasicInput.value = result.userInfo.address.address1;
+  addressOptionInput.value = result.userInfo.address.address2;
 }
-
-// 정보 수정 진행 시작
 async function handleEdit(e) {
   e.preventDefault();
 
@@ -109,7 +93,7 @@ async function handleSubmit(e) {
     },
   };
   try {
-    const result = await Api.post('/api/users', true, data);
+    const result = await Api.put('/api/users/myinfo', '', data);
 
     if (result.err) {
       return;
