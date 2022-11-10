@@ -20,8 +20,8 @@ function addAllElements() {
 }
 
 function addAllEvents() {
-    requestSelectBox.addEventListener('change', );
-    orderConfirmButton.addEventListener('click', );
+    requestSelectBox.addEventListener('change', requestSelectEvent);
+    orderConfirmButton.addEventListener('click', orderConfirmEvent);
 
 }
 
@@ -35,14 +35,30 @@ async function insertInfo() {
     address2Input.value = address2
 
     //local storage에서 가져오기
-    const orderFake = {
-        userId: _id,
-        orderItems: [{ title: '123', quantity: '123' }],
-        totalPrice: '123',
-    }
-    orderItemAll.innerHTML = orderFake.orderItems.reduce((acc, cur) => {
+    const orderInfo = JSON.parse(localStorage.getItem('order'))
+
+
+    orderItemAll.innerHTML = orderInfo.orderItems.reduce((acc, cur) => {
         acc += `${cur.title} / ${cur.quantity}개 <br>`
     }, '')
-    orderPrice.innerHTML = orderFake.totalPrice
-    totalPrice.innerHTML = orderFake.totalPrice + 3000
+    orderPrice.innerHTML = orderInfo.totalPrice
+    totalPrice.innerHTML = orderInfo.totalPrice + 3000
+}
+
+function requestSelectEvent(e) {
+    let target = e.target;
+
+    if (target.value != "6") {
+        requestInput.disabled = true;
+    } else {
+        requestInput.disabled = false;
+    }
+}
+
+function orderConfirmEvent(e) {
+    //BE로 데이터 보내기
+    let orderIdFake = "123"
+
+    localStorage.setItem('orderID', orderIdFake)
+    localStorage.removeItem('order')
 }
