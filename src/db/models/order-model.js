@@ -34,7 +34,7 @@ class OrderModel {
   }
 
   static async updateStatus(orderIds, updateInfo) {
-    const filter = { $in: { _id: orderIds } };
+    const filter = { _id: { $in: orderIds } };
     const result = await Order.updateMany(filter, updateInfo);
     return result;
   }
