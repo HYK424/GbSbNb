@@ -50,15 +50,15 @@ function productsTemplate(obj) {
         <li><span>가격: <strong>${products.price}</strong> 원</span> </li>
         <li>수정 날짜: ${products.createdAt}</li>
         </a>
-        <button type="button" class="btn ${
-          products.view ? 'btn-outline-primary' : 'btn-outline-secondary'
+        <button type="button" class="btn ${products.view ? 'btn-outline-primary' : 'btn-outline-secondary'
         } vtn" id="${products._id}">
         ${products.view ? '공개' : '비공개'} </button>
        
-        <a href="/admin/products/${
-          products._id
+        <a href="/admin/products/${products._id
         }"><button class="btn btn-outline-danger" id="itemUpdate${i}">수정</button>
         </a>
+        ><button class="btn btn-outline-danger dtn" id="itemDelete${i}">삭제</button>
+        
         <button class="btn btn-outline-light" id="itemMain${i}">대표 상품 등록</button>
         </ul>
   </div>
@@ -69,6 +69,11 @@ function productsTemplate(obj) {
   for (const btn of vtn) {
     btn.addEventListener('click', changeView);
   }
+
+  // const vtn = document.querySelectorAll('.vtn');
+  // for (const btn of vtn) {
+  //   btn.addEventListener('click', changeView);
+  // }
 }
 
 async function setItemList() {

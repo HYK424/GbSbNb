@@ -14,6 +14,7 @@ const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const submitButton = document.querySelector('#submitButton');
 const editButton = document.querySelector('#editButton');
 const deleteButton = document.querySelector('#deleteButton');
+const searchAddress=document.querySelector('#searchAddress');
 
 main();
 

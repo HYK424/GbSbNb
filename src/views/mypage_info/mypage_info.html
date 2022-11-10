@@ -38,69 +38,145 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col-3">
-                    Column
+
                 </div>
-                <div class="col-6">
+                <div class="col-6" id="mainContainer">
 
                     <div class="container text-center">
-                        <form class="box register-user-form-box" id="registerUserForm">
+                        <form class="box register-user-form-box">
                             <div class="row">
                                 <p>내 정보 확인</p>
                                 <div class="col">
-                                    1 of 2
 
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" name="fullName"
-                                            class="form-label">이름</label>
-                                        <input type="text" class="form-control able-when-edit" name="fullName" id="fullNameInput"
-                                            type="text" placeholder="톰 크루즈" autocomplete="on" disabled>
+                                            class="form-label label">이름</label>
+                                        <input type="text" class="form-control able-when-edit" name="fullName"
+                                            id="fullNameInput" type="text" placeholder="톰 크루즈" autocomplete="on"
+                                            disabled>
                                     </div>
 
 
                                 </div>
                                 <div class="col">
-                                    2 of 2
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label label"
+                                            name="email">이메일</label>
+                                        <input type="email" name="email" class="form-control able-when-edit"
+                                            id="emailInput" placeholder="abc@example.com" autocomplete="on" disabled>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col">
-                                    1
+
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label label"
+                                            name="phoneNumber">전화번호</label>
+                                        <input type="tel" class="form-control able-when-edit" name="phoneNumber"
+                                            id="phoneNumberInput" type="tel" placeholder="010-0000-0000"
+                                            autocomplete="on" disabled>
+                                    </div>
+
                                 </div>
                             </div>
 
 
                             <div class="row">
-
+                                
                                 <div class="col">
-                                    1 of 3
+
+                                    <div class="col-sm">
+                                        <input type="tel" class="form-control able-when-edit" name="postalCode"
+                                            id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"
+                                            disabled>
+                                    </div>
                                 </div>
 
-                                <div class="col">
-                                    2 of 3
+                                <div class="col-6">
+
+                                    <div class="mb-2">
+                                        <input type="text" class="form-control able-when-edit" name="address1"
+                                            id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"
+                                            disabled>
+                                    </div>
                                 </div>
 
-                                <div class="col">
-                                    3 of 3
+                                <div class="col-3">
+
+                                    <div class="col">
+                                        <input type="text" class="form-control able-when-edit" name="address2"
+                                            id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"
+                                            disabled>
+                                    </div>
+                                    <label
+                    class="label btn btn-primary"
+                    for="adressInput"
+                    id="searchAddress"
+                    >주소 찾기</label
+                  >
                                 </div>
 
                             </div>
+
+                            <div class="row">
+                                <div class="col">
+
+                                    <div class="mb-3">
+                                        <label for="inputPassword4" class="form-label label"
+                                            name="password">비밀번호</label>
+                                        <input type="password" class="form-control input" name="password"
+                                            id="passwordInput" type="password" placeholder="********"
+                                            autocomplete="off">
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+
+                                    <div class="mb-3">
+                                        <label for="inputPassword4" class="form-label label" name="passwordConfirm">비밀번호
+                                            확인</label>
+                                        <input type="password" class="form-control input" name="passwordConfirm"
+                                            id="passwordConfirmInput" type="password" placeholder="********"
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="btnContainer">
+                                <div class="bbtnContainer">
+                                <button type="button" class="btn btn-info" id="editButton">내 정보 수정하기</button>
+                                <button type="button" class="btn btn-info" id="submitButton">수정 완료</button>
+                                <button type="button" class="btn btn-info" id="deleteButton">회원 탈퇴하기</button>
+                            </div>
+                            </div>
+
+
                     </div>
+                    
                     </form>
+                    
                 </div>
 
 
+                <div class="col-3">
 
+                </div>
             </div>
-            <div class="col-3">
-                Column
-            </div>
+
         </div>
+
+        <footer class="container-fluid text-center mt-auto py-3" id="footer"></footer>
+
     </div>
 
-
-
-    <div class="register-user-form-container">
+    <!-- <div class="register-user-form-container">
         <form class="box register-user-form-box" id="registerUserForm">
             <p class="title is-5 has-text-primary">내 정보 확인</p>
 
@@ -117,6 +193,7 @@
                         placeholder="abc@example.com" autocomplete="on" disabled />
                 </label>
             </div>
+
 
             <div class="field">
                 <label class="label" name="phoneNumber">전화번호
@@ -156,11 +233,8 @@
 
 
         </form>
-    </div>
-
-
-
-    </div>
+    </div> </div>
+ -->
 </body>
 <script src="/public/js/template-renderer.js"></script>
 
