@@ -151,7 +151,6 @@ class ProductService {
       );
     }
     const orderCount = await ProductModel.countOrders(productId);
-    console.log(orderCount);
     if (orderCount) {
       throw new AppError(
         commonErrors.businessError,

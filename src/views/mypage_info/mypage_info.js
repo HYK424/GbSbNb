@@ -14,7 +14,7 @@ const passwordConfirmInput = document.querySelector('#passwordConfirmInput');
 const submitButton = document.querySelector('#submitButton');
 const editButton = document.querySelector('#editButton');
 const deleteButton = document.querySelector('#deleteButton');
-const searchAddress=document.querySelector('#searchAddress');
+const searchAddress = document.querySelector('#searchAddress');
 
 main();
 
@@ -202,39 +202,38 @@ function handleDelete(e) {
     });
 }
 
-//마이페이지에서 주소 나타나게 하기
-// searchAddress.addEventListener('click', handleSearchAddressClick);
+searchAddress.addEventListener('click', handleSearchAddressClick);
 
-// function handleSearchAddressClick(e) {
-//   new daum.Postcode({
-//     oncomplete: function (data) {
-//       let addr = '';
-//       let extraAddr = '';
+function handleSearchAddressClick(e) {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let addr = '';
+      let extraAddr = '';
 
-//       if (data.userSelectedType === 'R') {
-//         addr = data.roadAddress;
-//       } else {
-//         addr = data.jibunAddress;
-//       }
+      if (data.userSelectedType === 'R') {
+        addr = data.roadAddress;
+      } else {
+        addr = data.jibunAddress;
+      }
 
-//       if (data.userSelectedType === 'R') {
-//         if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-//           extraAddr += data.bname;
-//         }
-//         if (data.buildingName !== '' && data.apartment === 'Y') {
-//           extraAddr +=
-//             extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
-//         }
-//         if (extraAddr !== '') {
-//           extraAddr = ' (' + extraAddr + ')';
-//         }
-//       } else {
-//       }
+      if (data.userSelectedType === 'R') {
+        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+          extraAddr += data.bname;
+        }
+        if (data.buildingName !== '' && data.apartment === 'Y') {
+          extraAddr +=
+            extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+        }
+        if (extraAddr !== '') {
+          extraAddr = ' (' + extraAddr + ')';
+        }
+      } else {
+      }
 
-//       addressZipInput.value = data.zonecode;
-//       addressBasicInput.value = ${addr} ${extraAddr};
-//       addressOptionInput.placeholder = '상세 주소를 입력해 주세요.';
-//       addressOptionInput.focus();
-//     },
-//   }).open();
-// }
+      addressZipInput.value = data.zonecode;
+      addressBasicInput.value = `${addr} ${extraAddr}`;
+      addressOptionInput.placeholder = '상세 주소를 입력해 주세요.';
+      addressOptionInput.focus();
+    },
+  }).open();
+}

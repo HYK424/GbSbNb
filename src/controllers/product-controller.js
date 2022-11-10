@@ -106,6 +106,8 @@ export const productController = {
   deleteProduct: async (req, res, next) => {
     const { productId } = req.params;
     const result = await ProductService.deleteProduct(productId);
-    return res.status(200).json(result);
+    return res
+      .status(200)
+      .json({ message: '상품이 정상적으로 삭제되었습니다 :)' });
   },
 };
