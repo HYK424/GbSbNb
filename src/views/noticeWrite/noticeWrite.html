@@ -42,7 +42,12 @@
     <div>
       <form class="mt-5" id="noticeForm">
         <input type="text" id="noticeTitle" />
-        <input type="text" id="noticeContent" />
+        <div
+          contenteditable="true"
+          id="contentEdit"
+          style="width: 300px; height: 200px"
+        ></div>
+        <input type="text" id="noticeContent" style="display: block" />
         <input type="checkbox" id="noticeViewMain" />
         <button
           class="button is-fullwidth btn btn-primary mt-4"
@@ -52,5 +57,8 @@
         </button>
       </form>
     </div>
+    <script>
+      document.execCommand('defaultParagraphSeparator', false, 'p');
+    </script>
   </body>
 </html>

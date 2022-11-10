@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>주문 조회</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/elice-rabbit-favicon.png"
+    />
+    <link rel="stylesheet" href="/public/css/public.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+
+    <script src="noticeDetail.js" type="module" defer></script>
+
+    <link rel="stylesheet" href="noticeDetail.css" />
+  </head>
+  <body class="min-vh-100">
+    <div class="pageWraper">
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3"
+        id="nav"
+      ></nav>
+
+      <section class="">
+        <div id="content">
+          <div id="notice_upper">
+            <div id="noticeTitle"></div>
+            <div id="noticeDate"></div>
+          </div>
+          <div id="noticeContent"></div>
+        </div>
+      </section>
+      <footer
+        class="container-fluid text-center fixed-bottom mb-4"
+        id="footer"
+      ></footer>
+    </div>
+  </body>
+  <script src="/public/js/template-renderer.js"></script>
+</html>

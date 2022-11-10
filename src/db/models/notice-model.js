@@ -14,6 +14,17 @@ class NoticeModel {
     const notices = await Notice.find({ deletedAt: { $exists: false } });
     return notices;
   }
+
+  static async findOne(noticeId) {
+    console.log(noticeId);
+    const noticeDetail = await Notice.findOne({
+      _id: noticeId,
+      deletedAt: { $exists: false },
+    });
+    console.log(noticeDetail);
+    return noticeDetail;
+  }
+
   static async delete(noticeId) {
     const filter = { _id: noticeId };
     const deleteAt = { deletedAt: Date.now() };

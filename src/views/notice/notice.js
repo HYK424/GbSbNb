@@ -13,6 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+const noticeList = document.getElementById('noticeList');
+
 getNotice();
 
 async function getNotice() {
@@ -26,4 +28,18 @@ async function getNotice() {
 
   console.log(result);
   console.log(result.data);
+
+  const noticeTemplate = result.data
+    .map((obj) => {
+      return `
+      <tr onclick="location.href='/notice/${obj._id}'">
+        <td width='300rem'><strong>${obj.noticeTitle}</strong></td>
+        <td width='100rem'>${obj.createdAt.substr(0, 10)}</td>
+      </tr>
+    `;
+    })
+    .join('');
+  console.log(noticeTemplate);
+
+  noticeList.insertAdjacentHTML('beforeend', noticeTemplate);
 }
