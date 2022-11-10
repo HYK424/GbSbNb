@@ -61,28 +61,25 @@ function getstatus() {
 async function handleDelevery() {
   const result = await Api.put('/api/admin/orders', '', {
     orderIds: getstatus(),
-    status: 'delivery',
+    status: '배송 중',
   });
   console.log(result);
   console.log(getstatus());
-  if (!result) {
+  if (result.err) {
     alert('배송 정보 갱신 실패');
-  } else {
-    alert('배송 정보 갱신 성공');
-    location.reload();
   }
+  alert('배송 정보 갱신 성공');
+  location.reload();
 }
 
 async function handleComplete() {
   const result = await Api.put('/api/admin/orders', '', {
     orderIds: getstatus(),
-    status: 'completed',
+    status: '배송 완료',
   });
-  console.log(result);
-  if (!result) {
+  if (result.err) {
     alert('배송 정보 갱신 실패');
-  } else {
-    alert('배송 정보 갱신 성공');
-    location.reload();
   }
+  alert('배송 정보 갱신 성공');
+  location.reload();
 }
