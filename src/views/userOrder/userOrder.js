@@ -24,12 +24,12 @@ async function getOrderList() {
 
     const orderTemplate = orders.map((user) => {
         return `
-    <tr id="${user.userId}"  onclick="location.href='/api/orders/${user.userId}'">
+    <tr id="${user.userId}"  onclick="location.href='/api/orders/${user._id}'">
             <th width="100rem" scope="row">${user.createdAt}</th>           
             <td width="250rem">${user.orderItems}</td>
             <td width="120rem">${user.status}</td>
           <td width="120rem">
-          ${user.status = '상품 준비중' ? cancelBtn(user) : (user.status = '배송완료' ? deleteBtn(user) : user.status)}
+          ${user.status = '상품 준비 중' ? cancelBtn(user) : (user.status = '배송 완료' ? deleteBtn(user) : user.status)}
           </td>
             </tr>
     `
