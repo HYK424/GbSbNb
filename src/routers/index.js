@@ -29,6 +29,7 @@ router.use('/admin', adminRouter);
 router.use('/admin/products', adminProductRouter);
 router.use('/admin/categories', adminCategoryRouter);
 router.use('/admin/orders', adminOrderRouter);
+router.use('/admin/users', adminOrderRouter);
 
 router.use('/users', userRouter);
 router.use('/products', productRouter);

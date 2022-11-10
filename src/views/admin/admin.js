@@ -65,13 +65,11 @@ function productsTemplate(obj) {
 `;
     })
     .join('');
-    const vtn = document.querySelectorAll('.vtn');
-    for (const btn of vtn) {
-      btn.addEventListener('click', changeView);
-    }
+  const vtn = document.querySelectorAll('.vtn');
+  for (const btn of vtn) {
+    btn.addEventListener('click', changeView);
+  }
 }
-
-
 
 async function setItemList() {
   // const obj=await((await Api.get('/api/products/admin',false)).json()).products;
@@ -127,17 +125,19 @@ async function changeView(event) {
     btn.classList.replace('btn-outline-primary', 'btn-outline-secondary');
     btn.innerText = '비공개';
 
-    // putView(viewId,false);
+    putView(viewId, '비공개');
+
+    putView(viewId, false);
   } else {
     btn.classList.replace('btn-outline-secondary', 'btn-outline-primary');
     btn.innerText = '공개';
-    // putView(viewId,true);
+    putView(viewId, true);
+  }
+
+  async function putView(viewId) {
+    await Api.get(`/api/admin/products/${viewId}/private`);
   }
 }
-
-// async function putView(viewId,view){
-//   const viewResult = await Api.put(`/api/admin/products/${viewId}/view?view=${view}`);
-// }
 
 //삭제 기능 막아놓음/ PUT으로 보냄
 // <button class="btn btn-outline-danger" id="itemDelete${i}">삭제</button>

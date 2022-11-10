@@ -18,10 +18,17 @@ adminProductRouter.post(
   productValidator.createProduct,
   asyncHandler(productController.createProduct),
 );
-adminProductRouter.put('/', asyncHandler(productController.updateProduct));
+adminProductRouter.put(
+  '/:productId',
+  asyncHandler(productController.updateProduct),
+);
 adminProductRouter.delete(
   '/:productId',
   asyncHandler(productController.deleteProduct),
+);
+adminProductRouter.get(
+  '/:productId/private',
+  asyncHandler(productController.softDeleteProduct),
 );
 
 export { adminProductRouter };

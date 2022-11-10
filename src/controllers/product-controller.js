@@ -83,7 +83,9 @@ export const productController = {
 
   updateProduct: async (req, res, next) => {
     const { productId } = req.params;
+    console.log(productId);
     const productInfo = { ...req.body, ...req.file };
+    console.log(req.body);
     const updatedProduct = await ProductService.updateProduct(
       productId,
       productInfo,

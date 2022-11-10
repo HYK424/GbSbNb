@@ -6,12 +6,7 @@ const orderList = document.getElementById('orderList');
 // const compbtn = document.getElementById('completeBtn');
 
 getOrderList();
-allEvents();
 
-function allEvents() {
-    delevbtn.addEventListener('click', handleDelevery);
-    compbtn.addEventListener('click', handleComplete);
-}
 
 // delevbtn.addEventListener('click', handleDelevery);
 // compbtn.addEventListener('click', handleComplete);
@@ -20,74 +15,42 @@ async function getOrderList() {
     const orders = await Api.get('/api/orders');
     console.log(orders);
 
-    function cancelBtn(user) {
-        return `<btn id='${user.Id}' name='cancel' >주문 취소</btn>`
+    function cancelBtn(order) {
+        return `<button id='${order.Id}' name='cancel' >주문 취소</button>`
     }
-    function deleteBtn(user) {
-        return `<btn id='${user.Id}' name='delete'>주문 삭제</btn>`
+    function deleteBtn(order) {
+        return `<button id='${order.Id}' name='delete'>주문 삭제</button>`
     }
 
-    const orderTemplate = orders.map((user) => {
+    const orderTemplate = orders.map((order) => {
         return `
-    <tr id="${user.userId}">
-            <th width="100rem" scope="row">${user.createdAt}</th>           
-            <td width="250rem">${user.orderItems}</td>
-            <td width="120rem">${user.status}</td>
+    <tr id="${order.userId}" >
+            <th width="100rem" scope="row">${order.createdAt}</th>
+            <td width="120rem">${order.status}</td>
           <td width="120rem">
-          ${user.status = '상품 준비중' ? cancelBtn(user) : (user.status = '배송완료' ? deleteBtn(user) : user.status)}
+          ${order.status = '상품 준비 중' ? cancelBtn(order) : (order.status = '배송 완료' ? deleteBtn(order) : order.status)}
           </td>
             </tr>
     `
     }).join('');
 
     orderList.insertAdjacentHTML('beforeend', orderTemplate);
-    document.querySelectorAll('tr > button')
-    
 
-}
-
-
-
-
-
-function getstatus() {
-    const checked = document.querySelectorAll('input[name="status"]:checked');
-    const checkedArr = [];
-
-    checked.forEach((e) => {
-        const { id } = e;
-        console.log(id);
-        checkedArr.push(id);
-    });
-    console.log(checkedArr);
-    return checkedArr;
-}
-
-async function handleDelevery() {
-    const result = await Api.put('/api/admin/orders', '', {
-        orderIds: getstatus(),
-        status: 'delivery',
-    });
-    console.log(result);
-    console.log(getstatus());
-    if (!result) {
-        alert('배송 정보 갱신 실패');
-    } else {
-        alert('배송 정보 갱신 성공');
-        location.reload();
+    const vtn = document.querySelectorAll('tr > button');
+    for (const btn of vtn) {
+        btn.addEventListener('click', changeStatus);
     }
 }
 
-async function handleComplete() {
-    const result = await Api.put('/api/admin/orders', '', {
-        orderIds: getstatus(),
-        status: 'completed',
-    });
-    console.log(result);
-    if (!result) {
-        alert('배송 정보 갱신 실패');
+
+async function changeStatus(e) {
+    e.preventDefault();
+    if (e.target.name == 'delete') {
+        await Api.del('/api/orders', e.target.id, false,)
+            .then(location.reload());
     } else {
-        alert('배송 정보 갱신 성공');
-        location.reload();
+        await Api.get(`/api/orders/${e.target.id}`, 'cancel', false,)
+            .then(location.reload());
     }
 }
+

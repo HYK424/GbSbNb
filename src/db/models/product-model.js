@@ -75,15 +75,19 @@ export class ProductModel {
         },
       },
       {
-        $lookup: {
-          from: 'orders',
-          localField: 'orderItems',
-          foreignField: `ObjectId(${productId})`,
-          as: 'orders',
+        $set: {
+          idString: {
+            $toString: '$_id',
+          },
         },
       },
       {
-        $unwind: '$orderItems',
+        $lookup: {
+          from: 'orders',
+          localField: 'idString',
+          foreignField: 'orderItems.productId',
+          as: 'orders',
+        },
       },
     ]);
     return product[0].orders.length;

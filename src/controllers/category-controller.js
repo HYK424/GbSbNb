@@ -25,6 +25,8 @@ export const categoryController = {
   deleteCategory: async (req, res, next) => {
     const { categoryId } = req.params;
     const result = await CategoryService.deleteCategory(categoryId);
-    return res.status(200).json(result);
+    return res
+      .status(200)
+      .json({ message: '카테고리가 정상적으로 삭제되었습니다 :)' });
   },
 };
