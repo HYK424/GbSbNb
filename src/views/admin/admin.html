@@ -21,31 +21,27 @@
         class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
         id="nav"
       ></nav>
-      <section class="mt-5">
-        <div class="mt-5">
-          <form id="form" class="mt-5">
-            <select
-              name="categoryId"
-              class="form-select form-select-sm"
-              aria-label=".form-select-sm example"
-              id="select"
-            >
-              <option value="all" selected>전체</option>
-            </select>
-          </form>
-        </div>
-        <div class="itemList"></div>
+      <form id="form" class="">
+        <select
+          name="categoryId"
+          class="form-select form-select-sm"
+          aria-label=".form-select-sm example"
+          id="select"
+        >
+          <option value="all" selected>전체</option>
+        </select>
+      </form>
+      <div class="itemList"></div>
 
-        <div class="addContainer">
-          <button
-            type="button"
-            class="btn btn-outline-secondary add"
-            onclick="location.href='/admin/add-products'"
-          >
-            추가
-          </button>
-        </div>
-      </section>
+      <div class="addContainer">
+        <button
+          type="button"
+          class="btn btn-outline-secondary add"
+          onclick="location.href='/admin/add-products'"
+        >
+          추가
+        </button>
+      </div>
       <footer
         class="container-fluid text-center mt-auto py-3"
         id="footer"

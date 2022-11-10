@@ -5,10 +5,14 @@ const ITEMS_PER_PAGE = 9;
 
 export const productController = {
   createProduct: async (req, res, next) => {
-    const imageUrl = req.file.path;
-    const productInfo = { ...req.body, imageUrl };
+    const productInfo = { ...req.body };
     const newProduct = await ProductService.createProduct(productInfo);
     return res.status(201).json(newProduct);
+  },
+
+  setImageUrl: async (req, res, next) => {
+    const imageUrl = req.file.path;
+    return res.status(200).json(imageUrl);
   },
 
   getProducts: async (req, res, next) => {

@@ -56,8 +56,11 @@ export const orderController = {
 
   cancelOrder: async (req, res, next) => {
     const { orderId } = req.params;
-    const updateInfo = { status: 'canceled' };
+    const updateInfo = { status: '주문 취소' };
     const result = await OrderService.cancelOrder(orderId, updateInfo);
+    if (!result.acknowledged) {
+      throw new AppError(commonErrors.databaseError, 500);
+    }
     return res.send(200).json('주문이 정상적으로 취소되었습니다 :)');
   },
 
@@ -88,34 +91,23 @@ export const orderController = {
     res.status(200).json(result);
   },
 
-  unknownUserOrder: async (req, res) => {
-    console.log(req.body);
-    const { orderCode, phoneNumber } = req.body;
-    console.log(orderCode);
-    console.log(phoneNumber);
-    const status = 200;
-    const message = '데이터 조회 성공';
-    const data = {
-      orderItems: [
-        { productId: '제품1', quantity: 123 },
-        { productId: '제품2', quantity: 456 },
-        { productId: '제품3', quantity: 789 },
-      ],
-      status: 'standby',
-      address: {
-        postalCode: 123,
-        address1: '너거집 주소1',
-        address2: '너거집 주소2',
-      },
-      request: '배송요청사항',
-    };
-    res.status(status).json({ message: message, data: data });
+  getOrderByUnknown: async (req, res) => {
+    const { orderId, phoneNumber } = req.body;
+    const order = await OrderService.getOrderByUnknown(orderId, phoneNumber);
+    if (!order) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '해당 정보에 해당하는 주문을 찾을 수 없어요 :(',
+      );
+    }
+    return res.status(200).json(order);
   },
 
   unknownUserOrderCancel: async (req, res) => {
-    console.log(req.body);
     const { orderCode } = req.body;
-    console.log(orderCode);
+    const updateInfo = { status: '주문 취소' };
+    const result = await OrderService.cancleUnknownOrder(orderCode, updateInfo);
     const status = 200;
     const message = '주문 취소 성공';
     res.status(status).json({ message: message });

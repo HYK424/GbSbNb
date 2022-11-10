@@ -22,10 +22,19 @@ let file;
 let imageUrl;
 const select = document.querySelectorAll('.form-select');
 
-thumbnailIn.addEventListener('change', handleFiles, false);
+thumbnailIn.addEventListener('change', handleFiles);
 async function handleFiles() {
   file = this.files[0];
-  imageUrl = await (await fetch('/api/products/upload-image')).json();
+  let imageForm = new FormData();
+  imageForm.enctype = 'multipart/form-data';
+  imageForm.append('image', file);
+  imageUrl = await (
+    await fetch('/api/products/upload-image', {
+      method: 'POST',
+      body: imageForm,
+    })
+  ).json();
+  console.log(imageUrl);
 }
 
 handleGetCategories();
@@ -58,14 +67,12 @@ function formData() {
   const category = select[0].options[select[0].selectedIndex].value;
 
   const data = new FormData();
-  data.enctype = 'multipart/form-data';
   data.append('title', title);
   data.append('category', category);
   data.append('manufacturer', manufacturer);
   data.append('price', price);
   data.append('description', description);
-  data.append('image', image);
-
+  data.append('imageUrl', imageUrl);
   return data;
 }
 

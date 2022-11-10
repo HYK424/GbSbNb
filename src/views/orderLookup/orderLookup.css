@@ -50,7 +50,12 @@ label {
   font-size: 48px;
 }
 
-input {
+#checkOrderForm input {
   font-size: 32px;
   width: 480px;
+  text-align: center;
+}
+
+#submitButton {
+  font-size: 36px;
 }
