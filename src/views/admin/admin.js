@@ -37,11 +37,12 @@ async function setCategory() {
   );
 }
 
+
 function productsTemplate(obj) {
   itemList.innerHTML = obj
     .map((products, i) => {
       return `
-  <div class="posts" id="posts${i}">
+  <div class="posts" id="posts${products._id}">
   <a class="a" href="/products/${products._id}">
     <img src=${products.imageUrl} alt="">
       <ul>
@@ -57,7 +58,7 @@ function productsTemplate(obj) {
         <a href="/admin/products/${products._id
         }"><button class="btn btn-outline-danger" id="itemUpdate${i}">수정</button>
         </a>
-        ><button class="btn btn-outline-danger dtn" id="itemDelete${i}">삭제</button>
+        <button class="btn btn-outline-danger dtn" id="itemDelete${i}" name="${products._id}">삭제</button>
         
         <button class="btn btn-outline-light" id="itemMain${i}">대표 상품 등록</button>
         </ul>
@@ -70,20 +71,16 @@ function productsTemplate(obj) {
     btn.addEventListener('click', changeView);
   }
 
-  // const vtn = document.querySelectorAll('.vtn');
-  // for (const btn of vtn) {
-  //   btn.addEventListener('click', changeView);
-  // }
+  const dtn = document.querySelectorAll('.dtn');
+  for (const btn of dtn) {
+    btn.addEventListener('click', deleteView);
+  }
 }
 
 async function setItemList() {
-  // const obj=await((await Api.get('/api/products/admin',false)).json()).products;
+
   const obj = await Api.get('/api/admin/products');
-  // const obj = (await (await fetch('/api/products/admin',{headers:{
-  //   'Cache-Control': 'no-cache, no-store, must-revalidate',
-  //   Expires:0,
-  //     },
-  //   })).json()).products;
+ 
 
   //최초 1회 전체 상품 노출
   if (obj.err) {
@@ -102,20 +99,12 @@ async function handleSelect(event) {
     document.getElementById('select').options[select.selectedIndex].value;
   if (selectItem == 'all') {
     const obj = await Api.get('/api/admin/products');
-    // const obj = (await (await fetch('/api/products/admin',{headers:{
-    //   'Cache-Control': 'no-cache, no-store, must-revalidate',
-    //   Expires:0,
-    //     },
-    //   })).json()).products;
+  
     productsTemplate(obj.products);
   } else {
     const link = `products?q=${selectItem}`;
     const obj = await Api.get(`/api/admin`, link);
-    // const obj = (await (await fetch(`/api/products/admin?q=${selectItem}`,{headers:{
-    //   'Cache-Control': 'no-cache, no-store, must-revalidate',
-    //   Expires:0,
-    //     },
-    //   })).json())
+ 
     productsTemplate(obj.products);
   }
 }
@@ -124,8 +113,7 @@ async function changeView(event) {
   const viewId = event.target.id;
   const btn = document.getElementById(`${viewId}`);
 
-  //요청을 보내면 버튼을 공개-비공개로 바뀌어야 함
-  // console.log(btn.classList[1]);
+  
   if (btn.classList[1] == 'btn-outline-primary') {
     btn.classList.replace('btn-outline-primary', 'btn-outline-secondary');
     btn.innerText = '비공개';
@@ -138,24 +126,22 @@ async function changeView(event) {
     btn.innerText = '공개';
     putView(viewId, true);
   }
-
   async function putView(viewId) {
     await Api.get(`/api/admin/products/${viewId}/private`);
   }
 }
 
-//삭제 기능 막아놓음/ PUT으로 보냄
-// <button class="btn btn-outline-danger" id="itemDelete${i}">삭제</button>
-//
-// function deleteItem(obj, i) {
-//   const btn = document.querySelector(`#itemDelete${i}`);
-//   const deleteitem = document.querySelector(`#posts${i}`);
-//   btn.addEventListener('click', async () => {
-// deleteitem.remove();
-//     await fetch(`/api/products/${obj._id}`, {
-//       method: 'PUT',
-//       body: JSON.stringify({ delete: 'yes' }),
-//       headers: { 'Content-Type': 'application/json' },
-//     });
-//   });
-// }
+async function deleteView(event){
+  const deleteId=event.target.name;
+  console.log(deleteId);
+  console.log(event.target);
+  const result=await Api.delete(`/api/admin/products`, deleteId);
+  console.log(result);
+  if(result.err){ 
+    return;
+  }
+  const idd=document.getElementById(`posts${deleteId}`);
+  console.log(idd);
+  alert(result.message);
+  idd.remove();
+}
