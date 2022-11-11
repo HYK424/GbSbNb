@@ -22,6 +22,9 @@ viewsRouter.use('/admin/products', serveStatic('admin'));
 viewsRouter.use('/admin/products/:productId', serveStatic('adminPost'));
 viewsRouter.use('/admin/users', serveStatic('adminUser'));
 viewsRouter.use('/admin/orders', serveStatic('adminOrder'));
+viewsRouter.use('/orderLookup', serveStatic('orderLookup'));
+viewsRouter.use('/notice', serveStatic('notice'));
+viewsRouter.use('/notice/:noticeId', serveStatic('noticeDetail'));
 viewsRouter.use('/admin/noticeWrite', serveStatic('noticeWrite'));
 
 viewsRouter.use('/', serveStatic(''));

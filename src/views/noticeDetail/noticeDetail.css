@@ -1,0 +1,51 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+#content {
+  min-width: 800px;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  margin: 0 150px auto;
+  margin-top: 30px;
+}
+
+#notice_upper {
+  display: flex;
+}
+
+#noticeTitle {
+  width: 70%;
+  height: 100px;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  margin: 0 2% auto;
+  margin-top: 30px;
+}
+
+#noticeDate {
+  width: 24%;
+  height: 100px;
+  border: 2px solid #ff0000;
+  border-radius: 10px;
+  margin: 0 2% 0 0 auto;
+  margin-top: 30px;
+}
+
+#noticeContent {
+  width: 94%;
+  min-height: 400px;
+  border: 2px solid #00ff00;
+  border-radius: 10px;
+  margin: 0 auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+#delBtn {
+  float: right;
+  margin-top: 20px;
+  margin-right: 20px;
+}
