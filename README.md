@@ -46,7 +46,7 @@
 
 <details><summary>데모 영상</summary>
 
-[](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/60bcfef8a9c4316016ccd7161d7013c7/Animation.gif)
+![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/60bcfef8a9c4316016ccd7161d7013c7/Animation.gif)
    
 </details>
 
