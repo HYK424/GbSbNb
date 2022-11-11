@@ -92,12 +92,15 @@ async function orderConfirmEvent(e) {
   };
   let result;
   if (!sessionStorage.getItem('accessToken')) {
-    result = await Api.post('/api/orders', true, data);
+    result = await Api.post('/api/orders/unknown', true, data);
   } else {
     result = await Api.post('/api/orders', false, data);
   }
   let orderId = result._id;
+  let orderNumber = result.phoneNumber;
+  console.log(orderId, orderNumber);
   localStorage.setItem('orderID', orderId);
+  localStorage.setItem('orderNumber', orderNumber);
   localStorage.removeItem('order');
   location.href = '/order-confirm';
 }

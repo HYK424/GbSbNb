@@ -14,12 +14,6 @@ export const orderController = {
     const orders = await OrderService.getOrders();
     return res.status(200).json(orders);
   },
-  // 이건 비회원을 위한 API임
-  getUnknownOrder: async (req, res, next) => {
-    const { orderId, phoneNumber } = req.body;
-    const order = await OrderService.getOrderById(orderId, phoneNumber);
-    res.status(200).json(order);
-  },
 
   getMyOrders: async (req, res, next) => {
     const { userId } = req;

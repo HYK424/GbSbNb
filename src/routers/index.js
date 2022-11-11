@@ -33,7 +33,6 @@ router.use('/admin/users', adminOrderRouter);
 
 router.use('/users', userRouter);
 router.use('/products', productRouter);
-router.use('/cart', cartRouter);
 router.use('/categories', categoryRouter);
 router.use('/orders', orderRouter);
 

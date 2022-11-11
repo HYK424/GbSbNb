@@ -12,6 +12,7 @@ orderRouter.get(
   orderValidator.unknownUser,
   asyncHandler(orderController.getUnknownOrder),
 );
+orderRouter.post('/unknown', asyncHandler(orderController.createOrder));
 orderRouter.delete(
   '/unknownCancel',
   asyncHandler(orderController.unknownUserOrderCancel),
