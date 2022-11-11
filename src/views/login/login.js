@@ -57,7 +57,7 @@ async function handleFormSubmit(event) {
     email,
     phoneNumber,
   };
-  const result = await Api.post(`api/users/reset-password`, true, data);
+  const result = await Api.post(`/api/users/reset-password`, true, data);
   console.log(result);
   if (result.err) {
     return;
