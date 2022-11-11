@@ -12,6 +12,7 @@ const orderPrice = document.querySelector('#orderPrice')
 const totalPrice = document.querySelector('#totalPrice')
 const orderConfirmButton = document.querySelector('#orderConfirmButton')
 
+console.log('help me')
 addAllElements()
 addAllEvents()
 
@@ -26,17 +27,17 @@ function addAllEvents() {
 }
 
 async function insertInfo() {
-    const userInfo = await Api.get("/api/users/myinfo");
-    let { _id, fullName, phoneNumber, "address": { postalCode, address1, address2 } } = userInfo
-    fullNameInput.value = fullName
-    phoneNumberInput.value = phoneNumber
-    postalCodeInput.value = postalCode
-    address1Input.value = address1
-    address2Input.value = address2
-
+    if (sessionStorage.getItem('accessToken')) {
+        const userInfo = await Api.get("/api/users/myinfo", '', true);
+        let { _id, fullName, phoneNumber, "address": { postalCode, address1, address2 } } = userInfo
+        fullNameInput.value = fullName
+        phoneNumberInput.value = phoneNumber
+        postalCodeInput.value = postalCode
+        address1Input.value = address1
+        address2Input.value = address2
+    }
     //local storage에서 가져오기
     const orderInfo = JSON.parse(localStorage.getItem('order'))
-
 
     orderItemAll.innerHTML = orderInfo.orderItems.reduce((acc, cur) => {
         acc += `${cur.title} / ${cur.quantity}개 <br>`
@@ -55,8 +56,40 @@ function requestSelectEvent(e) {
     }
 }
 
-function orderConfirmEvent(e) {
-    //BE로 데이터 보내기
+async function orderConfirmEvent(e) {
+    let userId = '비회원'
+    if (sessionStorage.getItem('accessToken')) {
+        userId = JSON.parse(atob(sessionStorage.getItem('accessToken').split('.')[1])).userId
+    }
+
+    const request = ''
+    if (requestSelectBox.value == "6") {
+        request = requestInput.value
+    } else {
+        let caseOfRequest = requestSelectBox.value;
+        let requestArr = [
+            '',
+            '직접 수령',
+            '배송 전 연락',
+            '부재 시 경비실',
+            '부재 시 문 앞',
+            '부재 시 택배함',
+        ]
+        request = requestArr[parseInt(caseOfRequest)]
+    }
+
+    const orderInfo = JSON.parse(localStorage.getItem('order'))
+
+
+    let data = {
+        orderItems: orderInfo.orderItems,
+        userId: userId,
+        totalPrice: orderInfo.totalPrice,
+        request: request,
+    }
+
+    //let orderId = await Api.post("/api/users/myinfo", true, data)
+
     let orderIdFake = "123"
 
     localStorage.setItem('orderID', orderIdFake)
