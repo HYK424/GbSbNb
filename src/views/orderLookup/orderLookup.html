@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="orderLookup.css" />
     <link rel="stylesheet" href="/public/css/public.css" />
   </head>
+
   <body>
     <div class="pageWraper">
       <nav
@@ -66,7 +67,48 @@
                 조회
               </button>
             </form>
-            <div id="checkRes"></div>
+            <div id="checkRes">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="stateEmoji" id="stateEmoji0">📦</td>
+                    <td class="stateEmoji" id="stateEmoji1">🚚</td>
+                    <td class="stateEmoji" id="stateEmoji2">🎁</td>
+                    <td class="stateEmoji" id="stateEmoji3">❌</td>
+                  </tr>
+                  <tr>
+                    <td class="stateText" id="stateText0">상품 준비 중</td>
+                    <td class="stateText" id="stateText1">배송 중</td>
+                    <td class="stateText" id="stateText2">배송 완료</td>
+                    <td class="stateText" id="stateText3">주문 취소</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped-columns">
+                <tbody>
+                  <tr>
+                    <th scope="row">주문 시간</th>
+                    <th id="orderTime"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">주문 제품</th>
+                    <th id="orderProduct"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">전체 가격</th>
+                    <th id="orderPrice"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">받는 사람</th>
+                    <th id="orderPerson"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">배송 주소</th>
+                    <th id="orderAdress"></th>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
           <div class="col-2"></div>
         </div>
