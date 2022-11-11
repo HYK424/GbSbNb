@@ -68,80 +68,39 @@
                         for=""
                         class="form-label label"
                         name="phoneNumber"
-                        >주소</label
-                      >
-                      <input
-                        type="tel"
-                        class="form-control able-when-edit"
-                        name="phoneNumber"
-                        id="phoneNumberInput"
-                        type="tel"
-                        placeholder="010-0000-0000"
-                        autocomplete="on"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="col-sm">
-                      <button
-                      class="label btn btn-primary"
-                      for="adressInput"
-                      id="searchAddress"
-                      >주소</button
-                    >
-                      <input
-                        type="tel"
-                        class="form-control able-when-edit"
-                        name="postalCode"
-                        id="addressZipInput"
-                        type="tel"
-                        placeholder="우편 번호"
-                        autocomplete="on"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="mb-2">
-                      <input
-                        type="text"
-                        class="form-control able-when-edit"
-                        name="address1"
-                        id="addressBasicInput"
-                        type="text"
-                        placeholder="기본 주소"
-                        autocomplete="on"
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div class="col-3">
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control able-when-edit"
-                        name="address2"
-                        id="addressOptionInput"
-                        type="text"
-                        placeholder="상세 주소"
-                        autocomplete="on"
-                        disabled
-                      />
-                    </div>
-                    <button type="button" class="btn btn-primary" id="searchAddressButton">주소 찾기</button>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col">
-                    <div class="mb-3 hidden-until-edit">
-                      <label
-                        for="passwordInput"
-                        class="form-label label"
-                        name="password"
-                        >비밀번호</label
+                        >전화번호</label>
+                                        <input type="tel" class="form-control able-when-edit" name="phoneNumber" id="phoneNumberInput" type="tel" placeholder="010-0000-0000" autocomplete="on" disabled />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <label for="" class="form-label label" name="phoneNumber">전화번호</label>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="tel" class="form-control able-when-edit" name="postalCode" id="addressZipInput" type="tel" placeholder="우편 번호" autocomplete="on" disabled />
+
+                                    </div>
+                                    <div class="col-6">
+
+                                        <button type="button" class="btn btn-primary" id="searchAddressButton">주소 찾기</button>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <input type="text" class="form-control able-when-edit" name="address1" id="addressBasicInput" type="text" placeholder="기본 주소" autocomplete="on" disabled />
+
+                                </div>
+                                <div class="row">
+
+                                    <input type="text" class="form-control able-when-edit" name="address2" id="addressOptionInput" type="text" placeholder="상세 주소" autocomplete="on" disabled />
+
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="mb-3 hidden-until-edit">
+                                        <label for="passwordInput" class="form-label label" name="password">비밀번호</label
                       >
                       <input
                         type="password"
