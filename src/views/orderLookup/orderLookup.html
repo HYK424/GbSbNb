@@ -1,97 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title></title>
-    <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script
+      defer
+      src="https://kit.fontawesome.com/9daa42bcef.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
 
     <script src="orderLookup.js" type="module" defer></script>
     <link rel="stylesheet" href="orderLookup.css" />
     <link rel="stylesheet" href="/public/css/public.css" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="pageWraper">
-        <nav class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top" id="nav"></nav>
-        <div class="container text-center">
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8 mt-4">
-                    <form class="mt-5" id="checkOrderForm">
-                        <label class="label" for="orderCode">주문 코드</label>
-                        <div class="control mb-4">
-                            <input class="input" id="orderCode" type="orderCode" placeholder="주문 코드를 입력해주세요!" autocomplete="on" />
-                        </div>
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
+        id="nav"
+      ></nav>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-8 mt-4">
+            <form class="mt-5" id="checkOrderForm">
+              <label class="label" for="orderCode">주문 코드</label>
+              <div class="control mb-4">
+                <input
+                  class="input"
+                  id="orderCode"
+                  type="orderCode"
+                  placeholder="주문 코드를 입력해주세요!"
+                  autocomplete="on"
+                />
+              </div>
 
-                        <label class="label" for="phoneNumber">전화번호</label>
-                        <div class="control">
-                            <input class="input" id="phoneNumber" type="phoneNumber" placeholder="전화번호를 입력해 주세요!" autocomplete="on" />
-                        </div>
+              <label class="label" for="phoneNumber">전화번호</label>
+              <div class="control">
+                <input
+                  class="input"
+                  id="phoneNumber"
+                  type="phoneNumber"
+                  placeholder="전화번호를 입력해 주세요!"
+                  autocomplete="on"
+                />
+              </div>
 
-                        <button class="button is-fullwidth btn btn-primary mt-4" id="submitButton">
+              <button
+                class="button is-fullwidth btn btn-primary mt-4"
+                id="submitButton"
+              >
                 조회
               </button>
-                    </form>
-                    <div id="checkRes">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="stateEmoji" id="stateEmoji0">📦</td>
-                                    <td class="stateEmoji" id="stateEmoji1">🚚</td>
-                                    <td class="stateEmoji" id="stateEmoji2">🎁</td>
-                                    <td class="stateEmoji" id="stateEmoji3">❌</td>
-                                </tr>
-                                <tr>
-                                    <td class="stateText" id="stateText0">상품 준비 중</td>
-                                    <td class="stateText" id="stateText1">배송 중</td>
-                                    <td class="stateText" id="stateText2">배송 완료</td>
-                                    <td class="stateText" id="stateText3">주문 취소</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table class="table table-striped-columns">
-                            <tbody>
-                                <tr>
-                                    <th scope="row">주문 시간</th>
-                                    <th id="orderTime"></th>
-                                </tr>
-                                <tr>
-                                    <th scope="row">주문 제품</th>
-                                    <th id="orderProduct"></th>
-                                </tr>
-                                <tr>
-                                    <th scope="row">전체 가격</th>
-                                    <th id="orderPrice"></th>
-                                </tr>
-                                <tr>
-                                    <th scope="row">받는 사람</th>
-                                    <th id="orderPerson"></th>
-                                </tr>
-                                <tr>
-                                    <th scope="row">배송 주소</th>
-                                    <th id="orderAdress"></th>
-                                </tr>
-                                <tr>
-                                    <th scope="row">배송 취소</th>
-                                    <th><button class="btn btn-warning" id="cancleButton">취소하기</button></th>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-2"></div>
+            </form>
+            <div id="checkRes">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="stateEmoji" id="stateEmoji0">📦</td>
+                    <td class="stateEmoji" id="stateEmoji1">🚚</td>
+                    <td class="stateEmoji" id="stateEmoji2">🎁</td>
+                    <td class="stateEmoji" id="stateEmoji3">❌</td>
+                  </tr>
+                  <tr>
+                    <td class="stateText" id="stateText0">상품 준비 중</td>
+                    <td class="stateText" id="stateText1">배송 중</td>
+                    <td class="stateText" id="stateText2">배송 완료</td>
+                    <td class="stateText" id="stateText3">주문 취소</td>
+                  </tr>
+                </tbody>
+              </table>
+              <table class="table table-striped-columns">
+                <tbody>
+                  <tr>
+                    <th scope="row">주문 시간</th>
+                    <th id="orderTime"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">주문 제품</th>
+                    <th id="orderProduct"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">전체 가격</th>
+                    <th id="orderPrice"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">받는 사람</th>
+                    <th id="orderPerson"></th>
+                  </tr>
+                  <tr>
+                    <th scope="row">배송 주소</th>
+                    <th id="orderAdress"></th>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+          </div>
+          <div class="col-2"></div>
         </div>
+      </div>
 
-        <section class="footerSection"></section>
-        <footer id="footer"></footer>
+      <section class="footerSection"></section>
+      <footer id="footer"></footer>
     </div>
-</body>
-<script src="/public/js/template-renderer.js"></script>
-
+  </body>
+  <script src="/public/js/template-renderer.js"></script>
 </html>
