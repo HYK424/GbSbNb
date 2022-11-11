@@ -274,7 +274,7 @@ async function handleDelete(e) {
         .addEventListener('click', async function(e) {
             e.preventDefault();
 
-            const userPassword = document.querySelector('#passwordCheckInputEdit').value;
+            const userPassword = document.querySelector('#passwordCheckInput').value;
             const data = { email: oldEmail, password: userPassword };
             const result = await Api.post('/api/users/login', true, data);
 
