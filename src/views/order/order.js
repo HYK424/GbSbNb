@@ -80,7 +80,7 @@ async function orderConfirmEvent(e) {
 
   let data = {
     orderItems: orderInfo.orderItems,
-    totalPrice: orderInfo.totalPrice,
+    totalPrice: orderInfo.totalPrice + 3000,
     request,
     address: {
       postalCode: postalCodeInput.value,

@@ -23,7 +23,9 @@ let imageUrl;
 const select = document.querySelectorAll('.form-select');
 
 thumbnailIn.addEventListener('change', handleFiles);
+
 async function handleFiles() {
+  document.getElementById('disableBtn').disabled=true;
   file = this.files[0];
   let imageForm = new FormData();
   imageForm.enctype = 'multipart/form-data';
@@ -34,6 +36,8 @@ async function handleFiles() {
       body: imageForm,
     })
   ).json();
+  document.getElementById('disableBtn').disabled=false;
+  
   console.log(imageUrl);
 }
 

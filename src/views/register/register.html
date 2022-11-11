@@ -31,136 +31,137 @@
 
   <body>
     <div class="pageWraper">
-    <nav
-      class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3"
-      id="nav"
-    ></nav>
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3"
+        id="nav"
+      ></nav>
 
-    <div class="container mb-4" id="container">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-3"></div>
-          <div class="col-6">
-            <div class="register-user-form-container">
-              <form class="" id="registerUserForm">
-                <p class="title is-5 text-dark text-center mb-2" id="title">
-                  회원가입
-                </p>
-                <div class="field">
-                  <label class="label" for="fullNameInput">이름</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      id="fullNameInput"
-                      type="text"
-                      placeholder="유재석"
-                      autocomplete="on"
-                    />
+      <div class="container mb-4" id="container">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+              <div class="register-user-form-container">
+                <form class="" id="registerUserForm">
+                  <p class="title is-5 text-dark text-center mb-2" id="title">
+                    회원가입
+                  </p>
+                  <div class="field">
+                    <label class="label" for="fullNameInput">이름</label>
+                    <div class="control">
+                      <input
+                        class="input"
+                        id="fullNameInput"
+                        type="text"
+                        placeholder="유재석"
+                        autocomplete="on"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="field">
-                  <label class="label" for="emailInput">이메일</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      id="emailInput"
-                      type="email"
-                      placeholder="abc@example.com"
-                      autocomplete="on"
-                    />
+                  <div class="field">
+                    <label class="label" for="emailInput">이메일</label>
+                    <div class="control">
+                      <input
+                        class="input"
+                        id="emailInput"
+                        type="email"
+                        placeholder="abc@example.com"
+                        autocomplete="on"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="field">
-                  <label class="label" for="passwordInput">비밀번호</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      id="passwordInput"
-                      type="password"
-                      placeholder="********"
-                      autocomplete="off"
-                    />
+                  <div class="field">
+                    <label class="label" for="passwordInput">비밀번호</label>
+                    <div class="control">
+                      <input
+                        class="input"
+                        id="passwordInput"
+                        type="password"
+                        placeholder="********"
+                        autocomplete="off"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div class="field">
-                  <label class="label" for="passwordConfirmInput"
-                    >비밀번호 확인</label
+                  <div class="field">
+                    <label class="label" for="passwordConfirmInput"
+                      >비밀번호 확인</label
+                    >
+                    <div class="control">
+                      <input
+                        class="input"
+                        id="passwordConfirmInput"
+                        type="password"
+                        placeholder="********"
+                        autocomplete="off"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label class="label" for="telInput">전화번호</label>
+                    <div class="control">
+                      <input
+                        class="input"
+                        id="telInput"
+                        type="tel"
+                        placeholder="010-0000-0000"
+                        autocomplete="on"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="field">
+                    <label
+                      class="label btn btn-primary"
+                      for="adressInput"
+                      id="searchAddress"
+                      >주소 찾기</label
+                    >
+                    <div class="control">
+                      <input
+                        class="input"
+                        id="addressZipInput"
+                        type="tel"
+                        placeholder="우편 변호"
+                        autocomplete="on"
+                      />
+                      <hr class="my-2" />
+                      <input
+                        class="input"
+                        id="addressBasicInput"
+                        type="tel"
+                        placeholder="기본 주소"
+                        autocomplete="on"
+                      />
+                      <hr class="my-2" />
+                      <input
+                        class="input"
+                        id="addressOptionInput"
+                        type="tel"
+                        placeholder="상세 주소"
+                        autocomplete="on"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    class="button is-fullwidth btn btn-success"
+                    id="submitButton"
                   >
-                  <div class="control">
-                    <input
-                      class="input"
-                      id="passwordConfirmInput"
-                      type="password"
-                      placeholder="********"
-                      autocomplete="off"
-                    />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label class="label" for="telInput">전화번호</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      id="telInput"
-                      type="tel"
-                      placeholder="010-0000-0000"
-                      autocomplete="on"
-                    />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label
-                    class="label btn btn-primary"
-                    for="adressInput"
-                    id="searchAddress"
-                    >주소 찾기</label
-                  >
-                  <div class="control">
-                    <input
-                      class="input"
-                      id="addressZipInput"
-                      type="tel"
-                      placeholder="우편 변호"
-                      autocomplete="on"
-                    />
-                    <hr class="my-2" />
-                    <input
-                      class="input"
-                      id="addressBasicInput"
-                      type="tel"
-                      placeholder="기본 주소"
-                      autocomplete="on"
-                    />
-                    <hr class="my-2" />
-                    <input
-                      class="input"
-                      id="addressOptionInput"
-                      type="tel"
-                      placeholder="상세 주소"
-                      autocomplete="on"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  class="button is-fullwidth btn btn-success"
-                  id="submitButton"
-                >
-                  회원가입하기
-                </button>
-              </form>
+                    회원가입하기
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
+          <div class="col-3"></div>
         </div>
-        <div class="col-3"></div>
       </div>
+      <section class="footerSection"></section>
+      <footer id="footer"></footer>
     </div>
-    <footer id="footer"></footer>
-  </div>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <footer class="container-fluid text-center mt-3" id="footer"></footer>
+
     <script src="/public/js/template-renderer.js"></script>
   </body>
 </html>
