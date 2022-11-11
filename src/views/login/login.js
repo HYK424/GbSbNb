@@ -37,9 +37,12 @@ async function handleSubmit(e) {
   if (result.err) {
     return;
   }
+
+  console.log(result);
+
   sessionStorage.setItem('accessToken', result.tokens.accessToken);
   sessionStorage.setItem('refreshToken', result.tokens.refreshToken);
-  sessionStorage.setItem('role', result.tokens.role);
+  sessionStorage.setItem('role', result.role);
 
   alert(result.message);
 
