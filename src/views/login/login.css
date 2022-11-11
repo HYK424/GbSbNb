@@ -38,8 +38,10 @@ input[type='tel'] {
   text-decoration: underline;
 }
 
-#resetInput {
+.resetInput {
+  text-align: center;
   width: 100%;
+  margin-bottom: 12px;
 }
 
 #submit-btn {

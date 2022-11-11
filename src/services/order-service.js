@@ -13,7 +13,7 @@ class OrderService {
   }
 
   static async getOrderByUnknown(orderId, phoneNumber) {
-    const order = await OrderModel.findById(orderId);
+    const order = await OrderModel.findById(orderId, phoneNumber);
     if (order.deletedAt) {
       throw new AppError(
         commonErrors.deletedData,

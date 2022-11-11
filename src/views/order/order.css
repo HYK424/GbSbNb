@@ -1,9 +1,7 @@
-.orderInfoForm {
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
+form div {
+  margin-bottom: 18px;
 }
 
-label {
-    display: block;
+form label {
+  font-size: 28px;
 }

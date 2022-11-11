@@ -11,8 +11,7 @@ const orderItemAll = document.querySelector('#orderItemAll');
 const orderPrice = document.querySelector('#orderPrice');
 const totalPrice = document.querySelector('#totalPrice');
 const orderConfirmButton = document.querySelector('#orderConfirmButton');
-
-console.log('help me');
+const searchAddress = document.querySelector('#searchAddress');
 addAllElements();
 addAllEvents();
 
@@ -27,9 +26,9 @@ function addAllEvents() {
 
 async function insertInfo() {
   if (sessionStorage.getItem('accessToken')) {
-    const userInfo = await Api.get('/api/users/myinfo', '', true);
+    const userInfo = (await Api.get('/api/users/myinfo', '', true)).userInfo;
+    console.log(userInfo);
     let {
-      _id,
       fullName,
       phoneNumber,
       address: { postalCode, address1, address2 },
@@ -61,20 +60,13 @@ function requestSelectEvent(e) {
 }
 
 async function orderConfirmEvent(e) {
-  let userId = '비회원';
-  if (sessionStorage.getItem('accessToken')) {
-    userId = JSON.parse(
-      atob(sessionStorage.getItem('accessToken').split('.')[1]),
-    ).userId;
-  }
-
-  const request = '';
+  let request = '';
   if (requestSelectBox.value == '6') {
     request = requestInput.value;
   } else {
     let caseOfRequest = requestSelectBox.value;
     let requestArr = [
-      '',
+      '요청 사항 없음',
       '직접 수령',
       '배송 전 연락',
       '부재 시 경비실',
@@ -87,17 +79,9 @@ async function orderConfirmEvent(e) {
   const orderInfo = JSON.parse(localStorage.getItem('order'));
 
   let data = {
-    orderItems: orderInfo.orderItems, //{title, productId, price}
-    userId: userId,
+    orderItems: orderInfo.orderItems,
     totalPrice: orderInfo.totalPrice,
-    request: request,
-  };
-
-  let data = {
-    orderItems: orderInfo.orderItems, //{title, productId, price}
-    userId: userId,
-    totalPrice: orderInfo.totalPrice,
-    request: request,
+    request,
     address: {
       postalCode: postalCodeInput.value,
       address1Input: address1Input.value,
@@ -106,9 +90,51 @@ async function orderConfirmEvent(e) {
     receiver: fullNameInput.value,
     phoneNumber: phoneNumberInput.value,
   };
-
-  let orderId = await Api.post('/api/orders', true, data);
-
+  let result;
+  if (!sessionStorage.getItem('accessToken')) {
+    result = await Api.post('/api/orders', true, data);
+  } else {
+    result = await Api.post('/api/orders', false, data);
+  }
+  let orderId = result._id;
   localStorage.setItem('orderID', orderId);
   localStorage.removeItem('order');
+  location.href = '/order-confirm';
+}
+
+searchAddress.addEventListener('click', handleSearchAddressClick);
+
+function handleSearchAddressClick(e) {
+  new daum.Postcode({
+    oncomplete: function (data) {
+      let addr = '';
+      let extraAddr = '';
+
+      if (data.userSelectedType === 'R') {
+        addr = data.roadAddress;
+      } else {
+        addr = data.jibunAddress;
+      }
+
+      if (data.userSelectedType === 'R') {
+        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+          extraAddr += data.bname;
+        }
+        if (data.buildingName !== '' && data.apartment === 'Y') {
+          extraAddr +=
+            extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+        }
+        if (extraAddr !== '') {
+          extraAddr = ' (' + extraAddr + ')';
+        }
+      } else {
+      }
+
+      postalCodeInput.value = data.zonecode;
+      address1Input.value = `${addr} ${extraAddr}`;
+      address2Input.placeholder = '상세 주소를 입력해 주세요.';
+      address2Input.value = '';
+      address2Input.focus();
+    },
+  }).open();
 }

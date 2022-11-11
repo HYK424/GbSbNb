@@ -3,7 +3,8 @@ import { OrderService } from '../services';
 
 export const orderController = {
   createOrder: async (req, res, next) => {
-    const orderInfo = { ...req.body };
+    const userId = req.userId || '비회원';
+    const orderInfo = { userId, ...req.body };
     const newOrder = await OrderService.createOrder(orderInfo);
 
     return res.status(201).json(newOrder);
@@ -14,15 +15,14 @@ export const orderController = {
     return res.status(200).json(orders);
   },
   // 이건 비회원을 위한 API임
-  getOrderById: async (req, res, next) => {
-    const { orderId } = req.body;
-    const order = await OrderService.getOrderById(orderId);
+  getUnknownOrder: async (req, res, next) => {
+    const { orderId, phoneNumber } = req.body;
+    const order = await OrderService.getOrderById(orderId, phoneNumber);
     res.status(200).json(order);
   },
 
   getMyOrders: async (req, res, next) => {
     const { userId } = req;
-    console.log(userId);
     const orders = await OrderService.getMyOrders(userId);
     return res.status(200).json(orders);
   },
