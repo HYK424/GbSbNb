@@ -20,5 +20,29 @@ input[type='tel'] {
 }
 
 #container {
-  margin-top: 150px !important;
+  margin-top: 80px !important;
+}
+
+#forget-password {
+  font-size: 24px;
+}
+
+#sendEmail {
+  text-decoration: none;
+  font-size: 24px;
+  color: cornflowerblue;
+}
+
+#sendEmail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#resetInput {
+  width: 100%;
+}
+
+#submit-btn {
+  font-size: 32px;
+  color: whitesmoke;
 }
