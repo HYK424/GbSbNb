@@ -26,9 +26,8 @@ async function getOrderList() {
       return `
     <tr id="handle${order._id}" >
             <th width="100rem" scope="row">${order.createdAt.slice(0, 10)}</th>
-            <th width="300rem" scope="row">${order.orderItems[0].title} 외 ${
-        order.orderItems.length - 1
-      }건</th>
+            <th width="300rem" scope="row">${order.orderItems[0].title<2? order.orderItems[0].title :
+              order.orderItems[0].title+'외'+ order.orderItems.length - 1 + ' 건'} </th>
             <td width="120rem">${order.totalPrice.toLocaleString(
               'ko-Kr',
             )}원</td>

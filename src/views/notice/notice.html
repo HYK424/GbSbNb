@@ -11,6 +11,7 @@
       sizes="16x16"
       href="/elice-rabbit-favicon.png"
     />
+    <link rel="stylesheet" href="/public/css/public.css" />
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <!-- bulma css 관련 -->
     <link
@@ -39,27 +40,27 @@
     <link rel="stylesheet" href="notice.css" />
   </head>
   <body>
-    <nav
-      class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3"
-      id="nav"
-    ></nav>
-    <table id="noticeTable">
-      <thead>
-        <tr>
-          <td>제목</td>
-          <td>생성일</td>
-        </tr>
-      </thead>
-      <tbody id="noticeList">
-        <tr></tr>
-      </tbody>
-    </table>
+    <div class="pageWraper">
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3"
+        id="nav"
+      ></nav>
+      <table id="noticeTable">
+        <thead>
+          <tr>
+            <td>제목</td>
+            <td>생성일</td>
+          </tr>
+        </thead>
+        <tbody id="noticeList">
+          <tr></tr>
+        </tbody>
+      </table>
 
-    <div id="checkRes"></div>
-    <footer
-      class="container-fluid text-center fixed-bottom mb-4"
-      id="footer"
-    ></footer>
+      <div id="checkRes"></div>
+      <section class="footerSection"></section>
+      <footer id="footer"></footer>
+    </div>
     <script src="/public/js/template-renderer.js"></script>
   </body>
 </html>
