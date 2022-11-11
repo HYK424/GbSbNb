@@ -194,7 +194,12 @@ class UserService {
   }
 
   async resetPassword(email, phoneNumber, randomStr) {
-    const result = await userModel.resetPassword(email, phoneNumber);
+    const hashedPassword = await bcrypt.hash(randomStr, 10);
+    const result = await userModel.resetPassword(
+      email,
+      phoneNumber,
+      hashedPassword,
+    );
 
     if (!result) {
       throw new AppError(
