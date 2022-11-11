@@ -4,10 +4,14 @@ const OrderSchema = new Schema(
   {
     userId: {
       type: String,
-      required: true,
+      default: '비회원',
     },
     orderItems: [
       {
+        productId: {
+          type: String,
+          required: true,
+        },
         title: {
           type: String,
           required: true,
@@ -16,24 +20,17 @@ const OrderSchema = new Schema(
           type: Number,
           required: true,
         },
-        eachPrice: {
-          type: Number,
-          required: true,
-        },
-        totalItemPrice: {
-          type: Number,
-          required: true,
-        },
       },
     ],
-    state: {
+    status: {
       type: String,
-      default: 'standby',
+      default: '상품 준비 중',
+      enum: ['상품 준비 중', '배송 중', '배송 완료', '주문 취소'],
     },
     address: {
       type: new Schema(
         {
-          zipCode: String,
+          postalCode: String,
           address1: String,
           address2: String,
         },
@@ -41,28 +38,21 @@ const OrderSchema = new Schema(
           _id: false,
         },
       ),
-      required: false,
     },
-
-    // totalprice: {
-    //   type: Number,
-    //   required: true,
-    // },
-
-    startedAt: {
-      type: Date,
+    receiver: { type: String, required: true },
+    phoneNumber: { type: String, required: true },
+    totalPrice: {
+      type: Number,
+      required: true,
     },
-    completedAt: {
-      type: Date,
-    },
-    retransferedAt: {
-      type: Date,
+    request: {
+      type: String,
     },
     deletedAt: {
       type: Date,
     },
   },
-  { collection: 'orders', timestamps: true },
+  { timestamps: true },
 );
 
 export { OrderSchema };

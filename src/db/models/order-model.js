@@ -1,42 +1,59 @@
 import { model } from 'mongoose';
 import { OrderSchema } from '../schemas/order-schema';
 
-const Order = model('order', OrderSchema);
+const Order = model('orders', OrderSchema);
 
-export class OrderModel {
-  async getOrders(state, userId) {
-    return state === undefined // 어드민이 보낸 state가 undefined인 경우
-      ? await Order.find({}) // 모든데이터 검색
-      : userId === undefined // 어드민은 userId를 보내지않음 => 일반유저만 userId를 보냄 / userId가 undefined인 경우
-      ? await Order.find({ state: state }) // 어드민의 명령이므로 state로 필터링하여 보냄
-      : await Order.find({ userId: userId }); // 유저의 명령이므로 userId로 필터링하여 보냄
+class OrderModel {
+  static async create(orderInfo) {
+    console.log(orderInfo);
+    const newOrder = await Order.create(orderInfo);
+    return newOrder;
   }
 
-  async findThisState(email) {
-    const user = await Order.findOne({ email });
-    return user;
+  static async findById(orderId) {
+    const order = await Order.findOne({ _id: orderId });
+    return order;
   }
 
-  async createMyOrders(data) {
-    const createMyOrders = await Order.create(data)
-      .then(() => {
-        console.log('성공');
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    return createMyOrders;
+  static async findAllByUser(userId) {
+    const orders = await Order.find({ userId, deletedAt: null });
+    return orders;
   }
 
-  async update({ userId, update }) {
-    const filter = { _id: userId };
+  static async findUnknown(orderId, phoneNumber) {
+    const order = await Order.findOne({ _id: orderId, phoneNumber });
+    return order;
+  }
+
+  static async findAll() {
+    const orders = await Order.find({});
+    return orders;
+  }
+
+  static async update({ orderId, updateInfo }) {
+    const filter = { _id: orderId };
     const option = { returnOriginal: false };
 
-    const updatedUser = await User.findOneAndUpdate(filter, update, option);
+    const result = await Order.updateOne(filter, updateInfo, option);
+    return result;
+  }
 
-    return updatedUser;
+  static async updateStatus(orderIds, updateInfo) {
+    const filter = { _id: { $in: orderIds } };
+    const result = await Order.updateMany(filter, updateInfo);
+    return result;
+  }
+
+  static async softDelete(orderId, updateInfo) {
+    const filter = { _id: orderId };
+    const result = await Order.updateOne(filter, updateInfo);
+    return result;
+  }
+
+  static async delete(orderId) {
+    const result = await Order.deleteOne({ _id: orderId });
+    return result;
   }
 }
 
-const orderModel = new OrderModel();
-export { orderModel };
+export { OrderModel };

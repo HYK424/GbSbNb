@@ -1,9 +1,11 @@
-import { userModel, productModel, orderModel } from '../db';
+import { userModel, orderModel } from '../db';
 import bcrypt from 'bcrypt';
+import { AppError, commonErrors } from '../middlewares';
+
+import { sendMail } from '../util/mailsys/send-mail';
 
 class AdminService {
   constructor(requestModel) {
-    console.log(requestModel);
     if (requestModel === 'userModel') {
       this.userModel = userModel;
     }
@@ -14,8 +16,7 @@ class AdminService {
 
   async getUsers() {
     const users = await this.userModel.findAll();
-    console.log('유저');
-    console.log(users);
+
     if (users) {
       return {
         status: 200,
@@ -28,47 +29,56 @@ class AdminService {
 
   async resetPassword(resetUserId, randomStr) {
     const user = await this.userModel.findById(resetUserId);
-
+    console.log(user);
     if (!user) {
       throw new Error('유저 정보 조회 에러. DB 관리자에게 문의하세요.');
     }
 
     const hashedRandomStr = await bcrypt.hash(randomStr, 10);
-    try {
-      await this.userModel.changePassword({
-        userId: resetUserId,
-        changedPassword: hashedRandomStr,
-      });
-      return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
-    } catch (err) {
-      console.log(err);
-      console.log(err.name);
-      if (err.name === 'CastError') {
-        return {
-          status: 400,
-          check: '비밀번호 변경에 실패했습니다.',
-          message: '유저 ID에 문제가 있습니다.',
-        };
-      }
+
+    const result = await this.userModel.changePassword({
+      userId: resetUserId,
+      changedPassword: hashedRandomStr,
+    });
+
+    if (!result) {
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '비밀번호 초기화에 실패했습니다.',
+      );
     }
+
+    const mailData = await sendMail.password(resetUserId, randomStr);
+
+    if (!mailData) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '리셋되었으나 이메일을 보내지 못했습니다.',
+      );
+    }
+
+    console.log(mailData);
+
+    return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
   }
 
   async getOrder(state) {
-    console.log('서비스');
-
-    // if (state === undefined) state = 'null';
-
-    console.log(`state : ${state}`);
-
     const data = await this.orderModel.findOrder(state);
+  }
 
-    console.log('스키마 종료');
-    console.log(data);
+  async updateUserRole(insertData) {
+    const data = await this.userModel.updateRole(insertData);
+
+    if (data) {
+      return { status: 200 };
+    }
   }
 }
 
 const userManagement = new AdminService('userModel');
-const productManagement = new AdminService('productModel');
+
 const orderManagement = new AdminService('orderModel');
 
-export { userManagement, productManagement, orderManagement };
+export { userManagement, orderManagement };

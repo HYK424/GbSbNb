@@ -1,0 +1,64 @@
+#err {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal_body {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    height: 600px;
+    padding: 40px;
+    text-align: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#checkRes {
+    margin: 10%;
+    border: 3px solid #000000;
+    border-radius: 10px;
+    display: none;
+}
+
+label {
+    font-size: 48px;
+}
+
+#checkOrderForm input {
+    font-size: 32px;
+    width: 480px;
+    text-align: center;
+}
+
+#submitButton {
+    font-size: 36px;
+}
+
+.stateEmoji {
+    font-size: 50px;
+    visibility: hidden;
+}
+
+.stateText {
+    color: gray;
+}

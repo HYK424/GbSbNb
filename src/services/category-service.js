@@ -1,11 +1,23 @@
 import { CategoryModel } from '../db';
+import { AppError, commonErrors } from '../middlewares';
 
 class CategoryService {
-  static async addCategory({ name, id }) {
-    const newCategory = await CategoryModel.create({
-      name,
-      id,
-    });
+  static async createCategory(categoryInfo) {
+    if (await CategoryModel.find(categoryInfo)) {
+      throw new AppError(
+        commonErrors.resourceDuplicationError,
+        400,
+        '카테고리 ID와 이름은 유일한 값입니다. 기존 카테고리 및 품목코드를 다시 한 번 확인해주세요!',
+      );
+    }
+    const newCategory = await CategoryModel.create(categoryInfo);
+    if (!newCategory) {
+      throw new AppError(
+        commonErrors.databaseError,
+        500,
+        'DB에서 알 수 없는 오류가 발생했어요. DB 관리자에게 문의하세요!',
+      );
+    }
     return newCategory;
   }
 
@@ -14,38 +26,42 @@ class CategoryService {
     return categories;
   }
 
-  static async updateCategory(categoryId, categoryInfo) {
-    const category = await CategoryModel.findCategory(categoryId);
+  static async updateCategory(categoryId, updateInfo) {
+    const category = await CategoryModel.findById(categoryId);
     if (!category) {
-      throw new Error(
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
         '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
-    const { name, id } = categoryInfo;
-
-    const updatedInfo = {
-      name,
-      id,
-    };
-
-    const updatedCategory = await CategoryModel.update(categoryId, updatedInfo);
+    const updatedCategory = await CategoryModel.update(categoryId, updateInfo);
     return updatedCategory;
   }
 
-  // static async deleteProduct(productId) {
-  //   let product = await CartModel.findById(productId);
+  static async deleteCategory(categoryId) {
+    const category = await CategoryModel.findById(categoryId);
+    if (!category) {
+      throw new AppError(
+        commonErrors.resourceNotFoundError,
+        400,
+        '해당 카테고리가 존재하지 않습니다. 다시 한 번 확인해 주세요.',
+      );
+    }
+    const productCount = await CategoryModel.countProducts(categoryId);
+    if (productCount) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '카테고리에 속한 상품이 있어서 삭제할 수 없어요 :(',
+      );
+    }
 
-  //   if (!product) {
-  //     throw new Error(
-  //       '해당 제품이 존재하지 않습니다. 다시 한 번 확인해 주세요.',
-  //     );
-  //   }
+    const result = await CategoryModel.delete(categoryId);
 
-  //   const result = await CartModel.delete(productId);
-
-  //   return result;
-  // }
+    return result;
+  }
 }
 
 export { CategoryService };

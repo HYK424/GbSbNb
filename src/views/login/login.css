@@ -1,18 +1,54 @@
-.login-form-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 85vh;
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='text'],
+input[type='tel'] {
+  font-size: 24px;
 }
 
-.login-form-box {
-  width: 30rem;
+.label {
+  font-size: 20px;
+  margin-bottom: 12px !important;
+}
+#title {
+  font-size: 36px;
 }
 
-.login-form-box .title {
+#submitButton {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#container {
+  margin-top: 80px !important;
+}
+
+#forget-password {
+  font-size: 24px;
+}
+
+#sendEmail {
+  text-decoration: none;
+  font-size: 24px;
+  color: cornflowerblue;
+}
+
+#sendEmail:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#resetForm input {
+  width: 100%;
+}
+
+.resetInput {
   text-align: center;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
-.login-form-box .button {
-  font-weight: bold;
+#submit-btn {
+  font-size: 32px;
+  color: whitesmoke;
 }

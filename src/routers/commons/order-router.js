@@ -1,13 +1,21 @@
 import { Router } from 'express';
-import { adminController } from '../../controllers/admin-controller';
-import { loginAuthenticator } from '../../middlewares/authentication';
-import { checkRole } from '../../middlewares/authorization';
+import { orderController } from '../../controllers';
+import { authenticator } from '../../middlewares';
+import { asyncHandler } from '../../middlewares';
 
 const orderRouter = Router();
-//어드민 로그인, 권한 검증
-orderRouter.use(loginAuthenticator.isLoggedIn, checkRole);
 
-//전체 배송 조회
-//orderRouter.get('/myorders', adminController.getMyOrders);
+orderRouter.post('/unknown', asyncHandler(orderController.getOrderByUnknown));
+orderRouter.post('/unknown', asyncHandler(orderController.createOrder));
+orderRouter.delete(
+  '/unknownCancel',
+  asyncHandler(orderController.unknownUserOrderCancel),
+);
+
+orderRouter.use(authenticator.isLoggedIn);
+orderRouter.get('/', asyncHandler(orderController.getMyOrders));
+orderRouter.post('/', asyncHandler(orderController.createOrder));
+orderRouter.delete('/:orderId', asyncHandler(orderController.deleteMyOrder));
+orderRouter.get('/:orderId/cancel', asyncHandler(orderController.cancelOrder));
 
 export { orderRouter };

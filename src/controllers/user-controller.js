@@ -1,148 +1,141 @@
+import { AppError, commonErrors } from '../middlewares';
 import { userService } from '../services';
-import is from '@sindresorhus/is';
 
 export const userController = {
   logIn: async (req, res, next) => {
-    console.log('로그인 컨트롤러');
-    try {
-      // if (is.emptyObject(req.body)) {
-      //   throw new Error(
-      //     'headers의 Content-Type을 application/json으로 설정해주세요',
-      //   );
-      // }
+    const { email, password } = req.body;
 
-      const { email, password } = req.body;
+    const result = await userService.login({ email, password });
 
-      const result = await userService.login({ email, password });
+    const { status, role, userName, accessToken, refreshToken } = result;
 
-      const { status, token, role } = result;
+    let { message } = result;
 
-      let { message } = result;
-
-      if (req.newUserMessage) {
-        message = req.newUserMessage;
-      }
-
-      let data = { message: message, token: token };
-
-      console.log(role);
-
-      if (role === 'ADMIN' || role === 'ADMIN_G') {
-        data.role = role;
-      }
-
-      res.status(status).json(data);
-    } catch (error) {
-      next(error);
+    if (req.newUserMessage) {
+      message = req.newUserMessage;
     }
+
+    const data = {
+      message: message,
+      tokens: { accessToken: accessToken, refreshToken: refreshToken },
+      role: role,
+      userName: userName,
+    };
+
+    res.status(status).json(data);
   },
 
   getMyInfo: async (req, res) => {
-    const userId = req.currentUserId;
+    const userId = req.userId;
 
-    const result = await userService.getMyInfo(userId);
+    const data = await userService.getMyInfo(userId);
 
-    const { status, message, userInfo } = result;
+    const { status, message, userInfo } = data;
 
     res.status(status).json({ message: message, userInfo: userInfo });
   },
 
   createUser: async (req, res, next) => {
-    try {
-      if (is.emptyObject(req.body)) {
-        res.status(400).json({ message: '계정생성에 실패하였습니다.' });
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요',
-        );
-      }
+    console.log(req.body);
+    const { fullName, email, password, address, phoneNumber } = req.body;
 
-      console.log(req.body);
-      const { fullName, email, password, address, phoneNumber } = req.body;
+    const newUser = await userService.createUser({
+      fullName,
+      email,
+      password,
+      address,
+      phoneNumber,
+    });
 
-      const newUser = await userService.createUser({
-        fullName,
-        email,
-        password,
-        address,
-        phoneNumber,
-      });
-
-      if (newUser) {
-        req.newUserMessage = '계정생성에 성공했습니다.';
-      }
-
-      userController.logIn(req, res, next);
-    } catch (error) {
-      console.log('createUser실패');
-      console.log(error);
-      res.status(400).json({ message: error.message });
+    if (newUser) {
+      req.newUserMessage = '계정생성에 성공했습니다.';
     }
+
+    userController.logIn(req, res, next);
   },
 
   updateUser: async (req, res, next) => {
-    try {
-      if (is.emptyObject(req.body)) {
-        throw new Error(
-          'headers의 Content-Type을 application/json으로 설정해주세요',
-        );
-      }
+    const userId = req.userId;
 
-      const userId = req.currentUserId;
+    console.log(userId);
 
-      const {
-        fullName,
-        email,
-        address,
-        phoneNumber,
-        // role,
-      } = req.body;
+    const { fullName, email, address, phoneNumber, role } = req.body;
 
-      const toUpdate = {
-        ...(fullName && { fullName }),
-        ...(email && { email }),
-        ...(address && { address }),
-        ...(phoneNumber && { phoneNumber }),
-        // ...(role && { role }),
-      };
+    const toUpdate = {
+      ...(fullName && { fullName }),
+      ...(email && { email }),
+      ...(address && { address }),
+      ...(phoneNumber && { phoneNumber }),
+      ...(role && { role }),
+    };
 
-      const updatedUserInfo = await userService.updateUser(userId, toUpdate);
+    const updatedUserInfo = await userService.updateUser(userId, toUpdate);
 
-      res.status(200).json(updatedUserInfo);
-    } catch (error) {
-      next(error);
-    }
+    res.status(200).json(updatedUserInfo);
+  },
+
+  async checkPassword(req, res) {
+    const userId = req.userId;
+    const password = req.body.password;
+
+    const result = await userService.checkPassword(userId, password);
+
+    const { status, message } = result;
+
+    res.status(status).json({ message: message });
   },
 
   changePassword: async (req, res) => {
-    const userId = req.params.userId;
-    const password = req.body.password;
-    const changedPassword = req.body.changedPassword;
-    // console.log(`\nuserId : ${userId}\n`);
-    // console.log(`\npassword : ${password}\n`);
-    // console.log(`\nchangePassword : ${changedPassword}\n`);
-    const result = await userService.changePassword(
-      userId,
-      password,
-      changedPassword,
-    );
+    const userId = req.userId;
+
+    const { password, passwordConfirm } = req.body;
+
+    if (password !== passwordConfirm) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '입력하신 비밀번호가 같지 않습니다. 비밀번호를 확인해주세요',
+      );
+    }
+
+    const result = await userService.changePassword(userId, passwordConfirm);
 
     const { status, check } = result;
 
     res.status(status).json({ check: check });
   },
 
-  deleteUser: async (req, res) => {
-    console.log('delete Start');
-    const userId = req.currentUserId;
-    const password = req.body.password;
+  async resetPassword(req, res) {
+    const { email, phoneNumber } = req.body;
+    const randomStr = Math.random().toString(36).substring(2, 12);
+    const result = await userService.resetPassword(
+      email,
+      phoneNumber,
+      randomStr,
+    );
 
-    console.log(userId);
-    console.log(password);
+    if (!result) {
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '비밀번호 초기화를 실패 하였습니다.',
+      );
+    }
+
+    const { status, message } = result;
+
+    res.status(status).json({ message: message });
+  },
+
+  deleteUser: async (req, res) => {
+    const userId = req.userId;
+
+    const password = req.body.password;
 
     const result = await userService.deleteUser(userId, password);
 
-    //const { status, message } = result;
+    const { status, message } = result;
 
-    res.status(200).json({ message: '시험중' });
+    res.status(status).json({ message: message });
   },
 };

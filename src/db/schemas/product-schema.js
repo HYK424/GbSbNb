@@ -5,8 +5,9 @@ const ProductSchema = new Schema(
     title: {
       type: String,
       required: true,
+      unique: true,
     },
-    categoryId: {
+    category: {
       type: String,
       required: true,
     },
@@ -26,8 +27,9 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
-    deletedAt: {
-      type: Date,
+    view: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true },

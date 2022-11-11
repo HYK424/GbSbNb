@@ -9,29 +9,38 @@ export class CategoryModel {
     return newCategory;
   }
 
+  static async find({ name, id }) {
+    const category = await Category.findOne({ $or: [{ name }, { id }] });
+    return category;
+  }
+
   static async findAll() {
     const categories = await Category.find({});
     return categories;
   }
 
-  static async findCategory(categoryId) {
+  static async findById(categoryId) {
     const category = await Category.findOne({ id: categoryId });
     return category;
   }
 
-  static async findByPage(categoryId) {
-    const products = await Category.findOne({ id: categoryId }).populate(
-      'products',
-    );
-    return products;
-  }
-
-  static async countAll(categoryId) {
-    const category = await Category.findOne({
-      id: categoryId,
-    });
-    const productCount = category.products.length;
-    return productCount;
+  static async countProducts(categoryId) {
+    const category = await Category.aggregate([
+      {
+        $match: {
+          id: categoryId,
+        },
+      },
+      {
+        $lookup: {
+          from: 'products',
+          localField: 'name',
+          foreignField: 'category',
+          as: 'products',
+        },
+      },
+    ]);
+    return category[0].products.length;
   }
 
   static async update(categoryId, updateInfo) {
@@ -40,9 +49,15 @@ export class CategoryModel {
 
     const updatedCategory = await Category.findOneAndUpdate(
       filter,
-      { id, name },
+      updateInfo,
       option,
     );
     return updatedCategory;
+  }
+
+  static async delete(categoryId) {
+    const filter = { id: categoryId };
+    const result = await Category.findOneAndRemove(filter);
+    return result;
   }
 }

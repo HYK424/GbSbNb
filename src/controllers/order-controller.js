@@ -1,38 +1,96 @@
-import { AppError } from '../middlewares';
-import { orderService } from '../services';
+import { AppError, commonErrors } from '../middlewares';
+import { OrderService } from '../services';
 
 export const orderController = {
-  getOrders: async (req, res) => {
-    const state = req.query.state;
+  createOrder: async (req, res, next) => {
+    const userId = req.userId || '비회원';
+    const orderInfo = { userId, ...req.body };
+    const newOrder = await OrderService.createOrder(orderInfo);
 
-    const data = await orderService.getOrders(state);
-
-    if (!data) {
-      res.status(400).json({ message: '데이터를 불러오지 못했습니다.' });
-    }
-
-    res.status(200).json({ message: '데이터를 불러왔습니다.', data: data });
+    return res.status(201).json(newOrder);
   },
 
-  createMyOrders: async (req, res) => {
-    const userId = req.currentUserId;
-    const { orderItems, address, payment } = req.body;
+  getOrders: async (req, res, next) => {
+    const orders = await OrderService.getOrders();
+    return res.status(200).json(orders);
+  },
 
-    for (let i = 0; i < orderItems.length; i++) {
-      const calc = orderItems[i].quantity * orderItems[i].eachPrice;
+  getMyOrders: async (req, res, next) => {
+    const { userId } = req;
+    const orders = await OrderService.getMyOrders(userId);
+    return res.status(200).json(orders);
+  },
 
-      if (calc != orderItems[i].totalItemPrice) {
-        throw new AppError('상품 계산결과가 맞지 않습니다.');
-      }
+  cancelOrder: async (req, res, next) => {
+    const { orderId } = req.params;
+    const { userId } = req;
+    const updateInfo = { status: '주문 취소' };
+    const result = await OrderService.cancelOrder(orderId, userId, updateInfo);
+    if (!result.acknowledged) {
+      throw new AppError(commonErrors.databaseError, 500);
+    }
+    return res.status(200).json('주문이 정상적으로 취소되었습니다 :)');
+  },
+
+  updateOrderStatus: async (req, res, next) => {
+    const { orderIds, status } = req.body;
+    if (['배송 중', '배송 완료'].indexOf(status) === -1) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '올바른 배송 상태를 지정하여 다시 요청해주세요 :(',
+      );
+    }
+    await OrderService.updateOrderStatus(orderIds, status);
+    res.status(200).json('배송 상태가 정상적으로 수정되었습니다 😊');
+  },
+
+  deleteMyOrder: async (req, res, next) => {
+    const { orderId } = req.params;
+    const { userId } = req;
+    const order = await OrderService.getOrder(orderId);
+    if (order.userId !== userId) {
+      throw new AppError(
+        commonErrors.authorizationError,
+        400,
+        '해당 주문은 고객님의 주문이 아니에요 :(',
+      );
+    }
+    const result = await OrderService.deleteMyOrder(orderId);
+    if (!result.acknowledged) {
+      throw new AppError(commonErrors.databaseError);
     }
 
-    const data = { userId, orderItems, address, payment };
-    const test = await orderService.createMyOrders(data);
-    //console.log(data);
+    res.status(200).json({ message: '주문이 정상적으로 삭제되었습니다 😊' });
   },
-  getMyOrders: async (req, res) => {
-    const userId = req.currentUserId;
 
-    const data = await orderService.getMyOrder(userId);
+  deleteOrder: async (req, res, next) => {
+    const { orderId } = req.params;
+    const result = await OrderService.deleteOrder(orderId);
+
+    res.status(200).json(result);
+  },
+
+  getOrderByUnknown: async (req, res) => {
+    const { orderId, phoneNumber } = req.body;
+    const order = await OrderService.getOrderByUnknown(orderId, phoneNumber);
+    if (!order) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '해당 정보에 해당하는 주문을 찾을 수 없어요 :(',
+      );
+    }
+    console.log(order);
+    return res.status(200).json(order);
+  },
+
+  unknownUserOrderCancel: async (req, res) => {
+    const { orderCode } = req.body;
+    const updateInfo = { status: '주문 취소' };
+    const result = await OrderService.cancleUnknownOrder(orderCode, updateInfo);
+    const status = 200;
+    const message = '주문 취소 성공';
+    res.status(status).json({ message: message });
   },
 };

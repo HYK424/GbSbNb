@@ -1,0 +1,16 @@
+#header-message {
+  font-size: 32px;
+}
+
+#number {
+  font-size: 32px;
+}
+
+.important p {
+  font-size: 28px;
+}
+
+#orderIdOutput,
+#orderNumberOutput {
+  text-decoration: underline;
+}

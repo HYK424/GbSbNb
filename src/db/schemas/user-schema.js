@@ -6,10 +6,12 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+
     email: {
       type: String,
       required: true,
     },
+
     password: {
       type: String,
       required: true,
@@ -23,7 +25,7 @@ const UserSchema = new Schema(
     address: {
       type: new Schema(
         {
-          zipCode: String,
+          postalCode: String,
           address1: String,
           address2: String,
         },
@@ -45,6 +47,7 @@ const UserSchema = new Schema(
       default: 'basic-user',
     },
   },
+
   {
     collection: 'users',
     timestamps: true,

@@ -1,30 +1,22 @@
 import { Router } from 'express';
 import { productController } from '../../controllers';
-import { productImageUpload } from '../../middlewares';
-import { productValidator } from '../../middlewares/validation';
-import { asyncHandler } from '../../middlewares';
+import { productImageUpload } from '../../util';
 
-import { loginAuthenticator } from '../../middlewares/authentication';
-import { checkRole } from '../../middlewares/authorization';
+import { asyncHandler } from '../../middlewares';
 
 const productRouter = Router();
 
 productRouter.get('/', asyncHandler(productController.getProducts));
-productRouter.get('/:productId', asyncHandler(productController.getProudct));
-
-//productRouter.use(loginAuthenticator.isLoggedIn, checkRole);
 productRouter.post(
-  '/',
+  '/upload-image',
   productImageUpload.single('image'),
-  productValidator.createProduct,
-  asyncHandler(productController.createProduct),
+  asyncHandler(productController.setImageUrl),
 );
-productRouter.put(
-  '/:productId',
-  productImageUpload.single('image'),
-  productValidator.createProduct,
-  asyncHandler(productController.updateProduct),
+
+productRouter.get(
+  '/search',
+  asyncHandler(productController.getProudctsByKeyword),
 );
-// productRouter.delete('/:productId', async(productController.deleteProduct));
+productRouter.get('/:productId', asyncHandler(productController.getProudct));
 
 export { productRouter };

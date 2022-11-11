@@ -1,0 +1,82 @@
+* {
+  font-family: 'Poor Story', cursive, sans-serif;
+  font-size: 18px;
+  font-weight: 700 !important;
+}
+#nav {
+  height: 100px;
+}
+#logo {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* html,body {
+  height: 100%;
+} */
+
+#search {
+  width: 250px;
+}
+
+.search-form {
+  width: 400px;
+}
+
+#cart-notification {
+  opacity: 0.9;
+}
+
+#toPrevious {
+  padding: 0;
+  margin-left: 200px;
+  padding-bottom: 50px;
+}
+
+#left-arrow {
+  font-size: 80px;
+}
+
+#toNext {
+  padding: 0;
+  margin-right: 200px;
+  padding-bottom: 50px;
+}
+
+#right-arrow {
+  font-size: 80px;
+}
+
+.card-title {
+  font-weight: 700;
+}
+
+#logout:hover {
+  cursor: pointer;
+}
+
+.pageWraper {
+  min-height: 100vh;
+position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+#footer {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  padding: 0;
+  background-color: #d1d4d7;
+}
+
+.footerItem{
+height: 100px;
+padding: 0;
+}
+
+.footerSection{
+  flex: 1;
+}

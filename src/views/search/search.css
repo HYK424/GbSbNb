@@ -1,0 +1,45 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.navBar li {
+  padding-left: 15px;
+}
+
+.formDiv {
+  display: none;
+}
+
+.formDiv.active {
+  display: inline;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.card {
+  width: 33%;
+}
+
+.thumbnail {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-link {
+  text-decoration: none;
+  color: black;
+}
+
+#product-description {
+  height: 50px;
+}
+
+#productCard {
+  width: 340px !important;
+}

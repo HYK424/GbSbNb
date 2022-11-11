@@ -1,41 +1,42 @@
 import jwt from 'jsonwebtoken';
 
-const secretKey = process.env.JWT_SECRET_KEY;
-
 export const jwtModule = {
-  access: (userId, role) => {
-    const payload = { userId, role };
-    return jwt.sign(payload, secretKey, {
-      expiresIn: process.env.ACCESS_EXPIRE,
+  generate: (userId, role, secretKey, expire) => {
+    return jwt.sign({ userId, role }, secretKey, {
+      expiresIn: expire,
     });
   },
-
-  accessVerify: (accessToken) => {
+  verify: (token, secretKey) => {
     try {
-      const decodeToken = jwt.verify(accessToken, secretKey);
+      const decodeToken = jwt.verify(token, secretKey);
+
       return decodeToken;
     } catch (err) {
-      if (err.name === 'TokenExpiredError') {
-        res.status(419).json({
-          message: '로그인이 만료되었습니다.',
-        });
-      }
-      if (err.name === 'JsonWebTokenError') {
-        res.status(401).json({
-          message: '유효하지 않은 로그인 입니다.',
-        });
-      }
+      return false;
     }
   },
-  refresh: () => {
-    return jwt.sign({}, secretKey, {
-      expiresIn: process.env.REFRESH_EXPIRE,
-    });
+
+  generateAccess: (userId, role) => {
+    return jwtModule.generate(
+      userId,
+      role,
+      process.env.ACCESS_KEY,
+      process.env.ACCESS_EXPIRE,
+    );
   },
-  refreshVerify: (refreshToken, email) => {
-    console.log(refreshToken);
-    console.log(email);
-    try {
-    } catch (err) {}
+  generateRefresh: (userId, role) => {
+    return jwtModule.generate(
+      userId,
+      role,
+      process.env.REFRESH_KEY,
+      process.env.REFRESH_EXPIRE,
+    );
+  },
+
+  accessVerify: (token) => {
+    return jwtModule.verify(token, process.env.ACCESS_KEY);
+  },
+  refreshVerify: (token) => {
+    return jwtModule.verify(token, process.env.REFRESH_KEY);
   },
 };
