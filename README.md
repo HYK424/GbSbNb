@@ -95,19 +95,19 @@
 <br />
 
 
-## 2. 기술 스택
+## 3. 기술 스택
 
 ![image](https://i.ibb.co/N34mXzy/image.png)
 
 <br />
 
-### 2-1. 프론트엔드
+### 3-1. 프론트엔드
 
 - **Vanilla javascript**, html, css (**Bulma css + Bootstrap**)
 - Font-awesome 
 - Daum 도로명 주소 api 
 
-### 2-2. 백엔드 
+### 3-2. 백엔드 
 
 - **Express** (nodemon, babel-node로 실행됩니다.)
 - Mongodb, Mongoose
@@ -116,18 +116,18 @@
 
 
 
-## 3. 인프라 구조
+## 4. 인프라 구조
 
 ![image](https://i.ibb.co/9tGxmx0/image.png)<br />
 
-### 3-1. 폴더 구조
+### 4-1. 폴더 구조
 - 프론트: `src/views` 폴더 
 - 백: src/views 이외 폴더 전체
 - 실행: **프론트, 백 동시에, express로 실행**
 
 <br />
 
-## 4. 제작자
+## 5. 제작자
 
 | 이름 | 담당 업무 |
 | ------ | ------ |
