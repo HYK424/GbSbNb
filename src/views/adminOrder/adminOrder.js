@@ -19,7 +19,6 @@ function allEvents() {
 async function getOrderList() {
   const orders = await Api.get('/api/admin/orders');
 
-  console.log(orders);
 
   const orderTemplate = orders
     .map((user) => {

@@ -3,7 +3,8 @@ import { OrderService } from '../services';
 
 export const orderController = {
   createOrder: async (req, res, next) => {
-    const orderInfo = { ...req.body };
+    const userId = req.userId || '비회원';
+    const orderInfo = { userId, ...req.body };
     const newOrder = await OrderService.createOrder(orderInfo);
 
     return res.status(201).json(newOrder);
@@ -13,16 +14,9 @@ export const orderController = {
     const orders = await OrderService.getOrders();
     return res.status(200).json(orders);
   },
-  // 이건 비회원을 위한 API임
-  getOrderById: async (req, res, next) => {
-    const { orderId } = req.body;
-    const order = await OrderService.getOrderById(orderId);
-    res.status(200).json(order);
-  },
 
   getMyOrders: async (req, res, next) => {
     const { userId } = req;
-    console.log(userId);
     const orders = await OrderService.getMyOrders(userId);
     return res.status(200).json(orders);
   },
@@ -56,6 +50,7 @@ export const orderController = {
 
   cancelOrder: async (req, res, next) => {
     const { orderId } = req.params;
+    const { userId } = req;
     const updateInfo = { status: '주문 취소' };
     const result = await OrderService.cancelOrder(orderId, updateInfo);
     if (!result.acknowledged) {
@@ -79,9 +74,21 @@ export const orderController = {
 
   deleteMyOrder: async (req, res, next) => {
     const { orderId } = req.params;
+    const { userId } = req;
+    const order = await OrderService.getOrder(orderId);
+    if (order.userId === userId) {
+      throw new AppError(
+        commonErrors.authorizationError,
+        400,
+        '해당 주문은 고객님의 주문이 아니에요 :(',
+      );
+    }
     const result = await OrderService.deleteMyOrder(orderId);
+    if (!result.acknowledged) {
+      throw new AppError(commonErrors.databaseError);
+    }
 
-    res.status(200).json(result);
+    res.status(200).json({ message: '주문이 정상적으로 삭제되었습니다 😊' });
   },
 
   deleteOrder: async (req, res, next) => {

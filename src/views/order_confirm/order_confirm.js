@@ -1,30 +1,37 @@
-import * as Api from "/api.js";
+import * as Api from '/api.js';
+
+if (localStorage.removeItem('orderID')) {
+  alert('잘못된 접근입니다 :( 주문 완료 후 다시 방문해 주세요!');
+}
 
 const orderIdOutput = document.querySelector('#orderIdOutput');
+const orderNumberOutput = document.querySelector('#orderNumberOutput');
 const orderCheckButton = document.querySelector('#orderCheckButton');
-const continumShoppingButton = document.querySelector('#continumShoppingButton');
-const orderListButton = document.querySelector('#orderListButton');
-
-let orderId = ''
-
+const continumShoppingButton = document.querySelector(
+  '#continumShoppingButton',
+);
 addAllElements();
 addAllEvents();
 
 function addAllElements() {
-    insertOrderId();
+  insertOrderId();
 }
 
 function addAllEvents() {
-    orderCheckButton.addEventListener('click', () => {
-        window.location.href = `/order/${orderId}`;
-    });
-    continumShoppingButton.addEventListener('click', () => {
-        window.location.href = `/`;
-    });
+  orderCheckButton.addEventListener('click', () => {
+    window.location.href = `/order/${orderId}`;
+  });
+  continumShoppingButton.addEventListener('click', () => {
+    window.location.href = `/`;
+  });
 }
 
 function insertOrderId() {
-    orderId = localStorage.getItem('orderID')
-    orderIdOutput.innerHTML = orderId
-    localStorage.removeItem('orderID')
+  const orderId = localStorage.getItem('orderId');
+  const orderNumber = localStorage.getItem('orderNumber');
+  console.log(orderId, orderNumber);
+  orderIdOutput.innerText += orderId;
+  orderNumberOutput.innerText += orderNumber;
+  localStorage.removeItem('orderId');
+  localStorage.removeItem('orderNumber');
 }

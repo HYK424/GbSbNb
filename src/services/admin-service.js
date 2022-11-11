@@ -49,11 +49,16 @@ class AdminService {
       );
     }
 
-    const mailData = await sendMail.password(
-      'dhdlsrnr1232@gmail.com',
-      randomStr,
-    );
-    console.log('서비스쪽임');
+    const mailData = await sendMail.password(resetUserId, randomStr);
+
+    if (!mailData) {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '리셋되었으나 이메일을 보내지 못했습니다.',
+      );
+    }
+
     console.log(mailData);
 
     return { status: 200, check: '비밀번호 변경에 성공했습니다.' };

@@ -10,11 +10,7 @@ const NoticeSchema = new Schema(
       type: String,
       required: true,
     },
-    status: {
-      type: String,
-      default: 'open',
-      enum: ['open', 'close'],
-    },
+
     deletedAt: {
       type: Date,
       require: false,

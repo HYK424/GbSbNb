@@ -4,7 +4,7 @@
   font-weight: 700 !important;
 }
 #nav {
-  height: 100% !important;
+  height: 100px;
 }
 #logo {
   font-size: 32px;
@@ -28,6 +28,7 @@
 }
 
 #toPrevious {
+  padding: 0;
   margin-left: 200px;
   padding-bottom: 50px;
 }
@@ -37,6 +38,7 @@
 }
 
 #toNext {
+  padding: 0;
   margin-right: 200px;
   padding-bottom: 50px;
 }
@@ -55,15 +57,22 @@
 
 .pageWraper {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+position: relative;
+  /* display: flex;
+  flex-direction: column; */
 }
 
-footer {
+#footer {
+
   display: flex;
   justify-content: center;
   align-items: center;
-  min-width: 100vh;
   height: 100px;
+  padding: 0;
   background-color: #d1d4d7;
+}
+
+.footerItem{
+height: 100px;
+padding: 0;
 }

@@ -1,69 +1,67 @@
 .register-user-form-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
 }
 
 .register-user-form-box .title {
-    text-align: center;
+  text-align: center;
 }
 
 .register-user-form-box .button {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .register-user-form-box .input:focus {
-    
-    border-color: #00d1b2;
-    box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
+  border-color: #00d1b2;
+  box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
 }
 
 .hidden-until-edit {
-    display: none;
+  display: none;
 }
-
 
 /* moral */
 
 .modal-layout {
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
-    position: absolute;
-    z-index: 99;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .moral-card {
-    width: 650px;
-    height: 250px;
-    margin-top: 150px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 650px;
+  height: 250px;
+  margin-top: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* 메인 */
 
-#mainContainer{
-    margin-top: 50px;
-    padding: 27px;
+#mainContainer {
+  margin-top: 20px;
+  padding: 27px;
 }
 
-.btnContainer{
-display: flex;
+.btnContainer {
+  display: flex;
 }
 
-.bbtnContainer{
-    margin-top: 50px;
-    margin-left: auto;
+.bbtnContainer {
+  margin-top: 50px;
+  margin-left: auto;
 }
 
-#searchAddress{
-    margin-top: 7px;
-    margin-left: 42px;
-    font-size: small;
+#searchAddress {
+  margin-top: 7px;
+  margin-left: 42px;
+  font-size: small;
 }

@@ -7,18 +7,23 @@ import { orderValidator } from '../../middlewares';
 
 const orderRouter = Router();
 
-orderRouter.get('/:orderId', asyncHandler(orderController.getOrderById));
+orderRouter.get(
+  '/unknown',
+  orderValidator.unknownUser,
+  asyncHandler(orderController.getUnknownOrder),
+);
+orderRouter.post('/unknown', asyncHandler(orderController.createOrder));
 orderRouter.delete(
   '/unknownCancel',
   asyncHandler(orderController.unknownUserOrderCancel),
 );
 
-orderRouter.post('/', asyncHandler(orderController.createOrder));
-
 orderRouter.use(authenticator.isLoggedIn);
 orderRouter.get('/', asyncHandler(orderController.getMyOrders));
+orderRouter.post('/', asyncHandler(orderController.createOrder));
 orderRouter.get('/:orderId', asyncHandler(orderController.getOrder));
 orderRouter.put('/:orderId', asyncHandler(orderController.updateOrder));
 orderRouter.delete('/:orderId', asyncHandler(orderController.deleteMyOrder));
+orderRouter.get('/:orderId/cancel', asyncHandler(orderController.cancelOrder));
 
 export { orderRouter };

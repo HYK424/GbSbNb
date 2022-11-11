@@ -6,7 +6,6 @@ const Notice = model('notices', NoticeSchema);
 
 class NoticeModel {
   static async create(noticeData) {
-    console.log(noticeData);
     const newNotice = await Notice.create(noticeData);
     return newNotice;
   }
@@ -16,21 +15,29 @@ class NoticeModel {
   }
 
   static async findOne(noticeId) {
-    console.log(noticeId);
     const noticeDetail = await Notice.findOne({
       _id: noticeId,
       deletedAt: { $exists: false },
     });
-    console.log(noticeDetail);
+
     return noticeDetail;
+  }
+
+  static async update(noticeId, updateData) {
+    const noticeUpdate = await Notice.findOneAndUpdate({
+      _id: noticeId,
+      noticeTitle: updateData.updateTitle,
+      noticeContent: updateData.updateContent,
+    });
+
+    return noticeUpdate;
   }
 
   static async delete(noticeId) {
     const filter = { _id: noticeId };
-
     const deletedAt = { deletedAt: Date.now() };
     const delNotice = await Notice.updateOne(filter, deletedAt);
-    console.log(delNotice);
+
     return delNotice;
   }
 }

@@ -1,42 +1,26 @@
 import fs from 'fs';
 import path from 'path';
+import { AppError, commonErrors } from '../../middlewares';
 
-const dataPath = path.dirname(__filename) + '/formdata';
+const dataPath = path.dirname(__filename) + '\\formdata';
 
-export const testMail = {
-  doTest: async (name, pass) => {
-    const fileData = fs.readFile(
-      `${dataPath}/testHTML`,
-      'utf-8',
-      (err, description) => {
-        if (err) {
-          console.log(err);
-        }
-        console.log(description);
-        return description;
-      },
-    );
-
-    return fileData;
+export const mailForm = {
+  passwordForm: async (pass) => {
+    const getForm = await getMailForm('resetPasswordHTML').then((res) => {
+      return res;
+    });
+    const result = String(getForm).replace('{!!password!!}', pass);
+    return result;
   },
+
+  // 아래 추가 가능
 };
 
-// const getBody = document.getElementById('exportBody');
-// const getNamePlace = document.getElementById('namePlace');
-// const getPasswordPlace = document.getElementById('passwordPlace');
-
-// export function mailData() {
-//   getNamePlace.innerHTML = '시험이름';
-//   getNamePlace.style.fontWeight = 'bold';
-//   getNamePlace.style.color = '#00ff00';
-//   getNamePlace.style.fontSize = '20px';
-
-//   getPasswordPlace.innerHTML = '시험비번';
-//   getPasswordPlace.style.fontWeight = 'bolder';
-//   getPasswordPlace.style.color = '#ff0000';
-//   getPasswordPlace.style.fontSize = '15px';
-
-//   const returnBody = getBody.innerHTML;
-
-//   return returnBody;
-// }
+const getMailForm = (htmlform) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(`${dataPath}/${htmlform}`, (err, data) => {
+      if (err) reject(err);
+      resolve(data.toString());
+    });
+  });
+};
