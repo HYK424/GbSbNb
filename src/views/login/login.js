@@ -49,21 +49,21 @@ async function handleSubmit(e) {
   window.location.href = '/';
 }
 
-async function handleFormSubmit(event) {
-  event.preventDefault();
-  const email = resetInput.value;
-  const phoneNumber = resetPhoneNuber.value;
-  const data = {
-    email,
-    phoneNumber,
-  };
-  const result = await Api.post(`/api/users/reset-password`, true, data);
-  console.log(result);
-  if (result.err) {
-    return;
-  }
-  alert('비밀번호 초기화 성공! 이메일을 확인해주세요 😊');
-}
+// async function handleFormSubmit(event) {
+//   event.preventDefault();
+//   const email = resetInput.value;
+//   const phoneNumber = resetPhoneNuber.value;
+//   const data = {
+//     email,
+//     phoneNumber,
+//   };
+//   const result = await Api.post(`/api/users/reset-password`, true, data);
+//   console.log(result);
+//   if (result.err) {
+//     return;
+//   }
+//   alert('비밀번호 초기화 성공! 이메일을 확인해주세요 😊');
+// }
 
 function handleLinkClick() {
   resetForm.classList.remove('d-none');

@@ -87,10 +87,10 @@
 
 |  |  |
 | ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
-| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/Q860RKz/image.png) |
+| ![image](https://res.cloudinary.com/dgwwwcsf7/image/upload/v1668199494/etc/%ED%99%88%ED%8E%98%EC%9D%B4%EC%A7%80_mqgadp.png) | ![image](https://res.cloudinary.com/dgwwwcsf7/image/upload/v1668199494/etc/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85_z0ki0h.png) |
 |    메인 페이지                                |      회원가입 화면                            |
-| ![image](https://i.ibb.co/RpYN379/image.png) |                                         |
-|    로그인 페이지                              |     앞으로 추가할 페이지                         |
+| ![image](https://res.cloudinary.com/dgwwwcsf7/image/upload/v1668199495/etc/%EC%9E%A5%EB%B0%94%EA%B5%AC%EB%8B%88_vobxtx.png) | ![image](https://res.cloudinary.com/dgwwwcsf7/image/upload/v1668199494/etc/%EB%B0%B0%EC%86%A1%EA%B4%80%EB%A6%AC_vliin9.png) |
+|    장바구니                              |     주문 정보                       |
 
 <br />
 
@@ -157,9 +157,15 @@ npm install
 3. backend에서 필요한 `.env` 설정
 
 ```bash
-MONGODB_URL=<몽고DB URL>
-PORT=5000
-JWT_SECERT_KEY=<랜덤 문자열>
+PORT=
+ACCESS_KEY=
+REFRESH_KEY=
+MONGODB_URL=
+ACCESS_EXPIRE=
+REFRESH_EXPIRE=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_KEY=
+CLOUDINARY_SECRET=
 ```
 
 4. express 앱을 실행
@@ -175,18 +181,3 @@ npm start
 
 <br>
 
-## 7. FAQ
-<details><summary>1. 배포된 페이지는 어디에서 확인할 수 있나요?</summary>
-
-  <p>
-    프로젝트 기본 코드는 따로 배포하지 않았습니다, 레포지토리를 클론하여 직접 실행해보세요.
-  </p>
-
-</details>
-<details><summary>2. env 파일이 보이지 않습니다.</summary>
-
-  <p>
-    해당 파일은 직접 만들어서 코드를 작성해야 합니다, DB를 비롯한 서비스의 계정 정보는 <b>절대로</b> Git에 함부로 공유하면 안되기 때문에 유의 바랍니다.
-  </p>
-
-</details>
