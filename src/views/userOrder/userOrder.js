@@ -72,7 +72,7 @@ async function changeStatus(e) {
     document.getElementById(`handle${e.target.id}`).remove();
   } else if (e.target.name == 'cancel') {
     await Api.get(`/api/orders/${e.target.id}`, 'cancel', false);
-    alert('주문이 정삭으로 취소되었어요 :)');
+    alert('주문이 정상적으로 취소되었어요 :)');
     location.reload();
   }
 }
