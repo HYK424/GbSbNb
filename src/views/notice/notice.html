@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>주문 조회</title>
+    <title>공지 사항</title>
+    <script src="notice.js" type="module" defer></script>
     <link
       rel="icon"
       type="image/png"
@@ -12,7 +13,7 @@
       href="/elice-rabbit-favicon.png"
     />
     <link rel="stylesheet" href="/public/css/public.css" />
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
     <!-- bulma css 관련 -->
     <link
       rel="stylesheet"
@@ -35,8 +36,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src="notice.js" type="module" defer></script>
-
     <link rel="stylesheet" href="notice.css" />
   </head>
   <body>
@@ -45,6 +44,8 @@
         class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3"
         id="nav"
       ></nav>
+
+      <h1 style="margin: 0 auto">공지사항</h1>
       <table id="noticeTable">
         <thead>
           <tr>
@@ -52,9 +53,7 @@
             <td>생성일</td>
           </tr>
         </thead>
-        <tbody id="noticeList">
-          <tr></tr>
-        </tbody>
+        <tbody id="noticeList"></tbody>
       </table>
 
       <div id="checkRes"></div>

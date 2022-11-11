@@ -6,7 +6,7 @@ const dataPath = path.dirname(__filename) + '\\formdata';
 
 export const mailForm = {
   passwordForm: async (pass) => {
-    const getForm = await getMailForm('resetPasswordHTML', 'UTF-8').then(
+    const getForm = await getMailForm('resetPasswordHTML', 'utf-8').then(
       (res) => {
         return res;
       },

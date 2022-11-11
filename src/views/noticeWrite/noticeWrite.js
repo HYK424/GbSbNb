@@ -14,18 +14,16 @@ function addAllEvents() {
 
 async function createNotice(e) {
   e.preventDefault();
-  alert('클릭됨');
+
   const noticeTitle = noticeTitleInput.value;
 
   const contentDiv = contentDivInput.innerHTML;
   noticeContentInput.value = contentDiv;
   const noticeContent = noticeContentInput.value;
-  const noticeViewMain = noticeViewMainInput.checked;
-  alert(noticeViewMain);
+
   const data = {
     noticeTitle,
     noticeContent,
-    noticeViewMain,
   };
 
   const result = await Api.post('/api/notice/createNotice', false, data);
@@ -39,6 +37,4 @@ async function createNotice(e) {
     alert(result.message);
     window.location.href = '/notice';
   }
-
-  console.log('종료');
 }
