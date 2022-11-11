@@ -6,65 +6,60 @@ const previousPageLink = document.getElementById('previousPage');
 const nextPageLink = document.getElementById('nextPage');
 
 async function renderProducts() {
-  try {
-    let data;
-    let page, category;
-    if (location.href.split('?')[1]) {
-      const query = location.href
-        .split('?')[1]
-        .split('&')
-        .map((query) => query.split('='));
-      page = query.filter((q) => q[0] === 'page')[0];
-      if (page) page = page[1];
-      category = query.filter((q) => q[0] === 'q')[0];
-      if (category) category = category[1];
-      console.log(page, category);
-      if (category || page) {
-        if (category && page) {
-          data = await (
-            await fetch(`/api/products?q=${category}&page=${page}`)
-          ).json();
-        } else if (category) {
-          data = await (await fetch(`/api/products?q=${category}`)).json();
-        } else if (page) {
-          data = await (await fetch(`/api/products?page=${page}`)).json();
-        }
+  let data;
+  let page, category;
+  if (location.href.split('?')[1]) {
+    const query = location.href
+      .split('?')[1]
+      .split('&')
+      .map((query) => query.split('='));
+    page = query.filter((q) => q[0] === 'page')[0];
+    if (page) page = page[1];
+    category = query.filter((q) => q[0] === 'q')[0];
+    if (category) category = category[1];
+    console.log(page, category);
+    if (category || page) {
+      if (category && page) {
+        data = await (
+          await fetch(`/api/products?q=${category}&page=${page}`)
+        ).json();
+      } else if (category) {
+        data = await (await fetch(`/api/products?q=${category}`)).json();
+      } else if (page) {
+        data = await (await fetch(`/api/products?page=${page}`)).json();
       }
-    } else {
-      data = await (await fetch(`/api/products`)).json();
     }
-    console.log(data);
-    if (data.message === '해당 조건을 만족하는 상품이 없습니다 :(') {
-      const notification = document.getElementById('resultNotification');
-      notification.innerHTML = '해당 카테고리에는 아직 상품이 없어요 😅';
-    } else if (data.message === '올바른 페이지를 입력하세요.') {
-      alert('올바른 페이지를 입력해주세요!');
-      location.href = '/';
-    }
-    const {
-      products,
-      totalPage,
-      hasNextPage,
-      hasPreviousPage,
-      nextPage,
-      previousPage,
-    } = data;
-    products.forEach(renderProduct);
-    if (totalPage === 1) return;
-    if (hasNextPage) {
-      nextPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
-        category ? category : ''
-      }${category ? '&' : '?'}page=${nextPage}`;
-      toNext.classList.toggle('d-none');
-    }
-    if (hasPreviousPage) {
-      previousPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
-        category ? category : ''
-      }${category ? '&' : '?'}page=${previousPage}`;
-      toPrevious.classList.toggle('d-none');
-    }
-  } catch (err) {
-    console.log(err);
+  } else {
+    data = await (await fetch(`/api/products`)).json();
+  }
+  if (data.message === '해당 조건을 만족하는 상품이 없습니다 :(') {
+    const notification = document.getElementById('resultNotification');
+    notification.innerHTML = '해당 카테고리에는 아직 상품이 없어요 😅';
+  } else if (data.message === '올바른 페이지를 입력하세요.') {
+    alert('올바른 페이지를 입력해주세요!');
+    location.href = '/';
+  }
+  const {
+    products,
+    totalPage,
+    hasNextPage,
+    hasPreviousPage,
+    nextPage,
+    previousPage,
+  } = data;
+  products.forEach(renderProduct);
+  if (totalPage === 1) return;
+  if (hasNextPage) {
+    nextPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
+      category ? category : ''
+    }${category ? '&' : '?'}page=${nextPage}`;
+    toNext.classList.toggle('d-none');
+  }
+  if (hasPreviousPage) {
+    previousPageLink.href = `${location.origin}/${category ? '?q=' : ''}${
+      category ? category : ''
+    }${category ? '&' : '?'}page=${previousPage}`;
+    toPrevious.classList.toggle('d-none');
   }
 }
 
