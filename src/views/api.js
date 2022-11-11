@@ -19,7 +19,6 @@ async function get(endpoint, params = '', extra = false) {
 }
 
 async function post(endpoint, extra, data) {
-  console.log(extra);
   const apiUrl = endpoint;
 
   const bodyData = JSON.stringify(data);
@@ -27,9 +26,8 @@ async function post(endpoint, extra, data) {
   if (!extra) {
     await setToken.tokenCheck();
   }
-  console.log(bodyData);
+
   const res = await fetchModule('POST', apiUrl, bodyData);
-  console.log(res);
 
   const result = await responseHandler(res);
 
@@ -50,16 +48,14 @@ async function put(endpoint, params = '', data) {
   return result;
 }
 
-async function del(endpoint, params = '', extra = false, data) {
+async function del(endpoint, params = '', extra = false) {
   const apiUrl = `${endpoint}/${params}`;
 
   if (!extra) {
     await setToken.tokenCheck();
   }
 
-  // const bodyData = JSON.stringify(data);
-
-  const res = await fetchModule('DELETE', apiUrl, bodyData);
+  const res = await fetchModule('DELETE', apiUrl);
 
   const result = await responseHandler(res);
 
@@ -78,9 +74,6 @@ async function fetchModule(reqMethod, apiUrl, bodyData = null) {
   if (bodyData != null) {
     fetchData.body = bodyData;
   }
-
-  console.log(apiUrl);
-  console.log(fetchData);
 
   return await fetch(apiUrl, fetchData);
 }

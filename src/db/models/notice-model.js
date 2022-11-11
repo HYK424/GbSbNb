@@ -27,11 +27,10 @@ class NoticeModel {
 
   static async delete(noticeId) {
     const filter = { _id: noticeId };
-    const deleteAt = { deletedAt: Date.now() };
-    const delNotice = await Notice.updateOne({
-      filter,
-      deleteAt,
-    });
+
+    const deletedAt = { deletedAt: Date.now() };
+    const delNotice = await Notice.updateOne(filter, deletedAt);
+    console.log(delNotice);
     return delNotice;
   }
 }
