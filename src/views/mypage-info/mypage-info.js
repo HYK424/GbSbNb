@@ -15,8 +15,7 @@ const searchAddress = document.querySelector('#searchAddressButton');
 const editButtonPwd = document.querySelector('#editButtonPwd');
 const submitButtonPwd = document.querySelector('#submitButtonPwd');
 
-
-let oldEmail = ''
+let oldEmail = '';
 
 main();
 
@@ -74,7 +73,9 @@ async function handleEdit(e) {
         .addEventListener('click', async function(e) {
             e.preventDefault();
 
-            const userPassword = document.querySelector('#passwordCheckInputEdit').value;
+            const userPassword = document.querySelector(
+                '#passwordCheckInputEdit',
+            ).value;
 
             const data = { email: oldEmail, password: userPassword };
 
@@ -109,7 +110,6 @@ async function handleEdit(e) {
             document.querySelector('body').removeChild(modalEl);
             alert('수정 취소');
         });
-
 }
 
 async function handleSubmit(e) {
@@ -179,7 +179,9 @@ async function handleEditPwd(e) {
         .addEventListener('click', async function(e) {
             e.preventDefault();
 
-            const userPassword = document.querySelector('#passwordCheckInputEdit').value;
+            const userPassword = document.querySelector(
+                '#passwordCheckInputEdit',
+            ).value;
 
             const data = { email: oldEmail, password: userPassword };
 
@@ -214,7 +216,6 @@ async function handleEditPwd(e) {
             document.querySelector('body').removeChild(modalEl);
             alert('수정 취소');
         });
-
 }
 
 async function handleSubmitPwd(e) {
@@ -224,13 +225,13 @@ async function handleSubmitPwd(e) {
     const passwordConfirm = passwordConfirmInput.value;
 
     if (password !== passwordConfirm) {
-        alert('비밀번호가 일치하지 않습니다')
+        alert('비밀번호가 일치하지 않습니다');
         return;
     }
 
     const data = {
         password,
-        passwordConfirm
+        passwordConfirm,
     };
 
     try {
@@ -283,18 +284,19 @@ async function handleDelete(e) {
                 return;
             } else {
                 // 계정 삭제하기
-                const result = await Api.put('/api/users/myinfo/delete', '', { password: userPassword });
+                alert('계정이 삭제되었습니다.');
+                const result = await Api.put('/api/users/myinfo/delete', '', {
+                    password: userPassword,
+                });
 
                 if (result.err) {
                     alert(result.err);
                     return;
                 }
-
                 sessionStorage.clear();
                 alert(result.message);
                 window.location.href = '/';
             }
-
         });
 
     // 취소 버튼 누를 시

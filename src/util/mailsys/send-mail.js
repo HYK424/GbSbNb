@@ -29,6 +29,7 @@ export const sendMail = {
         console.log(`Email 발송 : ${info.response}`);
       }
     });
+    return true;
   },
 };
 
