@@ -44,8 +44,19 @@
   margin-bottom: 30px;
 }
 
-#delBtn {
+#btnDiv {
   float: right;
   margin-top: 20px;
   margin-right: 20px;
+}
+
+#btnDiv {
+  border: 1px sold #0000ff;
+  display: flex;
+  flex-direction: column;
+}
+
+#btnDiv > button {
+  border-radius: 10px;
+  margin: 5px 0px auto;
 }

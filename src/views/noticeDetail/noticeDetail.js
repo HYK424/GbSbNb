@@ -11,11 +11,26 @@ window.addEventListener('DOMContentLoaded', () => {
     if (ATB.role == 'ADMIN' || ATB.role == 'ADMIN_G') {
       ready = true;
 
-      const contentDiv = document.getElementById('content');
+      const notice_upperDiv = document.getElementById('content');
+      const btnDiv = document.createElement('div');
+      const updateBtn = document.createElement('button');
+      const updateSubmitBtn = document.createElement('button');
       const delBtn = document.createElement('button');
+
+      btnDiv.id = 'btnDiv';
+
+      updateBtn.innerHTML = '공지 수정';
+      updateSubmitBtn.innerHTML = '수정 완료';
       delBtn.innerHTML = '공지 삭제';
+      updateBtn.id = 'updateBtn';
+      updateBtn.type = 'button';
+      updateSubmitBtn.id = 'updateSubmitBtn';
+      updateSubmitBtn.type = 'button'; //삭제
       delBtn.id = 'delBtn';
-      contentDiv.prepend(delBtn);
+      btnDiv.prepend(delBtn);
+      btnDiv.prepend(updateBtn);
+      btnDiv.prepend(updateSubmitBtn);
+      notice_upperDiv.prepend(btnDiv);
     }
   }
 });
@@ -38,8 +53,18 @@ document.addEventListener('click', async (e) => {
       alert('공지를 삭제하지 못했습니다.');
       return;
     }
+
     alert(result.message);
     window.location.href = '/notice';
+  }
+
+  if (e.target && e.target.id === 'updateBtn') {
+    noticeTitle.contentEditable = true;
+    noticeContent.contentEditable = true;
+  }
+
+  if (e.target && e.target.id === 'updateSubmitBtn') {
+    updateNotice();
   }
 });
 
@@ -56,4 +81,34 @@ async function getNoticeDetail() {
   noticeDate.innerHTML = `
   <strong>${result.data.createdAt.substr(0, 10)}</strong>`;
   noticeContent.innerHTML = `<strong>${result.data.noticeContent}</strong>`;
+}
+
+async function updateNotice() {
+  const updateTitle = String(noticeTitle.innerHTML)
+    .replace(/<[^>]*>?/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .trim();
+
+  const updateContent = String(noticeContent.innerHTML).trim();
+
+  if (updateTitle.length >= 30) {
+    alert('수정된 제목이 너무 깁니다');
+    return;
+  }
+
+  const data = {
+    updateTitle,
+    updateContent,
+  };
+
+  const result = await Api.put('/api/notice', noticeId, data);
+
+  if (result.err) {
+    alert(result.err);
+    return;
+  }
+
+  alert(result.message);
+
+  window.location.reload(true);
 }

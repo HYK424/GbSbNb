@@ -34,6 +34,22 @@ export class noticeController {
     res.status(status).json({ message: message, data: data });
   }
 
+  static async updateNotice(req, res) {
+    const { noticeId } = req.params;
+    const { updateTitle, updateContent } = req.body;
+
+    const updateData = {
+      updateTitle,
+      updateContent,
+    };
+
+    const result = await NoticeService.updateNotice(noticeId, updateData);
+
+    const { status, message, data } = result;
+
+    res.status(status).json({ message: message, data: data });
+  }
+
   static async deleteNotice(req, res) {
     const { noticeId } = req.params;
     const result = await NoticeService.deleteNotice(noticeId);
