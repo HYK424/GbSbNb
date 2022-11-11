@@ -70,8 +70,8 @@ class OrderService {
     }
     return result;
   }
-  static async cancelOrder(orderId) {
-    const { userId } = req;
+
+  static async cancelOrder(orderId, userId) {
     const updateInfo = { status: '주문 취소' };
     const order = await OrderModel.findById(orderId);
     if (order.userId !== userId) {

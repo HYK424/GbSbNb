@@ -35,24 +35,11 @@ export const orderController = {
     return res.status(200).json(order);
   },
 
-  updateOrder: async (req, res, next) => {
-    const { orderId } = req.params;
-    const { orderItems, totalPrice, address, request } = req.body;
-    const updateInfo = {
-      ...(orderItems && { orderItems }),
-      ...(address && { address }),
-      ...(totalPrice && { totalPrice }),
-      ...(request && { request }),
-    };
-    await OrderService.updateOrder(orderId, updateInfo);
-    return res.status(200).json('주문 정보가 정상적으로 수정되었습니다 😊');
-  },
-
   cancelOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const { userId } = req;
     const updateInfo = { status: '주문 취소' };
-    const result = await OrderService.cancelOrder(orderId, updateInfo);
+    const result = await OrderService.cancelOrder(orderId, userId, updateInfo);
     if (!result.acknowledged) {
       throw new AppError(commonErrors.databaseError, 500);
     }
@@ -76,7 +63,7 @@ export const orderController = {
     const { orderId } = req.params;
     const { userId } = req;
     const order = await OrderService.getOrder(orderId);
-    if (order.userId === userId) {
+    if (order.userId !== userId) {
       throw new AppError(
         commonErrors.authorizationError,
         400,
