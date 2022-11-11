@@ -35,6 +35,9 @@ userRouter.use(authenticator.isLoggedIn);
 //내 계정정보
 userRouter.get('/myinfo', asyncHandler(userController.getMyInfo));
 
+//내 비밀번호 확인
+userRouter.post('/chkPassword', asyncHandler(userController.checkPassword));
+
 //내 비밀번호 변경
 userRouter.put(
   '/myinfo/password',

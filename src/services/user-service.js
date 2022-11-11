@@ -139,7 +139,7 @@ class UserService {
     return { status: 200, message: '정보변경에 성공하였습니다.' };
   }
 
-  async changePassword(userId, password, changedPassword) {
+  async checkPassword(userId, password) {
     const user = await this.userModel.findById(userId);
 
     if (!user) {
@@ -149,7 +149,6 @@ class UserService {
         '해당 유저가 존재하지 않습니다.',
       );
     }
-
     const currentPassword = user.password;
 
     const isPasswordCorrect = await bcrypt.compare(password, currentPassword);
@@ -162,7 +161,21 @@ class UserService {
       );
     }
 
-    const hashedChangePassword = await bcrypt.hash(changedPassword, 10);
+    return { status: 200, message: '확인되었습니다.' };
+  }
+
+  async changePassword(userId, password) {
+    const user = await this.userModel.findById(userId);
+
+    if (!user) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '해당 유저가 존재하지 않습니다.',
+      );
+    }
+
+    const hashedChangePassword = await bcrypt.hash(password, 10);
 
     const result = await this.userModel.changePassword({
       userId,
@@ -190,8 +203,6 @@ class UserService {
         '비밀번호 초기화에 실패했습니다.',
       );
     }
-
-    console.log('시작시작시작시작시작');
 
     const mailData = await sendMail.password(result.email, randomStr);
 
