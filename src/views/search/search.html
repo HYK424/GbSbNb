@@ -22,30 +22,32 @@
   </head>
 
   <body>
-    <nav
-      class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
-      id="nav"
-    ></nav>
+    <div class="pageWraper">
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
+        id="nav"
+      ></nav>
 
-    <!-- 메인2 상품들 -->
-    <section class="d-flex flex-col align-items-between">
-      <!-- <article class="recommend text-center">
+      <!-- 메인2 상품들 -->
+      <section class="d-flex flex-col align-items-between">
+        <!-- <article class="recommend text-center">
         <span class="">이 달의 추천 상품(뺄 수도 있음)</span>
       </article> -->
-      <div class="container">
-        <div
-          class="container-fluid d-flex text-center justify-content-center w-100 ps-5"
-        >
+        <div class="container">
           <div
-            class="row d-flex flex-col align-items-center w-100"
-            id="productContainer"
+            class="container-fluid d-flex text-center justify-content-center w-100 ps-5"
           >
-            <h4 id="resultNotification" class="text-center mb-4 mt-5"></h4>
+            <div
+              class="row d-flex flex-col align-items-center w-100"
+              id="productContainer"
+            >
+              <h4 id="resultNotification" class="text-center mb-4 mt-5"></h4>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-    <footer class="mt-3" id="footer"></footer>
+      </section>
+      <footer id="footer"></footer>
+    </div>
     <script src="/public/js/template-renderer.js"></script>
     <script src="search.js"></script>
   </body>

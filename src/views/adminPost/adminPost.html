@@ -17,13 +17,13 @@
     <nav class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top" id="nav"></nav>
     <div class="container text-center">
       <div class="row">
-    <div class="col-1"></div>
+    <div class="col-2"></div>
 
-        <div class="col-10">
+        <div class="col-8">
        
           <div class="adminContainer">
             <form id="form">
-              <span>상품 등록 & 수정</span>
+              <h2>상품 등록</h2>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroup-sizing-default">제품명</span>
                 <input type="text" name="title" id="title" class="form-control" aria-label="Sizing example input"
@@ -49,11 +49,18 @@
 
               </div>
               <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">설명</span>
-                <input type="text" name="description" id="description" class="form-control"
-                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-
-              </div>
+                <!-- <span class="input-group-text" id="inputGroup-sizing-default">설명</span>
+                <input type="textarea" name="description" id="description" class="form-control"
+                  aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"> -->
+               
+                  
+                  <div class="form-floating">
+                    <span class="input-group-text" id="inputGroup-sizing-default">설명</span>
+                    <textarea class="form-control" name="description" id="description" style="height: 100px"></textarea>
+                   
+                  </div>
+            
+                </div>
 
               <label for="formFile" class="form-label"></label>
               <div class="flexContainer">
@@ -67,6 +74,7 @@
           <div id="hidden">
             <div id="cContainer" class="category">
 
+              
               <form id="form2" class="form">
                 <span>카테고리 등록</span>
                 <span class="input-group-text" id="inputGroup-sizing-default">ID</span>
@@ -75,7 +83,9 @@
                 <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
                 <input type="text" class="form-control" id="categoryName" aria-label="Sizing example input"
                   aria-describedby="inputGroup-sizing-default">
+                <div class="btnContainer">
                 <input class="btnInput" type="submit" value="등록">
+              </div>
               </form>
 
 
@@ -83,8 +93,11 @@
                 <span>카테고리 삭제</span>
                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
                   <option selected>삭제할 카테고리</option>
+                  <div class="btnContainer">
                   <input class="btnInput" type="submit" value="삭제">
+                  </div>
               </form>
+              
             </div>
 
 
@@ -101,8 +114,9 @@
               <span class="input-group-text" id="inputGroup-sizing-default">품목</span>
               <input type="text" class="form-control" id="selectPutName" aria-label="Sizing example input"
                 aria-describedby="inputGroup-sizing-default">
-
+                <div class="btnContainer">
               <input class="btnInput" type="submit" value="수정">
+              </div>
 
             </form>
 
@@ -112,7 +126,7 @@
 
         </div>
     
-        <div class="col-1"></div>
+        <div class="col-2"></div>
       </div>
     </div>
     <footer class="container-fluid text-center mt-auto py-3" id="footer"></footer>
