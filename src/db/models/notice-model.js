@@ -24,11 +24,12 @@ class NoticeModel {
   }
 
   static async update(noticeId, updateData) {
-    const noticeUpdate = await Notice.findOneAndUpdate({
-      _id: noticeId,
+    const filter = { _id: noticeId };
+    const updateNotice = {
       noticeTitle: updateData.updateTitle,
       noticeContent: updateData.updateContent,
-    });
+    };
+    const noticeUpdate = await Notice.findOneAndUpdate(filter, updateNotice);
 
     return noticeUpdate;
   }
