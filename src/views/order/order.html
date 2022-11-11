@@ -20,26 +20,30 @@
         <nav class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3" id="nav"></nav>
     </header>
     <main>
-        <div class="jumbotron" id="orderInfoDiv">
+        <div id="orderInfoDiv">
             <h2>배송지정보</h2>
             <form id="orderInfoForm">
                 <!-- <label id="checkDefaultCheck">
 
                 </label> -->
-                <label id="nameInput" name="fullName">이름
-                    <input class="input" name="email" id="fullNameInput" type="text" placeholder="유재석" autocomplete="on"/>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+                <label class="form-label" id="nameInput" name="fullName">이름
+                <input class="input form-control" name="email" id="fullNameInput" type="email" placeholder="유재석" autocomplete="on" />
                 </label>
                 <label class="label" name="phoneNumber">전화번호
-                    <input class="input" name="phoneNumber" id="phoneNumberInput" type="tel" placeholder="010-0000-0000" autocomplete="on"/>
+                    <input class="input form-control" name="phoneNumber" id="phoneNumberInput" type="tel" placeholder="010-0000-0000" autocomplete="on"/>
                 </label>
-                <label class="label" name="address">주소
-                    <input class="input" name="postalCode" id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"/>
-                    <input class="input" name="address1" id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"/>
-                    <input class="input" name="address2" id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"/>
+                <label class="form-label" name="address">주소
+                    <input class="input form-control" name="postalCode" id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"/>
+                    <input class="input form-control" name="address1" id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"/>
+                    <input class="input form-control" name="address2" id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"/>
                 </label>
-                <label class="label" name="request">
+                <label class="form-label" name="request">
                     요청사항
-                    <select id="requestSelectBox">
+                    <select class="form-select" id="requestSelectBox">
                     <option value="0" >
                       배송시 요청사항을 선택해 주세요.
                     </option>
@@ -60,7 +64,7 @@
                     </option>
                     <option value="6" class="select-option">직접 입력</option>
                   </select>
-                  <input class="input" name="request" id="requestInput" type="text" placeholeder="50자 이내" disabled/>
+                  <input class="input form-control" name="request" id="requestInput" type="text" placeholeder="50자 이내" disabled/>
                 </label>
             </form>
         </div>

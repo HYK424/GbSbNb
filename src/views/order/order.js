@@ -82,7 +82,7 @@ async function orderConfirmEvent(e) {
 
 
     let data = {
-        orderItems: orderInfo.orderItems,
+        orderItems: orderInfo.orderItems, //{title, productId, price}
         userId: userId,
         totalPrice: orderInfo.totalPrice,
         request: request,
