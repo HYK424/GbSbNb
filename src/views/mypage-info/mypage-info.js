@@ -1,8 +1,5 @@
 import * as Api from '/api.js';
 
-import { validateEmail } from '/useful-functions.js';
-
-// 요소(element), input 혹은 상수
 const fullNameInput = document.querySelector('#fullNameInput');
 const emailInput = document.querySelector('#emailInput');
 const telInput = document.querySelector('#phoneNumberInput');
@@ -22,7 +19,6 @@ function main() {
   addAllEvents();
   insertUserInfo();
 }
-
 // html에 요소를 추가하는 함수들을 묶어주어서 코드를 깔끔하게 하는 역할임.
 async function addAllElements() {}
 
