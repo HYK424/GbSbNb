@@ -74,18 +74,31 @@ export const userController = {
     res.status(200).json(updatedUserInfo);
   },
 
+  async checkPassword(req, res) {
+    const userId = req.userId;
+    const password = req.body.password;
+
+    const result = await userService.checkPassword(userId, password);
+
+    const { status, message } = result;
+
+    res.status(status).json({ message: message });
+  },
+
   changePassword: async (req, res) => {
     const userId = req.userId;
 
-    const password = req.body.password;
+    const { password, passwordConfirm } = req.body;
 
-    const changedPassword = req.body.changedPassword;
+    if (password !== passwordConfirm) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '입력하신 비밀번호가 같지 않습니다. 비밀번호를 확인해주세요',
+      );
+    }
 
-    const result = await userService.changePassword(
-      userId,
-      password,
-      changedPassword,
-    );
+    const result = await userService.changePassword(userId, passwordConfirm);
 
     const { status, check } = result;
 
