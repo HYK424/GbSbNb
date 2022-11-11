@@ -152,12 +152,12 @@ function renderFooter() {
 }
 
 function getFooterHTML() {
-  return `<div class="row"><div class="w-100 d-flex justify-content-center align-items-center">
+  return `<div class="d-flex justify-content-center align-items-center footerItem">
           <a class="mx-5 btn btn-dark opacity-75">프로젝트 소개</a>
                 <a class="mx-5 btn btn-dark opacity-75">공지사항</a>
                 <a class="mx-5 btn btn-dark opacity-75">입점 문의</a>
                 <a class="mx-5 btn btn-dark opacity-75">관리자 문의</a>
-              </div></div>`;
+              </div>`;
 }
 
 async function handleSearchSubmit(event) {

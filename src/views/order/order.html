@@ -1,92 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="order.css" />
     <script src="order.js" type="module" defer></script>
-    <title>쇼핑-n팀/주문</title>
-    <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <title></title>
+    <script
+      defer
+      src="https://kit.fontawesome.com/9daa42bcef.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="/public/css/public.css" />
+  </head>
 
-</head>
+  <body>
+    <div class="pageWraper">
+      <nav
+        class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
+        id="nav"
+      ></nav>
+      <div class="container text-center" id="container"></div>
 
-<body>
-    <header>
-        <nav class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3" id="nav"></nav>
-    </header>
-    <main>
-        <div id="orderInfoDiv">
-            <h2>배송지정보</h2>
-            <form id="orderInfoForm">
-                <!-- <label id="checkDefaultCheck">
-
-                </label> -->
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-                </div>
-                <label class="form-label" id="nameInput" name="fullName">이름
-                <input class="input form-control" name="email" id="fullNameInput" type="email" placeholder="유재석" autocomplete="on" />
-                </label>
-                <label class="label" name="phoneNumber">전화번호
-                    <input class="input form-control" name="phoneNumber" id="phoneNumberInput" type="tel" placeholder="010-0000-0000" autocomplete="on"/>
-                </label>
-                <label class="form-label" name="address">주소
-                    <input class="input form-control" name="postalCode" id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"/>
-                    <input class="input form-control" name="address1" id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"/>
-                    <input class="input form-control" name="address2" id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"/>
-                </label>
-                <label class="form-label" name="request">
-                    요청사항
+      <main>
+        <div id="orderInfoDiv" class="text-center">
+          <h2>배송지정보</h2>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-3"></div>
+              <div class="col-4">
+                <form id="">
+                  <div>
+                    <label class="form-label" id="nameInput" name="fullName"
+                      >이름</label
+                    >
+                    <input
+                      class="input form-control"
+                      name="email"
+                      id="fullNameInput"
+                      type="email"
+                      placeholder="유재석"
+                      autocomplete="on"
+                    />
+                  </div>
+                  <div>
+                    <label class="label" name="phoneNumber">전화번호</label>
+                    <input
+                      class="input form-control"
+                      name="phoneNumber"
+                      id="phoneNumberInput"
+                      type="tel"
+                      placeholder="010-0000-0000"
+                      autocomplete="on"
+                    />
+                  </div>
+                  <div>
+                    <div class="d-flex justify-content-between">
+                      <label class="form-label" name="address">주소</label>
+                      <button class="btn btn-primary" id="searchAddress">
+                        주소 찾기
+                      </button>
+                    </div>
+                    <input
+                      class="input form-control"
+                      name="postalCode"
+                      id="postalCodeInput"
+                      type="tel"
+                      placeholder="우편 변호"
+                      autocomplete="on"
+                      class="add-input"
+                    />
+                    <input
+                      class="input form-control"
+                      name="address1"
+                      id="address1Input"
+                      type="text"
+                      placeholder="기본 주소"
+                      autocomplete="on"
+                      class="add-input"
+                    />
+                    <input
+                      class="input form-control"
+                      name="address2"
+                      id="address2Input"
+                      type="text"
+                      placeholder="상세 주소"
+                      autocomplete="on"
+                      class="add-input"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="form-label"
+                      name="request"
+                      for="requestSelectBox"
+                    >
+                      요청사항</label
+                    >
                     <select class="form-select" id="requestSelectBox">
-                    <option value="0" >
-                      배송시 요청사항을 선택해 주세요.
-                    </option>
-                    <option value="1" class="select-option">
-                      직접 수령하겠습니다.
-                    </option>
-                    <option value="2" class="select-option">
-                      배송 전 연락바랍니다.
-                    </option>
-                    <option value="3" class="select-option">
-                      부재 시 경비실에 맡겨주세요.
-                    </option>
-                    <option value="4" class="select-option">
-                      부재 시 문 앞에 놓아주세요.
-                    </option>
-                    <option value="5" class="select-option">
-                      부재 시 택배함에 넣어주세요.
-                    </option>
-                    <option value="6" class="select-option">직접 입력</option>
-                  </select>
-                  <input class="input form-control" name="request" id="requestInput" type="text" placeholeder="50자 이내" disabled/>
-                </label>
-            </form>
+                      <option value="0">
+                        배송시 요청사항을 선택해 주세요.
+                      </option>
+                      <option value="1" class="select-option">
+                        직접 수령하겠습니다.
+                      </option>
+                      <option value="2" class="select-option">
+                        배송 전 연락바랍니다.
+                      </option>
+                      <option value="3" class="select-option">
+                        부재 시 경비실에 맡겨주세요.
+                      </option>
+                      <option value="4" class="select-option">
+                        부재 시 문 앞에 놓아주세요.
+                      </option>
+                      <option value="5" class="select-option">
+                        부재 시 택배함에 넣어주세요.
+                      </option>
+                      <option value="6" class="select-option">직접 입력</option>
+                    </select>
+                    <input
+                      class="input form-control"
+                      name="request"
+                      id="requestInput"
+                      type="text"
+                      placeholeder="50자 이내"
+                      disabled
+                    />
+                  </div>
+                </form>
+              </div>
+              <div class="col-3">
+                <p>결제 정보</p>
+                <dl>
+                  <dt>주문상품</dt>
+                  <dd id="orderItemAll"></dd>
+                  <dt>상품총액</dt>
+                  <dd id="orderPrice"></dd>
+                  <dt>배송비</dt>
+                  <dd>3000</dd>
+                  <dt>총 결제금액</dt>
+                  <dd id="totalPrice"></dd>
+                </dl>
+                <button type="button" id="orderConfirmButton">결제하기</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div id="orderBillDiv">
-            <p>결제 정보</p>
-            <dl>
-                <dt>주문상품</dt>
-                <dd id="orderItemAll"></dd>
-                <dt>상품총액</dt>
-                <dd id="orderPrice"></dd>
-                <dt>배송비</dt>
-                <dd>3000</dd>
-                <dt>총 결제금액</dt>
-                <dd id="totalPrice"></dd>
-            </dl>
-            <button type="button" id="orderConfirmButton">결제하기</button>
-        </div>
-
-    </main>
+      </main>
+    </div>
+    <section class="footerSection"></section>
     <footer id="footer"></footer>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/public/js/template-renderer.js"></script>
-</body>
-
+  </body>
+  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+  <script src="/public/js/template-renderer.js"></script>
 </html>

@@ -23,7 +23,9 @@ let imageUrl;
 const select = document.querySelectorAll('.form-select');
 
 thumbnailIn.addEventListener('change', handleFiles);
+
 async function handleFiles() {
+  document.getElementById('disableBtn').disabled=true;
   file = this.files[0];
   let imageForm = new FormData();
   imageForm.enctype = 'multipart/form-data';
@@ -34,6 +36,8 @@ async function handleFiles() {
       body: imageForm,
     })
   ).json();
+  document.getElementById('disableBtn').disabled=false;
+  
   console.log(imageUrl);
 }
 
@@ -46,6 +50,8 @@ async function adminPostOrPut() {
     allCategoriesEvent();
   } else {
     categoryContainer.style.display = 'none';
+    document.querySelector('h2').innerText='상품 수정';
+    document.querySelector('.btnInput').setAttribute('value', '수정');
     innerPutForm();
     form.addEventListener('submit', adminPut);
   }
@@ -65,14 +71,14 @@ function formData() {
   const price = priceIn.value;
   const description = descriptionIn.value;
   const category = select[0].options[select[0].selectedIndex].value;
-
-  const data = new FormData();
-  data.append('title', title);
-  data.append('category', category);
-  data.append('manufacturer', manufacturer);
-  data.append('price', price);
-  data.append('description', description);
-  data.append('imageUrl', imageUrl);
+  const data = {
+    title,
+    manufacturer,
+    price,
+    description,
+    category,
+    imageUrl,
+  };
   return data;
 }
 
@@ -89,7 +95,6 @@ async function innerPutForm() {
   <option selected value="${data.category}">${data.category}</option>
   `,
   );
-  // thumbnailInput.value = productData.imageUrl; 보안 상 이유로 구현 불가
 }
 async function innerCategoryPostForm(event) {
   event.preventDefault();
@@ -98,7 +103,6 @@ async function innerCategoryPostForm(event) {
 
   console.log(select[2].options[select[2].selectedIndex].id);
 }
-//리셋
 const reset = {
   form: () => {
     form.reset();
@@ -111,17 +115,14 @@ const reset = {
   },
 };
 
-//productsId반환
 function getProductId() {
   return window.location.pathname.split('/')[3];
 }
 
-// 카테고리들 가져오면서 원래 있던 옵션에 카테고리들 추가  포스트로 다시 시도해보기
 async function handleGetCategories() {
   const categories = await (await fetch('/api/categories')).json();
 
   async function updateOptions(categories) {
-    // 카테고리 옵션 추가
     const categoryTempleate = categories
       .map((category) => {
         return `
@@ -138,7 +139,6 @@ async function handleGetCategories() {
 
 async function adminPut(event) {
   event.preventDefault();
-  //productsId에 해당하는 상품 상세 정보 가져와서 조작
   try {
     console.log(formData());
     const result = await fetch(`/api/admin/products/${getProductId()}`, {
@@ -155,17 +155,11 @@ async function adminPut(event) {
 
 async function adminPost(event) {
   event.preventDefault();
-  // const result = await Api.post('/api/products', false, formData());
-  // alert(result.message);
-
-  try {
-    await fetch('/api/admin/products', {
-      method: 'POST',
-      body: formData(),
-    }).then(reset.form());
-  } catch (error) {
-    console.log(error);
+  const result = await Api.post('/api/admin/products', false, formData());
+  if (result.err) {
+    return;
   }
+  alert('상품이 정상적으로 등록되었습니다 😊');
 }
 
 async function categoryPost(event) {
@@ -186,18 +180,6 @@ async function categoryDelete(event) {
 
   const Category = select[1].options[select[1].selectedIndex];
 
-  // try {
-  //   const deleteCheck = await (
-  //     await fetch(`/api/products?q=${Category.value}`)
-  //   ).json();
-  //   isConfirmed = confirm(
-  //     `해당 카테고리에는 ${deleteCheck.products.length}개의 상품이 있습니다. 정말 삭제하시겠습니까?`,
-  //   );
-  // } catch (error) {
-  //   isConfirmed = confirm('해당 카테고리에는 0개의 아이템이 있습니다');
-  //   console.log(error);
-  // }
-  // if (isConfirmed) {
   const result = await (
     await Api.delete('/api/admin/categories', Category.id, false)
   ).json();
