@@ -81,6 +81,7 @@ export const orderController = {
         '해당 정보에 해당하는 주문을 찾을 수 없어요 :(',
       );
     }
+    console.log(order);
     return res.status(200).json(order);
   },
 

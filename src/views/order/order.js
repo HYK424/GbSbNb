@@ -84,8 +84,8 @@ async function orderConfirmEvent(e) {
     request,
     address: {
       postalCode: postalCodeInput.value,
-      address1Input: address1Input.value,
-      address2Input: address2Input.value,
+      address1: address1Input.value,
+      address2: address2Input.value,
     },
     receiver: fullNameInput.value,
     phoneNumber: phoneNumberInput.value,
