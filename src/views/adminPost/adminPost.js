@@ -37,8 +37,6 @@ async function handleFiles() {
     })
   ).json();
   document.getElementById('disableBtn').disabled = false;
-
-  console.log(imageUrl);
 }
 
 handleGetCategories();
