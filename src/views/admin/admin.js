@@ -67,24 +67,16 @@ function productsTemplate(obj) {
     })
     .join('');
 
-    document.querySelector('.posts').addEventListener('click',(event)=>{
-      if(event.target.className=='vtn'){
-        changeView;
-      }else if(event.target.className=='dtn'){
-        deleteView;
-      }
-      
-      });
 
-  // const vtn = document.querySelectorAll('.vtn');
-  // for (const btn of vtn) {
-  //   btn.addEventListener('click', changeView);
-  // }
+  const vtn = document.querySelectorAll('.vtn');
+  for (const btn of vtn) {
+    btn.addEventListener('click', changeView);
+  }
 
-  // const dtn = document.querySelectorAll('.dtn');
-  // for (const btn of dtn) {
-  //   btn.addEventListener('click', deleteView);
-  // }
+  const dtn = document.querySelectorAll('.dtn');
+  for (const btn of dtn) {
+    btn.addEventListener('click', deleteView);
+  }
 }
 
 
