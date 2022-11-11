@@ -23,21 +23,34 @@ async function getOrderList() {
 
   const orderTemplate = orders
     .map((order) => {
+      console.log(order.orderItems.length);
+      console.log(order.orderItems[0].title);
       return `
     <tr id="handle${order._id}" >
             <th width="100rem" scope="row">${order.createdAt.slice(0, 10)}</th>
-            <th width="300rem" scope="row">${order.orderItems[0].title} 외 ${
-        order.orderItems.length - 1
-      }건</th>
+            <th width="300rem" scope="row">${
+              order.orderItems.length < 2
+                ? order.orderItems[0].title
+                : order.orderItems[0].title +
+                  ' 외 ' +
+                  (order.orderItems.length - 1) +
+                  '건'
+            } </th>
+
+
             <td width="120rem">${order.totalPrice.toLocaleString(
               'ko-Kr',
             )}원</td>
             <td width="120rem">${order.status}</td>
             
           <td width="120rem">
-          ${(order.status == '상품 준비 중'
-            ? cancelBtn(order)
-            : (order.status == '배송 완료' ? deleteBtn(order) : order.status))}
+          ${
+            order.status == '상품 준비 중'
+              ? cancelBtn(order)
+              : order.status == '배송 완료'
+              ? deleteBtn(order)
+              : order.status
+          }
           </td>
             </tr>
     `;
@@ -57,12 +70,9 @@ async function changeStatus(e) {
   if (e.target.name == 'delete') {
     await Api.delete('/api/orders', e.target.id, false);
     document.getElementById(`handle${e.target.id}`).remove();
-
-  } else if(e.target.name=='cancel'){
-    console.log('2');
-    await Api.get(`/api/orders/${e.target.id}`, 'cancel', false).then(
-      // location.reload()
-      console.log('2')
-    );
+  } else if (e.target.name == 'cancel') {
+    await Api.get(`/api/orders/${e.target.id}`, 'cancel', false);
+    alert('주문이 정삭으로 취소되었어요 :)');
+    location.reload();
   }
 }
