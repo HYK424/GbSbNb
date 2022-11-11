@@ -234,7 +234,7 @@ async function handleSubmitPwd(e) {
     };
 
     try {
-        const result = await Api.put('/api/users/myinfo/password', false, data);
+        const result = await Api.put('/api/users/myinfo/password', '', data);
 
         if (result.err) {
             return;
