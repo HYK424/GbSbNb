@@ -38,6 +38,10 @@ input[type='tel'] {
   text-decoration: underline;
 }
 
+#resetForm input {
+  width: 100%;
+}
+
 .resetInput {
   text-align: center;
   width: 100%;
