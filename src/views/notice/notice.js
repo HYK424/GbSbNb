@@ -26,9 +26,6 @@ async function getNotice() {
     return;
   }
 
-  console.log(result);
-  console.log(result.data);
-
   const noticeTemplate = result.data
     .map((obj) => {
       return `
@@ -39,7 +36,6 @@ async function getNotice() {
     `;
     })
     .join('');
-  console.log(noticeTemplate);
 
   noticeList.insertAdjacentHTML('beforeend', noticeTemplate);
 }
