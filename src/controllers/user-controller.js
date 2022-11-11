@@ -15,16 +15,12 @@ export const userController = {
       message = req.newUserMessage;
     }
 
-    let data = {
+    const data = {
       message: message,
       tokens: { accessToken: accessToken, refreshToken: refreshToken },
       role: role,
       userName: userName,
     };
-
-    if (role === 'ADMIN' || role === 'ADMIN_G') {
-      data.role = role;
-    }
 
     res.status(status).json(data);
   },

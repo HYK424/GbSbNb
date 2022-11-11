@@ -191,6 +191,8 @@ class UserService {
       );
     }
 
+    console.log('시작시작시작시작시작');
+
     const mailData = await sendMail.password(result.email, randomStr);
 
     return {
