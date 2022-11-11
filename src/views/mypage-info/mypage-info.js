@@ -88,21 +88,16 @@ async function handleSubmit(e) {
       address2,
     },
   };
-  try {
-    const result = await Api.put('/api/users/myinfo', '', data);
+  const result = await Api.put('/api/users/myinfo', '', data);
 
-    if (result.err) {
-      return;
-    }
-
-    alert(`정상적으로 수정되었습니다.`);
-
-    // 새로고침
-    window.location.reload();
-  } catch (err) {
-    console.error(err.stack);
-    alert(`문제가 발생하였습니다. 확인 후 다시 시도해 주세요: ${err.message}`);
+  if (result.err) {
+    return;
   }
+
+  alert(`정상적으로 수정되었습니다.`);
+
+  // 새로고침
+  window.location.reload();
 }
 
 function handleDelete(e) {
@@ -126,7 +121,7 @@ function handleDelete(e) {
   // 확인 버튼 누를 시
   document
     .querySelector('#passwordCheckButton')
-    .addEventListener('click', function (e) {
+    .addEventListener('click', async function (e) {
       e.preventDefault();
       const userToken = sessionStorage.getItem('token');
       // 토큰을 이용하여 BE에서 비밀번호 같은지 확인함
@@ -134,8 +129,16 @@ function handleDelete(e) {
       if (
         document.querySelector('#passwordCheckInput').value == userPasswordFake
       ) {
-        alert('계정 삭제가 완료되었습니다. 이용해 주셔서 감사합니다.');
+        const result = await Api.put('/api/users/myinfo', '', data);
 
+        if (result.err) {
+          return;
+        }
+
+        alert(`정상적으로 수정되었습니다.`);
+
+        alert('계정 삭제가 완료되었습니다. 이용해 주셔서 감사합니다.');
+        Api.delete();
         //BE에서 계정 삭제
 
         //홈으로 이동
