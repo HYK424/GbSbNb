@@ -27,7 +27,7 @@ function addAllEvents() {
 
 async function insertInfo() {
   if (sessionStorage.getItem('accessToken')) {
-    const result = await Api.get('/api/users/myinfo', '', true);
+    const userInfo = await Api.get('/api/users/myinfo', '', true);
     let {
       _id,
       fullName,
