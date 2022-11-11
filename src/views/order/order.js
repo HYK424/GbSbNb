@@ -38,9 +38,9 @@ async function insertInfo() {
     }
     //local storage에서 가져오기
     const orderInfo = JSON.parse(localStorage.getItem('order'))
-
     orderItemAll.innerHTML = orderInfo.orderItems.reduce((acc, cur) => {
         acc += `${cur.title} / ${cur.quantity}개 <br>`
+        return acc
     }, '')
     orderPrice.innerHTML = orderInfo.totalPrice
     totalPrice.innerHTML = orderInfo.totalPrice + 3000

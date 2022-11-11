@@ -100,7 +100,7 @@ async function insertProductsfromCart() {
                   </div>`;
 
         itemContainer.insertAdjacentHTML('beforeend', itemHTML);
-        cartTempDB.insertItem(productId, quantity, price, true);
+        cartTempDB.insertItem(productId, title, quantity, price, true);
     }
     updateSummary();
 }
