@@ -56,6 +56,7 @@ export const orderController = {
 
   cancelOrder: async (req, res, next) => {
     const { orderId } = req.params;
+    const { userId } = req;
     const updateInfo = { status: '주문 취소' };
     const result = await OrderService.cancelOrder(orderId, updateInfo);
     if (!result.acknowledged) {
@@ -79,9 +80,21 @@ export const orderController = {
 
   deleteMyOrder: async (req, res, next) => {
     const { orderId } = req.params;
+    const { userId } = req;
+    const order = await OrderService.getOrder(orderId);
+    if (order.userId === userId) {
+      throw new AppError(
+        commonErrors.authorizationError,
+        400,
+        '해당 주문은 고객님의 주문이 아니에요 :(',
+      );
+    }
     const result = await OrderService.deleteMyOrder(orderId);
+    if (!result.acknowledged) {
+      throw new AppError(commonErrors.databaseError);
+    }
 
-    res.status(200).json(result);
+    res.status(200).json({ message: '주문이 정상적으로 삭제되었습니다 😊' });
   },
 
   deleteOrder: async (req, res, next) => {

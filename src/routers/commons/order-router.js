@@ -20,5 +20,6 @@ orderRouter.get('/', asyncHandler(orderController.getMyOrders));
 orderRouter.get('/:orderId', asyncHandler(orderController.getOrder));
 orderRouter.put('/:orderId', asyncHandler(orderController.updateOrder));
 orderRouter.delete('/:orderId', asyncHandler(orderController.deleteMyOrder));
+orderRouter.get('/:orderId/cancel', asyncHandler(orderController.cancelOrder));
 
 export { orderRouter };
