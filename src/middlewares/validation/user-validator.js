@@ -63,13 +63,14 @@ export const userValidator = {
     body('password')
       .trim()
       .notEmpty()
-      .isLength({ min: 5, max: 20 })
+      .isLength({ min: 8, max: 20 })
       .withMessage('비밀번호는 8자리 이상 20자리 이하로 작성해야 합니다.'),
-    body('changedPassword')
-      .trim()
-      .notEmpty()
-      .isLength({ min: 5, max: 20 })
-      .withMessage('비밀번호는 8자리 이상 20자리 이하로 작성해야 합니다.'),
+    body('passwordConfirm').custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('비밀번호가 같지 않습니다. 비밀번호를 확인해 주세요.');
+      }
+      return true;
+    }),
     validatorErrorChecker,
   ],
 
