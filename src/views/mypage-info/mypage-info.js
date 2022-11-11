@@ -229,8 +229,8 @@ async function handleSubmitPwd(e) {
     }
 
     const data = {
-        password: password,
-        changedPassword: passwordConfirm
+        password,
+        passwordConfirm
     };
 
     try {
