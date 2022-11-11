@@ -4,7 +4,6 @@ import { AppError, commonErrors } from '../middlewares';
 
 export class NoticeService {
   static async createNotice(insertData) {
-    console.log(insertData);
     const result = await NoticeModel.create(insertData);
     if (!result) {
       throw new AppError(
@@ -22,9 +21,8 @@ export class NoticeService {
   }
 
   static async getNotice() {
-    console.log('서비스단');
     const result = await NoticeModel.findAll();
-    console.log(result);
+
     return {
       status: 200,
       message: '공지사항 조회 성공.',
@@ -33,10 +31,8 @@ export class NoticeService {
   }
 
   static async getNoticeDetail(noticeId) {
-    console.log('서비스단');
-    console.log(noticeId);
     const result = await NoticeModel.findOne(noticeId);
-    console.log(result);
+
     if (!result) {
       throw new AppError(
         commonErrors.deletedData,
@@ -51,10 +47,26 @@ export class NoticeService {
       data: result,
     };
   }
+
+  static async updateNotice(noticeId, updateData) {
+    const result = await NoticeModel.update(noticeId, updateData);
+    if (!result) {
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '공지사항을 업데이트 하지 못했습니다.',
+      );
+    }
+
+    return {
+      status: 200,
+      message: '공지사항 업데이트 성공',
+    };
+  }
+
   static async deleteNotice(noticeId) {
-    console.log(noticeId);
     const result = await NoticeModel.delete(noticeId);
-    console.log(result);
+
     if (!result) {
       throw new AppError(
         commonErrors.databaseError,

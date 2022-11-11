@@ -1,3 +1,4 @@
+import { AppError, commonErrors } from '../middlewares';
 import { userService } from '../services';
 
 export const userController = {
@@ -93,6 +94,28 @@ export const userController = {
     const { status, check } = result;
 
     res.status(status).json({ check: check });
+  },
+
+  async resetPassword(req, res) {
+    const { email, phoneNumber } = req.body;
+    const randomStr = Math.random().toString(36).substring(2, 12);
+    const result = await userService.resetPassword(
+      email,
+      phoneNumber,
+      randomStr,
+    );
+
+    if (!result) {
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '비밀번호 초기화를 실패 하였습니다.',
+      );
+    }
+
+    const { status, message } = result;
+
+    res.status(status).json({ message: message });
   },
 
   deleteUser: async (req, res) => {
