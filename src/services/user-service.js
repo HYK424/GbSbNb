@@ -5,6 +5,8 @@ import { jwtModule } from '../util';
 
 import { AppError, commonErrors } from '../middlewares';
 
+import { sendMail } from '../util/mailsys/send-mail';
+
 class UserService {
   constructor(userModel) {
     this.userModel = userModel;
@@ -167,8 +169,6 @@ class UserService {
       changedPassword: hashedChangePassword,
     });
 
-    console.log(result);
-
     if (!result) {
       throw new AppError(
         commonErrors.databaseError,
@@ -178,6 +178,25 @@ class UserService {
     }
 
     return { status: 200, check: '비밀번호 변경에 성공했습니다.' };
+  }
+
+  async resetPassword(email, phoneNumber, randomStr) {
+    const result = await userModel.resetPassword(email, phoneNumber);
+
+    if (!result) {
+      throw new AppError(
+        commonErrors.databaseError,
+        400,
+        '비밀번호 초기화에 실패했습니다.',
+      );
+    }
+
+    const mailData = await sendMail.password(result.email, randomStr);
+
+    return {
+      status: 200,
+      message: '사용자를 확인하여 이메일로 리셋된 비밀번호를 보내드립니다.',
+    };
   }
 
   async deleteUser(userId, password) {
@@ -191,7 +210,7 @@ class UserService {
       );
     }
 
-    if (user.deletedAt) {
+    if (user['deletedAt']) {
       throw new AppError(
         commonErrors.databaseError,
         400,

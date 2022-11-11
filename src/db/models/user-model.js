@@ -57,9 +57,38 @@ export class UserModel {
     return changePassword;
   }
 
+  async resetPassword(email, phoneNumber, randomStr) {
+    const user = await User.findOne({
+      email: { $eq: email },
+      phoneNumber: { $eq: phoneNumber },
+    });
+
+    if (!user) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '사용자를 찾을 수 없습니다.\n입력한 이메일과 전화번호를 확인해 주세요.',
+      );
+    }
+
+    if (user['deletedAt']) {
+      throw new AppError(
+        commonErrors.deletedData,
+        400,
+        '회원 탈퇴하신 계정입니다.',
+      );
+    }
+
+    const resetPassword = await userModel.update({
+      userId: user._id,
+      update: randomStr,
+    });
+
+    return resetPassword;
+  }
+
   async delete(userId) {
     const user = await User.findOneAndUpdate({ _id: userId });
-
     return user;
   }
 

@@ -73,6 +73,21 @@ export const userValidator = {
     validatorErrorChecker,
   ],
 
+  resetPassword: [
+    body('email')
+      .trim()
+      .notEmpty()
+      .isLength({ max: 40 })
+      .isEmail()
+      .withMessage('이메일 형식이 아닙니다.'),
+    body('phoneNumber')
+      .trim()
+      .notEmpty()
+      .isLength({ min: 8, max: 20 })
+      .withMessage('전화번호가 올바르지 않습니다.'),
+    validatorErrorChecker,
+  ],
+
   updateUser: [
     body('fullName')
       .trim()

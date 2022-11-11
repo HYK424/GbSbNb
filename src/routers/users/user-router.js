@@ -22,6 +22,13 @@ userRouter.post(
   asyncHandler(userController.logIn),
 );
 
+//내 비밀번호 초기화
+userRouter.post(
+  '/reset-password',
+  userValidator.resetPassword,
+  asyncHandler(userController.resetPassword),
+);
+
 // 로그인 검증 후 id / role 지정
 userRouter.use(authenticator.isLoggedIn);
 
