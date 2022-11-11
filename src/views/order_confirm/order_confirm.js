@@ -27,11 +27,11 @@ function addAllEvents() {
 }
 
 function insertOrderId() {
-  const orderId = localStorage.getItem('orderID');
+  const orderId = localStorage.getItem('orderId');
   const orderNumber = localStorage.getItem('orderNumber');
   console.log(orderId, orderNumber);
   orderIdOutput.innerText += orderId;
   orderNumberOutput.innerText += orderNumber;
-  localStorage.removeItem('orderID');
+  localStorage.removeItem('orderId');
   localStorage.removeItem('orderNumber');
 }

@@ -98,8 +98,7 @@ async function orderConfirmEvent(e) {
   }
   let orderId = result._id;
   let orderNumber = result.phoneNumber;
-  console.log(orderId, orderNumber);
-  localStorage.setItem('orderID', orderId);
+  localStorage.setItem('orderId', orderId);
   localStorage.setItem('orderNumber', orderNumber);
   localStorage.removeItem('order');
   location.href = '/order-confirm';
