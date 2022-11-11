@@ -283,10 +283,18 @@ async function handleDelete(e) {
                 return;
             } else {
                 // 계정 삭제하기
-                alert('계정이 삭제되었습니다.');
-                await Api.post('/api/users/myinfo/delete', '', { password: userPassword });
+                const result = await Api.put('/api/users/myinfo/delete', '', { password: userPassword });
 
+                if (result.err) {
+                    alert(result.err);
+                    return;
+                }
+
+                sessionStorage.clear();
+                alert(result.message);
+                window.location.href = '/';
             }
+
         });
 
     // 취소 버튼 누를 시
