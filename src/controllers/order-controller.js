@@ -21,20 +21,6 @@ export const orderController = {
     return res.status(200).json(orders);
   },
 
-  getOrder: async (req, res, next) => {
-    const { orderId } = req.params;
-    const { userId, role } = req;
-    const order = await OrderService.getOrder(orderId);
-    if (currentUserId !== order.userId && role === 'basic-user') {
-      throw new AppError(
-        commonErrors.authorizationError,
-        403,
-        '해당 주문은 고객님의 주문이 아니에요!',
-      );
-    }
-    return res.status(200).json(order);
-  },
-
   cancelOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const { userId } = req;
@@ -43,7 +29,7 @@ export const orderController = {
     if (!result.acknowledged) {
       throw new AppError(commonErrors.databaseError, 500);
     }
-    return res.send(200).json('주문이 정상적으로 취소되었습니다 :)');
+    return res.status(200).json('주문이 정상적으로 취소되었습니다 :)');
   },
 
   updateOrderStatus: async (req, res, next) => {

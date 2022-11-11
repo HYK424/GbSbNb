@@ -15,7 +15,6 @@ orderRouter.delete(
 orderRouter.use(authenticator.isLoggedIn);
 orderRouter.get('/', asyncHandler(orderController.getMyOrders));
 orderRouter.post('/', asyncHandler(orderController.createOrder));
-orderRouter.get('/:orderId', asyncHandler(orderController.getOrder));
 orderRouter.delete('/:orderId', asyncHandler(orderController.deleteMyOrder));
 orderRouter.get('/:orderId/cancel', asyncHandler(orderController.cancelOrder));
 
