@@ -7,11 +7,7 @@ import { orderValidator } from '../../middlewares';
 
 const orderRouter = Router();
 
-orderRouter.get(
-  '/unknown',
-  orderValidator.unknownUser,
-  asyncHandler(orderController.getUnknownOrder),
-);
+orderRouter.post('/unknown', asyncHandler(orderController.getOrderByUnknown));
 orderRouter.post('/unknown', asyncHandler(orderController.createOrder));
 orderRouter.delete(
   '/unknownCancel',
