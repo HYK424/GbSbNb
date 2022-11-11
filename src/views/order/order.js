@@ -93,10 +93,22 @@ async function orderConfirmEvent(e) {
     request: request,
   };
 
-  //let orderId = await Api.post("/api/users/myinfo", true, data)
+  let data = {
+    orderItems: orderInfo.orderItems, //{title, productId, price}
+    userId: userId,
+    totalPrice: orderInfo.totalPrice,
+    request: request,
+    address: {
+      postalCode: postalCodeInput.value,
+      address1Input: address1Input.value,
+      address2Input: address2Input.value,
+    },
+    receiver: fullNameInput.value,
+    phoneNumber: phoneNumberInput.value,
+  };
 
-  let orderIdFake = '123';
+  let orderId = await Api.post('/api/orders', true, data);
 
-  localStorage.setItem('orderID', orderIdFake);
+  localStorage.setItem('orderID', orderId);
   localStorage.removeItem('order');
 }

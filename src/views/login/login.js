@@ -11,6 +11,7 @@ const submitButton = document.getElementById('submitButton');
 const sendEmail = document.getElementById('sendEmail');
 const resetForm = document.getElementById('resetForm');
 const resetInput = document.getElementById('resetInput');
+const resetPhoneNuber = document.getElementById('resetPhoneNuber');
 
 addAllElements();
 addAllEvents();
@@ -47,8 +48,13 @@ async function handleSubmit(e) {
 
 async function handleFormSubmit(event) {
   event.preventDefault();
-  const userEmail = resetInput.value;
-  const result = await Api.get(`/users/reset-email?q=${userEmail}`, '', true);
+  const email = resetInput.value;
+  const phoneNumber = resetPhoneNuber.value;
+  const data = {
+    email,
+    phoneNumber,
+  };
+  const result = await Api.post(`/users/reset-email`, true, data);
   console.log(result);
   if (result.err) {
     return;
