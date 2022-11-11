@@ -153,13 +153,12 @@ function renderFooter() {
 
 function getFooterHTML() {
   return `<div class="d-flex justify-content-center align-items-center footerItem">
-          <a class="mx-5 btn btn-dark opacity-75">프로젝트 소개</a>
-                <a class="mx-5 btn btn-dark opacity-75">공지사항</a>
+          <a class="mx-5 btn btn-dark opacity-75" href='https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project'>프로젝트 소개</a>
+                <a href = '/notice' class="mx-5 btn btn-dark opacity-75">공지사항</a>
                 <a class="mx-5 btn btn-dark opacity-75">입점 문의</a>
                 <a class="mx-5 btn btn-dark opacity-75">관리자 문의</a>
                 <a  href = '/orderLookup'
-                 class="mx-5 btn btn-dark opacity-75">비회원 주무조회</a>
-                 <a href = '/notice' class="mx-5 btn btn-dark opacity-75">공지사항</a>
+                 class="mx-5 btn btn-dark opacity-75">비회원 주문조회</a>
               </div>`;
 }
 

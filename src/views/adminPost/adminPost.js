@@ -45,12 +45,15 @@ adminPostOrPut();
 async function adminPostOrPut() {
   if (!getProductId().length) {
     form.addEventListener('submit', adminPost);
+
     allCategoriesEvent();
   } else {
     categoryContainer.style.display = 'none';
     document.querySelector('h2').innerText = '상품 수정';
     document.querySelector('.btnInput').setAttribute('value', '수정');
     innerPutForm();
+    select[2].addEventListener('change', innerCategoryPostForm);
+    categoryPutForm.addEventListener('submit', categoryPut);
     form.addEventListener('submit', adminPut);
   }
 }
@@ -87,7 +90,7 @@ async function innerPutForm() {
   manufactureIn.value = data.manufacturer;
   priceIn.value = data.price;
   descriptionIn.value = data.description;
-  select.insertAdjacentHTML(
+  select[0].insertAdjacentHTML(
     'afterbegin',
     `
   <option selected value="${data.category}">${data.category}</option>
