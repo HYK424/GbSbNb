@@ -20,6 +20,11 @@ class OrderModel {
     return orders;
   }
 
+  static async findUnknown(orderId, phoneNumber) {
+    const order = await Order.findOne({ orderId, phoneNumber });
+    return order;
+  }
+
   static async findAll() {
     const orders = await Order.find({});
     return orders;

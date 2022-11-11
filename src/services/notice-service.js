@@ -50,6 +50,7 @@ export class NoticeService {
 
   static async updateNotice(noticeId, updateData) {
     const result = await NoticeModel.update(noticeId, updateData);
+
     if (!result) {
       throw new AppError(
         commonErrors.databaseError,

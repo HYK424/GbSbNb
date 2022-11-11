@@ -2,7 +2,6 @@ import * as Api from '../api.js';
 
 const orderCodeInput = document.querySelector('#orderCode');
 const phoneNumberInput = document.querySelector('#phoneNumber');
-
 const submitButton = document.querySelector('#submitButton');
 
 let cancelBtn;
@@ -17,19 +16,15 @@ function addAllEvents() {
 async function checkOrder(e) {
   e.preventDefault();
 
-  const orderCode = orderCodeInput.value;
+  const orderId = orderCodeInput.value;
   const phoneNumber = phoneNumberInput.value;
 
   const data = {
-    orderId: orderCode,
+    orderId,
     phoneNumber,
   };
 
-  const result = await Api.post(
-    `/api/orders/orderlookup${orderId}`,
-    true,
-    data,
-  );
+  const result = await Api.post(`/api/orders/unknown`, true, data);
 
   console.log(result);
   if (result.err) {

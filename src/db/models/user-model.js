@@ -57,7 +57,7 @@ export class UserModel {
     return changePassword;
   }
 
-  async resetPassword(email, phoneNumber, randomStr) {
+  async resetPassword(email, phoneNumber, password) {
     const user = await User.findOne({
       email: { $eq: email },
       phoneNumber: { $eq: phoneNumber },
@@ -81,16 +81,16 @@ export class UserModel {
 
     const resetPassword = await userModel.update({
       userId: user._id,
-      update: randomStr,
+      update: { password: password },
     });
 
     return resetPassword;
   }
 
-  async delete(userId) {
-    const user = await User.findOneAndUpdate({ _id: userId });
-    return user;
-  }
+  // async delete(userId) {
+  //   const user = await User.findOneAndUpdate({ _id: userId });
+  //   return user;
+  // }
 
   async deleteUser(userId) {
     const filter = { _id: userId };

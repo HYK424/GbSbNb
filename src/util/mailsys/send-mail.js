@@ -14,7 +14,6 @@ let mailValue = {
 export const sendMail = {
   password: async (userEmail, resetedPassword) => {
     const passwordForm = await mailForm.passwordForm(resetedPassword);
-    console.log(passwordForm);
     mailValue.to = 'farenheim77@naver.com';
     mailValue.subject = `개발세발네발 비밀번호 리셋 메일입니다.`;
     mailValue.html = passwordForm;
@@ -26,7 +25,8 @@ export const sendMail = {
           '리셋되었으나 이메일을 보내지 못했습니다. 관리자에게 문의해주세요.',
         );
       } else {
-        console.log(`Email 발송 : ${info.response}`);
+        return true;
+        //console.log(`Email 발송 : ${info.response}`);
       }
     });
     return true;
