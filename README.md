@@ -46,7 +46,7 @@
 
 <details><summary>데모 영상</summary>
 
-
+[](url)
    
 </details>
 
