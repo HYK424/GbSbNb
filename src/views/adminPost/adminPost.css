@@ -18,13 +18,19 @@
    
 }
 
+
+.form{
+    margin: 40px 0px;
+}
+
 .form{
     flex:1;
 }
 
 .btnInput{
-    margin: 30px 20px 30px auto;
-    /* margin-left: auto; */
+    margin-top: 20px;
+    
+    margin-left: auto;
 }
 
 .btnContainer{
