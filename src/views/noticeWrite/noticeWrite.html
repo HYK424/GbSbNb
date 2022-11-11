@@ -12,7 +12,7 @@
       href="/elice-rabbit-favicon.png"
     />
     <link rel="stylesheet" href="/public/css/public.css" />
-
+    <script src="/adminRole.js"></script>
     <!-- bulma css 관련 -->
     <link
       rel="stylesheet"
@@ -46,16 +46,13 @@
         id="nav"
       ></nav>
 
-      <div id="inputNotiFormDiv">
+      <div id="inputNoticeFormDiv">
+        <h1 style="text-align: center; margin: 0 auto">공지 사항 작성</h1>
         <form class="mt-5" id="noticeForm">
           <input type="text" id="noticeTitle" />
-          <div
-            contenteditable="true"
-            id="contentEdit"
-            style="width: 300px; height: 200px"
-          ></div>
-          <input type="text" id="noticeContent" style="display: block" />
-          <input type="checkbox" id="noticeViewMain" />
+          <div contenteditable="true" id="contentEdit"></div>
+          <input type="text" id="noticeContent" />
+
           <button
             class="button is-fullwidth btn btn-primary mt-4"
             id="noticeSubmit"

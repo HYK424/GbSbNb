@@ -1,17 +1,23 @@
 import * as Api from '../api.js';
 
-let ready = false;
-
-window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('accessToken')) {
-    const ATB = JSON.parse(
-      atob(sessionStorage.getItem('accessToken').split('.')[1]),
-    );
-    if (ATB.role != 'ADMIN' && ATB.role != 'ADMIN_G') {
-      ready = true;
-    }
+const noticeTable = document.getElementById('noticeTable');
+document.addEventListener('DOMContentLoaded', () => {
+  if (
+    sessionStorage.getItem('role') == 'ADMIN' ||
+    sessionStorage.getItem('role') == 'ADMIN_G'
+  ) {
+    const createNoticeBtn = document.createElement('button');
+    createNoticeBtn.innerText = '작성';
+    createNoticeBtn.style.width = '120px';
+    createNoticeBtn.style.margin = '0 auto';
+    createNoticeBtn.onclick = () => {
+      window.location.href = '/admin/noticeWrite';
+    };
+    noticeTable.before(createNoticeBtn);
   }
 });
+
+console.log(sessionStorage.getItem('role') == 'ADMIN');
 
 const noticeList = document.getElementById('noticeList');
 
