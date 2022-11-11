@@ -158,7 +158,7 @@ function getFooterHTML() {
                 <a class="mx-5 btn btn-dark opacity-75">입점 문의</a>
                 <a class="mx-5 btn btn-dark opacity-75">관리자 문의</a>
                 <a  href = '/orderLookup'
-                 class="mx-5 btn btn-dark opacity-75">비회원 주무조회</a>
+                 class="mx-5 btn btn-dark opacity-75">비회원 주문조회</a>
                  <a href = '/notice' class="mx-5 btn btn-dark opacity-75">공지사항</a>
               </div>`;
 }
