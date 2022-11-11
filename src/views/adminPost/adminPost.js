@@ -204,7 +204,7 @@ async function categoryDelete(event) {
   if (result.err) {
     return;
   }
-  alert('성공적으로 삭제되었습니다 :)');
+  alert(result.message);
 }
 
 async function categoryPut(event) {
