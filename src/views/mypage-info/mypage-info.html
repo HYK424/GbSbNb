@@ -131,17 +131,12 @@
                         disabled
                       />
                     </div>
-                    <label
-                      class="label btn btn-primary"
-                      for="adressInput"
-                      id="searchAddress"
-                      >주소 찾기</label
-                    >
+                    <button type="button" class="btn btn-primary" id="searchAddressButton">주소 찾기</button>
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div class="mb-3">
+                    <div class="mb-3 hidden-until-edit">
                       <label
                         for="passwordInput"
                         class="form-label label"
@@ -162,7 +157,7 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div class="mb-3">
+                    <div class="mb-3 hidden-until-edit">
                       <label
                         for="passwordConfirmInput"
                         class="form-label label"
@@ -183,19 +178,19 @@
                 </div>
                 <div class="btnContainer">
                   <div class="bbtnContainer">
-                    <button type="button" class="btn btn-info" id="editButton">
+                    <button type="button" class="btn btn-info hidden-when-edit" id="editButton">
                       내 정보 수정하기
                     </button>
                     <button
                       type="button"
-                      class="btn btn-info"
+                      class="btn btn-info hidden-until-edit"
                       id="submitButton"
                     >
                       수정 완료
                     </button>
                     <button
                       type="button"
-                      class="btn btn-info"
+                      class="btn btn-danger hidden-when-edit"
                       id="deleteButton"
                     >
                       회원 탈퇴하기
