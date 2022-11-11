@@ -3,7 +3,6 @@ import { NoticeService } from '../services/notice-service';
 
 export class noticeController {
   static async createNotice(req, res) {
-    console.log('컨트롤러 들어옴');
     const { noticeTitle, noticeContent } = req.body;
     const insertNotice = {
       noticeTitle,
@@ -18,7 +17,6 @@ export class noticeController {
   }
 
   static async getNotice(req, res) {
-    console.log('여기로옴 getNotice');
     const result = await NoticeService.getNotice();
     const { status, message, data } = result;
 
