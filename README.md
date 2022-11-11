@@ -50,8 +50,15 @@
    
 </details>
 
+<details><summary>페이지별 화면</summary>
+|  |  |
+| ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/5d3bae9349c82eb1c5acc80114a262fe/%EC%9D%B4%EB%AF%B8%EC%A7%80_24.png) | ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/613954179682f320baa87ad2ba6c55e8/%EC%9D%B4%EB%AF%B8%EC%A7%80_27.png) |
+|    메인 페이지                                |      카테고리별 보기                           |
+| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/b60ffc832495e3459ca3cb4daaca3838/%EC%9D%B4%EB%AF%B8%EC%A7%80_29.png) | ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/8a63d878e137fe14bbee3cba164f69ea/%EC%9D%B4%EB%AF%B8%EC%A7%80_34.png) |
+|    검색 결과 페이지                              |     검색 결과 없음                         |
 
-
+</details>
 <details><summary>사용자 회원가입, 로그인</summary>
 
 ![image](https://user-images.githubusercontent.com/91174156/172159634-1e105633-9948-464e-a540-5429200a1353.gif)
