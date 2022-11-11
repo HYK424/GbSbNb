@@ -18,8 +18,8 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/public/css/public.css" />
-    <link rel="stylesheet" href="mypage-info.css" />
-    <script src="mypage-info.js" type="module" defer></script>
+    <link rel="stylesheet" href="mypage_info.css" />
+    <script src="mypage_info.js" type="module" defer></script>
   </head>
 
   <body>
@@ -59,7 +59,7 @@
                   <div class="col">
                     <div class="mb-3">
                       <label
-                        for="exampleFormControlInput1"
+                        for="emailInput"
                         class="form-label label"
                         name="email"
                         >이메일</label
@@ -79,10 +79,7 @@
                 <div class="row">
                   <div class="col">
                     <div class="mb-3">
-                      <label
-                        for="exampleFormControlInput1"
-                        class="form-label label"
-                        name="phoneNumber"
+                      <label for="" class="form-label label" name="phoneNumber"
                         >전화번호</label
                       >
                       <input
@@ -99,8 +96,11 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col">
-                    <div class="col-sm">
+                  <label for="" class="form-label label" name="phoneNumber"
+                    >전화번호</label
+                  >
+                  <div class="row">
+                    <div class="col-6">
                       <input
                         type="tel"
                         class="form-control able-when-edit"
@@ -112,47 +112,46 @@
                         disabled
                       />
                     </div>
-                  </div>
-                  <div class="col-6">
-                    <div class="mb-2">
-                      <input
-                        type="text"
-                        class="form-control able-when-edit"
-                        name="address1"
-                        id="addressBasicInput"
-                        type="text"
-                        placeholder="기본 주소"
-                        autocomplete="on"
-                        disabled
-                      />
+                    <div class="col-6">
+                      <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="searchAddressButton"
+                      >
+                        주소 찾기
+                      </button>
                     </div>
                   </div>
-                  <div class="col-3">
-                    <div class="col">
-                      <input
-                        type="text"
-                        class="form-control able-when-edit"
-                        name="address2"
-                        id="addressOptionInput"
-                        type="text"
-                        placeholder="상세 주소"
-                        autocomplete="on"
-                        disabled
-                      />
-                    </div>
-                    <label
-                      class="label btn btn-primary"
-                      for="adressInput"
-                      id="searchAddress"
-                      >주소 찾기</label
-                    >
+                  <div class="row">
+                    <input
+                      type="text"
+                      class="form-control able-when-edit"
+                      name="address1"
+                      id="addressBasicInput"
+                      type="text"
+                      placeholder="기본 주소"
+                      autocomplete="on"
+                      disabled
+                    />
+                  </div>
+                  <div class="row">
+                    <input
+                      type="text"
+                      class="form-control able-when-edit"
+                      name="address2"
+                      id="addressOptionInput"
+                      type="text"
+                      placeholder="상세 주소"
+                      autocomplete="on"
+                      disabled
+                    />
                   </div>
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div class="mb-3">
+                    <div class="mb-3 hidden-until-edit">
                       <label
-                        for="inputPassword4"
+                        for="passwordInput"
                         class="form-label label"
                         name="password"
                         >비밀번호</label
@@ -171,9 +170,9 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <div class="mb-3">
+                    <div class="mb-3 hidden-until-edit">
                       <label
-                        for="inputPassword4"
+                        for="passwordConfirmInput"
                         class="form-label label"
                         name="passwordConfirm"
                         >비밀번호 확인</label
@@ -192,19 +191,23 @@
                 </div>
                 <div class="btnContainer">
                   <div class="bbtnContainer">
-                    <button type="button" class="btn btn-info" id="editButton">
+                    <button
+                      type="button"
+                      class="btn btn-info hidden-when-edit"
+                      id="editButton"
+                    >
                       내 정보 수정하기
                     </button>
                     <button
                       type="button"
-                      class="btn btn-info"
+                      class="btn btn-info hidden-until-edit"
                       id="submitButton"
                     >
                       수정 완료
                     </button>
                     <button
                       type="button"
-                      class="btn btn-info"
+                      class="btn btn-danger hidden-when-edit"
                       id="deleteButton"
                     >
                       회원 탈퇴하기
