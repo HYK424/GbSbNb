@@ -45,7 +45,7 @@ adminPostOrPut();
 async function adminPostOrPut() {
   if (!getProductId().length) {
     form.addEventListener('submit', adminPost);
-    
+
     allCategoriesEvent();
   } else {
     categoryContainer.style.display = 'none';
@@ -90,7 +90,7 @@ async function innerPutForm() {
   manufactureIn.value = data.manufacturer;
   priceIn.value = data.price;
   descriptionIn.value = data.description;
-  select.insertAdjacentHTML(
+  select[0].insertAdjacentHTML(
     'afterbegin',
     `
   <option selected value="${data.category}">${data.category}</option>
