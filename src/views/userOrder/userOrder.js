@@ -24,7 +24,7 @@ async function getOrderList() {
   const orderTemplate = orders
     .map((order) => {
       return `
-    <tr id="${order.userId}" >
+    <tr id="handle${order._id}" >
             <th width="100rem" scope="row">${order.createdAt.slice(0, 10)}</th>
             <th width="100rem" scope="row">${order.orderItems[0].title} 외 ${
         order.orderItems.length - 1
@@ -54,7 +54,9 @@ async function getOrderList() {
 async function changeStatus(e) {
   e.preventDefault();
   if (e.target.name == 'delete') {
-    await Api.del('/api/orders', e.target.id, false).then(location.reload());
+    await Api.del('/api/orders', e.target.id, false);
+    document.getElementById(`handle${e.target.id}`).remove();
+
   } else {
     await Api.get(`/api/orders/${e.target.id}`, 'cancel', false).then(
       location.reload(),

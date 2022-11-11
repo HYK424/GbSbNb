@@ -19,7 +19,6 @@ function allEvents() {
 async function getOrderList() {
   const orders = await Api.get('/api/admin/orders');
 
-  console.log(orders);
 
   const orderTemplate = orders
     .map((user) => {
@@ -31,7 +30,7 @@ async function getOrderList() {
     <td width="100rem">${user.receiver}</td>
     <td width="150rem">${user.phoneNumber}</td>
     <td width="350rem">${Object.values(user.address).join(' ')}</td>
-    <td width="80rem">${user.orderItems.length} 개</td>
+    <td width="80rem">${user.orderItems} 개</td>
    
     <td width="120rem" class="selebtn" data-id>${
       user.status

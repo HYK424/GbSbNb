@@ -152,7 +152,7 @@ function renderFooter() {
 }
 
 function getFooterHTML() {
-  return `<div class="row"><div class="w-100 d-flex justify-content-center align-items-center">
+  return `<div class="row footerItem"><div class="w-100 d-flex justify-content-center align-items-center" style="margin: 0; padding: 0;">
           <a class="mx-5 btn btn-dark opacity-75">프로젝트 소개</a>
                 <a class="mx-5 btn btn-dark opacity-75">공지사항</a>
                 <a class="mx-5 btn btn-dark opacity-75">입점 문의</a>
