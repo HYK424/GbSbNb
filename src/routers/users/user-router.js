@@ -50,7 +50,7 @@ userRouter.put(
 );
 
 //회원 탈퇴
-userRouter.delete(
+userRouter.put(
   '/myinfo/delete',
   userValidator.deleteUser,
   asyncHandler(userController.deleteUser),

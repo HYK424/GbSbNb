@@ -41,19 +41,16 @@ async function createNotice(e) {
     noticeContent,
     noticeViewMain,
   };
-  console.log('빠져나옴');
+
   const result = await Api.post('/api/notice/createNotice', false, data);
-  console.log(result);
 
   if (result.err) {
-    console.log(result.err);
-    alert('실패');
+    alert(result.err);
     return;
   }
 
   if (result.message) {
-    console.log(result.message);
-    alert('성공');
+    alert(result.message);
     window.location.href = '/notice';
   }
 

@@ -15,7 +15,7 @@ export const sendMail = {
   password: async (userEmail, resetedPassword) => {
     const passwordForm = await mailForm.passwordForm(resetedPassword);
     console.log(passwordForm);
-    mailValue.to = userEmail;
+    mailValue.to = 'farenheim77@naver.com';
     mailValue.subject = `개발세발네발 비밀번호 리셋 메일입니다.`;
     mailValue.html = passwordForm;
     transport.sendMail(mailValue, (err, info) => {
