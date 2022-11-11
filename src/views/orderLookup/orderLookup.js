@@ -2,7 +2,6 @@ import * as Api from '../api.js';
 
 const orderCodeInput = document.querySelector('#orderCode');
 const phoneNumberInput = document.querySelector('#phoneNumber');
-
 const submitButton = document.querySelector('#submitButton');
 
 let cancelBtn;
