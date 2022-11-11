@@ -28,8 +28,8 @@ function addAllEvents() {
 
 async function insertInfo() {
     if (sessionStorage.getItem('accessToken')) {
-        const userInfo = await Api.get("/api/users/myinfo", '', true);
-        let { _id, fullName, phoneNumber, "address": { postalCode, address1, address2 } } = userInfo
+        const result = await Api.get("/api/users/myinfo", '', true);
+        let { _id, fullName, phoneNumber, address: { postalCode, address1, address2 } } = result.userInfo
         fullNameInput.value = fullName
         phoneNumberInput.value = phoneNumber
         postalCodeInput.value = postalCode
