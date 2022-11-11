@@ -1,3 +1,11 @@
+.hidden-until-pwd-edit {
+    display: none;
+}
+
+.hidden-until-info-edit {
+    display: none;
+}
+
 .register-user-form-container {
     display: flex;
     align-items: center;
@@ -14,13 +22,8 @@
 }
 
 .register-user-form-box .input:focus {
-    
     border-color: #00d1b2;
     box-shadow: 0 0 0 0.125em rgba(0, 209, 178, 0.25);
-}
-
-.hidden-until-edit {
-    display: none;
 }
 
 
@@ -37,32 +40,35 @@
     align-items: center;
 }
 
-.moral-card {
+.moral-post {
     width: 650px;
     height: 250px;
     margin-top: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: white;
+    padding: 10px 10px 10px 10px;
 }
+
 
 /* 메인 */
 
-#mainContainer{
+#mainContainer {
     margin-top: 50px;
     padding: 27px;
 }
 
-.btnContainer{
-display: flex;
+.btnContainer {
+    display: flex;
 }
 
-.bbtnContainer{
+.bbtnContainer {
     margin-top: 50px;
     margin-left: auto;
 }
 
-#searchAddress{
+#searchAddress {
     margin-top: 7px;
     margin-left: 42px;
     font-size: small;
