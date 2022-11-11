@@ -27,6 +27,9 @@ viewsRouter.use('/notice', serveStatic('notice'));
 viewsRouter.use('/notice/:noticeId', serveStatic('noticeDetail'));
 viewsRouter.use('/admin/noticeWrite', serveStatic('noticeWrite'));
 
+viewsRouter.use('/403', serveStatic('403'));
+viewsRouter.use('/404', serveStatic('404'));
+
 viewsRouter.use('/', serveStatic(''));
 
 function serveStatic(resource) {

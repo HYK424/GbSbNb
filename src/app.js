@@ -27,4 +27,11 @@ app.get(notFoundErrorHandler);
 app.use(errorHandler);
 app.use(appErrorHandler);
 
+app.use(function (req, res, next) {
+  res.status(404).redirect('/404');
+});
+app.use(function (req, res, next) {
+  res.status(403).redirect('/403');
+});
+
 export { app };

@@ -21,42 +21,15 @@ export const orderController = {
     return res.status(200).json(orders);
   },
 
-  getOrder: async (req, res, next) => {
-    const { orderId } = req.params;
-    const { userId, role } = req;
-    const order = await OrderService.getOrder(orderId);
-    if (currentUserId !== order.userId && role === 'basic-user') {
-      throw new AppError(
-        commonErrors.authorizationError,
-        403,
-        '해당 주문은 고객님의 주문이 아니에요!',
-      );
-    }
-    return res.status(200).json(order);
-  },
-
-  updateOrder: async (req, res, next) => {
-    const { orderId } = req.params;
-    const { orderItems, totalPrice, address, request } = req.body;
-    const updateInfo = {
-      ...(orderItems && { orderItems }),
-      ...(address && { address }),
-      ...(totalPrice && { totalPrice }),
-      ...(request && { request }),
-    };
-    await OrderService.updateOrder(orderId, updateInfo);
-    return res.status(200).json('주문 정보가 정상적으로 수정되었습니다 😊');
-  },
-
   cancelOrder: async (req, res, next) => {
     const { orderId } = req.params;
     const { userId } = req;
     const updateInfo = { status: '주문 취소' };
-    const result = await OrderService.cancelOrder(orderId, updateInfo);
+    const result = await OrderService.cancelOrder(orderId, userId, updateInfo);
     if (!result.acknowledged) {
       throw new AppError(commonErrors.databaseError, 500);
     }
-    return res.send(200).json('주문이 정상적으로 취소되었습니다 :)');
+    return res.status(200).json('주문이 정상적으로 취소되었습니다 :)');
   },
 
   updateOrderStatus: async (req, res, next) => {
@@ -76,7 +49,7 @@ export const orderController = {
     const { orderId } = req.params;
     const { userId } = req;
     const order = await OrderService.getOrder(orderId);
-    if (order.userId === userId) {
+    if (order.userId !== userId) {
       throw new AppError(
         commonErrors.authorizationError,
         400,
@@ -108,6 +81,7 @@ export const orderController = {
         '해당 정보에 해당하는 주문을 찾을 수 없어요 :(',
       );
     }
+    console.log(order);
     return res.status(200).json(order);
   },
 

@@ -1,19 +1,5 @@
 import * as Api from '/api.js';
 
-window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('accessToken')) {
-    const ATB = JSON.parse(
-      atob(sessionStorage.getItem('accessToken').split('.')[1]),
-    );
-    if (ATB.role != 'ADMIN' && ATB.role != 'ADMIN_G') {
-      window.location.href = '/';
-    }
-  }
-  if (!sessionStorage.getItem('accessToken')) {
-    window.location.href = '/';
-  }
-});
-
 const noticeTitleInput = document.getElementById('noticeTitle');
 const contentDivInput = document.getElementById('contentEdit');
 const noticeContentInput = document.getElementById('noticeContent');

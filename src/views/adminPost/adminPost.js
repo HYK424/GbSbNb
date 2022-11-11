@@ -25,7 +25,7 @@ const select = document.querySelectorAll('.form-select');
 thumbnailIn.addEventListener('change', handleFiles);
 
 async function handleFiles() {
-  document.getElementById('disableBtn').disabled=true;
+  document.getElementById('disableBtn').disabled = true;
   file = this.files[0];
   let imageForm = new FormData();
   imageForm.enctype = 'multipart/form-data';
@@ -36,9 +36,7 @@ async function handleFiles() {
       body: imageForm,
     })
   ).json();
-  document.getElementById('disableBtn').disabled=false;
-  
-  console.log(imageUrl);
+  document.getElementById('disableBtn').disabled = false;
 }
 
 handleGetCategories();
@@ -50,7 +48,7 @@ async function adminPostOrPut() {
     allCategoriesEvent();
   } else {
     categoryContainer.style.display = 'none';
-    document.querySelector('h2').innerText='상품 수정';
+    document.querySelector('h2').innerText = '상품 수정';
     document.querySelector('.btnInput').setAttribute('value', '수정');
     innerPutForm();
     form.addEventListener('submit', adminPut);
@@ -139,18 +137,17 @@ async function handleGetCategories() {
 
 async function adminPut(event) {
   event.preventDefault();
-  try {
-    console.log(formData());
-    const result = await fetch(`/api/admin/products/${getProductId()}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
-      },
-      body: formData(),
-    });
-  } catch (error) {
-    console.log(error);
+  const data = formData();
+  const result = await Api.put(
+    `/api/admin/products/${getProductId()}`,
+    '',
+    data,
+  );
+  if (result.err) {
+    return;
   }
+  alert('상품이 정상적으로 수정되었습니다 😊');
+  location.href = '/admin/products/';
 }
 
 async function adminPost(event) {
@@ -160,6 +157,7 @@ async function adminPost(event) {
     return;
   }
   alert('상품이 정상적으로 등록되었습니다 😊');
+  reset.form();
 }
 
 async function categoryPost(event) {
@@ -167,12 +165,17 @@ async function categoryPost(event) {
   const categoryid = categoryIdIn.value;
   const categoryname = categoryNameIn.value;
 
-  await Api.post('/api/admin/categories', false, {
+  const result = await Api.post('/api/admin/categories', false, {
     id: categoryid,
     name: categoryname,
-  })
-    .then(reset.PostForm())
-    .then(location.reload);
+  });
+  if (result.err) {
+    return;
+  }
+  alert('카테고리가 등록되었습니다');
+  reset.PostForm();
+
+  location.reload();
 }
 
 async function categoryDelete(event) {
@@ -180,13 +183,13 @@ async function categoryDelete(event) {
 
   const Category = select[1].options[select[1].selectedIndex];
 
-  const result = await (
-    await Api.delete('/api/admin/categories', Category.id, false)
-  ).json();
+  const result = await Api.delete('/api/admin/categories', Category.id, false);
+
   if (result.err) {
     return;
   }
-  alert(result.message);
+  alert('카테고리가 삭제되었습니다');
+  location.reload();
 }
 
 async function categoryPut(event) {
@@ -196,8 +199,14 @@ async function categoryPut(event) {
   const selectPutName = categoryPutNameIn.value;
   const categoryId = select[2].options[select[2].selectedIndex].id;
 
-  await Api.put(`/api/admin/categories/`, categoryId, {
+  const result = await Api.put(`/api/admin/categories/`, categoryId, {
     id: selectPutId,
     name: selectPutName,
-  }).then(reset.PutForm());
+  });
+  if (result.err) {
+    return;
+  }
+  alert('카테고리가 수정되었습니다');
+  reset.PutForm();
+  location.reload();
 }

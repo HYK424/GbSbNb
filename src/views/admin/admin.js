@@ -2,12 +2,10 @@ import * as Api from '/api.js';
 
 const itemList = document.querySelector('.itemList');
 const itemCategory = document.querySelector('.form-select-sm');
-const form = document.querySelector('#form');
 const select = document.getElementById('select');
 
 setCategory();
 setItemList();
-
 allEvents();
 
 function allEvents() {
@@ -52,13 +50,13 @@ function productsTemplate(obj) {
         <li>수정 날짜: ${products.createdAt}</li>
         </a>
         <button type="button" class="btn ${products.view ? 'btn-outline-primary' : 'btn-outline-secondary'
-        } vtn" id="${products._id}">
+        }" data-name="view" id="${products._id}">
         ${products.view ? '공개' : '비공개'} </button>
        
         <a href="/admin/products/${products._id
         }"><button class="btn btn-outline-danger" id="itemUpdate${i}">수정</button>
         </a>
-        <button class="btn btn-outline-danger dtn" id="itemDelete${i}" name="${products._id}">삭제</button>
+        <button class="btn btn-outline-danger delete" id="itemDelete${i}" data-name="delete" name="${products._id}">삭제</button>
         
         <button class="btn btn-outline-light" id="itemMain${i}">대표 상품 등록</button>
         </ul>
@@ -66,15 +64,15 @@ function productsTemplate(obj) {
 `;
     })
     .join('');
-  const vtn = document.querySelectorAll('.vtn');
-  for (const btn of vtn) {
-    btn.addEventListener('click', changeView);
-  }
-
-  const dtn = document.querySelectorAll('.dtn');
-  for (const btn of dtn) {
-    btn.addEventListener('click', deleteView);
-  }
+//이벤트 위임
+    itemList.addEventListener('click',(event)=>{
+    const name=event.target.dataset.name;
+      if(name=='view'){
+        changeView(event);
+      }else if(name=='delete'){
+        deleteView(event);    
+      }
+      });
 }
 
 async function setItemList() {
@@ -110,10 +108,11 @@ async function handleSelect(event) {
 }
 
 async function changeView(event) {
+  
   const viewId = event.target.id;
   const btn = document.getElementById(`${viewId}`);
 
-  
+ 
   if (btn.classList[1] == 'btn-outline-primary') {
     btn.classList.replace('btn-outline-primary', 'btn-outline-secondary');
     btn.innerText = '비공개';
@@ -133,15 +132,14 @@ async function changeView(event) {
 
 async function deleteView(event){
   const deleteId=event.target.name;
-  console.log(deleteId);
-  console.log(event.target);
+ 
   const result=await Api.delete(`/api/admin/products`, deleteId);
-  console.log(result);
+  
   if(result.err){ 
     return;
   }
   const idd=document.getElementById(`posts${deleteId}`);
-  console.log(idd);
+ 
   alert(result.message);
   idd.remove();
 }

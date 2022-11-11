@@ -1,19 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>주문 조회</title>
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/elice-rabbit-favicon.png"
-    />
-    <link rel="stylesheet" href="/public/css/public.css" />
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <!-- bulma css 관련 -->
+    <title>403Page</title>
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
@@ -34,10 +25,7 @@
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
-
-    <script src="notice.js" type="module" defer></script>
-
-    <link rel="stylesheet" href="notice.css" />
+    <link rel="stylesheet" href="/public/css/public.css" />
   </head>
   <body>
     <div class="pageWraper">
@@ -45,19 +33,19 @@
         class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top mb-3"
         id="nav"
       ></nav>
-      <table id="noticeTable">
-        <thead>
-          <tr>
-            <td>제목</td>
-            <td>생성일</td>
-          </tr>
-        </thead>
-        <tbody id="noticeList">
-          <tr></tr>
-        </tbody>
-      </table>
 
-      <div id="checkRes"></div>
+      <img
+        src="./403.png"
+        alt="403"
+        width="50%"
+        height="50%"
+        style="margin: 0 auto"
+      />
+
+      <h1 style="margin: 0 auto; margin-bottom: 50px">
+        해당 페이지를 볼 권한이 존재하지 않습니다!!
+      </h1>
+
       <section class="footerSection"></section>
       <footer id="footer"></footer>
     </div>
