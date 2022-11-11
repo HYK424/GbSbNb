@@ -26,17 +26,18 @@ async function getOrderList() {
       return `
     <tr id="handle${order._id}" >
             <th width="100rem" scope="row">${order.createdAt.slice(0, 10)}</th>
-            <th width="100rem" scope="row">${order.orderItems[0].title} 외 ${
+            <th width="300rem" scope="row">${order.orderItems[0].title} 외 ${
         order.orderItems.length - 1
       }건</th>
             <td width="120rem">${order.totalPrice.toLocaleString(
               'ko-Kr',
             )}원</td>
             <td width="120rem">${order.status}</td>
+            
           <td width="120rem">
-          ${(order.status = '상품 준비 중'
+          ${(order.status == '상품 준비 중'
             ? cancelBtn(order)
-            : (order.status = '배송 완료' ? deleteBtn(order) : order.status))}
+            : (order.status == '배송 완료' ? deleteBtn(order) : order.status))}
           </td>
             </tr>
     `;
@@ -45,7 +46,7 @@ async function getOrderList() {
 
   orderList.insertAdjacentHTML('beforeend', orderTemplate);
 
-  const vtn = document.querySelectorAll('tr > button');
+  const vtn = document.querySelectorAll('td > button');
   for (const btn of vtn) {
     btn.addEventListener('click', changeStatus);
   }
@@ -54,12 +55,14 @@ async function getOrderList() {
 async function changeStatus(e) {
   e.preventDefault();
   if (e.target.name == 'delete') {
-    await Api.del('/api/orders', e.target.id, false);
+    await Api.delete('/api/orders', e.target.id, false);
     document.getElementById(`handle${e.target.id}`).remove();
 
-  } else {
+  } else if(e.target.name=='cancel'){
+    console.log('2');
     await Api.get(`/api/orders/${e.target.id}`, 'cancel', false).then(
-      location.reload(),
+      // location.reload()
+      console.log('2')
     );
   }
 }

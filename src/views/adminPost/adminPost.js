@@ -46,6 +46,8 @@ async function adminPostOrPut() {
     allCategoriesEvent();
   } else {
     categoryContainer.style.display = 'none';
+    document.querySelector('h2').innerText='상품 수정';
+    document.querySelector('.btnInput').setAttribute('value', '수정');
     innerPutForm();
     form.addEventListener('submit', adminPut);
   }

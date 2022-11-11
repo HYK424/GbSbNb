@@ -21,6 +21,7 @@
         class="navbar navbar-expand-xl bg-light d-flex justify-content-evenly sticky-top"
         id="nav"
       ></nav>
+
       <form id="form" class="">
         <select
           name="categoryId"
@@ -31,17 +32,35 @@
           <option value="all" selected>전체</option>
         </select>
       </form>
-      <div class="itemList"></div>
+      <div class="container text-center">
+        <div class="row">
+          <div class="col-1"></div>
+          <div class="col-10 itemList"></div>
+          <div class="col-1"></div>
+        </div>
+      </div>
 
       <div class="addContainer">
         <button
           type="button"
-          class="btn btn-outline-secondary add"
+          class="btn btn-success add"
           onclick="location.href='/admin/add-products'"
         >
-          추가
+          상품등록
         </button>
+        <button
+          type="button"
+          onclick="location.href='javascript:history.back()'"
+          class="btn btn-danger back"
+        >
+          뒤로가기
+        </button>
+
+        <!-- <a class="btn btn-danger ms-5 back" href="javascript:history.back()"
+          >뒤로가기</a
+        > -->
       </div>
+
       <footer
         class="container-fluid text-center mt-auto py-3"
         id="footer"
