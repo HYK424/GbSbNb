@@ -2,9 +2,10 @@ let cartTempDBArr = [];
 let cartTotalPrice = 0
 let cartTotalCount = 0
 
-function insertItem(productId, quantity, price, isChecked) {
+function insertItem(productId, title, quantity, price, isChecked) {
     let item = {
         productId,
+        title,
         quantity,
         price,
         isChecked

@@ -8,15 +8,11 @@
     <link rel="stylesheet" href="order.css" />
     <script src="order.js" type="module" defer></script>
     <title>쇼핑-n팀/주문</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <script defer src="https://kit.fontawesome.com/9daa42bcef.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    <script src="register.js" type="module" defer></script>
-    <link rel="stylesheet" href="register.css" />
     <link rel="stylesheet" href="/public/css/public.css" />
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="/public/js/template-renderer.js"></script>
+
 </head>
 
 <body>
@@ -30,21 +26,25 @@
                 <!-- <label id="checkDefaultCheck">
 
                 </label> -->
-                <label id="nameInput" name="fullName">이름
-                    <input class="input" name="email" id="fullNameInput" type="text" placeholder="유재석" autocomplete="on"/>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+                <label class="form-label" id="nameInput" name="fullName">이름
+                <input class="input form-control" name="email" id="fullNameInput" type="email" placeholder="유재석" autocomplete="on" />
                 </label>
                 <label class="label" name="phoneNumber">전화번호
-                    <input class="input" name="phoneNumber" id="phoneNumberInput" type="tel" placeholder="010-0000-0000" autocomplete="on"/>
+                    <input class="input form-control" name="phoneNumber" id="phoneNumberInput" type="tel" placeholder="010-0000-0000" autocomplete="on"/>
                 </label>
-                <label class="label" name="address">주소
-                    <input class="input" name="postalCode" id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"/>
-                    <input class="input" name="address1" id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"/>
-                    <input class="input" name="address2" id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"/>
+                <label class="form-label" name="address">주소
+                    <input class="input form-control" name="postalCode" id="postalCodeInput" type="tel" placeholder="우편 변호" autocomplete="on"/>
+                    <input class="input form-control" name="address1" id="address1Input" type="text" placeholder="기본 주소" autocomplete="on"/>
+                    <input class="input form-control" name="address2" id="address2Input" type="text" placeholder="상세 주소" autocomplete="on"/>
                 </label>
-                <label class="label" name="request">
+                <label class="form-label" name="request">
                     요청사항
-                    <select id="requestSelectBox">
-                    <option value="0">
+                    <select class="form-select" id="requestSelectBox">
+                    <option value="0" >
                       배송시 요청사항을 선택해 주세요.
                     </option>
                     <option value="1" class="select-option">
@@ -64,7 +64,7 @@
                     </option>
                     <option value="6" class="select-option">직접 입력</option>
                   </select>
-                  <input class="input" name="request" id="requestInput" type="text" placeholeder="50자 이내" disabled/>
+                  <input class="input form-control" name="request" id="requestInput" type="text" placeholeder="50자 이내" disabled/>
                 </label>
             </form>
         </div>
@@ -84,6 +84,9 @@
         </div>
 
     </main>
+    <footer id="footer"></footer>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/public/js/template-renderer.js"></script>
 </body>
 
 </html>

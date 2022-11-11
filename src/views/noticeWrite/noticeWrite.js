@@ -15,6 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 const noticeTitleInput = document.getElementById('noticeTitle');
+const contentDivInput = document.getElementById('contentEdit');
 const noticeContentInput = document.getElementById('noticeContent');
 const noticeViewMainInput = document.getElementById('noticeViewMain');
 const noticeSubmit = document.getElementById('noticeSubmit');
@@ -29,6 +30,9 @@ async function createNotice(e) {
   e.preventDefault();
   alert('클릭됨');
   const noticeTitle = noticeTitleInput.value;
+
+  const contentDiv = contentDivInput.innerHTML;
+  noticeContentInput.value = contentDiv;
   const noticeContent = noticeContentInput.value;
   const noticeViewMain = noticeViewMainInput.checked;
   alert(noticeViewMain);
