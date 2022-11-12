@@ -272,12 +272,13 @@
 
 ![admin_add_A](/uploads/5c5ccba362d160109883428e65c3cca6/admin_add_A.gif)
    
+![admin_order_A](/uploads/fa27794f6817e329fe3d587de120e424/admin_order_A.gif)
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![mypage_enter](/uploads/feebee15a6cc3fd245bc9874edd139e2/mypage_enter.png)</td>
+    <td>![admin_main](/uploads/7aadee40ad672a4163775b797d4a7790/admin_main.png)</td>
     <td>![admin_item](/uploads/8376338b589ea29940a36ed3c609f73e/admin_item.png)</td>
   </tr>
   <tr>
@@ -285,20 +286,20 @@
     <td>상품 조회</td>
   </tr>
   <tr>
-    <td>![mypage_info_modal](/uploads/8a0c44a218e3a457f7a55ac7161e1135/mypage_info_modal.png)</td>
-    <td>![mypage_info_edit](/uploads/43e888e793f73aedb70119cc34c225db/mypage_info_edit.png)</td>
+    <td>![admin_item_edit](/uploads/d72e8e4a062e1d63e1717629701457b7/admin_item_edit.png)</td>
+    <td>![admin_role](/uploads/7fcfb47b6349faeeeeac665220424f24/admin_role.png)</td>
   </tr>
   <tr>
-    <td>정보 수정시 모달</td>
-    <td>내 정보 수정</td>
+    <td>상품 수정</td>
+    <td>회원 관리</td>
   </tr>
   <tr>
-    <td>![mypage_info_password](/uploads/f485ad21313d57f1692db64c23fe5fa9/mypage_info_password.png)</td>
-    <td>![mypage_order_check](/uploads/0a1b89d6326d56cc248a927c73da7b4e/mypage_order_check.png)</td>
+    <td>![admin_add](/uploads/17c2ec65417bc3af85cecf13c63eb4ef/admin_add.png)</td>
+    <td>![admin_order](/uploads/bfdc38a77f6be7307e53bede18b7b47c/admin_order.png)</td>
   </tr>
   <tr>
-    <td>비밀번호 수정</td>
-    <td>내 주문내역 수정</td>
+    <td>상품/카테고리 관리</td>
+    <td>주문 배송 관리</td>
   </tr>
 </table>
 </details>
@@ -390,19 +391,3 @@ npm start
 ### 1.0.0
 
 <br>
-
-## 7. FAQ
-<details><summary>1. 배포된 페이지는 어디에서 확인할 수 있나요?</summary>
-
-  <p>
-    README 상단 프로젝트 URL과 QR 코드를 확인해주세요!
-  </p>
-
-</details>
-<details><summary>2. env 파일이 보이지 않습니다.</summary>
-
-  <p>
-    해당 파일은 직접 만들어서 코드를 작성해야 합니다, DB를 비롯한 서비스의 계정 정보는 <b>절대로</b> Git에 함부로 공유하면 안되기 때문에 유의 바랍니다.
-  </p>
-
-</details>
