@@ -228,6 +228,8 @@
 <details><summary>데모 영상</summary>
 
 ![mypage_info_A](/uploads/153a396e438162a520996943c64e3c69/mypage_info_A.gif)
+
+![mypage_order_A](/uploads/c355c3a0389f805a55557d201c2d9fd0/mypage_order_A.gif)
    
 </details>
 
@@ -251,7 +253,7 @@
   </tr>
   <tr>
     <td>![mypage_info_password](/uploads/f485ad21313d57f1692db64c23fe5fa9/mypage_info_password.png)</td>
-    <td>![mypage_order_check](/uploads/0a1b89d6326d56cc248a927c73da7b4e/mypage_order_check.png)</td>
+    <td>![mypage_order_new](/uploads/a4d038efe4609b5f96947f1b9a66fe3a/mypage_order_new.png)</td>
   </tr>
   <tr>
     <td>비밀번호 수정</td>
