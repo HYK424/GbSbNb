@@ -22,7 +22,7 @@
 <br />
 
 ### 1-1. 프로젝트 도메인
-### http://kdt-sw3-team15.elicecoding.com/
+#### http://kdt-sw3-team15.elicecoding.com/
 🙏 반응형 디자인은 아직 적용하지 못했습니다. 가능하시다면 최대한 PC로 접속 부탁드려요!
 <div>
 <img alt="개발세발네발 QR코드" src="./qr.jpg" width="300px">
@@ -43,13 +43,13 @@
 
 ### 1-3. API 문서
 #### GBSBNB API 문서 COMMONS
-[**바로가기**](https://valuable-sunspot-015.notion.site/a3e118ba48d34ba6ada2be02196b0190?v=5124a7fc4a1b4206afa95f0f830e5953)
+[**▶바로가기**](https://valuable-sunspot-015.notion.site/a3e118ba48d34ba6ada2be02196b0190?v=5124a7fc4a1b4206afa95f0f830e5953)
 
 #### GBSBNB API 문서 ADMIN
-[**바로가기**](https://valuable-sunspot-015.notion.site/eab7c845744e40198e8ba52063bb26af?v=ee9abbec8b3f41a4bb42d90408fd3324)
+[**▶바로가기**](https://valuable-sunspot-015.notion.site/eab7c845744e40198e8ba52063bb26af?v=ee9abbec8b3f41a4bb42d90408fd3324)
 
 #### POSTMAN API 문서
-[**바로가기**](https://documenter.getpostman.com/view/23971901/2s8YRmKDSB)
+[**▶바로가기**](https://documenter.getpostman.com/view/23971901/2s8YRmKDSB)
 
 <br>
 
