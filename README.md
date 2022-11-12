@@ -255,6 +255,56 @@
 
 <br>
 
+### 2-6. 어드민
+
+| 기능 | 설명 |
+| ------ | ------ |
+| 상품 조회 | 상품 확인, 공개/비공개, 상품 정보 수정 |
+| 회원 관리 | 회원 확인, 어드민/일반 역할 수정 |
+| 상품/카테고리 관리 | 카테고리 및 상품 수정, 카테고리 추가/삭제 |
+| 주문 배송 관리 | 주문 확인, 배송현황 변경 |
+
+<details><summary>데모 영상</summary>
+
+![admin_item_A](/uploads/5c637c46864731be4d7f83e0e64c55c3/admin_item_A.gif)
+
+![admin_role_A](/uploads/aa78a92df83d7af459803faf6208649b/admin_role_A.gif)
+
+![admin_add_A](/uploads/5c5ccba362d160109883428e65c3cca6/admin_add_A.gif)
+   
+</details>
+
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![mypage_enter](/uploads/feebee15a6cc3fd245bc9874edd139e2/mypage_enter.png)</td>
+    <td>![admin_item](/uploads/8376338b589ea29940a36ed3c609f73e/admin_item.png)</td>
+  </tr>
+  <tr>
+    <td>어드민 홈</td>
+    <td>상품 조회</td>
+  </tr>
+  <tr>
+    <td>![mypage_info_modal](/uploads/8a0c44a218e3a457f7a55ac7161e1135/mypage_info_modal.png)</td>
+    <td>![mypage_info_edit](/uploads/43e888e793f73aedb70119cc34c225db/mypage_info_edit.png)</td>
+  </tr>
+  <tr>
+    <td>정보 수정시 모달</td>
+    <td>내 정보 수정</td>
+  </tr>
+  <tr>
+    <td>![mypage_info_password](/uploads/f485ad21313d57f1692db64c23fe5fa9/mypage_info_password.png)</td>
+    <td>![mypage_order_check](/uploads/0a1b89d6326d56cc248a927c73da7b4e/mypage_order_check.png)</td>
+  </tr>
+  <tr>
+    <td>비밀번호 수정</td>
+    <td>내 주문내역 수정</td>
+  </tr>
+</table>
+</details>
+
+<br>
+
 ## 3. 기술 스택
 
 ![image__1_](/uploads/07e00f458caafe0a1a0c6723bcd1e928/image__1_.png)
