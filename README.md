@@ -414,6 +414,37 @@
 
 <br />
 
+### 1. Git Flow
+
+- 각 브랜치는 dev 브랜치로부터 feature/{파트명}-{기능명}으로 통일해요😀
+    - feature/BE-productAPI 등
+- 충돌 해결은 다 같이!
+
+### 2. 커밋 컨벤션
+
+- fix: 코드베이스에서 버그를 패치하는 fix 타입의 커밋
+    - ex) fix: 모달 창 버그 수정
+- feaf: 코드베이스에서 새 기능이 추가되는 feat 타입의 커밋
+    - ex) feat: 로그아웃 기능 구현
+- chore: 기능과는 별개로 prettier, gitignore 등의 설정 관련 커밋
+    - ex) chore: eslint 설정
+- docs: 문서화 또는 오탈자 수정 등의 커밋
+    - ex) docs: README 수정
+- 참고 자료: [https://www.conventionalcommits.org/ko/v1.0.0/](https://www.conventionalcommits.org/ko/v1.0.0/)
+
+### 3. 네이밍 컨벤션
+
+#### 1. 클래스 ➡ 파스칼 표기법(UserSchema)
+
+#### 2. 함수 & 변수 ➡ 카멜 표기법(newPost, isEmailVaild)
+
+- 함수는 동사를 가장 앞에 쓴다 ➡ createPost, finishLogin, sendEmail 등
+- Boolean은 is, has로 표기한다 ➡ isLoggedIn, hasToken 등
+
+#### 3. 상수 ➡ 대문자 + 언더스코어(PI, DB_URL, TOKEN_SECRET)
+
+#### 4. 패키지 & 모듈 ➡ 소문자(user-router, user-controller)
+
 ## 5. 실행 방법
 
 1. 레포지토리를 클론하고자 하는 디렉토리에서 아래 명령어를 수행
