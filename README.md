@@ -304,9 +304,15 @@ npm install
 3. backend에서 필요한 `.env` 설정
 
 ```bash
+PORT=<1024번 포트 이후로>
+ACCESS_KEY=<랜덤 문자열>
+REFRESH_KEY=<랜덤 문자열>
 MONGODB_URL=<몽고DB URL>
-PORT=5000
-JWT_SECERT_KEY=<랜덤 문자열>
+ACCESS_EXPIRE=<최대한 짧게>
+REFRESH_EXPIRE=<적당히 길게>
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_KEY=
+CLOUDINARY_SECRET=
 ```
 
 4. express 앱을 실행
@@ -326,7 +332,7 @@ npm start
 <details><summary>1. 배포된 페이지는 어디에서 확인할 수 있나요?</summary>
 
   <p>
-    프로젝트 기본 코드는 따로 배포하지 않았습니다, 레포지토리를 클론하여 직접 실행해보세요.
+    README 상단 프로젝트 URL과 QR 코드를 확인해주세요!
   </p>
 
 </details>
