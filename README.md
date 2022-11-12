@@ -169,29 +169,35 @@
 
 <details><summary>데모 영상</summary>
 
-![order_A](/uploads/ebc3cee36076dce7f08cfffd1bdd1ba9/order_A.gif)
-
-![order_check_A](/uploads/3c5156955158c82dc07113612bbf0564/order_check_A.gif)
+![mypage_info_A](/uploads/153a396e438162a520996943c64e3c69/mypage_info_A.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![order](/uploads/2349fea00e808306a3b0b60d89142a5a/order.png)</td>
-    <td>![order_fin](/uploads/48289b551ed5bb6818c8e9ba0ee0b0ac/order_fin.png)</td>
+    <td>![mypage_enter](/uploads/feebee15a6cc3fd245bc9874edd139e2/mypage_enter.png)</td>
+    <td>![mypage_info](/uploads/4becace00e1be6bd1d5709bb28d41393/mypage_info.png)</td>
   </tr>
   <tr>
-    <td>주문</td>
-    <td>주문 확인</td>
+    <td>마이페이지 홈</td>
+    <td>내 정보 확인</td>
   </tr>
   <tr>
-    <td>)![order_check](/uploads/42772cbeecbbd36d1e5118fe055ba718/order_check.png)</td>
-    <td></td>
+    <td>![mypage_info_modal](/uploads/8a0c44a218e3a457f7a55ac7161e1135/mypage_info_modal.png)</td>
+    <td>![mypage_info_edit](/uploads/43e888e793f73aedb70119cc34c225db/mypage_info_edit.png)</td>
   </tr>
   <tr>
-    <td>비회원 주문 조회</td>
-    <td></td>
+    <td>정보 수정시 모달</td>
+    <td>내 정보 수정</td>
+  </tr>
+  <tr>
+    <td>![mypage_info_password](/uploads/f485ad21313d57f1692db64c23fe5fa9/mypage_info_password.png)</td>
+    <td>![mypage_order_check](/uploads/0a1b89d6326d56cc248a927c73da7b4e/mypage_order_check.png)</td>
+  </tr>
+  <tr>
+    <td>비밀번호 수정</td>
+    <td>내 주문내역 수정</td>
   </tr>
 </table>
 </details>
