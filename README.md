@@ -356,10 +356,6 @@
 | ------ | ------ |
 | 404 | 404 오류시 띄우는 페이지 |
 
-## 3. 기술 스택
-
-![image__1_](/uploads/07e00f458caafe0a1a0c6723bcd1e928/image__1_.png)
-
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
@@ -372,6 +368,12 @@
   </tr>
 </table>
 </details>
+
+<br>
+
+## 3. 기술 스택
+
+![image__1_](/uploads/07e00f458caafe0a1a0c6723bcd1e928/image__1_.png)
 
 <br>
 
