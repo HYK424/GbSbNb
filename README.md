@@ -100,9 +100,8 @@
 </table>
 </details>
 
-<details><summary>카테고리 추가 및 반영</summary>
 
-### 2-1. 제품 상세 정보 확인
+### 2-3. 제품 상세 정보 확인
 
 | 기능 | 설명 |
 | ------ | ------ |
@@ -111,14 +110,14 @@
 
 <details><summary>데모 영상</summary>
 
-![product_detail](/uploads/a429b4736e6128e34b35f23e232e64d5/product_detail.png)
+![product_detail_A](/uploads/5892f729d809c6609f11cba20fda3567/product_detail_A.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![product_detail_A](/uploads/5892f729d809c6609f11cba20fda3567/product_detail_A.gif)</td>
+    <td>![product_detail](/uploads/a429b4736e6128e34b35f23e232e64d5/product_detail.png)</td>
     <td></td>
   </tr>
   <tr>
@@ -128,20 +127,67 @@
 </table>
 </details>
 
-<details><summary>장바구니 기능</summary>
+### 2-4. 장바구니 기능
 
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+| 기능 | 설명 |
+| ------ | ------ |
+| 장바구니 | 추가한 물건을 자유롭게 빼고 수량 수정 가능 |
+| 장바구니 (추가) | 장바구니 Item 갯수가 nav에서 보임 |
 
+<details><summary>데모 영상</summary>
+
+![cart_A](/uploads/165fe2d2120c5e52b558bd253196c4d7/cart_A.gif)
+   
 </details>
 
-<details><summary>주문 기능</summary>
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![cart](/uploads/f8d35be6d21411f3c2a31af6e6e1a81b/cart.png)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>장바구니</td>
+    <td></td>
+  </tr>
+</table>
+</details>
 
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+### 2-4. 주문 및 주문 확인, 비회원 주문 조회
 
+| 기능 | 설명 |
+| ------ | ------ |
+| 주문 | 카트에서 받아와 주문 시행 |
+| 주문 확인 | 비회원을 위해 주문 ID를 사용자에게 줌 |
+| 비회원 주문 조회 (추가) | ID와 전화번호 입력시 주문 상세 결과 확인 가능 |
+
+<details><summary>데모 영상</summary>
+
+![order_A](/uploads/ebc3cee36076dce7f08cfffd1bdd1ba9/order_A.gif)
+
+![order_check_A](/uploads/3c5156955158c82dc07113612bbf0564/order_check_A.gif)
+   
+</details>
+
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![order](/uploads/2349fea00e808306a3b0b60d89142a5a/order.png)</td>
+    <td>![order_fin](/uploads/48289b551ed5bb6818c8e9ba0ee0b0ac/order_fin.png)</td>
+  </tr>
+  <tr>
+    <td>주문</td>
+    <td>주문 확인</td>
+  </tr>
+  <tr>
+    <td>)![order_check](/uploads/42772cbeecbbd36d1e5118fe055ba718/order_check.png)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>비회원 주문 조회</td>
+    <td></td>
+  </tr>
+</table>
 </details>
 
 <details><summary>관리자 페이지</summary>
