@@ -5,6 +5,7 @@ const toNext = document.getElementById('toNext');
 const previousPageLink = document.getElementById('previousPage');
 const nextPageLink = document.getElementById('nextPage');
 
+
 async function renderProducts() {
   let data;
   let page, category;
@@ -64,6 +65,7 @@ async function renderProducts() {
 }
 
 function renderProduct(product) {
+
   const productCard = `<div class="card mb-4 shadow-lg ms-5" id="productCard"><a href="/products/${
     product._id
   }" class="card-link">

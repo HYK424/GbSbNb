@@ -92,7 +92,7 @@ async function orderConfirmEvent(e) {
   };
   let result;
   if (!sessionStorage.getItem('accessToken')) {
-    result = await Api.post('/api/orders/unknown', true, data);
+    result = await Api.post('/api/orders/add-unknown', true, data);
   } else {
     result = await Api.post('/api/orders', false, data);
   }

@@ -353,10 +353,6 @@
 
 ### 2-9. 404
 
-| 기능 | 설명 |
-| ------ | ------ |
-| 404 | 404 오류시 띄우는 페이지 |
-
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
@@ -465,18 +461,6 @@ npm install
 
 
 3. backend에서 필요한 `.env` 설정
-
-```bash
-PORT=<1024번 포트 이후로>
-ACCESS_KEY=<랜덤 문자열>
-REFRESH_KEY=<랜덤 문자열>
-MONGODB_URL=<몽고DB URL>
-ACCESS_EXPIRE=<최대한 짧게>
-REFRESH_EXPIRE=<적당히 길게>
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_KEY=
-CLOUDINARY_SECRET=
-```
 
 4. express 앱을 실행
 
