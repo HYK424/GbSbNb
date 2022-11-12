@@ -306,6 +306,41 @@
 
 <br>
 
+### 2-7. 공지사항
+
+| 기능 | 설명 |
+| ------ | ------ |
+| 공지사항 | 게시판, 어드민이 공지사항 추가/수정/삭제 |
+
+<details><summary>데모 영상</summary>
+
+![notice_A](/uploads/ef99932252775d7339eaeebab640f028/notice_A.gif)
+
+</details>
+
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![notice_see](/uploads/57796cb6345a7bf9f729f59b655e7f9a/notice_see.png)</td>
+    <td>![notice_ceate](/uploads/eae5c513e3d32c40c77672b3ebe0d5fe/notice_ceate.png)</td>
+  </tr>
+  <tr>
+    <td>공지사항 홈</td>
+    <td>공지사항 생성</td>
+  </tr>
+  <tr>
+    <td>![notice_edit](/uploads/dc127e5e6cd68077abf32afa2e8dc337/notice_edit.png)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>공지사항 수정</td>
+    <td></td>
+  </tr>
+</table>
+</details>
+
+<br>
+
 ## 3. 기술 스택
 
 ![image__1_](/uploads/07e00f458caafe0a1a0c6723bcd1e928/image__1_.png)
