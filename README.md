@@ -69,8 +69,7 @@
   </tr>
 </table>
 </details>
-
-
+<br />
 ### 2-2. 사용자 회원가입, 로그인
 
 | 기능 | 설명 |
@@ -99,8 +98,7 @@
   </tr>
 </table>
 </details>
-
-
+<br />
 ### 2-3. 제품 상세 정보 확인
 
 | 기능 | 설명 |
@@ -126,7 +124,7 @@
   </tr>
 </table>
 </details>
-
+<br />
 ### 2-4. 장바구니 기능
 
 | 기능 | 설명 |
@@ -152,8 +150,8 @@
   </tr>
 </table>
 </details>
-
-### 2-4. 주문 및 주문 확인, 비회원 주문 조회
+<br />
+### 2-5. 주문 및 주문 확인, 비회원 주문 조회
 
 | 기능 | 설명 |
 | ------ | ------ |
@@ -189,25 +187,44 @@
   </tr>
 </table>
 </details>
+<br />
+### 2-5. 마이 페이지
 
-<details><summary>관리자 페이지</summary>
+| 기능 | 설명 |
+| ------ | ------ |
+| 회원정보 수정 | 정보 수정, 비밀번호 변경, 비밀번호 삭제 |
+| 회원 주문 조회 | 주문을 조회하고 주문 취소 가능 |
 
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+<details><summary>데모 영상</summary>
 
+![order_A](/uploads/ebc3cee36076dce7f08cfffd1bdd1ba9/order_A.gif)
+
+![order_check_A](/uploads/3c5156955158c82dc07113612bbf0564/order_check_A.gif)
+   
+</details>
+
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![order](/uploads/2349fea00e808306a3b0b60d89142a5a/order.png)</td>
+    <td>![order_fin](/uploads/48289b551ed5bb6818c8e9ba0ee0b0ac/order_fin.png)</td>
+  </tr>
+  <tr>
+    <td>주문</td>
+    <td>주문 확인</td>
+  </tr>
+  <tr>
+    <td>)![order_check](/uploads/42772cbeecbbd36d1e5118fe055ba718/order_check.png)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>비회원 주문 조회</td>
+    <td></td>
+  </tr>
+</table>
 </details>
 
 <br />
-
-### 1-3. 페이지 별 화면
-
-|  |  |
-| ------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------|
-| ![image](https://i.ibb.co/jyxjcd3/image.png) | ![image](https://i.ibb.co/Q860RKz/image.png) |
-|    메인 페이지                                |      회원가입 화면                            |
-| ![image](https://i.ibb.co/RpYN379/image.png) |                                         |
-|    로그인 페이지                              |     앞으로 추가할 페이지                         |
 
 <br />
 
