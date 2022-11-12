@@ -70,7 +70,8 @@
 </table>
 </details>
 
-### 2-1. 사용자 회원가입, 로그인
+
+### 2-2. 사용자 회원가입, 로그인
 
 | 기능 | 설명 |
 | ------ | ------ |
@@ -80,26 +81,51 @@
 | 로그인 (추가)  | 사용자가 비밀번호를 잃어버렸을 시 이메일, 전화번호를 입력하여 재발급 |
 
 
-<details><summary>사용자 회원가입, 로그인</summary>
+<details><summary>데모 영상</summary>
 
-![image](https://user-images.githubusercontent.com/91174156/172159634-1e105633-9948-464e-a540-5429200a1353.gif)
+![register_A](/uploads/93f69c8806ab1de396a5e404880b978a/register_A.gif)
+   
+</details>
 
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![register](/uploads/9fdbc96fcd1fc2bb787c07a1ad04a7b8/register.png)</td>
+    <td>![login](/uploads/596348eaf0dfe645f88abafcb4033477/login.png)</td>
+  </tr>
+  <tr>
+    <td>회원가입</td>
+    <td>로그인</td>
+  </tr>
+</table>
 </details>
 
 <details><summary>카테고리 추가 및 반영</summary>
 
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
+### 2-1. 제품 상세 정보 확인
+
+| 기능 | 설명 |
+| ------ | ------ |
+| 제품 상세 정보 | 사용자는 제품의 상세정보를 보고 장바구니에 추가할 수 있음 |
+| 제품 상세 정보 (추가) | 장바구니에 추가시 수량 지정 가능 |
+
+<details><summary>데모 영상</summary>
+
+![product_detail](/uploads/a429b4736e6128e34b35f23e232e64d5/product_detail.png)
    
 </details>
 
-<details><summary>제품 추가 및 반영</summary>
-
-추후 관련 영상을 삽입하세요 (하기 2가지 방법 가능)
-1. 화면녹화 -> 유튜브 업로드 -> 유튜브 링크 삽입  
-2. 화면움짤녹화 -> 움짤삽입 (https://www.screentogif.com/ 활용가능)
-
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![product_detail_A](/uploads/5892f729d809c6609f11cba20fda3567/product_detail_A.gif)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>제품 상세 정보</td>
+    <td></td>
+  </tr>
+</table>
 </details>
 
 <details><summary>장바구니 기능</summary>
