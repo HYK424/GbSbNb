@@ -46,18 +46,40 @@
 
 <details><summary>데모 영상</summary>
 
-![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/60bcfef8a9c4316016ccd7161d7013c7/Animation.gif)
+![image](/uploads/60bcfef8a9c4316016ccd7161d7013c7/Animation.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
-|  |  |
-| ------ | ------ |
-| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/5d3bae9349c82eb1c5acc80114a262fe/%EC%9D%B4%EB%AF%B8%EC%A7%80_24.png) | ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/613954179682f320baa87ad2ba6c55e8/%EC%9D%B4%EB%AF%B8%EC%A7%80_27.png) |
-| **메인 페이지** | **카테고리별 보기** |
-| ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/b60ffc832495e3459ca3cb4daaca3838/%EC%9D%B4%EB%AF%B8%EC%A7%80_29.png) | ![image](https://kdt-gitlab.elice.io/sw_track/class_03/web_project/team15/project/uploads/8a63d878e137fe14bbee3cba164f69ea/%EC%9D%B4%EB%AF%B8%EC%A7%80_34.png) |
-| **검색 결과 페이지** |  검색 결과 없음 |
+<table>
+  <tr>
+    <td>![image](/uploads/5d3bae9349c82eb1c5acc80114a262fe/이미지_24.png)</td>
+    <td>![image](/uploads/613954179682f320baa87ad2ba6c55e8/이미지_27.png)</td>
+  </tr>
+  <tr>
+    <td>메인 페이지</td>
+    <td>카테고리별 보기</td>
+  </tr>
+  <td>![image](/uploads/b60ffc832495e3459ca3cb4daaca3838/이미지_29.png)</td>
+    <td>![image](/uploads/8a63d878e137fe14bbee3cba164f69ea/이미지_34.png)</td>
+  </tr>
+  <tr>
+    <td>검색 결과 페이지</td>
+    <td>검색 결과 없음</td>
+  </tr>
+</table>
 </details>
+
+### 2-1. 사용자 회원가입, 로그인
+
+| 기능 | 설명 |
+| ------ | ------ |
+| 회원가입 | 주소, 이메일 등의 정보를 입력받아 회원가입함 |
+| 회원가입 (추가) | 다음 API와 연결해 주소를 입력함 |
+| 로그인 | 사용자의 ID와 비밀번호를 확인 후 로그인 |
+| 로그인 (추가)  | 사용자가 비밀번호를 잃어버렸을 시 이메일, 전화번호를 입력하여 재발급 |
+
+
 <details><summary>사용자 회원가입, 로그인</summary>
 
 ![image](https://user-images.githubusercontent.com/91174156/172159634-1e105633-9948-464e-a540-5429200a1353.gif)
