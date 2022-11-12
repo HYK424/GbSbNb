@@ -64,21 +64,21 @@ function productsTemplate(obj) {
 `;
     })
     .join('');
-//이벤트 위임
-    itemList.addEventListener('click',(event)=>{
-    const name=event.target.dataset.name;
-      if(name=='view'){
-        changeView(event);
-      }else if(name=='delete'){
-        deleteView(event);    
-      }
-      });
+  //이벤트 위임
+  itemList.addEventListener('click', (event) => {
+    const name = event.target.dataset.name;
+    if (name == 'view') {
+      changeView(event);
+    } else if (name == 'delete') {
+      deleteView(event);
+    }
+  });
 }
 
 async function setItemList() {
 
   const obj = await Api.get('/api/admin/products');
- 
+
 
   //최초 1회 전체 상품 노출
   if (obj.err) {
@@ -97,28 +97,25 @@ async function handleSelect(event) {
     document.getElementById('select').options[select.selectedIndex].value;
   if (selectItem == 'all') {
     const obj = await Api.get('/api/admin/products');
-  
+
     productsTemplate(obj.products);
   } else {
     const link = `products?q=${selectItem}`;
     const obj = await Api.get(`/api/admin`, link);
- 
+
     productsTemplate(obj.products);
   }
 }
 
 async function changeView(event) {
-  
+
   const viewId = event.target.id;
   const btn = document.getElementById(`${viewId}`);
 
- 
+
   if (btn.classList[1] == 'btn-outline-primary') {
     btn.classList.replace('btn-outline-primary', 'btn-outline-secondary');
     btn.innerText = '비공개';
-
-    putView(viewId, '비공개');
-
     putView(viewId, false);
   } else {
     btn.classList.replace('btn-outline-secondary', 'btn-outline-primary');
@@ -130,16 +127,16 @@ async function changeView(event) {
   }
 }
 
-async function deleteView(event){
-  const deleteId=event.target.name;
- 
-  const result=await Api.delete(`/api/admin/products`, deleteId);
-  
-  if(result.err){ 
+async function deleteView(event) {
+  const deleteId = event.target.name;
+
+  const result = await Api.delete(`/api/admin/products`, deleteId);
+
+  if (result.err) {
     return;
   }
-  const idd=document.getElementById(`posts${deleteId}`);
- 
+  const idd = document.getElementById(`posts${deleteId}`);
+
   alert(result.message);
   idd.remove();
 }
