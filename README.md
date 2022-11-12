@@ -169,6 +169,44 @@
 
 <details><summary>데모 영상</summary>
 
+![order_A](/uploads/ebc3cee36076dce7f08cfffd1bdd1ba9/order_A.gif)
+
+![order_check_A](/uploads/3c5156955158c82dc07113612bbf0564/order_check_A.gif)
+   
+</details>
+
+<details><summary>페이지별 화면</summary>
+<table>
+  <tr>
+    <td>![order](/uploads/2349fea00e808306a3b0b60d89142a5a/order.png)</td>
+    <td>![order_fin](/uploads/48289b551ed5bb6818c8e9ba0ee0b0ac/order_fin.png)</td>
+  </tr>
+  <tr>
+    <td>주문</td>
+    <td>주문 확인</td>
+  </tr>
+  <tr>
+    <td>)![order_check](/uploads/42772cbeecbbd36d1e5118fe055ba718/order_check.png)</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>비회원 주문 조회</td>
+    <td></td>
+  </tr>
+</table>
+</details>
+
+<br>
+
+### 2-5. 마이 페이지
+
+| 기능 | 설명 |
+| ------ | ------ |
+| 회원정보 수정 | 정보 수정, 비밀번호 변경, 비밀번호 삭제 |
+| 회원 주문 조회 | 주문을 조회하고 주문 취소 가능 |
+
+<details><summary>데모 영상</summary>
+
 ![mypage_info_A](/uploads/153a396e438162a520996943c64e3c69/mypage_info_A.gif)
    
 </details>
@@ -198,44 +236,6 @@
   <tr>
     <td>비밀번호 수정</td>
     <td>내 주문내역 수정</td>
-  </tr>
-</table>
-</details>
-
-<br>
-
-### 2-5. 마이 페이지
-
-| 기능 | 설명 |
-| ------ | ------ |
-| 회원정보 수정 | 정보 수정, 비밀번호 변경, 비밀번호 삭제 |
-| 회원 주문 조회 | 주문을 조회하고 주문 취소 가능 |
-
-<details><summary>데모 영상</summary>
-
-![order_A](/uploads/ebc3cee36076dce7f08cfffd1bdd1ba9/order_A.gif)
-
-![order_check_A](/uploads/3c5156955158c82dc07113612bbf0564/order_check_A.gif)
-   
-</details>
-
-<details><summary>페이지별 화면</summary>
-<table>
-  <tr>
-    <td>![order](/uploads/2349fea00e808306a3b0b60d89142a5a/order.png)</td>
-    <td>![order_fin](/uploads/48289b551ed5bb6818c8e9ba0ee0b0ac/order_fin.png)</td>
-  </tr>
-  <tr>
-    <td>주문</td>
-    <td>주문 확인</td>
-  </tr>
-  <tr>
-    <td>)![order_check](/uploads/42772cbeecbbd36d1e5118fe055ba718/order_check.png)</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>비회원 주문 조회</td>
-    <td></td>
   </tr>
 </table>
 </details>
