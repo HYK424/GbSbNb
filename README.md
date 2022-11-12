@@ -28,7 +28,20 @@
 <img alt="개발세발네발 QR코드" src="./qr.jpg" width="300px">
 </div>
 
-### 1-2. POSTMAN API 문서
+### 1-2. 테스트용 비밀번호
+#### 일반 유저
+| 이메일 | 비밀번호 |
+| ------ | ------ |
+| user@elice.com | 비밀번호(영문으로) |
+
+#### 관리자 유저
+| 이메일 | 비밀번호 |
+| ------ | ------ |
+| admin@elice.com | 관리자(영문으로) |
+
+<br>
+
+### 1-3. POSTMAN API 문서
 ### https://documenter.getpostman.com/view/23971901/2s8YRmKDSB
 
 <br>
