@@ -222,7 +222,7 @@
 
 | 기능 | 설명 |
 | ------ | ------ |
-| 회원정보 수정 | 정보 수정, 비밀번호 변경, 비밀번호 삭제 |
+| 회원정보 수정 | 정보 수정, 비밀번호 변경, 계정 삭제(softdelete) |
 | 회원 주문 조회 | 주문을 조회하고 주문 취소 가능 |
 
 <details><summary>데모 영상</summary>
@@ -386,6 +386,8 @@
 ### 3-2. 백엔드 
 
 - **Express** (nodemon, babel-node로 실행됩니다.)
+- express vailddata
+- image cloud
 - Mongodb, Mongoose
 - cors
 - 이외
