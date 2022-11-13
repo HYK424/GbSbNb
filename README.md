@@ -353,6 +353,10 @@
 
 ### 2-9. 404
 
+| 기능 | 설명 |
+| ------ | ------ |
+| 404 오류 페이지 | 연결되지 않은 페이지로 이동시 출력 |
+
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
@@ -431,18 +435,22 @@
     - ex) docs: README 수정
 - 참고 자료: [https://www.conventionalcommits.org/ko/v1.0.0/](https://www.conventionalcommits.org/ko/v1.0.0/)
 
+<br />
+
 ### 3. 네이밍 컨벤션
 
-#### 1. 클래스 ➡ 파스칼 표기법(UserSchema)
+#### 1. 클래스 : 파스칼 표기법(UserSchema)
 
-#### 2. 함수 & 변수 ➡ 카멜 표기법(newPost, isEmailVaild)
+#### 2. 함수 & 변수 : 카멜 표기법(newPost, isEmailVaild)
 
 - 함수는 동사를 가장 앞에 쓴다 ➡ createPost, finishLogin, sendEmail 등
 - Boolean은 is, has로 표기한다 ➡ isLoggedIn, hasToken 등
 
-#### 3. 상수 ➡ 대문자 + 언더스코어(PI, DB_URL, TOKEN_SECRET)
+#### 3. 상수 : 대문자 + 언더스코어(PI, DB_URL, TOKEN_SECRET)
 
-#### 4. 패키지 & 모듈 ➡ 소문자(user-router, user-controller)
+#### 4. 패키지 & 모듈 : 소문자(user-router, user-controller)
+
+<br />
 
 ## 5. 실행 방법
 
