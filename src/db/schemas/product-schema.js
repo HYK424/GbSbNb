@@ -32,7 +32,7 @@ const ProductSchema = new Schema(
       default: true,
     },
   },
-  { timestamps: true },
+  { collection: 'products', timestamps: true },
 );
 
 export { ProductSchema };

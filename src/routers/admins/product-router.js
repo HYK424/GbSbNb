@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { productController } from '../../controllers';
+import { ProductController } from '../../controllers';
 import {
   asyncHandler,
   authenticator,
@@ -10,24 +10,24 @@ import {
 const adminProductRouter = Router();
 
 adminProductRouter.use(authenticator.isLoggedIn, checkRole);
-adminProductRouter.get('/', asyncHandler(productController.getProductsByAdmin));
+adminProductRouter.get('/', asyncHandler(ProductController.getProductsByAdmin));
 adminProductRouter.post(
   '/',
 
   productValidator.createProduct,
-  asyncHandler(productController.createProduct),
+  asyncHandler(ProductController.createProduct),
 );
 adminProductRouter.put(
   '/:productId',
-  asyncHandler(productController.updateProduct),
+  asyncHandler(ProductController.updateProduct),
 );
 adminProductRouter.delete(
   '/:productId',
-  asyncHandler(productController.deleteProduct),
+  asyncHandler(ProductController.deleteProduct),
 );
-adminProductRouter.get(
-  '/:productId/private',
-  asyncHandler(productController.softDeleteProduct),
+adminProductRouter.put(
+  '/:productId/visibility',
+  asyncHandler(ProductController.changeProductVisibility),
 );
 
 export { adminProductRouter };

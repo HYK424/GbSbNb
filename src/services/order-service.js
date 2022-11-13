@@ -1,18 +1,18 @@
 import { OrderModel } from '../db';
 import { AppError, commonErrors } from '../middlewares';
 
-class OrderService {
+export class OrderService {
   static async createOrder(orderInfo) {
     const newOrder = await OrderModel.create(orderInfo);
     return newOrder;
   }
 
-  static async getMyOrders(userId) {
+  static async getOrdersByUserId(userId) {
     const orders = await OrderModel.findAllByUser(userId);
     return orders;
   }
 
-  static async getOrderByUnknown(orderId, phoneNumber) {
+  static async getOrderByGuest(orderId, phoneNumber) {
     const order = await OrderModel.findUnknown(orderId, phoneNumber);
     if (order.deletedAt) {
       throw new AppError(
@@ -56,23 +56,35 @@ class OrderService {
     }
     return result;
   }
-  static async cancleUnknownOrder(orderId) {
+
+  static async cancelGuestOrder(orderId, phoneNumber, updateInfo) {
+    const order = await OrderModel.findForGuest(orderId);
+    if (order.phoneNumber !== phoneNumber) {
+      throw new AppError(
+        commonErrors.inputError,
+        400,
+        '주문 내역 상의 전화번호와 일치하지 않습니다 :( 다시 한 번 확인해 주세요!',
+      );
+    }
+
+    if (order.status === '주문 취소') {
+      throw new AppError(
+        commonErrors.businessError,
+        400,
+        '해당 주문은 이미 취소된 주문이에요!',
+      );
+    }
     const result = await OrderModel.update({
       orderId,
       updateInfo,
     });
     if (!result.acknowledged) {
-      throw new AppError(
-        commonErrors.databaseError,
-        500,
-        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
-      );
+      throw new AppError(commonErrors.databaseError, 500);
     }
     return result;
   }
 
-  static async cancelOrder(orderId, userId) {
-    const updateInfo = { status: '주문 취소' };
+  static async cancelOrder(orderId, userId, updateInfo) {
     const order = await OrderModel.findById(orderId);
     if (order.userId !== userId) {
       throw new AppError(
@@ -93,11 +105,7 @@ class OrderService {
       updateInfo,
     });
     if (!result.acknowledged) {
-      throw new AppError(
-        commonErrors.databaseError,
-        500,
-        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
-      );
+      throw new AppError(commonErrors.databaseError, 500);
     }
     return result;
   }
@@ -107,8 +115,17 @@ class OrderService {
     return result;
   }
 
-  static async deleteMyOrder(orderId) {
+  static async deleteOrderByUser(orderId, userId) {
     const order = await OrderModel.findById(orderId);
+
+    if (order.userId !== userId) {
+      throw new AppError(
+        commonErrors.authorizationError,
+        400,
+        '해당 주문은 고객님의 주문이 아니에요 :(',
+      );
+    }
+
     if (!order) {
       throw new AppError(
         commonErrors.deletedData,
@@ -116,6 +133,7 @@ class OrderService {
         '해당하는 주문 정보가 없습니다. 다시 확인해주세요!',
       );
     }
+
     if (order.deletedAt) {
       throw new AppError(
         commonErrors.businessError,
@@ -142,14 +160,8 @@ class OrderService {
     }
     const result = await OrderModel.delete(orderId);
     if (!result.acknowledged) {
-      throw new AppError(
-        commonErrors.databaseError,
-        500,
-        '알 수 없는 에러가 발생했어요 :( 잠시 후 다시 시도해주세요!',
-      );
+      throw new AppError(commonErrors.databaseError, 500);
     }
     return result;
   }
 }
-
-export { OrderService };

@@ -1,38 +1,41 @@
 import { AppError, commonErrors } from '../middlewares';
 import { OrderService } from '../services';
 
-export const orderController = {
-  createOrder: async (req, res, next) => {
+export class OrderController {
+  static async createOrder(req, res, next) {
     const userId = req.userId || '비회원';
     const orderInfo = { userId, ...req.body };
     const newOrder = await OrderService.createOrder(orderInfo);
 
     return res.status(201).json(newOrder);
-  },
+  }
 
-  getOrders: async (req, res, next) => {
+  static async getOrders(req, res, next) {
     const orders = await OrderService.getOrders();
     return res.status(200).json(orders);
-  },
+  }
 
-  getMyOrders: async (req, res, next) => {
+  static async getOrdersByUserId(req, res, next) {
     const { userId } = req;
-    const orders = await OrderService.getMyOrders(userId);
+    const orders = await OrderService.getOrdersByUserId(userId);
     return res.status(200).json(orders);
-  },
+  }
 
-  cancelOrder: async (req, res, next) => {
-    const { orderId } = req.params;
+  static async cancelOrder(req, res, next) {
+    const { orderId, updateInfo } = req.params;
     const { userId } = req;
-    const updateInfo = { status: '주문 취소' };
-    const result = await OrderService.cancelOrder(orderId, userId, updateInfo);
-    if (!result.acknowledged) {
-      throw new AppError(commonErrors.databaseError, 500);
-    }
-    return res.status(200).json('주문이 정상적으로 취소되었습니다 :)');
-  },
+    await OrderService.cancelOrder(orderId, updateInfo, userId);
 
-  updateOrderStatus: async (req, res, next) => {
+    return res.status(200).json('주문이 정상적으로 취소되었습니다 :)');
+  }
+
+  static async updateOrder(req, res, next) {
+    const { orderId, updateInfo } = req.body;
+    const updatedOrder = await OrderService.updateOrder(orderId, updateInfo);
+    return res.status(200).json(updatedOrder);
+  }
+
+  static async updateOrderStatus(req, res, next) {
     const { orderIds, status } = req.body;
     if (['배송 중', '배송 완료'].indexOf(status) === -1) {
       throw new AppError(
@@ -43,37 +46,25 @@ export const orderController = {
     }
     await OrderService.updateOrderStatus(orderIds, status);
     res.status(200).json('배송 상태가 정상적으로 수정되었습니다 😊');
-  },
+  }
 
-  deleteMyOrder: async (req, res, next) => {
-    const { orderId } = req.params;
-    const { userId } = req;
-    const order = await OrderService.getOrder(orderId);
-    if (order.userId !== userId) {
-      throw new AppError(
-        commonErrors.authorizationError,
-        400,
-        '해당 주문은 고객님의 주문이 아니에요 :(',
-      );
-    }
-    const result = await OrderService.deleteMyOrder(orderId);
-    if (!result.acknowledged) {
-      throw new AppError(commonErrors.databaseError);
-    }
+  static async deleteOrderByUser(req, res, next) {
+    const { params: orderId, userId } = req;
 
+    await OrderService.deleteOrderByUser(orderId, userId);
     res.status(200).json({ message: '주문이 정상적으로 삭제되었습니다 😊' });
-  },
+  }
 
-  deleteOrder: async (req, res, next) => {
+  static async deleteOrder(req, res, next) {
     const { orderId } = req.params;
     const result = await OrderService.deleteOrder(orderId);
 
     res.status(200).json(result);
-  },
+  }
 
-  getOrderByUnknown: async (req, res) => {
+  static async getOrderByGuest(req, res) {
     const { orderId, phoneNumber } = req.body;
-    const order = await OrderService.getOrderByUnknown(orderId, phoneNumber);
+    const order = await OrderService.getOrderByGuest(orderId, phoneNumber);
     if (!order) {
       throw new AppError(
         commonErrors.inputError,
@@ -81,16 +72,15 @@ export const orderController = {
         '해당 정보에 해당하는 주문을 찾을 수 없어요 :(',
       );
     }
-    console.log(order);
     return res.status(200).json(order);
-  },
+  }
 
-  unknownUserOrderCancel: async (req, res) => {
-    const { orderCode } = req.body;
+  static async cancelGuestOrder(req, res, next) {
+    const { orderCode, phoneNumber } = req.body;
     const updateInfo = { status: '주문 취소' };
-    const result = await OrderService.cancleUnknownOrder(orderCode, updateInfo);
-    const status = 200;
-    const message = '주문 취소 성공';
-    res.status(status).json({ message: message });
-  },
-};
+    await OrderService.cancelGuestOrder(orderCode, phoneNumber, updateInfo);
+    res
+      .status(200)
+      .json({ message: '비회원 주문 취소가 정상적으로 완료되었습니다 😊' });
+  }
+}

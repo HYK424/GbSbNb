@@ -1,17 +1,19 @@
 import { Router } from 'express';
-import { orderController } from '../../controllers';
+import { OrderController } from '../../controllers';
 import { authenticator } from '../../middlewares';
 import { asyncHandler } from '../../middlewares';
 
 const orderRouter = Router();
 
-orderRouter.post('/unknown', asyncHandler(orderController.getOrderByUnknown));
-orderRouter.post('/add-unknown', asyncHandler(orderController.createOrder));
+orderRouter.get('/guest', asyncHandler(OrderController.getOrderByGuest));
+orderRouter.post('/guest', asyncHandler(OrderController.createOrder));
+orderRouter.put('/guest', asyncHandler(OrderController.cancelGuestOrder));
 
 orderRouter.use(authenticator.isLoggedIn);
-orderRouter.post('/', asyncHandler(orderController.createOrder));
-orderRouter.get('/', asyncHandler(orderController.getMyOrders));
-orderRouter.delete('/:orderId', asyncHandler(orderController.deleteMyOrder));
-orderRouter.get('/:orderId/cancel', asyncHandler(orderController.cancelOrder));
+orderRouter.get('/', asyncHandler(OrderController.getMyOrders));
+orderRouter.post('/', asyncHandler(OrderController.createOrder));
+orderRouter.put('/', asyncHandler(OrderController.updateOrder));
+orderRouter.delete('/:orderId', asyncHandler(OrderController.deleteMyOrder));
+orderRouter.put('/:orderId/status', asyncHandler(OrderController.cancelOrder));
 
 export { orderRouter };

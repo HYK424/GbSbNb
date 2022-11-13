@@ -1,9 +1,9 @@
 import { CategoryModel } from '../db';
 import { AppError, commonErrors } from '../middlewares';
 
-class CategoryService {
+export class CategoryService {
   static async createCategory(categoryInfo) {
-    if (await CategoryModel.find(categoryInfo)) {
+    if (await CategoryModel.findDuplicate(categoryInfo)) {
       throw new AppError(
         commonErrors.resourceDuplicationError,
         400,
@@ -50,6 +50,7 @@ class CategoryService {
       );
     }
     const productCount = await CategoryModel.countProducts(categoryId);
+    console.log(productCount);
     if (productCount) {
       throw new AppError(
         commonErrors.businessError,
@@ -63,5 +64,3 @@ class CategoryService {
     return result;
   }
 }
-
-export { CategoryService };

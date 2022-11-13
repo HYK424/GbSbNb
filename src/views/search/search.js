@@ -8,9 +8,7 @@ async function renderProducts() {
     .split('&')
     .map((query) => query.split('='));
   const keyword = query.filter((q) => q[0] === 'keyword')[0][1];
-  const data = await (
-    await fetch(`/api/products/search/?keyword=${keyword}`)
-  ).json();
+  const data = await (await fetch(`/api/products/?keyword=${keyword}`)).json();
   const { products } = data;
   const { productsCount } = data;
   if (!productsCount) {

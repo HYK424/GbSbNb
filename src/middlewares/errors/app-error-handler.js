@@ -20,7 +20,10 @@ const appErrorHandler = (err, req, res, next) => {
     req.method,
     err.stack,
   );
-  const { status = 500, message = '알 수 없는 오류가 발생했어요 :(' } = err;
+  const {
+    status = 500,
+    message = '알 수 없는 오류가 발생했어요 :( 잠시 후에 다시 시도해 주세요!',
+  } = err;
 
   return res.status(status).json({ message: message });
 };

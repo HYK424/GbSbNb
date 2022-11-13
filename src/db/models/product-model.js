@@ -2,13 +2,14 @@ import { ObjectID } from 'bson';
 import { model } from 'mongoose';
 import { ProductSchema } from '../schemas/product-schema';
 
-const Product = model('Product', ProductSchema);
+const Product = model('products', ProductSchema);
 
 export class ProductModel {
   static async create(productInfo) {
     const newProduct = await Product.create(productInfo);
     return newProduct;
   }
+
   static async findAll(categoryName) {
     if (categoryName) {
       const products = await Product.find({ category: categoryName });
@@ -33,6 +34,7 @@ export class ProductModel {
       title: {
         $regex: new RegExp(keyword, 'i'),
       },
+      view: true,
     });
     return products;
   }

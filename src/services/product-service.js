@@ -1,7 +1,7 @@
 import { ProductModel } from '../db';
 import { AppError, commonErrors } from '../middlewares';
 
-class ProductService {
+export class ProductService {
   static async createProduct(productInfo) {
     if (await ProductModel.findByTitle(productInfo.title)) {
       throw new AppError(
@@ -117,7 +117,7 @@ class ProductService {
     return updatedProduct;
   }
 
-  static async softDeleteProduct(productId) {
+  static async changeProductVisibility(productId) {
     let product = await ProductModel.findById(productId);
 
     if (!product) {
@@ -162,5 +162,3 @@ class ProductService {
     return result;
   }
 }
-
-export { ProductService };

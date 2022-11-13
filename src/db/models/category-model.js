@@ -1,7 +1,7 @@
 import { model } from 'mongoose';
 import { CategorySchema } from '../schemas/category-schema';
 
-const Category = model('Category', CategorySchema);
+const Category = model('categories', CategorySchema);
 
 export class CategoryModel {
   static async create(categoryInfo) {
@@ -9,7 +9,7 @@ export class CategoryModel {
     return newCategory;
   }
 
-  static async find({ name, id }) {
+  static async findDuplicate({ name, id }) {
     const category = await Category.findOne({ $or: [{ name }, { id }] });
     return category;
   }
@@ -25,7 +25,7 @@ export class CategoryModel {
   }
 
   static async countProducts(categoryId) {
-    const category = await Category.aggregate([
+    const productCount = await Category.aggregate([
       {
         $match: {
           id: categoryId,
@@ -39,8 +39,17 @@ export class CategoryModel {
           as: 'products',
         },
       },
+      {
+        $unwind: {
+          path: '$products',
+        },
+      },
+      {
+        $count: 'products',
+      },
     ]);
-    return category[0].products.length;
+    console.log(productCount);
+    return productCount;
   }
 
   static async update(categoryId, updateInfo) {

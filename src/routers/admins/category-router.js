@@ -1,19 +1,19 @@
 import { Router } from 'express';
-import { categoryController } from '../../controllers';
+import { CategoryController } from '../../controllers';
 import { authenticator, checkRole } from '../../middlewares';
 import { asyncHandler } from '../../middlewares';
 
 const adminCategoryRouter = Router();
 
 adminCategoryRouter.use(authenticator.isLoggedIn, checkRole);
-adminCategoryRouter.post('/', asyncHandler(categoryController.createCategory));
+adminCategoryRouter.post('/', asyncHandler(CategoryController.createCategory));
 adminCategoryRouter.put(
   '/:categoryId',
-  asyncHandler(categoryController.updateCategory),
+  asyncHandler(CategoryController.updateCategory),
 );
 adminCategoryRouter.delete(
   '/:categoryId',
-  asyncHandler(categoryController.deleteCategory),
+  asyncHandler(CategoryController.deleteCategory),
 );
 
 export { adminCategoryRouter };

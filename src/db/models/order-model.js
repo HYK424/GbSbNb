@@ -20,7 +20,7 @@ class OrderModel {
     return orders;
   }
 
-  static async findUnknown(orderId, phoneNumber) {
+  static async findForGuest(orderId, phoneNumber) {
     const order = await Order.findOne({ _id: orderId, phoneNumber });
     return order;
   }

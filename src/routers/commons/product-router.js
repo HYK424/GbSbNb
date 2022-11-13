@@ -1,22 +1,18 @@
 import { Router } from 'express';
-import { productController } from '../../controllers';
+import { ProductController } from '../../controllers';
 import { productImageUpload } from '../../util';
 
 import { asyncHandler } from '../../middlewares';
 
 const productRouter = Router();
 
-productRouter.get('/', asyncHandler(productController.getProducts));
+productRouter.get('/', asyncHandler(ProductController.getProducts));
 productRouter.post(
   '/upload-image',
   productImageUpload.single('image'),
-  asyncHandler(productController.setImageUrl),
+  asyncHandler(ProductController.setImageUrl),
 );
 
-productRouter.get(
-  '/search',
-  asyncHandler(productController.getProudctsByKeyword),
-);
-productRouter.get('/:productId', asyncHandler(productController.getProudct));
+productRouter.get('/:productId', asyncHandler(ProductController.getProudct));
 
 export { productRouter };

@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { categoryController } from '../../controllers';
+import { CategoryController } from '../../controllers';
 import { asyncHandler } from '../../middlewares';
 
 const categoryRouter = Router();
 
-categoryRouter.get('/', asyncHandler(categoryController.getCategories));
+categoryRouter.get('/', asyncHandler(CategoryController.getCategories));
 
 export { categoryRouter };
