@@ -423,6 +423,8 @@
     - feature/BE-productAPI 등
 - 충돌 해결은 다 같이!
 
+<br />
+
 ### 2. 커밋 컨벤션
 
 - fix: 코드베이스에서 버그를 패치하는 fix 타입의 커밋
@@ -443,8 +445,8 @@
 
 #### 2. 함수 & 변수 : 카멜 표기법(newPost, isEmailVaild)
 
-- 함수는 동사를 가장 앞에 쓴다 ➡ createPost, finishLogin, sendEmail 등
-- Boolean은 is, has로 표기한다 ➡ isLoggedIn, hasToken 등
+- **함수는 동사를 가장 앞에 쓴다** : createPost, finishLogin, sendEmail 등
+- **Boolean은 is, has로 표기한다** : isLoggedIn, hasToken 등
 
 #### 3. 상수 : 대문자 + 언더스코어(PI, DB_URL, TOKEN_SECRET)
 
