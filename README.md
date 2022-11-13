@@ -66,7 +66,7 @@
 
 <details><summary>데모 영상</summary>
 
-![image](./docs/images/Animation.gif)
+![image](./docs/gifs/Animation.gif)
    
 </details>
 
@@ -133,7 +133,7 @@
 
 <details><summary>데모 영상</summary>
 
-![product-detail_A](./docs/images/product-detail-A.gif)
+![product-detail_A](./docs/gifs/product-detail-A.gif)
    
 </details>
 
@@ -161,7 +161,7 @@
 
 <details><summary>데모 영상</summary>
 
-![cart_A](./docs/images/cart-A.gif)
+![cart_A](./docs/gifs/cart-A.gif)
    
 </details>
 
@@ -190,9 +190,9 @@
 
 <details><summary>데모 영상</summary>
 
-![order_A](./docs/images/order-A.gif)
+![order_A](./docs/gifs/order-A.gif)
 
-![order_check_A](./docs/images/order-check-A.gif)
+![order_check_A](./docs/gifs/order-check-A.gif)
    
 </details>
 
@@ -228,9 +228,9 @@
 
 <details><summary>데모 영상</summary>
 
-![mypage_info_A](./docs/images/mypage-info_A.gif)
+![mypage_info_A](./docs/gifs/mypage-info_A.gif)
 
-![mypage_order_A](./docs/images/mypage-order-A.gif)
+![mypage_order_A](./docs/gifs/mypage-order-A.gif)
    
 </details>
 
@@ -276,13 +276,13 @@
 
 <details><summary>데모 영상</summary>
 
-![admin_item_A](./docs/images/admin-item-A.gif)
+![admin_item_A](./docs/gifs/admin-item-A.gif)
 
-![admin_role_A](./docs/images/admin-role-A.gif)
+![admin_role_A](./docs/gifs/admin-role-A.gif)
 
-![admin_add_A](./docs/images/admin-add-A.gif)
+![admin_add_A](./docs/gifs/admin-add-A.gif)
    
-![admin_order_A](./docs/images/admin-order-A.gif)
+![admin_order_A](./docs/gifs/admin-order-A.gif)
 </details>
 
 <details><summary>페이지별 화면</summary>
@@ -324,7 +324,7 @@
 
 <details><summary>데모 영상</summary>
 
-![notice_A](./docs/images/notice-A.gif)
+![notice_A](./docs/gifs/notice-A.gif)
 
 </details>
 
@@ -353,6 +353,10 @@
 
 ### 2-9. 404
 
+| 기능 | 설명 |
+| ------ | ------ |
+| 404 | 404 오류시 띄우는 페이지 |
+
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
@@ -376,15 +380,15 @@
 
 ### 3-1. 프론트엔드
 
-- **Vanilla javascript**, html, css (**Bulma css + Bootstrap**)
+- **Vanilla javascript**, html, css (**Bootstrap**)
 - Font-awesome 
 - Daum 도로명 주소 api 
 
 ### 3-2. 백엔드 
 
-- **Express** (nodemon, babel-node로 실행됩니다.)
-- express vailddata
-- image cloud
+- **express** (nodemon, babel-node로 실행됩니다.)
+- express vaildator
+- Cloudinary
 - Mongodb, Mongoose
 - cors
 - 이외
@@ -393,11 +397,11 @@
 
 ## 4. 인프라 구조
 
-![image](docs/images/team-15-tech-stack.png)<br />
+![image](docs/images/infra-structure.png)<br />
 
 ### 4-1. 폴더 구조
-- 프론트: `src/views` 폴더 
-- 백: src/views 이외 폴더 전체
+- 프론트: `src/views` 폴더 전체
+- 백: 3계층 구조(Router - Controller - Service - Model)
 - 실행: **프론트, 백 동시에, express로 실행**
 
 <br />
@@ -444,6 +448,8 @@
 
 #### 4. 패키지 & 모듈 ➡ 소문자(user-router, user-controller)
 
+<br>
+
 ## 5. 실행 방법
 
 1. 레포지토리를 클론하고자 하는 디렉토리에서 아래 명령어를 수행
@@ -461,6 +467,17 @@ npm install
 
 
 3. backend에서 필요한 `.env` 설정
+```bash
+PORT=<3000 || 5000 || 8080 포트>
+ACCESS_KEY=<랜덤 문자열>
+REFRESH_KEY=<랜덤 문자열>
+MONGODB_URL=<몽고DB URL>
+ACCESS_EXPIRE=<최대한 짧게>
+REFRESH_EXPIRE=<적당히 길게>
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_KEY=
+CLOUDINARY_SECRET=
+```
 
 4. express 앱을 실행
 
@@ -471,6 +488,6 @@ npm start
 <br>
 
 ## 6. 버전
-### 1.0.0
+### 1.0.0 <'22.11.11 배포>
 
 <br>
