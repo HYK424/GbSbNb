@@ -105,7 +105,7 @@
 
 <details><summary>데모 영상</summary>
 
-![register_A](./docs/images/register-A.gif)
+![register_A](./docs/gifs/register-A.gif)
    
 </details>
 
@@ -228,7 +228,7 @@
 
 <details><summary>데모 영상</summary>
 
-![mypage_info_A](./docs/gifs/mypage-info_A.gif)
+![mypage_info_A](./docs/gifs/mypage-info-A.gif)
 
 ![mypage_order_A](./docs/gifs/mypage-order-A.gif)
    
@@ -400,9 +400,9 @@
 ![image](docs/images/infra-structure.png)<br />
 
 ### 4-1. 폴더 구조
-- 프론트: `src/views` 폴더 전체
-- 백: 3계층 구조(Router - Controller - Service - Model)
-- 실행: **프론트, 백 동시에, express로 실행**
+- 프론트엔드: `src/views` 폴더 전체
+- 백엔드: 3계층 구조(Router - Controller - Service - Model)
+- **프론트엔드 | 백엔드 통합 구조**
 
 <br />
 
