@@ -25,7 +25,7 @@
 #### http://kdt-sw3-team15.elicecoding.com/
 🙏 반응형 디자인은 아직 적용하지 못했습니다. 가능하시다면 최대한 PC로 접속 부탁드려요!
 <div>
-<img alt="개발세발네발 QR코드" src="./qr.jpg" width="300px">
+<img alt="개발세발네발 QR코드" src="./docs/images/qr.jpg" width="300px">
 </div>
 
 ### 1-2. 테스트용 비밀번호
@@ -66,22 +66,22 @@
 
 <details><summary>데모 영상</summary>
 
-![image](/uploads/60bcfef8a9c4316016ccd7161d7013c7/Animation.gif)
+![image](./docs/images/Animation.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![image](/uploads/5d3bae9349c82eb1c5acc80114a262fe/이미지_24.png)</td>
-    <td>![image](/uploads/613954179682f320baa87ad2ba6c55e8/이미지_27.png)</td>
+    <td>![image](./docs/images/image24.png)</td>
+    <td>![image](./docs/images/image-27.png)</td>
   </tr>
   <tr>
     <td>메인 페이지</td>
     <td>카테고리별 보기</td>
   </tr>
-  <td>![image](/uploads/b60ffc832495e3459ca3cb4daaca3838/이미지_29.png)</td>
-    <td>![image](/uploads/8a63d878e137fe14bbee3cba164f69ea/이미지_34.png)</td>
+  <td>![image](./docs/images/image-29.png)</td>
+    <td>![image](./docs/images/image-34.png)</td>
   </tr>
   <tr>
     <td>검색 결과 페이지</td>
@@ -105,15 +105,15 @@
 
 <details><summary>데모 영상</summary>
 
-![register_A](/uploads/93f69c8806ab1de396a5e404880b978a/register_A.gif)
+![register_A](./docs/images/register-A.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![register](/uploads/9fdbc96fcd1fc2bb787c07a1ad04a7b8/register.png)</td>
-    <td>![login](/uploads/596348eaf0dfe645f88abafcb4033477/login.png)</td>
+    <td>![register](./docs/images/register.png)</td>
+    <td>![login](./docs/images/login.png)</td>
   </tr>
   <tr>
     <td>회원가입</td>
@@ -133,14 +133,14 @@
 
 <details><summary>데모 영상</summary>
 
-![product_detail_A](/uploads/5892f729d809c6609f11cba20fda3567/product_detail_A.gif)
+![product-detail_A](./docs/images/product-detail-A.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![product_detail](/uploads/a429b4736e6128e34b35f23e232e64d5/product_detail.png)</td>
+    <td>![product_detail](./docs/images/product-detail.png)</td>
     <td></td>
   </tr>
   <tr>
@@ -161,14 +161,14 @@
 
 <details><summary>데모 영상</summary>
 
-![cart_A](/uploads/165fe2d2120c5e52b558bd253196c4d7/cart_A.gif)
+![cart_A](./docs/images/cart-A.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![cart](/uploads/f8d35be6d21411f3c2a31af6e6e1a81b/cart.png)</td>
+    <td>![cart](./docs/images/cart.png)</td>
     <td></td>
   </tr>
   <tr>
@@ -190,24 +190,24 @@
 
 <details><summary>데모 영상</summary>
 
-![order_A](/uploads/ebc3cee36076dce7f08cfffd1bdd1ba9/order_A.gif)
+![order_A](./docs/images/order-A.gif)
 
-![order_check_A](/uploads/3c5156955158c82dc07113612bbf0564/order_check_A.gif)
+![order_check_A](./docs/images/order-check-A.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![order](/uploads/2349fea00e808306a3b0b60d89142a5a/order.png)</td>
-    <td>![order_fin](/uploads/48289b551ed5bb6818c8e9ba0ee0b0ac/order_fin.png)</td>
+    <td>![order](./docs/images/order.png)</td>
+    <td>![order_fin](./docs/images/order-fin.png)</td>
   </tr>
   <tr>
     <td>주문</td>
     <td>주문 확인</td>
   </tr>
   <tr>
-    <td>)![order_check](/uploads/42772cbeecbbd36d1e5118fe055ba718/order_check.png)</td>
+    <td>)![order_check](./docs/images/order-check.png)</td>
     <td></td>
   </tr>
   <tr>
@@ -228,33 +228,33 @@
 
 <details><summary>데모 영상</summary>
 
-![mypage_info_A](/uploads/153a396e438162a520996943c64e3c69/mypage_info_A.gif)
+![mypage_info_A](./docs/images/mypage-info_A.gif)
 
-![mypage_order_A](/uploads/c355c3a0389f805a55557d201c2d9fd0/mypage_order_A.gif)
+![mypage_order_A](./docs/images/mypage-order-A.gif)
    
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![mypage_enter](/uploads/feebee15a6cc3fd245bc9874edd139e2/mypage_enter.png)</td>
-    <td>![mypage_info](/uploads/4becace00e1be6bd1d5709bb28d41393/mypage_info.png)</td>
+    <td>![mypage_enter](./docs/images/mypage-enter.png)</td>
+    <td>![mypage_info](./docs/images/mypage-info.png)</td>
   </tr>
   <tr>
     <td>마이페이지 홈</td>
     <td>내 정보 확인</td>
   </tr>
   <tr>
-    <td>![mypage_info_modal](/uploads/8a0c44a218e3a457f7a55ac7161e1135/mypage_info_modal.png)</td>
-    <td>![mypage_info_edit](/uploads/43e888e793f73aedb70119cc34c225db/mypage_info_edit.png)</td>
+    <td>![mypage_info_modal](./docs/images/mypage-info-modal.png)</td>
+    <td>![mypage_info_edit](./docs/images/mypage-info-edit.png)</td>
   </tr>
   <tr>
     <td>정보 수정시 모달</td>
     <td>내 정보 수정</td>
   </tr>
   <tr>
-    <td>![mypage_info_password](/uploads/f485ad21313d57f1692db64c23fe5fa9/mypage_info_password.png)</td>
-    <td>![mypage_order_new](/uploads/a4d038efe4609b5f96947f1b9a66fe3a/mypage_order_new.png)</td>
+    <td>![mypage_info_password](./docs/images/mypage-info-password.png)</td>
+    <td>![mypage_order_new](./docs/images/mypage-order-new.png)</td>
   </tr>
   <tr>
     <td>비밀번호 수정</td>
@@ -276,36 +276,36 @@
 
 <details><summary>데모 영상</summary>
 
-![admin_item_A](/uploads/5c637c46864731be4d7f83e0e64c55c3/admin_item_A.gif)
+![admin_item_A](./docs/images/admin-item-A.gif)
 
-![admin_role_A](/uploads/aa78a92df83d7af459803faf6208649b/admin_role_A.gif)
+![admin_role_A](./docs/images/admin-role-A.gif)
 
-![admin_add_A](/uploads/5c5ccba362d160109883428e65c3cca6/admin_add_A.gif)
+![admin_add_A](./docs/images/admin-add-A.gif)
    
-![admin_order_A](/uploads/fa27794f6817e329fe3d587de120e424/admin_order_A.gif)
+![admin_order_A](./docs/images/admin-order-A.gif)
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![admin_main](/uploads/7aadee40ad672a4163775b797d4a7790/admin_main.png)</td>
-    <td>![admin_item](/uploads/8376338b589ea29940a36ed3c609f73e/admin_item.png)</td>
+    <td>![admin_main](./docs/images/admin-main.png)</td>
+    <td>![admin_item](./docs/images/admin-item.png)</td>
   </tr>
   <tr>
     <td>어드민 홈</td>
     <td>상품 조회</td>
   </tr>
   <tr>
-    <td>![admin_item_edit](/uploads/d72e8e4a062e1d63e1717629701457b7/admin_item_edit.png)</td>
-    <td>![admin_role](/uploads/7fcfb47b6349faeeeeac665220424f24/admin_role.png)</td>
+    <td>![admin_item_edit](./docs/images/admin-item-edit.png)</td>
+    <td>![admin_role](./docs/images/admin-role.png)</td>
   </tr>
   <tr>
     <td>상품 수정</td>
     <td>회원 관리</td>
   </tr>
   <tr>
-    <td>![admin_add](/uploads/17c2ec65417bc3af85cecf13c63eb4ef/admin_add.png)</td>
-    <td>![admin_order](/uploads/bfdc38a77f6be7307e53bede18b7b47c/admin_order.png)</td>
+    <td>![admin_add](./docs/images/admin-add.png)</td>
+    <td>![admin_order](./docs/images/admin-order.png)</td>
   </tr>
   <tr>
     <td>상품/카테고리 관리</td>
@@ -324,22 +324,22 @@
 
 <details><summary>데모 영상</summary>
 
-![notice_A](/uploads/ef99932252775d7339eaeebab640f028/notice_A.gif)
+![notice_A](./docs/images/notice-A.gif)
 
 </details>
 
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![notice_see](/uploads/57796cb6345a7bf9f729f59b655e7f9a/notice_see.png)</td>
-    <td>![notice_ceate](/uploads/eae5c513e3d32c40c77672b3ebe0d5fe/notice_ceate.png)</td>
+    <td>![notice_see](./docs/images/notice-see.png)</td>
+    <td>![notice_ceate](./docs/images/notice-ceate.png)</td>
   </tr>
   <tr>
     <td>공지사항 홈</td>
     <td>공지사항 생성</td>
   </tr>
   <tr>
-    <td>![notice_edit](/uploads/dc127e5e6cd68077abf32afa2e8dc337/notice_edit.png)</td>
+    <td>![notice_edit](./docs/images/notice-edit.png)</td>
     <td></td>
   </tr>
   <tr>
@@ -356,7 +356,7 @@
 <details><summary>페이지별 화면</summary>
 <table>
   <tr>
-    <td>![404](/uploads/7c835078e15763aa1e3be91125100d2e/404.png)</td>
+    <td>![404](./docs/images/404.png)</td>
     <td></td>
   </tr>
   <tr>
@@ -370,7 +370,7 @@
 
 ## 3. 기술 스택
 
-![image__1_](/uploads/07e00f458caafe0a1a0c6723bcd1e928/image__1_.png)
+![image__1_](./docs/images/team-15-tech-stack.png)
 
 <br>
 
@@ -393,7 +393,7 @@
 
 ## 4. 인프라 구조
 
-![image](https://i.ibb.co/9tGxmx0/image.png)<br />
+![image](docs/images/team-15-tech-stack.png)<br />
 
 ### 4-1. 폴더 구조
 - 프론트: `src/views` 폴더 
