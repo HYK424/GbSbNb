@@ -9,7 +9,6 @@ import {
 
 import { userRouter } from './users';
 import {
-  cartRouter,
   categoryRouter,
   productRouter,
   orderRouter,
