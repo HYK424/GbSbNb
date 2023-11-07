@@ -429,7 +429,7 @@
 
 - fix: 코드베이스에서 버그를 패치하는 fix 타입의 커밋
     - ex) fix: 모달 창 버그 수정
-- feaf: 코드베이스에서 새 기능이 추가되는 feat 타입의 커밋
+- feat: 코드베이스에서 새 기능이 추가되는 feat 타입의 커밋
     - ex) feat: 로그아웃 기능 구현
 - chore: 기능과는 별개로 prettier, gitignore 등의 설정 관련 커밋
     - ex) chore: eslint 설정
